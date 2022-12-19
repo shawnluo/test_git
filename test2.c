@@ -3,14 +3,24 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+typedef struct node {
+    int index;
+    int rep;
+} Node, *pNode;
+
+#define SIZE sizeof(Node)
+
+pNode myData;
 
 
 int main(void) {
-    char *s = (char *)malloc(15);
-    strcpy(s, "gooday");
-    int len = strlen(s);
-
-    printf("len = %d\n", len);
-
+    myData = (pNode)malloc(SIZE);   //TODO wrong!!!
+    for(int i = 0; i < 4; i++) {
+        myData[i].index = i;
+    }
+    for(int i = 0; i < 4; i++) {
+        printf("%d\n", myData[i].index);
+    }
+    free(myData);
     return 0;
 }
