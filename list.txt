@@ -1,0 +1,56 @@
+
+0. if finished in 5 minuts, then skip for 1 day
+1. brute force solution
+2. optimize solution
+
+/*******************  chapter 1 - LL  ********************/
+//TODO 1 LL create
+//TODO 2 LL delete 1
+//TODO 3 LL delete 2
+//TODO 4 LL insert 1
+//TODO 5 LL insert 2
+//TODO 6 LL hasCircular
+//TODO 7 LL create circular
+//TODO 8 LL entry of circular
+//TODO 9 LL add 2 LL
+//TODO 10 LL reverse
+//TODO 11 swap 2 ajacent elements
+//TODO 12 remove the nth node from end of list
+//TODO 13 if 2 LL connected
+
+/*******************  chapter 2 - bit man  ********************/
+//TODO 1 bit man area (leetcode)
+//TODO 2 bit man basic
+//TODO 3 sorting - quick
+//TODO 4 merge 2 arrays
+//TODO 5 sorting - bubble
+
+/*******************  chapter 3 - DP  ********************/
+//TODO 1 ladder
+//TODO 2 bagpack
+
+/*******************  chapter 4 - array  ********************/
+//TODO 1 char *arr[], char (*arr)[]
+//TODO 2 sum of shortest contigues string == N (sorted array)
+//TODO 3 longest unique characters in a string
+//TODO 4 longest common characters in 2 strings
+//TODO 5 remove element
+//TODO 6 sorting the square of an array elements
+//TODO 7 spiral matrix
+
+/*******************  chapter 5 - sorting  ********************/
+//TODO 1 binary search
+//TODO 2 quick sort
+//TODO 3 bubble
+//TODO 4 select
+
+/*******************  chapter 6 - memory  ********************/
+//TODO 1 memory malloc align
+//TODO 2 memory copy vs string copy
+//TODO 3 binary style print
+
+/*******************  chapter 7 - hash table  ********************/
+//TODO 1. isAnagram
+//TODO 2. common elements in 2 array
+//TODO 3. Happy numbers
+//TODO 4. 
