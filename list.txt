@@ -46,8 +46,9 @@
 
 /*******************  chapter 6 - memory  ********************/
 //TODO 1 memory malloc align
-//TODO 2 memory copy vs string copy
-//TODO 3 binary style print
+//TODO 2 memory copy - implement
+//TODO 3 string copy - implement
+//TODO 4 binary style print
 
 /*******************  chapter 7 - hash table  ********************/
 //TODO 1. isAnagram
