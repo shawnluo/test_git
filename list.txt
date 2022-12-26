@@ -4,19 +4,20 @@
 2. optimize solution
 
 /*******************  chapter 1 - LL  ********************/
-//TODO 1 LL create
-//TODO 2 LL delete 1
-//TODO 3 LL delete 2
-//TODO 4 LL insert 1
-//TODO 5 LL insert 2
-//TODO 6 LL hasCircular
-//TODO 7 LL create circular
-//TODO 8 LL entry of circular
-//TODO 9 LL add 2 LL
-//TODO 10 LL reverse
-//TODO 11 swap 2 ajacent elements
-//TODO 12 remove the nth node from end of list
-//TODO 13 if 2 LL connected
+//TODO 1 LL create          -
+//TODO 2 LL delete 1        -
+//TODO 3 LL delete 2        -
+//TODO 4 LL insert 1        -
+//TODO 5 LL insert 2        -
+//TODO 6 LL hasCircular 1   -
+//TODO 7 LL hasCircular 2   -
+//TODO 8 LL create circular         -
+//TODO 9 LL entry of circular       -
+//TODO 10 LL add 2 LL               -
+//TODO 11 LL reverse                -
+//TODO 12 swap 2 ajacent elements
+//TODO 13 remove the nth node from end of list
+//TODO 14 if 2 LL connected
 
 /*******************  chapter 2 - bit man  ********************/
 //TODO 1 bit man area (leetcode)
