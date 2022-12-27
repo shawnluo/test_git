@@ -4,55 +4,65 @@
 2. optimize solution
 
 /*******************  chapter 1 - LL  ********************/
-//TODO 1 LL create          -
-//TODO 2 LL delete 1        -
-//TODO 3 LL delete 2        -
-//TODO 4 LL insert 1        -
-//TODO 5 LL insert 2        -
-//TODO 6 LL hasCircular 1   -
-//TODO 7 LL hasCircular 2   -
-//TODO 8 LL create circular         -
-//TODO 9 LL entry of circular       -
-//TODO 10 LL add 2 LL               -
-//TODO 11 LL reverse                -
-//TODO 12 swap 2 ajacent elements
-//TODO 13 remove the nth node from end of list
-//TODO 14 if 2 LL connected
+ 1  - 1 LL create
+ 1  - 2 LL delete 1
+ 1  - 3 LL delete 2
+ 1  - 4 LL insert 1
+ 1  - 5 LL insert 2
+ 1  - 6 LL hasCircular 1
+ 1  - 7 LL hasCircular 2
+ 1  - 8 LL create circular
+ 1  - 9 LL entry of circular
+ 1  - 10 LL add 2 LL
+ 1  - 11 LL reverse
+ 1  - 12 swap 2 ajacent elements 1(value)
+ 1  - 13 swap 2 ajacent elements 2(memory)
+ 1  - 14 remove the nth node from end of list
+ 1  - 15 if 2 LL connected
 
 /*******************  chapter 2 - bit man  ********************/
-//TODO 1 bit man area (leetcode)
-//TODO 2 bit man basic
-//TODO 3 sorting - quick
-//TODO 4 merge 2 arrays
-//TODO 5 sorting - bubble
+1/2     - 1 binary print
+ - 2 is little ending
+ - 3 bit man area (leetcode)
+ - 4 bit set
+ - 5 bits set
+ - 6 bit clear
+ - 7 bits clear
+ - 8 sorting - quick
+ - 9 merge 2 arrays
+ - 10 sorting - bubble
 
 /*******************  chapter 3 - DP  ********************/
-//TODO 1 ladder
-//TODO 2 bagpack
+ - 1 ladder
+ - 2 bagpack
 
 /*******************  chapter 4 - array  ********************/
-//TODO 1 char *arr[], char (*arr)[]
-//TODO 2 sum of shortest contigues string == N (sorted array)
-//TODO 3 longest unique characters in a string
-//TODO 4 longest common characters in 2 strings
-//TODO 5 remove element
-//TODO 6 sorting the square of an array elements
-//TODO 7 spiral matrix
+1   - 1 char *arr[], char (*arr)[]
+1   - 2 sum of shortest contigues string == N (sorted array) 1  -
+1/2   - 2 sum of shortest contigues string == N (sorted array) 2  1/2
+   - 3 longest unique characters in a string
+   - 4 longest common characters in 2 strings
+   - 5 remove element
+   - 6 sorting the square of an array elements
+   - 7 spiral matrix
 
 /*******************  chapter 5 - sorting  ********************/
-//TODO 1 binary search
-//TODO 2 quick sort
-//TODO 3 bubble
-//TODO 4 select
+ - 1 binary search
+ - 2 quick sort
+ - 3 bubble
+ - 4 select
 
 /*******************  chapter 6 - memory  ********************/
-//TODO 1 memory malloc align
-//TODO 2 memory copy - implement
-//TODO 3 string copy - implement
-//TODO 4 binary style print
+ - 1 memory malloc align
+ - 2 memory copy - implement
+ - 3 string copy - implement
+ - 4 binary style print
 
 /*******************  chapter 7 - hash table  ********************/
-//TODO 1. isAnagram
-//TODO 2. common elements in 2 array
-//TODO 3. Happy numbers
-//TODO 4. 
+ - 1. isAnagram
+ - 2. common elements in 2 array
+ - 3. Happy numbers
+ - 4. 
+
+/*******************  chapter 7 - recursion  ********************/
+ - 1. binary print 1        -
