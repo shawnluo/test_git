@@ -68,5 +68,8 @@ https://www.pramp.com/dashboard#/
 0       - 3. Happy numbers
 0       - 4. 
 
-/*******************  chapter 7 - recursion  ********************/
-0       - 1. binary print 1        -
+/*******************  chapter 8 - recursion  ********************/
+0       - 1. binary print 1
+
+/*******************  chapter 9 - others  ********************/
+1       - 1. sizeof(int)
