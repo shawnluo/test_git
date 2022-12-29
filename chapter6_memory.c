@@ -3,7 +3,7 @@
 #include <stddef.h>
 #include <string.h>
 #include <stddef.h>
-
+#include <assert.h>
 
 void *alignment_malloc(size_t size, size_t alignment) {
     //1. need add a offset to malloc enough space
@@ -53,10 +53,27 @@ void alignment_free(void *aligned_address) {
     free(address);
 }
 
-#define REG (*(volatile unsigned long *)0x00000800)
+void *memory_copy(void *src, void *des, size_t len) {
+    assert(src);
+    assert(des);
+    assert(len);
 
-void bit_man() {
-    REG |= (1 << 4);
+    if(src == des) return src;
+
+    if(des > src) {
+        for(int i = 0; i < len; i++) {
+            *des = *src;
+        }
+    } else if(src > des) {
+        for(int i = len - 1; i >= 0; i--) {
+            *des = *src;
+        }
+    }
+    return (void *)des;
+}
+
+void *str_cpy(void *src, void *des, size_t len) {
+
 }
 
 int main(void) {
