@@ -62,11 +62,11 @@ void *memory_copy(void *src, void *des, size_t len) {
 
     if(des > src) {
         for(int i = 0; i < len; i++) {
-            *des = *src;
+            *(char *)des = *(char *)src;
         }
     } else if(src > des) {
         for(int i = len - 1; i >= 0; i--) {
-            *des = *src;
+            *(char *)des = *(char *)src;
         }
     }
     return (void *)des;
