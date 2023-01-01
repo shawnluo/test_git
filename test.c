@@ -53,6 +53,7 @@ int shortest_consective_arr_dp(int *arr, int size, int key) {
 }
     
 //7 shortest consective sum of elements >= key  brute force
+#if 0
 int shortest_consective_arr_bruteforce(int *arr, int size, int key) {
     int left = 0;
     int right = 0;
@@ -78,6 +79,31 @@ int shortest_consective_arr_bruteforce(int *arr, int size, int key) {
     }
     printf("min = %d\n", len_min);
     return len_min;
+}
+#endif
+
+int shortest_consective_arr_bruteforce(int *res, int size, int key) {
+    //for loop [i:second element, i:end]
+    for(i = 1; i < size; i++) {
+        //for loop [j:i-1, j:0]
+        for(j = i - 1; j >= 0; j--) {
+            //if sum[i, j] >= key
+            for(x = i; x <= j; x++) {
+                sum += res[x];
+            }
+            //calculate len, if len < min, min = len
+            if(sum >= key) {
+                len = j - i + 1;
+                if(len < len_min) {
+                    len_min = len;
+                }
+            } else {
+                break;
+            }
+        }
+    }
+
+    
 }
 
 //pass array[][] as parameter
@@ -139,6 +165,48 @@ void spiral_matrix(int n) {
     for(i = 0; i < n; i++) {
         for(j = 0; j < n; j++) {
             printf("%d ", res[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void spiral_matrix_2(const int n) {
+    int startx = 0, starty = 0;
+    int mid = n / 2;
+    int loop = n / 2;
+    int count = 1;
+    int offset = 1;
+    int res[n][n];
+    int i = startx, j = starty;
+    while(loop--) {
+        i = startx;
+        j = starty;
+
+        //up [left, right)
+        for(; j < n - offset; j++) {
+            res[startx][j] = count++;
+        }
+        //right [up, down)
+        for(; i < n - offset; i++) {
+            res[i][j] = count++;
+        }
+        //bottom [right, left)
+        for(; j > starty; j--) {
+            res[i][j] = count++;
+        }
+        //left [bottom, up)
+        for(; i > startx; i--) {
+            res[i][j] = count++;
+        }
+        startx++, starty++;
+        offset++;
+    }
+
+    if(n % 2)   res[mid][mid] = count;
+
+    for(i = 0; i < n; i++) {
+        for(j = 0; j < n; j++) {
+            printf("%d\t", res[i][j]);
         }
         printf("\n");
     }
@@ -228,8 +296,9 @@ int main(void) {
     int p_x[] = {1, 2, 3, 4, 5};
 
     //shortest_consective_arr_dp(p_x, 5, 6);
-    //shortest_consective_arr_bruteforce(p_x, 5, 6);
-    spiral_matrix(3);
+    shortest_consective_arr_bruteforce(p_x, 5, 6);
+    //spiral_matrix(3);
+    //spiral_matrix_2(4);
 
     return 0;
 }
