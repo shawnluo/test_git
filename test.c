@@ -33,6 +33,7 @@ int mystrstr(char *haystack, char *needle) {
     return 0;
 }
 
+#if 0
 //8 shortest consective sum of elements >= key  DP
 int shortest_consective_arr_dp(int *arr, int size, int key) {
     int left = 0;
@@ -51,6 +52,25 @@ int shortest_consective_arr_dp(int *arr, int size, int key) {
     printf("%d\n", min);
     return min;
 }
+#endif
+
+int shortest_consective_arr_dp(int *res, int size, int key) {
+    int left = 0, right = 0;
+    int len, len_min = INT_MAX;
+    int sum = 0;
+
+    for(right = 0; right < size; right++) {
+        sum += res[right];
+        while(left <= right && sum >= key) {
+            len = right - left + 1;
+            len_min = len < len_min ? len : len_min;
+            sum -= res[left++];
+        }
+    }
+    printf("%d\n", len_min);
+    return len_min;
+}
+
     
 //7 shortest consective sum of elements >= key  brute force
 #if 0
@@ -82,28 +102,35 @@ int shortest_consective_arr_bruteforce(int *arr, int size, int key) {
 }
 #endif
 
-int shortest_consective_arr_bruteforce(int *res, int size, int key) {
+int shortest_consective_arr_bruteforce2(int *res, int size, int key) {
     //for loop [i:second element, i:end]
-    for(i = 1; i < size; i++) {
+    int left, right;
+    int sum = 0;
+    int x;
+    int len = 0;
+    int len_min = 1000;
+
+    for(right = 0; right < size; right++) {
         //for loop [j:i-1, j:0]
-        for(j = i - 1; j >= 0; j--) {
+        for(left = right; left >= 0; left--) {
             //if sum[i, j] >= key
-            for(x = i; x <= j; x++) {
+            sum = 0;
+            for(x = left; x <= right; x++) {
                 sum += res[x];
             }
             //calculate len, if len < min, min = len
             if(sum >= key) {
-                len = j - i + 1;
+                len = right - left + 1;
                 if(len < len_min) {
                     len_min = len;
                 }
-            } else {
                 break;
             }
         }
     }
+    printf("%d\n", len_min);
 
-    
+    return len_min;
 }
 
 //pass array[][] as parameter
@@ -126,6 +153,54 @@ void showme_2(int **arr, int row, int col) {
         }
         printf("\n");
     }
+}
+
+int longest_uniq_sub(char *s) {
+    return 0;
+}
+
+int isSub(char *s, char *sub) {
+    char *p_s = s;
+    char *p_sub = sub;
+    for(p_s = s; *p_s != '\0'; p_s++) {
+        char *tmp = p_s;
+        for(p_sub = sub; *p_sub != '\0'; p_sub++, tmp++) {
+            if(*p_sub != *tmp) {
+                break;
+            }
+        }
+        if(*p_sub == '\0') {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int longest_common_sub_bruteForce(char *s1, char *s2) {
+    int size1 = strlen(s1);
+    int size2 = strlen(s2);
+    int left, right;
+    int ret = -1;
+    char *sub = NULL;
+    char *tmp = NULL;
+    int len = 0;
+    int len_max = 0;
+    
+    //for loop s1
+    for(left = 0; right < size1; right++) {
+        for(right = left; right < size1; right++) {
+            len = right - left + 1;
+            strncpy(tmp, s1 + left, len);
+            ret = isSub(s2, sub);
+            if(ret) {
+                len_max = len > len_max ? len : len_max;
+                strcpy(sub, tmp);
+            }
+        }
+    }
+    printf("%s\n", sub);
+
+    return 0;
 }
 
 void spiral_matrix(int n) {
@@ -296,9 +371,15 @@ int main(void) {
     int p_x[] = {1, 2, 3, 4, 5};
 
     //shortest_consective_arr_dp(p_x, 5, 6);
-    shortest_consective_arr_bruteforce(p_x, 5, 6);
+    //shortest_consective_arr_bruteforce(p_x, 5, 10);
+    //shortest_consective_arr_dp(p_x, 5, 5);
     //spiral_matrix(3);
     //spiral_matrix_2(4);
+
+    char s[] = "showme";
+    char sub[] = "showrm";
+    int ret = isSub(s, sub);
+    printf("%d\n", ret);
 
     return 0;
 }

@@ -44,7 +44,7 @@ https://www.pramp.com/dashboard#/
 0       - 4 remove specific element
 0       - 5 sorting the square of an array elements
 1       - 6 spiral matrix
-0       - 7 shortest consective sum of elements >= key  brute force
+1       - 7 shortest consective sum of elements >= key  brute force
 1       - 8 shortest consective sum of elements >= key  dp
 0       - 9 merge 2 arrays
 0       - 10 remove duplicated elements
