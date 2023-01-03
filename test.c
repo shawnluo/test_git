@@ -438,6 +438,89 @@ void insert_arr_1(int *res, int size, int pos, int key) {
     printf("\n");
 }
 
+//[12] rotate matrix new array
+void rotate_matrix_newArray(int *res, int row, int col) {
+    int x = row;
+    int y = col;
+    int (*arr)[y] = res;
+    int i, j;
+    
+//    for() {
+//        res[x][y] = res[y][];
+//    }
+}
+
+//matrix exercise
+//1. right -> up
+void matrix_test1(int matrix[5][5], int size) {
+/*
+    p[0][0] = p[0][4];
+    p[0][1] = p[1][4];
+    p[0][2] = p[2][4];
+    p[0][3] = p[3][4];
+    p[0][4] = p[4][4];
+
+    //a + b + 1 = n ==> a = n - b - 1
+    p[x][y] = p[y][size - x - 1];
+    p[1][0] = p[0][3];
+    p[1][1] = p[1][3];
+    p[1][2] = p[2][3];
+*/
+
+    for(int layer = 0; layer < size / 2; layer++) {
+        int first = layer;
+        int last = size - 1 -layer;
+        for(int i = first; i < last; i++) {
+            int offset = i - first;
+            int top = matrix[first][i]; //save top
+
+            //left -> top
+            matrix[first][i] = matrix[last - offset][first];
+
+            //bottom -> left
+            matrix[last - offset][first] = matrix[last][last - offset];
+
+            //right -> bottom
+            matrix[last][last - offset] = matrix[i][last];
+
+            //top -> right
+            matrix[i][last] = top;
+        }
+    }
+}
+
+
+#define N 5
+// An Inplace function to
+// rotate a N x N matrix
+// by 90 degrees in
+// anti-clockwise direction
+void rotateMatrix(int mat[][N])
+{
+    // Consider all squares one by one
+    for (int x = 0; x < N / 2; x++) {
+        // Consider elements in group
+        // of 4 in current square
+        for (int y = x; y < N - x - 1; y++) {
+            // Store current cell in
+            // temp variable
+            int temp = mat[x][y];
+ 
+            // Move values from right to top
+            mat[x][y] = mat[y][N - 1 - x];
+ 
+            // Move values from bottom to right
+            mat[y][N - 1 - x] = mat[N - 1 - x][N - 1 - y];
+ 
+            // Move values from left to bottom
+            mat[N - 1 - x][N - 1 - y] = mat[N - 1 - y][x];
+ 
+            // Assign temp to left
+            mat[N - 1 - y][x] = temp;
+        }
+    }
+}
+
 int main(void) {
     int arr[5][5] = {   
                     {1, 2, 3, 4, 5},
@@ -492,6 +575,7 @@ int main(void) {
     //merge_2_arrays(p_x, size1, p_y, size2, resNew);
     
     insert_arr_1(p_x, size1, 5, 2000);
+    matrix_test1(arr, 5);
 
     return 0;
 }
