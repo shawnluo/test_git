@@ -41,13 +41,13 @@ https://www.pramp.com/dashboard#/
 1       - 1 char *arr[], char (*arr)[]
 1       - 2 longest unique characters in a string
 1       - 3 longest common characters in 2 strings (brute force)
-0       - 4 longest common characters in 2 strings (dp)
-0       - 5 remove specific element
+1       - 4 longest common characters in 2 strings (dp)
+1       - 5 remove specific element
 0       - 6 sorting the square of an array elements
 1       - 7 spiral matrix
 1       - 8 shortest consective sum of elements >= key  brute force
 1       - 9 shortest consective sum of elements >= key  dp
-0       - 10 merge 2 arrays
+1       - 10 merge 2 arrays
 0       - 11 remove duplicated elements
 
 /*******************  chapter 5 - sorting  ********************/

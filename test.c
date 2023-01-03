@@ -377,6 +377,67 @@ public:
 };
 #endif
 
+//[5] remove specific element
+void rm_element(int *res, int size, int key) {
+    int left = 0, right = 0;
+    for(right = 0; right < size; right++) {
+        if(res[right] != key) {
+            res[left++] = res[right];
+        }
+    }
+
+    for(int i = 0; i < left; i++) {
+        printf("%d ", res[i]);
+    }
+    printf("\n");
+}
+
+//[10] merge 2 arrays
+void merge_2_arrays(int *res1, int size1, int *res2, int size2, int *resNew) {
+    //merge res1 and res2 to newres
+    int i = 0, j = 0;   //for res1 and res2 index
+    int k = 0;  //for resNew index
+
+    while(i < size1 || j < size2) {
+        if(i == size1) {
+            resNew[k++] = res2[j++];
+            continue;
+        }
+        if(j == size1) {
+            resNew[k++] = res2[i++];
+            continue;
+        }
+        if(res1[i] <= res2[j]) {
+            resNew[k++] = res1[i++];
+        }
+        if(res1[i] > res2[j]) {
+            resNew[k++] = res2[j++];
+        }
+    }
+
+    for(i = 0; i < k; i++) {
+        printf("%d ", resNew[i]);
+    }
+    printf("\n");
+}
+
+//[6] sorting the square of an array elements
+void sort_square(int *res, int size) {
+
+}
+
+void insert_arr_1(int *res, int size, int pos, int key) {
+    int i;
+    for(i = size - 1; i >= pos; i--) {
+        res[i + 1] = res[i];
+    }
+    res[i + 1] = key;
+    for(i = 0; i <= size; i++) {
+        printf("%d ", res[i]);
+    }
+    printf("\n");
+}
+
 int main(void) {
     int arr[5][5] = {   
                     {1, 2, 3, 4, 5},
@@ -408,8 +469,12 @@ int main(void) {
     printf("%d\n", p_a[0][4]);
 #endif
 
-    int p_x[] = {1, 2, 3, 4, 5};
+    int p_x[] = {1, 6, 76, 165, 235};
+    int p_y[] = {-1, 2, 8, 98, 500};
+    int size1 = sizeof(p_x) / sizeof(p_x[0]);
+    int size2 = sizeof(p_y) / sizeof(p_y[0]);
 
+    int resNew[100] = {0};
     //shortest_consective_arr_dp(p_x, 5, 6);
     //shortest_consective_arr_bruteforce(p_x, 5, 10);
     //shortest_consective_arr_dp(p_x, 5, 5);
@@ -421,6 +486,12 @@ int main(void) {
     //int ret = isSub(s, sub);
     //printf("%d\n", ret);
     //longest_common_sub_bruteForce(s, sub);
-    longest_common_sub_dp(s, sub);
+    //longest_common_sub_dp(s, sub);
+
+    //rm_element(p_x, 5, 3);
+    //merge_2_arrays(p_x, size1, p_y, size2, resNew);
+    
+    insert_arr_1(p_x, size1, 5, 2000);
+
     return 0;
 }
