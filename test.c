@@ -181,17 +181,17 @@ int longest_common_sub_bruteForce(char *s1, char *s2) {
     int size2 = strlen(s2);
     int left, right;
     int ret = -1;
-    char *sub = NULL;
-    char *tmp = NULL;
+    char sub[100] = {0};
+    char tmp[100] = {0};
     int len = 0;
     int len_max = 0;
     
     //for loop s1
-    for(left = 0; right < size1; right++) {
+    for(left = 0; left < size1; left++) {
         for(right = left; right < size1; right++) {
             len = right - left + 1;
             strncpy(tmp, s1 + left, len);
-            ret = isSub(s2, sub);
+            ret = isSub(s2, tmp);
             if(ret) {
                 len_max = len > len_max ? len : len_max;
                 strcpy(sub, tmp);
@@ -201,6 +201,12 @@ int longest_common_sub_bruteForce(char *s1, char *s2) {
     printf("%s\n", sub);
 
     return 0;
+}
+
+int longest_common_sub_dp(char *s1, char *s2) {
+    int size1 = strlen(s1);
+    int size2 = strlen(s2);
+    
 }
 
 void spiral_matrix(int n) {
@@ -376,10 +382,11 @@ int main(void) {
     //spiral_matrix(3);
     //spiral_matrix_2(4);
 
-    char s[] = "showme";
-    char sub[] = "showrm";
-    int ret = isSub(s, sub);
-    printf("%d\n", ret);
+    char *s = "showme";
+    char *sub = "shodowrm";
+    //int ret = isSub(s, sub);
+    //printf("%d\n", ret);
+    longest_common_sub_bruteForce(s, sub);
 
     return 0;
 }

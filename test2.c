@@ -14,13 +14,10 @@ pNode myData;
 
 
 int main(void) {
-    myData = (pNode)malloc(SIZE);   //TODO wrong!!!
-    for(int i = 0; i < 4; i++) {
-        myData[i].index = i;
-    }
-    for(int i = 0; i < 4; i++) {
-        printf("%d\n", myData[i].index);
-    }
-    free(myData);
+    char p[100] = {0};
+    char s[] = "good";
+    strcpy(p, s);
+    printf("%s\n", p);
+
     return 0;
 }
