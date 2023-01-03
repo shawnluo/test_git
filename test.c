@@ -206,7 +206,41 @@ int longest_common_sub_bruteForce(char *s1, char *s2) {
 int longest_common_sub_dp(char *s1, char *s2) {
     int size1 = strlen(s1);
     int size2 = strlen(s2);
-    
+    int i, j;
+    int val = 0, max = 0;
+    char res[100] = {0};
+
+    int dp[size1][size2];
+    for(i = 0; i < size1; i++) {
+        for(j = 0; j < size2; j++) {
+            if((i == 0 || j == 0) && s1[i] == s2[j]) {
+                dp[i][j] = 1;
+            } else {
+                dp[i][j] = 0;
+            }
+        }
+    }
+
+    for(i = 1; i < size1; i++) {
+        for(j = 1; j < size2; j++) {
+            if(s1[i] == s2[j]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            }
+        }
+    }
+
+    for(i = 1; i < size1; i++) {
+        for(j = 1; j < size2; j++) {
+            if(dp[i][j] > max) {
+                max = dp[i][j];
+                strncpy(res, s1 + i - max + 1, max);
+            }
+        }
+    }
+
+    printf("%d, %s\n", max, res);
+
+    return max;
 }
 
 void spiral_matrix(int n) {
@@ -382,11 +416,11 @@ int main(void) {
     //spiral_matrix(3);
     //spiral_matrix_2(4);
 
-    char *s = "showme";
-    char *sub = "shodowrm";
+    char *s = "kk1234567fdshowme";
+    char *sub = "xdfdshowdow1234567rm";
     //int ret = isSub(s, sub);
     //printf("%d\n", ret);
-    longest_common_sub_bruteForce(s, sub);
-
+    //longest_common_sub_bruteForce(s, sub);
+    longest_common_sub_dp(s, sub);
     return 0;
 }
