@@ -450,6 +450,13 @@ void rotate_matrix_newArray(int *res, int row, int col) {
 //    }
 }
 
+
+/*
+    设四个位置中，位于左上角区域的位置坐标为 (i,j)，
+    则按顺时针顺序，四个位置分别为(i,j), (j, n-i-1), (n-i-1,n-j-1), (n-j-1,i)。
+    其中 n 为 matrix.size(), i, j 分别为matrix的行列下标，从 0 开始。
+*/
+
 //matrix exercise
 //1. right -> up
 void matrix_test1(int matrix[5][5], int size) {
