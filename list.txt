@@ -11,7 +11,7 @@ https://www.pramp.com/dashboard#/
 0       - 02. is sub string
 0       - 03. first non-repeat char
 0       - 04. common sub string in 2 strings
-0       - 05. 
+0       - 05. longest common subsequnce in 2 strings
 
 /*******************  chapter 2 - array  ********************/
 1       - 01. char *arr[], char (*arr)[]

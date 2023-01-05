@@ -22,15 +22,76 @@ int bin_search(int *arr, int size, int key) {
     return -1;
 }
 
-//TODO 3
-int quick_sort(int *arr, int left, int right) {
+//
+int partition(int *arr, int left, int right) {
+    int save = arr[left];
+    while(left < right) {
+        while(left < right && arr[right] >= save) {
+            right--;
+        }
+        if(left < right) {
+            arr[left++] = arr[right];
+        }
+
+        while(left < right && arr[left] <= save) {
+            left++;
+        }
+        if(left < right) {
+            arr[right--] = arr[left];
+        }
+    }
+    arr[left] = save;
+    return left;
+}
+
+void quick_sort(int *arr, int left, int right) {
+    if(left >= right) {
+        return;
+    }
+
+    int mid = partition(arr, left, right);
+    quick_sort(arr, left, mid - 1);
+    quick_sort(arr, mid + 1, right);
+}
+
+
+int mystrstr(char *haystack, char *needle) {
+    int size1 = strlen(haystack);
+    int size2 = strlen(needle);
+    int i, j;
+
+    for(i = 0; i < size1 - size2; i++) {
+        for(j = 0; j < size2; j++) {
+            if(haystack[i + j] != needle[j]) {
+                break;
+            }
+        }
+        if(j == size2) {
+            return i;
+        }
+    }
+    
     return 0;
 }
 
 
-//TODO 2
-int mystrstr(char *haystack, char *needle) {
-    return 0;
+void bubble_sort(int *arr, int size) {
+    int i, j;
+
+    for(i = 0; i < size; i++) {
+        for(j = 0; j < size - i - 1; j++) {
+            if(arr[j] > arr[j + 1]) {
+                int tmp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = tmp;
+            }
+        }
+    }
+
+    for(i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
 }
 
 #if 0
@@ -587,8 +648,12 @@ int main(void) {
     //rm_element(p_x, 5, 3);
     //merge_2_arrays(p_x, size1, p_y, size2, resNew);
     
-    insert_arr_1(p_x, size1, 5, 2000);
-    matrix_test1(arr, 5);
+    //insert_arr_1(p_x, size1, 5, 2000);
+    //matrix_test1(arr, 5);
+
+    int arr_bubble[] = {43, 8, 41, 909, 76, -1};
+    int size = sizeof(arr_bubble) / sizeof(arr_bubble[0]);
+    bubble_sort(arr_bubble, size);
 
     return 0;
 }

@@ -25,7 +25,6 @@ int myStrcpy(char *src, char *des) {
     return 0;
 }
 
-//TODO 1: 
 int isSub(char *str, char *subStr) {
     if(!str || !subStr) {
         printf("empty str\n");
@@ -51,12 +50,43 @@ int isSub(char *str, char *subStr) {
     return 0;
 }
 
-//TODO 2: 01
-int common_uniq_str() {
+int longest_common_uniq_str(char *s1, char *s2) {
     int pos = -1;
+    int size1 = strlen(s1);
+    int size2 = strlen(s2);
+    int dp[size1][size2];
+    int i, j;
+    int max = 0;
+
+    for(i = 0; i < size1; i++) {
+        for(j = 0; j < size2; j++) {
+            dp[i][j] = 0;
+            if(s1[i] == s2[j]) {
+                dp[i][j] = 1;
+            }
+        }
+    }
+
+    for(i = 1; i < size1; i++) {
+        for(j = 1; j < size2; j++) {
+            if(s1[i] == s2[j]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            }
+        }
+    }
+
+    for(i = 0; i < size1; i++) {
+        for(j = 0; j < size2; j++) {
+            int tmp = dp[i][j];
+            max = tmp > max ? tmp : max; 
+        }
+    }
+
+    printf("%d\n", max);
 }
 
 int main(void) {
+    #if 0
     char src[] = "good";
     //char *des = (char *)malloc(100);
     //memset(des, 0, 100);
@@ -68,6 +98,12 @@ int main(void) {
 
     int ret = isSub(src, "oqd");
     printf("ret = %d\n", ret);
+    #endif
+
+    char *s1 = "showme";
+    char *s2 = "gowod";
+
+    longest_common_uniq_str(s1, s2);
 
     return 0;
 }
