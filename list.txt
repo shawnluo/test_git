@@ -30,7 +30,7 @@ https://www.pramp.com/dashboard#/
 0       - 01. binary search
 0       - 02. quick sort
 0       - 03. bubble
-0       - 04. select
+0       - 04. select sorting
 
 /*******************  chapter 4 - memory  ********************/
 1       - 01. memory malloc align
@@ -55,6 +55,7 @@ https://www.pramp.com/dashboard#/
 1       - 14 remove the nth node from end of list
 1       - 15 if 2 LL connected
 1       - 16 rm dup nodes (using 2 points)
+0       - 17 merge 2 LL
 
 /*******************  chapter 6 - bit man  ********************/
 1       - 01. binary print
