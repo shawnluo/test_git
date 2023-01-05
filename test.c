@@ -502,8 +502,7 @@ void matrix_test1(int matrix[5][5], int size) {
 // rotate a N x N matrix
 // by 90 degrees in
 // anti-clockwise direction
-void rotateMatrix(int mat[][N])
-{
+void rotateMatrix(int mat[][N]) {
     // Consider all squares one by one
     for (int x = 0; x < N / 2; x++) {
         // Consider elements in group
@@ -528,13 +527,20 @@ void rotateMatrix(int mat[][N])
     }
 }
 
+/*
+    x,          y
+    y,          n - x - 1
+    n - x - 1,  n - y - 1
+    n - y - 1,  x
+*/
+
 int main(void) {
     int arr[5][5] = {   
-                    {1, 2, 3, 4, 5},
-                    {11, 22, 33, 44, 55},
-                    {111, 222, 333, 444, 555},
-                    {1111, 2222, 3333, 4444, 5555},
-                    {11111, 22222, 33333, 44444, 55555}};
+                    {1,     2,      3,      4,      5},
+                    {11,    22,     33,     44,     55},
+                    {111,   222,    333,    444,    555},
+                    {1111,  2222,   3333,   4444,   5555},
+                    {11111, 22222,  33333,  44444,  55555}};
 
     //showme((int *)arr, 5, 5);
 
