@@ -7,7 +7,7 @@ https://www.pramp.com/dashboard#/
 
 
 /*******************  chapter 1 - string  ********************/
-0       - 1 string copy
+1       - 1 string copy
 0       - 2 is sub string
 0       - 3 first non-repeat char
 0       - 4 common sub string in 2 strings
