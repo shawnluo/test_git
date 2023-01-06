@@ -24,7 +24,7 @@ https://www.pramp.com/dashboard#/
 1       - 08. shortest consective sum of elements >= key  brute force
 1       - 09. shortest consective sum of elements >= key  dp
 1       - 10. merge 2 arrays
-0       - 11. remove duplicated elements
+1       - 11. remove duplicated elements
 
 /*******************  chapter 3 - sorting  ********************/
 0       - 01. binary search
