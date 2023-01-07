@@ -27,18 +27,20 @@ https://www.pramp.com/dashboard#/
 1       - 09. shortest consective sum of elements >= key  dp
 1       - 10. merge 2 arrays
 1       - 11. remove duplicated elements
+1       - 12. insert key to array
+1       - 13. move elements backward from number n
 
 /*******************  chapter 3 - sorting  ********************/
-0       - 01. binary search
-0       - 02. quick sort
-0       - 03. bubble
-0       - 04. select sorting
+1       - 01. binary search
+1       - 02. quick sort
+1       - 03. bubble
+1       - 04. select sorting
 
 /*******************  chapter 4 - memory  ********************/
 1       - 01. memory malloc align
-0       - 02. memory copy - implement
-0       - 03. string copy - implement
-0       - 04. binary style print
+1       - 02. memory copy - implement
+1       - 03. string copy - implement
+1       - 04. binary style print
 
 /*******************  chapter 5 - LL  ********************/
 1       - 01. LL create
@@ -57,7 +59,7 @@ https://www.pramp.com/dashboard#/
 1       - 14 remove the nth node from end of list
 1       - 15 if 2 LL connected
 1       - 16 rm dup nodes (using 2 points)
-0       - 17 merge 2 LL
+1       - 17 merge 2 LL
 
 /*******************  chapter 6 - bit man  ********************/
 1       - 01. binary print
