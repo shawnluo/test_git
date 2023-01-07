@@ -19,7 +19,7 @@ https://www.pramp.com/dashboard#/
 1       - 03. longest common characters in 2 strings (brute force)
 1       - 04. longest common characters in 2 strings (dp)
 1       - 05. remove specific element
-0       - 06. sorting the square of an array elements
+1       - 06. sorting the square of an array elements
 1       - 07. spiral matrix
 1       - 08. shortest consective sum of elements >= key  brute force
 1       - 09. shortest consective sum of elements >= key  dp

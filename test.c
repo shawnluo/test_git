@@ -9,18 +9,16 @@
 
 
 
-//TODO 1
-//[6] sorting the square of an array elements
-void sort_square(int *res, int size) {
-
+//[11] remove duplicated elements
+void rm_dup_elements(int *arr, int size) {
+    
 }
 
 
 
 int main(void) {
-    int arr[] = {1, 2, 3, 4, 5};
-    //insert_arr(arr, 5, 5, 200);
-    move_arr(arr, 5, 1);
+    int arr[] = {-11, -2, 3, 4, 5};
+    sort_square(arr, 5);    
 
     return 0;
 }

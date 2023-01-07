@@ -155,6 +155,31 @@ void move_arr(int *arr, int size, int pos) {
     printf("\n");
 }
 
+//[6] sorting the square of an array sorted elements,
+void sort_square(int *arr, int size) {
+    //find the negtive and positive num
+
+    int left, right;
+    int result[size];
+    int pos = size - 1;
+
+    for(left = 0, right = size - 1; left <= right; ) {
+        if(arr[left] * arr[left] > arr[right] * arr[right]) {
+            result[pos] = arr[left] * arr[left];
+            --pos, ++left;
+        } else {
+            result[pos] = arr[right] * arr[right];
+            --pos, --right;
+        }
+    }
+
+    for(left = 0; left < size; left++) {
+        printf("%d ", result[left]);
+    }
+    printf("\n");
+}
+
+
 int main(void) {
     int mat[][4] = {{1, 2, 3, 4},
                     {5, 6, 7, 8},
