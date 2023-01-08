@@ -8,10 +8,12 @@ https://www.pramp.com/dashboard#/
 
 /*******************  chapter 1 - string  ********************/
 1       - 01. string copy
-0       - 02. is sub string
-0       - 03. first non-repeat char
-0       - 04. common sub string in 2 strings
-0       - 05. longest common subsequnce in 2 strings
+1       - 02. is sub string using number
+1       - 03. is sub string using pointer
+1       - 04. first non-repeat char
+0       - 05. common sub string in 2 strings
+0       - 06. longest common subsequnce in 2 strings
+0       - 07. longest unique substring
 
 /*******************  chapter 2 - array  ********************/
 1       - 01. char *arr[], char (*arr)[]

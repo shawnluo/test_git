@@ -8,42 +8,58 @@
 #include <math.h>
 
 
-
-//[11] remove duplicated elements
-//
-void rm_dup_elements(char *str) {
-    int hash[256] = {0};
-    int size = strlen(str);
-    int slow, fast;
-
-    for(fast = 0, slow = 0; fast < size; ) {
-        if(hash[str[fast]]++ == 0) {
-            str[slow] = str[fast];
-            ++slow, ++fast;
-        } else {
-            ++fast;
+int isSub(char *s, char *sub) {
+    int i, j;
+    int size_s = strlen(s);
+    int size_sub = strlen(sub);
+    for(i = 0; i < size_s; i++) {
+        for(j = 0; j < size_sub; j++) {
+            if(*(s + i + j) != *(sub + j)) {
+                break;
+            }
         }
     }
-    str[slow] = '\0';
-    printf("%s\n", str);
+    if(j == size_sub) {
+        return 1;
+    }
+    return 0;
 }
 
-void rm_dup_elements_integer(int *arr, int size) {
-    int hash[1000] = {0};
-    int slow, fast;
-
-    for(slow = 0, fast = 0; fast < size; ) {
-        if(hash[arr[fast]]++ == 0) {
-            arr[slow] = arr[fast];
-            ++slow, ++fast;
-        } else {
-            ++fast;
+int isSub2(char *s, char *sub) {
+    char *ps, *psub;
+    for(ps = s; *ps; ps++) {
+        char *tmp = ps;
+        for(psub = sub; *psub; psub++) {
+            if(*tmp++ != *psub) {
+                break;
+            }
         }
     }
-    for(int i = 0; i < slow; i++) {
-        printf("%d ", arr[i]);
+    if(*psub == '\0') {
+        return 1;
     }
-    printf("\n");
+    return 0;
+}
+
+//abcba -> c
+int first_nonrepeat(char *s) {
+    int hash[256] = {0};
+    char *p;
+    for(p = s; *p; p++) {
+        hash[*p]++;
+    }
+
+    for(p = s; *p; p++) {
+        if(hash[*p] == 1) {
+            return *p;
+        }
+    }
+    printf("there is no non-repeat character!\n");
+    return -1;
+}
+
+int common_sub_str(char *s1, char *s2) {
+    
 }
 
 int main(void) {
