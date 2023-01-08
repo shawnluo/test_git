@@ -390,6 +390,158 @@ void rm_element(int *res, int size, int key) {
     printf("\n");
 }
 
+
+int isSub(char *s, char *sub) {
+    int i, j;
+    int size_s = strlen(s);
+    int size_sub = strlen(sub);
+    for(i = 0; i < size_s; i++) {
+        for(j = 0; j < size_sub; j++) {
+            if(*(s + i + j) != *(sub + j)) {
+                break;
+            }
+        }
+    }
+    if(j == size_sub) {
+        return 1;
+    }
+    return 0;
+}
+
+int isSub2(char *s, char *sub) {
+    char *ps, *psub;
+    for(ps = s; *ps; ps++) {
+        char *tmp = ps;
+        for(psub = sub; *psub; psub++) {
+            if(*tmp++ != *psub) {
+                break;
+            }
+        }
+    }
+    if(*psub == '\0') {
+        return 1;
+    }
+    return 0;
+}
+
+//abcba -> c
+int first_nonrepeat(char *s) {
+    int hash[256] = {0};
+    char *p;
+    for(p = s; *p; p++) {
+        hash[*p]++;
+    }
+
+    for(p = s; *p; p++) {
+        if(hash[*p] == 1) {
+            return *p;
+        }
+    }
+    printf("there is no non-repeat character!\n");
+    return -1;
+}
+
+void common_sub_str(char *s1, char *s2, int size1, int size2) {
+    //int size1 = strlen(s1);
+    //int size2 = strlen(s2);
+    int dp[size1][size2];
+
+    for(int i = 0; i < size1; i++) {
+        for(int j = 0; j < size2; j++) {
+            dp[i][j] = 0;
+            if((i == 0 || j == 0) && (s1[i] == s2[j])) {
+                dp[i][j] = 1;
+            }
+        }
+    }
+#if 1
+    for(int i = 1; i < size1; i++) {
+        for(int j = 1; j < size2; j++) {
+            if(s1[i] == s2[j]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            }
+        }
+    }
+#endif
+
+    for(int i = 0; i < size1; i++) {
+        for(int j = 0; j < size2; j++) {
+            printf("%d\t", dp[i][j]);
+        }
+        printf("\n");
+    }
+
+    int max = 0;
+    int pos = -1;
+    char s_return[size1];
+    //find the largest dp
+    for(int i = 0; i < size1; i++) {
+        for(int j = 0; j < size2; j++) {
+            if(dp[i][j] > max){
+                max = dp[i][j];
+                pos = i;
+                strncpy(s_return, s1 + pos - 1, max);
+            }
+        }
+    }
+    printf("%d, %s\n", max, s_return);
+}
+
+void common_sub_subsequnce(char *s1, char *s2, int size1, int size2) {
+    int dp[size1][size2];
+
+    for(int i = 0; i < size1; i++){
+        for(int j = 0; j < size2; j++) {
+            dp[i][j] = 0;
+            if((i == 0 || j == 0) && (s1[i] == s2[j])) {
+                dp[i][j] = 1;
+            }
+            if(i == 0 && j > 0 && dp[i][j - 1] == 1) {
+                dp[i][j] = 1;
+            }
+            if(j == 0 && i > 0 && dp[i - 1][j] == 1) {
+                dp[i][j] = 1;
+            }
+        }
+    }
+
+    for(int i = 1; i < size1; i++) {
+        for(int j = 1; j < size2; j++) {
+            if(s1[i] == s2[j]) {
+                dp[i][j]= dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = dp[i - 1][j] > dp[i][j - 1] ? dp[i - 1][j] : dp[i][j - 1];
+            }
+        }
+    }
+
+    for(int i = 1; i < size1; i++) {
+        for(int j = 1; j < size2; j++) {
+            printf("%d\t", dp[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void longest_uniq_substr(char *s, int size) {
+    int pos = -1;
+    int hash[size];
+    int len = 0;
+    int longest = 0;
+    for(int i = 0; i < size; i++) {
+        hash[s[i]] = -1;
+    }
+
+    for(int i = 0; i < size; i++) {
+        pos = pos > hash[s[i]] ? pos : hash[s[i]];
+        len = i - pos;
+        longest = len > longest ? len : longest;
+        hash[s[i]] = i;
+    }
+
+    printf("%d\n", longest);
+}
+
 //[10] merge 2 arrays
 void merge_2_arrays(int *res1, int size1, int *res2, int size2, int *resNew) {
     //merge res1 and res2 to newres
