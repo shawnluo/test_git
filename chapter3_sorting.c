@@ -72,3 +72,27 @@ void quick_sort(int *arr, int left, int right) {
     quick_sort(arr, left, mid - 1);
     quick_sort(arr, mid + 1, right);
 }
+
+void select_sort(int *arr, int size) {
+    int i, j;
+    int min;
+    int index = -1;
+    for(i = 0; i < size; i++) {
+        min = arr[i];
+        for(j = i + 1; j < size; j++) {
+            if(arr[j] < min) {
+                min = arr[j];
+                index = j;
+            }
+        }
+        if(arr[i] > min) {
+            int tmp = arr[index];
+            arr[index] = arr[i];
+            arr[i] = tmp;
+        }
+    }
+    for(i = 0; i < size; i++) {
+        printf("%d\t", arr[i]);
+    }
+    printf("\n");
+}

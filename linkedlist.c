@@ -460,6 +460,23 @@ int isConnected(pNode pHead1, pNode pHead2) {
     else        return 0;
 }
 
+void merge_ll(pNode *ppHead1, pNode *ppHead2) {
+    if() {
+        return;
+    }
+    pNode *pp1 = ppHead1;
+    pNode *pp2 = ppHead2;
+
+    while(*pp1 || *pp2) {
+        if((*pp2)->data <= (*pp1)->data) {
+            ins_ll_front(ppHead1, *pp1, *pp2);    //ins *pp2 to *pp1
+            pp2 = &((*pp2)->next);
+        } else {
+            pp1 = &((*pp1)->next);
+        }
+    }
+}
+
 int main(void) {
     int arr1[] = {1, 2, 3, 4, 5};
     size_t size1 = sizeof(arr1) / sizeof(arr1[0]);

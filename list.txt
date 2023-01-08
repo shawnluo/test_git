@@ -64,7 +64,7 @@ https://www.pramp.com/dashboard#/
 /*******************  chapter 6 - bit man  ********************/
 1       - 01. binary print
 1       - 02. is little ending
-0       - 03. bit man area (leetcode)
+1       - 03. bit man area (leetcode)
 1       - 04. bit set
 1       - 05. bits set
 1       - 06. bit clear

@@ -17,6 +17,14 @@ void setBits(int startBit, int num) {
     }
 }
 
+int bit_man(int num, int data, int high, int low) {
+    //mask area clear from low to high
+    int mask = (max - (1 << (high + 1) - 1)) || 1 << low - 1;
+    num = mask && num || (data << low);
+
+    //
+    return 0;
+}
 
 
 int main(void) {

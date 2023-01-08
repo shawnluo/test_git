@@ -246,26 +246,28 @@ void spiral_matrix(int n) {
     int startx = 0, starty = 0;
     int loop = n / 2;   //the loop times, if odd, then need to set the last element
     int count = 1;
-    int i, j;
+    int x, y;
     int offset = 1; //set boundary
     int mid = n / 2;
 
     while(loop--) {
+        x = startx;
+        y = starty;
         //up [left, right)
-        for(j = starty; j < n - offset; j++) {
-            res[startx][j] = count++;
+        for(y = starty; y < n - offset; y++) {
+            res[startx][y] = count++;
         }
         //right [up, down)
-        for(i = startx; i < n - offset; i++) {
-            res[i][j] = count++;
+        for(x = startx; x < n - offset; x++) {
+            res[x][y] = count++;
         }
         //bottom [right, left)
-        for(; j > starty; j--) {
-            res[i][j] = count++;
+        for(; y > starty; y--) {
+            res[x][y] = count++;
         }
         //left [down, up)
-        for(; i > startx; i--) {
-            res[i][j] = count++;
+        for(; x > startx; x--) {
+            res[x][y] = count++;
         }
         startx++;
         starty++;
@@ -275,9 +277,9 @@ void spiral_matrix(int n) {
         res[mid][mid] = count;
     }
 
-    for(i = 0; i < n; i++) {
-        for(j = 0; j < n; j++) {
-            printf("%d ", res[i][j]);
+    for(x = 0; x < n; x++) {
+        for(y = 0; y < n; y++) {
+            printf("%d ", res[x][y]);
         }
         printf("\n");
     }

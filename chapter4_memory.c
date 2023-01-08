@@ -33,9 +33,10 @@ void alignment_free(void *aligned_address) {
 }
 
 void *memory_copy(void *src, void *des, size_t len) {
-    assert(src);
-    assert(des);
-    assert(len);
+    if(des == NULL || src == NULL) {
+        printf("invalid parameters!\n");
+        return -1;
+    }
 
     if(src == des) return src;
 
@@ -51,8 +52,15 @@ void *memory_copy(void *src, void *des, size_t len) {
     return (void *)des;
 }
 
-void *str_cpy(void *src, void *des, size_t len) {
+char *str_cpy(const char *src, char *des, size_t len) {
+    if(src == NULL || des == NULL) {
+        return -1;
+    }
+    char *tmp = des;
+    while(*des++ = *src++) {
+    }
 
+    return tmp;
 }
 
 int main(void) {
