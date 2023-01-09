@@ -33,14 +33,11 @@ int ladder_energy(int n, int cost[n]) {
     int i = 0;
     int dp[n + 1];
     dp[0] = 0;
-    dp[1] = dp[0] + cost[0];
+    dp[1] = 0;
 
     for(i = 2; i <= n; i++) {
         dp[i] = min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
     }
-    
-    int cost[5] = {6, 4, 7, 2, 1};
-    ladder_energy(5, cost);
 
     printf("%d\n", dp[n]);
     return 0;
@@ -48,15 +45,20 @@ int ladder_energy(int n, int cost[n]) {
 
 
 //longest common subsequence
-int lcs(char *s1, char *s2, int m, int n){
-    int dp[MAX_LEN + 1][MAX_LEN + 1];
+int longest_common_subsequence(char *arr1, char *arr2) {
+    int m = strlen(arr1);
+    int n = strlen(arr2);
+    int dp[m + 1][n + 1];
     int i, j;
+    for(i = 0; i <= m; i++) {
+        for(j = 0; j <= n; j++) {
+            dp[i][j] = 0;
+        }
+    }
 
-    for (i = 0; i <= m; i++) {
-        for (j = 0; j <= n; j++) {
-            if (i == 0 || j == 0) {
-                dp[i][j] = 0;
-            } else if (s1[i - 1] == s2[j - 1]) {
+    for(i = 1; i <= m; i++) {
+        for(j = 1; j <= n; j++) {
+            if(arr1[i - 1] == arr2[j - 1]) {
                 dp[i][j] = dp[i - 1][j - 1] + 1;
             } else {
                 dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
@@ -64,8 +66,78 @@ int lcs(char *s1, char *s2, int m, int n){
         }
     }
 
+    for(i = 0; i <= m; i++) {
+        for(j = 0; j <= n; j++) {
+            printf("%d\t", dp[i][j]);
+        }
+        printf("\n");
+    }
+    
     return dp[m][n];
 }
+
+int robot(int m, int n) {
+    int dp[m][n];
+    for(int i = 0; i < m; i++) {
+        dp[i][0] = 1;
+    }
+    for(int j = 0; j < m; j++) {
+        dp[0][j] = 1;
+    }
+
+    for(int i = 1; i < m; i++) {
+        for(int j = 1; j < n; j++) {
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+        }
+    }
+    return dp[m - 1][n - 1];
+}
+
+int robot_obstacals(int m, int n, int obstacle[m][n]) {
+    int dp[m][n];
+    int i, j;
+    for(i = 0; i < m && obstacle[i][0] == 0; i++) {
+        dp[i][0] = 1;
+    }
+    for(j = 0; j < n && obstacle[0][j] == 0; j++) {
+        dp[0][j] = 1;
+    }
+
+    for(i = 1; i < m; i++) {
+        for(j = 1; j < n; j++) {
+            if(obstacle[i][j] == 1) {
+                continue;
+            }
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+        }
+    }
+
+    return dp[m - 1][n - 1];
+}
+
+
+int max(int x, int y) {
+    return x > y ? x : y;
+}
+
+int integer_break(int n) {
+    int dp[n + 1];
+    dp[0] = 0;
+    dp[1] = 0;
+    dp[2] = 1;
+
+    memset(dp, 0, sizeof(int) * (n + 1));
+
+    int i, j;
+    for(i = 3; i <= n; i++) {
+        for(j = 1; j <= i / 2; j++) {
+            dp[i] = max(dp[i], max(dp[i - j] * j, (i - j) * j));
+        }
+    }
+    printf("%d\n", dp[n]);
+    return dp[n];
+}
+
 
 int main() {
     char s1[MAX_LEN + 1] = "AGGTAB";

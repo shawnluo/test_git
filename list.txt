@@ -73,9 +73,13 @@ https://www.pramp.com/dashboard#/
 
 /*******************  chapter 7 - DP  ********************/
 1       - 01. ladder
-0       - 02. bagpack
-0       - 03. best route find
-0       - 04. LCS (longest common subsequence)
+1       - 02. ladder with cost
+0       - 03. bagpack
+0       - 04. best route find
+1       - 05. LCS (longest common subsequence)
+1       - 06. robot path
+1       - 07. robot path 2
+1       - 08. one integer break to - sum of 2 integers, and maximum of multiple
 
 /*******************  chapter 8 - hash table  ********************/
 0       - 01. isAnagram
