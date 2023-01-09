@@ -72,7 +72,7 @@ https://www.pramp.com/dashboard#/
 1       - 08. volatile
 
 /*******************  chapter 7 - DP  ********************/
-0       - 01. ladder
+1       - 01. ladder
 0       - 02. bagpack
 0       - 03. best route find
 0       - 04. LCS (longest common subsequence)
