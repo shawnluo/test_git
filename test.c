@@ -62,6 +62,72 @@ int longest_common_subsequence(char *arr1, char *arr2) {
 }
 
 
+int shortest_consective_bf(int *arr, int size, int key) {
+    int len = 0, len_min = INT_MAX;
+    int left, right;
+    int sum = 0;
+    for(left = 0; left < size; left++) {
+        sum = 0;
+        for(right = left; right < size; right++) {
+            sum += arr[right];
+            if(sum >= key) {
+                len = right - left + 1;
+                len_min = len < len_min ? len : len_min;
+                break;
+            }
+        }
+    }
+
+    return len_min;
+}
+
+int shortest_consective_slideWindow(int *arr, int size, int key) {
+    int left = 0, right;
+    int len = 0, len_min = INT_MAX;
+    int sum = 0;
+
+    for(right = 0; right < size; right++) {
+        sum += arr[right];
+        while(sum >= key) {
+            len = right - left + 1; 
+            len_min = len < len_min ? len : len_min;
+            sum -= arr[left];
+        }
+    }
+    return len_min;
+}
+
+int ins_key(int *arr, int size, int pos, int key) {
+    int save;
+    for(int i = pos; i <= size; i++) {
+        save = arr[pos];
+        arr[pos] = key;
+        key = save;
+    }
+    return 0;
+}
+
+int move_backwards(int *arr, int size, int pos) {
+    int save;
+    int last = arr[pos];
+    for(int i = pos + 1; i <= size; i++) {
+        save = arr[i];
+        arr[i] = last;
+        last = save;
+    }
+
+    return 0;
+}
+
+void merge_arrays(int *arr1, int size1, int *arr2, int size2) {
+    int i = size1 - 1, j = size2 - 1;
+    while(i >= 0 || j >= 0) {
+        if(i < 0) {
+            arr1[count--] = arr2[j];
+        }
+    }
+}
+
 int main(void) {
     //int cost[5] = {6, 4, 7, 2, 1};
     //ladder_energy(5, cost);

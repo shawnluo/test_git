@@ -217,6 +217,40 @@ void rm_dup_elements_integer(int *arr, int size) {
     printf("\n");
 }
 
+int shortest_consective_bf(int *arr, int size, int key) {
+    int len = 0, len_min = INT_MAX;
+    int left, right;
+    int sum = 0;
+    for(left = 0; left < size; left++) {
+        sum = 0;
+        for(right = left; right < size; right++) {
+            sum += arr[right];
+            if(sum >= key) {
+                len = right - left + 1;
+                len_min = len < len_min ? len : len_min;
+                break;
+            }
+        }
+    }
+
+    return len_min;
+}
+
+int shortest_consective_slideWindow(int *arr, int size, int key) {
+    int left = 0, right;
+    int len = 0, len_min = INT_MAX;
+    int sum = 0;
+
+    for(right = 0; right < size; right++) {
+        sum += arr[right];
+        while(sum >= key) {
+            len = right - left + 1; 
+            len_min = len < len_min ? len : len_min;
+            sum -= arr[left];
+        }
+    }
+    return len_min;
+}
 
 int main(void) {
     int mat[][4] = {{1, 2, 3, 4},
