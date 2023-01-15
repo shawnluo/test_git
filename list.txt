@@ -23,14 +23,15 @@ https://www.pramp.com/dashboard#/
 1       - 05. remove specific element
 1       - 06. sorting the square of an array elements
 1       - 07. spiral matrix
-1       - 08. shortest consective sum of elements(positive) >= key  brute force
-1       - 09. shortest consective sum of elements(positive) >= key  slide window
-0       - 10. shortest consective sum of elements(any numb) >= key
-0       - 10. smallest sum contiguous subarray
-1       - 11. merge 2 sorted arrays
-1       - 12. remove duplicated elements
-1       - 13. insert key to array
-1       - 14. move elements backward 1 pos from number n
+1       - 08. rotate matrix
+1       - 09. shortest consective sum of elements(positive) >= key  brute force
+1       - 10. shortest consective sum of elements(positive) >= key  slide window
+0       - 11. shortest consective sum of elements(any numb) >= key
+0       - 12. smallest sum contiguous subarray
+1       - 13. merge 2 sorted arrays
+1       - 14. remove duplicated elements
+1       - 15. insert key to array
+1       - 16. move elements backward 1 pos from number n
 
 /*******************  chapter 3 - sorting  ********************/
 1       - 01. binary search
