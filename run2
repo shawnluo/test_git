@@ -1,0 +1,1 @@
+make -f Makefile2 clean; make -f Makefile2 && ./test2

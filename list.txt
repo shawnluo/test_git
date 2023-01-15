@@ -1,0 +1,98 @@
+
+0. if finished in 5 minuts, then skip for 1 day
+1. brute force solution
+2. optimize solution
+
+https://www.pramp.com/dashboard#/
+
+
+/*******************  chapter 1 - string  ********************/
+1       - 01. string copy
+1       - 02. is sub string using number
+1       - 03. is sub string using pointer
+1       - 04. first non-repeat char
+1       - 05. common sub string in 2 strings
+1       - 06. longest common subsequnce in 2 strings
+1       - 07. longest unique substring
+
+/*******************  chapter 2 - array  ********************/
+1       - 01. char *arr[], char (*arr)[]
+1       - 02. longest unique characters in a string
+1       - 03. longest common characters in 2 strings (brute force)
+1       - 04. longest common characters in 2 strings (dp)
+1       - 05. remove specific element
+1       - 06. sorting the square of an array elements
+1       - 07. spiral matrix
+1       - 08. shortest consective sum of elements(positive) >= key  brute force
+1       - 09. shortest consective sum of elements(positive) >= key  slide window
+0       - 10. shortest consective sum of elements(any numb) >= key
+0       - 10. smallest sum contiguous subarray
+1       - 11. merge 2 sorted arrays
+1       - 12. remove duplicated elements
+1       - 13. insert key to array
+1       - 14. move elements backward 1 pos from number n
+
+/*******************  chapter 3 - sorting  ********************/
+1       - 01. binary search
+1       - 02. quick sort
+1       - 03. bubble
+1       - 04. select sorting
+
+/*******************  chapter 4 - memory  ********************/
+1       - 01. memory malloc align
+1       - 02. memory copy - implement
+1       - 03. string copy - implement
+1       - 04. binary style print
+
+/*******************  chapter 5 - LL  ********************/
+1       - 01. LL create
+1       - 02. LL delete 1
+1       - 03. LL delete 2
+1       - 04. LL insert 1
+1       - 05. LL insert 2
+1       - 06. LL hasCircular 1
+1       - 07. LL hasCircular 2
+1       - 08. LL create circular
+1       - 09. LL entry of circular
+1       - 10 LL add 2 LL
+1       - 11 LL reverse
+1       - 12 swap 2 ajacent elements 1(value)
+1       - 13 swap 2 ajacent elements 2(memory)
+1       - 14 remove the nth node from end of list
+1       - 15 if 2 LL connected
+1       - 16 rm dup nodes (using 2 points)
+1       - 17 merge 2 LL
+
+/*******************  chapter 6 - bit man  ********************/
+1       - 01. binary print
+1       - 02. is little ending
+1       - 03. bit man area (leetcode)
+1       - 04. bit set
+1       - 05. bits set
+1       - 06. bit clear
+1       - 07. bits clear
+1       - 08. volatile
+
+/*******************  chapter 7 - DP  ********************/
+1       - 01. ladder
+1       - 02. ladder with cost
+0       - 03. bagpack
+0       - 04. best route find
+1       - 05. LCS (longest common subsequence)
+1       - 06. robot path
+1       - 07. robot path 2
+1       - 08. one integer break to - sum of 2 integers, and maximum of multiple
+
+/*******************  chapter 8 - hash table  ********************/
+0       - 01. isAnagram
+0       - 02. common elements in 2 array
+0       - 03. Happy numbers
+0       - 04. 
+
+/*******************  chapter 9 - recursion  ********************/
+0       - 01. binary print 1
+0       - 02. two recursion in one recursion
+
+/*******************  chapter 10 - others  ********************/
+1       - 01. sizeof(int) returns unsigned longest
+0       - 02. long vs double
