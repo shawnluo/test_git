@@ -236,6 +236,7 @@ int shortest_consective_bf(int *arr, int size, int key) {
     return len_min;
 }
 
+//[10]
 int shortest_consective_slideWindow(int *arr, int size, int key) {
     int left = 0, right;
     int len = 0, len_min = INT_MAX;
@@ -246,11 +247,47 @@ int shortest_consective_slideWindow(int *arr, int size, int key) {
         while(sum >= key) {
             len = right - left + 1; 
             len_min = len < len_min ? len : len_min;
-            sum -= arr[left];
+            sum -= arr[++];
         }
     }
-    return len_min;
+
+    return len_min == INT_MAX ? -1 : len_min;
 }
+
+
+/* [12]
+  Given an array containing n integers.
+  The problem is to find the sum of the elements of the contiguous subarray
+   having the smallest(minimum) sum
+  */
+// function to find the smallest sum contiguous subarray
+int smallestSumSubarr(int arr[], int n) {
+    // to store the minimum value that is ending
+    // up to the current index
+    int min_ending_here = INT_MAX;
+     
+    // to store the minimum value encountered so far
+    int min_so_far = INT_MAX;
+     
+    // traverse the array elements
+    for (int i=0; i<n; i++) {
+        // if min_ending_here > 0, then it could not possibly
+        // contribute to the minimum sum further
+        if (min_ending_here > 0)
+            min_ending_here = arr[i];
+         
+        // else add the value arr[i] to min_ending_here   
+        else
+            min_ending_here += arr[i];
+         
+        // update min_so_far
+        min_so_far = min(min_so_far, min_ending_here);           
+    }
+     
+    // required smallest sum contiguous subarray value
+    return min_so_far;
+}
+
 
 int main(void) {
     int mat[][4] = {{1, 2, 3, 4},
@@ -266,6 +303,9 @@ int main(void) {
     int arr[] = {1, 7, 9, 1, 8, 1, 9};
     int size = sizeof(arr) / sizeof(arr[0]);
     rm_dup_elements_integer(arr, size); 
+
+    int arr2[] = {3, -4, 2, -3, -1, 7, -5};
+    smallestSumSubarr(arr2, sizeof(arr) / sizeof(arr[0]));
 
     return 0;
 }

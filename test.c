@@ -136,11 +136,56 @@ int longest_common_subsequence(char *s1, char *s2) {
     int size2 = strlen(s2);
 
     int hash[size1][size2];
-    for(int i = 0; i < size1; i++) {
-        for(int j = 0; j < size2; j++) {
-            
+    for(int i = 0; i <= size1; i++) {
+        for(int j = 0; j <= size2; j++) {
+            if(i == 0 || j == 0) {
+                hash[i][j] = 0;
+            }
+            if(s1[i] == s2[j]) {
+                hash[i][j] = hash[i - 1][j - 1] + 1;
+            }
         }
     }
+
+    //find the biggest one
+
+    return 0;
+}
+
+
+/* [12]
+  Given an array containing n integers.
+  The problem is to find the sum of the elements of the contiguous subarray
+   having the smallest(minimum) sum
+  */
+// function to find the smallest sum contiguous subarray
+int smallestSumSubarr(int arr[], int n)
+{
+    // to store the minimum value that is ending
+    // up to the current index
+    int min_ending_here = INT_MAX;
+     
+    // to store the minimum value encountered so far
+    int min_so_far = INT_MAX;
+     
+    // traverse the array elements
+    for (int i=0; i<n; i++)
+    {
+        // if min_ending_here > 0, then it could not possibly
+        // contribute to the minimum sum further
+        if (min_ending_here > 0)
+            min_ending_here = arr[i];
+         
+        // else add the value arr[i] to min_ending_here   
+        else
+            min_ending_here += arr[i];
+         
+        // update min_so_far
+        min_so_far = min(min_so_far, min_ending_here);           
+    }
+     
+    // required smallest sum contiguous subarray value
+    return min_so_far;
 }
 
 
