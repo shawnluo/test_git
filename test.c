@@ -8,88 +8,37 @@
 #include <math.h>
 
 
-int max(int x, int y) {
+static inline int max(int x, int y) {
     return x > y ? x : y;
 }
 
-int integer_break(int n) {
-    int dp[n + 1];
-    dp[0] = 0;
-    dp[1] = 0;
-    dp[2] = 1;
+int bin_search(int *arr, int start, int end, int key) {
+    int mid;
 
-    memset(dp, 0, sizeof(int) * (n + 1));
-
-    int i, j;
-    for(i = 3; i <= n; i++) {
-        for(j = 1; j <= i / 2; j++) {
-            dp[i] = max(dp[i], max(dp[i - j] * j, (i - j) * j));
+    while(start <= end) {
+        mid = (start + end) / 2;
+        if(arr[mid] == key) {
+            return mid;
+        } else if(arr[mid] > key) {
+            end = mid - 1;
+        } else {
+            start = mid + 1;
         }
     }
-    printf("%d\n", dp[n]);
-    return dp[n];
+    if(start > end) {
+        return -1;
+    }
 }
 
-int longest_common_subsequence(char *arr1, char *arr2) {
-    int m = strlen(arr1);
-    int n = strlen(arr2);
-    int dp[m + 1][n + 1];
-    int i, j;
-    for(i = 0; i <= m; i++) {
-        for(j = 0; j <= n; j++) {
-            dp[i][j] = 0;
-        }
-    }
+int shortest_consective_sum(int *arr, int size, int key) {
+    int sum;
+    int len, len_min = INT_MAX;
+    int start = 0, end = 0;
 
-    for(i = 1; i <= m; i++) {
-        for(j = 1; j <= n; j++) {
-            if(arr1[i - 1] == arr2[j - 1]) {
-                dp[i][j] = dp[i - 1][j - 1] + 1;
-            } else {
-                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
-            }
-        }
-    }
-
-    for(i = 0; i <= m; i++) {
-        for(j = 0; j <= n; j++) {
-            printf("%d\t", dp[i][j]);
-        }
-        printf("\n");
-    }
-    
-    return dp[m][n];
-}
-
-
-int shortest_consective_bf(int *arr, int size, int key) {
-    int len = 0, len_min = INT_MAX;
-    int left, right;
-    int sum = 0;
-    for(left = 0; left < size; left++) {
-        sum = 0;
-        for(right = left; right < size; right++) {
-            sum += arr[right];
-            if(sum >= key) {
-                len = right - left + 1;
-                len_min = len < len_min ? len : len_min;
-                break;
-            }
-        }
-    }
-
-    return len_min;
-}
-
-int shortest_consective_slideWindow(int *arr, int size, int key) {
-    int left = 0, right;
-    int len = 0, len_min = INT_MAX;
-    int sum = 0;
-
-    for(right = 0; right < size; right++) {
-        sum += arr[right];
+    for(int end = 0; end < size; end++) {
+        sum += arr[end];
         while(sum >= key) {
-            len = right - left + 1; 
+            len = end - start + 1;
             len_min = len < len_min ? len : len_min;
             sum -= arr[left];
         }
