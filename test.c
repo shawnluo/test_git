@@ -40,7 +40,7 @@ int shortest_consective_sum(int *arr, int size, int key) {
         while(sum >= key) {
             len = end - start + 1;
             len_min = len < len_min ? len : len_min;
-            sum -= arr[left];
+            sum -= arr[start];
         }
     }
     return len_min;
@@ -131,15 +131,27 @@ void rotate(int arr[5][5]) {
 }
 
 
+int longest_common_subsequence(char *s1, char *s2) {
+    int size1 = strlen(s1);
+    int size2 = strlen(s2);
+
+    int hash[size1][size2];
+    for(int i = 0; i < size1; i++) {
+        for(int j = 0; j < size2; j++) {
+            
+        }
+    }
+}
+
 
 int main(void) {
     //int cost[5] = {6, 4, 7, 2, 1};
     //ladder_energy(5, cost);
     //integer_break(10);
     
-    char arr1[] = "abcxd";
-    char arr2[] = "xabcrpd";
-    longest_common_subsequence(arr1, arr2);
+    char s1[] = "abcxd";
+    char s2[] = "xabcrpd";
+    longest_common_subsequence(s1, s2);
     
     return 0;
 }
