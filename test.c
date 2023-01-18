@@ -159,33 +159,26 @@ int longest_common_subsequence(char *s1, char *s2) {
    having the smallest(minimum) sum
   */
 // function to find the smallest sum contiguous subarray
-int smallestSumSubarr(int arr[], int n)
-{
-    // to store the minimum value that is ending
-    // up to the current index
-    int min_ending_here = INT_MAX;
-     
-    // to store the minimum value encountered so far
-    int min_so_far = INT_MAX;
-     
-    // traverse the array elements
-    for (int i=0; i<n; i++)
-    {
-        // if min_ending_here > 0, then it could not possibly
-        // contribute to the minimum sum further
-        if (min_ending_here > 0)
-            min_ending_here = arr[i];
-         
-        // else add the value arr[i] to min_ending_here   
-        else
-            min_ending_here += arr[i];
-         
-        // update min_so_far
-        min_so_far = min(min_so_far, min_ending_here);           
+int smallestSumSubarr(int arr[], int n) {
+    int min = INT_MAX;
+    int sum = INT_MAX;
+    for(int i = 0; i < n; i++) {
+        if(sum > 0) {
+            sum = arr[i];
+        } else {
+            sum += arr[i];
+        }
+
+        min = sum < min ? sum : min;
     }
-     
-    // required smallest sum contiguous subarray value
-    return min_so_far;
+    printf("%d\n", min);
+
+    return 0;
+}
+
+
+void bin_print(int n) {
+    
 }
 
 
@@ -197,6 +190,8 @@ int main(void) {
     char s1[] = "abcxd";
     char s2[] = "xabcrpd";
     longest_common_subsequence(s1, s2);
-    
+    int arr[] = {-3, -4, 10, -3, -1, 7, -5};
+    smallestSumSubarr(arr, sizeof(arr) / sizeof(arr[0]));
+
     return 0;
 }

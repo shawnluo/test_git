@@ -33,7 +33,7 @@ void rotate(int mat[][4], int size) {
 }
 
 
-//[12] rotate matrix new array
+//[08] rotate matrix new array
 void rotate_matrix_newArray(int *res, int row, int col) {
     int x = row;
     int y = col;
@@ -180,43 +180,7 @@ void sort_square(int *arr, int size) {
 }
 
 
-//[11] remove duplicated elements
-//
-void rm_dup_elements(char *str) {
-    int hash[256] = {0};
-    int size = strlen(str);
-    int slow, fast;
-
-    for(fast = 0, slow = 0; fast < size; ) {
-        if(hash[str[fast]]++ == 0) {
-            str[slow] = str[fast];
-            ++slow, ++fast;
-        } else {
-            ++fast;
-        }
-    }
-    str[slow] = '\0';
-    printf("%s\n", str);
-}
-
-void rm_dup_elements_integer(int *arr, int size) {
-    int hash[1000] = {0};
-    int slow, fast;
-
-    for(slow = 0, fast = 0; fast < size; ) {
-        if(hash[arr[fast]]++ == 0) {
-            arr[slow] = arr[fast];
-            ++slow, ++fast;
-        } else {
-            ++fast;
-        }
-    }
-    for(int i = 0; i < slow; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
-}
-
+//[09]
 int shortest_consective_bf(int *arr, int size, int key) {
     int len = 0, len_min = INT_MAX;
     int left, right;
@@ -264,28 +228,67 @@ int shortest_consective_slideWindow(int *arr, int size, int key) {
 int smallestSumSubarr(int arr[], int n) {
     // to store the minimum value that is ending
     // up to the current index
-    int min_ending_here = INT_MAX;
+    int min = INT_MAX;
      
     // to store the minimum value encountered so far
-    int min_so_far = INT_MAX;
+    int sum = INT_MAX;
      
     // traverse the array elements
     for (int i=0; i<n; i++) {
-        // if min_ending_here > 0, then it could not possibly
+        // if sum > 0, then it could not possibly
         // contribute to the minimum sum further
-        if (min_ending_here > 0)
-            min_ending_here = arr[i];
+        if (sum > 0)
+            sum = arr[i];
          
-        // else add the value arr[i] to min_ending_here   
+        // else add the value arr[i] to min   
         else
-            min_ending_here += arr[i];
+            sum += arr[i];
          
         // update min_so_far
-        min_so_far = min(min_so_far, min_ending_here);           
+        min = sum < min ? sum : min;
     }
      
     // required smallest sum contiguous subarray value
     return min_so_far;
+}
+
+
+//[13] remove duplicated elements
+//
+void rm_dup_elements(char *str) {
+    int hash[256] = {0};
+    int size = strlen(str);
+    int slow, fast;
+
+    for(fast = 0, slow = 0; fast < size; ) {
+        if(hash[str[fast]]++ == 0) {
+            str[slow] = str[fast];
+            ++slow, ++fast;
+        } else {
+            ++fast;
+        }
+    }
+    str[slow] = '\0';
+    printf("%s\n", str);
+}
+
+
+void rm_dup_elements_integer(int *arr, int size) {
+    int hash[1000] = {0};
+    int slow, fast;
+
+    for(slow = 0, fast = 0; fast < size; ) {
+        if(hash[arr[fast]]++ == 0) {
+            arr[slow] = arr[fast];
+            ++slow, ++fast;
+        } else {
+            ++fast;
+        }
+    }
+    for(int i = 0; i < slow; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
 }
 
 
