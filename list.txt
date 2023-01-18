@@ -97,3 +97,5 @@ https://www.pramp.com/dashboard#/
 1       - 01. sizeof(int) returns unsigned longest
 0       - 02. long vs double
 1       - 03. mmap example
+0       - 04. mmap using driver
+0       - 05. /dev/mem
