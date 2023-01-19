@@ -46,6 +46,7 @@ int main(int argc,char *argv[]) {
     p[3] = 'x';
     p[4] = 'x';
     puts(p);
+    
     munmap(p, 5);//解除映射并释放mmap申请的堆空间
     close(fd);//断开文件描述符指向，释放内核缓冲区
     return 0;
