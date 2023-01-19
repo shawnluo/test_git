@@ -63,6 +63,26 @@ char *str_cpy(const char *src, char *des, size_t len) {
     return tmp;
 }
 
+
+//[04]
+void bin_print(int n) {
+    unsigned char *p = (unsigned char *)&n;
+    p = p + 3;
+
+    for(int j = 0; j < 4; j++) {
+        for(int i = 7; i >= 0; i--) {
+            if((*p) & (1 << i)) {
+                printf("1");
+            } else {
+                printf("0");
+            }
+        }
+        p--;
+        printf("\n");
+    }
+}
+
+
 int main(void) {
     char *s = "ababcde";
     int size = strlen(s);
