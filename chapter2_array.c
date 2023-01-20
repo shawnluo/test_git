@@ -10,6 +10,10 @@ typedef struct node {
 
 #define SIZE sizeof(Node)
 
+/*
+    rotate 1/4 part of matrix
+*/
+
 void rotate(int mat[][4], int size) {
     int x, y;
     int save;
@@ -33,42 +37,13 @@ void rotate(int mat[][4], int size) {
 }
 
 
-//[08] rotate matrix new array
-void rotate_matrix_newArray(int *res, int row, int col) {
-    int x = row;
-    int y = col;
-    int (*arr)[y] = res;
-    int i, j;
-    
-//    for() {
-//        res[x][y] = res[y][];
-//    }
-}
-
-
 /*
+    rotate by layers
     设四个位置中，位于左上角区域的位置坐标为 (i,j)，
     则按顺时针顺序，四个位置分别为(i,j), (j, n-i-1), (n-i-1,n-j-1), (n-j-1,i)。
     其中 n 为 matrix.size(), i, j 分别为matrix的行列下标，从 0 开始。
 */
-
-//matrix exercise
-//1. right -> up
 void matrix_test1(int matrix[5][5], int size) {
-/*
-    p[0][0] = p[0][4];
-    p[0][1] = p[1][4];
-    p[0][2] = p[2][4];
-    p[0][3] = p[3][4];
-    p[0][4] = p[4][4];
-
-    //a + b + 1 = n ==> a = n - b - 1
-    p[x][y] = p[y][size - x - 1];
-    p[1][0] = p[0][3];
-    p[1][1] = p[1][3];
-    p[1][2] = p[2][3];
-*/
-
     for(int layer = 0; layer < size / 2; layer++) {
         int first = layer;
         int last = size - 1 -layer;
@@ -121,7 +96,6 @@ void rotateMatrix(int mat[][N]) {
         }
     }
 }
-
 
 
 void insert_arr(int *arr, int size, int pos, int val_ins) {
@@ -289,6 +263,93 @@ void rm_dup_elements_integer(int *arr, int size) {
         printf("%d ", arr[i]);
     }
     printf("\n");
+}
+
+//[7]
+void spiral_matrix(int n) {
+    int res[n][n];
+    int startx = 0, starty = 0;
+    int loop = n / 2;   //the loop times, if odd, then need to set the last element
+    int count = 1;
+    int x, y;
+    int offset = 1; //set boundary
+    int mid = n / 2;
+
+    while(loop--) {
+        x = startx;
+        y = starty;
+        //up [left, right)
+        for(y = starty; y < n - offset; y++) {
+            res[startx][y] = count++;
+        }
+        //right [up, down)
+        for(x = startx; x < n - offset; x++) {
+            res[x][y] = count++;
+        }
+        //bottom [right, left)
+        for(; y > starty; y--) {
+            res[x][y] = count++;
+        }
+        //left [down, up)
+        for(; x > startx; x--) {
+            res[x][y] = count++;
+        }
+        startx++;
+        starty++;
+        offset++;
+    }
+    if(n % 2) {
+        res[mid][mid] = count;
+    }
+
+    for(x = 0; x < n; x++) {
+        for(y = 0; y < n; y++) {
+            printf("%d ", res[x][y]);
+        }
+        printf("\n");
+    }
+}
+
+void spiral_matrix_2(const int n) {
+    int startx = 0, starty = 0;
+    int mid = n / 2;
+    int loop = n / 2;
+    int count = 1;
+    int offset = 1;
+    int res[n][n];
+    int i = startx, j = starty;
+    while(loop--) {
+        i = startx;
+        j = starty;
+
+        //up [left, right)
+        for(; j < n - offset; j++) {
+            res[startx][j] = count++;
+        }
+        //right [up, down)
+        for(; i < n - offset; i++) {
+            res[i][j] = count++;
+        }
+        //bottom [right, left)
+        for(; j > starty; j--) {
+            res[i][j] = count++;
+        }
+        //left [bottom, up)
+        for(; i > startx; i--) {
+            res[i][j] = count++;
+        }
+        startx++, starty++;
+        offset++;
+    }
+
+    if(n % 2)   res[mid][mid] = count;
+
+    for(i = 0; i < n; i++) {
+        for(j = 0; j < n; j++) {
+            printf("%d\t", res[i][j]);
+        }
+        printf("\n");
+    }
 }
 
 

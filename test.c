@@ -48,6 +48,95 @@ void print_bin_ext(int num)
     printf("\r\n");
 }
 
+#if 0
+pNode reverse_ll(pNode pHead) {
+    pNode pNext = NULL;
+    pNode pCur = pHead;
+    pNode pPrev = NULL;
+
+    while(pCur) {
+        pNext = pCur->next;
+        pCur->next = pPrev;
+        pPrev = pCur;
+        pCur = pNext;
+    }
+    return pPrev;
+}
+#endif
+
+
+void print_matrix(void *_matrix, int n) {
+    int (*matrix)[n] = _matrix;
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void rotate_matrix(void *_matrix, int n) {
+    int (*matrix)[n] = (int (*)[n])_matrix;
+    //print_matrix(matrix, n);
+
+    for(int x = 0; x < n / 2; x++) {
+        for(int y = 0; y < n / 2; y++) {
+            int save = matrix[x][y];
+            matrix[x][y] = matrix[y][n - x - 1];
+            matrix[y][n - x - 1] = matrix[n - x - 1][n - y - 1];
+            matrix[n - x - 1][n - y - 1] = matrix[n - y - 1][x];
+            matrix[n - y - 1][x] = save;
+        }
+    }
+
+    print_matrix(matrix, n);
+    /*
+        matrix[x]        [y]         = matrix[y]        [n - x - 1]
+        matrix[y]        [n - x - 1] = matrix[n - x - 1][n - y - 1]
+        matrix[n - x - 1][n - y - 1] = matrix[n - y - 1][y]
+    */
+}
+
+void spiral_matrix(int n) {
+    int startx = 0, starty = 0;
+    int count = 0;
+    int x = 0, y = 0;
+    int matrix[n][n];
+    int offset = 1;
+
+    int num = n / 2;
+    while(num--) {
+        x = startx;
+        y = starty;
+        for(y = starty; y < n - offset; y++) {
+            matrix[x][y] = count++;
+        }
+        for(x = startx; x < n - offset; x++) {
+            matrix[x][y] = count++;
+        }
+        for(; y > starty; y--) {
+            matrix[x][y] = count++;
+        }
+        for(; x > startx; x--) {
+            matrix[x][y] = count++;
+        }
+        startx++, starty++;
+        offset++;
+    }
+    if(n % 2) {
+        matrix[n / 2][n / 2] = count;
+    }
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+
+
 int main(void) {
     //int cost[5] = {6, 4, 7, 2, 1};
     //ladder_energy(5, cost);
@@ -60,7 +149,11 @@ int main(void) {
     //smallestSumSubarr(arr, sizeof(arr) / sizeof(arr[0]));
 
     //print_bin_ext(14);
-    bin_print(14);
+    //bin_print(14);
+
+    int matrix[4][4] = {{0, 1, 2, 3}, {4, 5, 6, 7}, {8, 9, 10, 11}, {12, 13, 14, 15}};
+    //rotate_matrix(matrix,4);
+    spiral_matrix(5);
 
     return 0;
 }
