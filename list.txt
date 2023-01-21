@@ -11,7 +11,7 @@ https://www.pramp.com/dashboard#/
 1       - 02. is sub string using number
 1       - 03. is sub string using pointer
 1       - 04. first non-repeat char
-1       - 05. common sub string in 2 strings
+1       - 05. longest common sub string in 2 strings
 1       - 06. longest common subsequnce in 2 strings
 1       - 07. longest unique substring
 

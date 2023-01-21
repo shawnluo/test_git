@@ -165,6 +165,103 @@ void spiral_matrix(int n) {
     }
 }
 
+
+void longest_common_substr(char *s1, char *s2) {
+    int size1 = strlen(s1);
+    int size2 = strlen(s2);
+
+    int dp[size1 + 1][size2 + 2];
+
+    for(int i = 0; i <= size1; i++) {
+        for(int j = 0; j <= size2; j++) {
+            if((i == 0 || j == 0) && (s1[i] == s2[j])) {
+                dp[i][j] = 1;
+            }
+            if(s1[i] == s2[j]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = 0;
+            }
+        }
+    }
+
+    //find the biggest dp[][];
+    //if dp[][] > 1
+    //then for loop copy to new arrary
+}
+
+void longest_common_subsequence(char *s1, char *s2) {
+    int size1 = strlen(s1);
+    int size2 = strlen(s2);
+
+    int dp[size1 + 1][size2 + 2];
+
+    for(int i = 0; i <= size1; i++) {
+        for(int j = 0; j <= size2; j++) {
+            if((i == 0 || j == 0) && (s1[i] == s2[j])) {
+                dp[i][j] = 1;
+            }
+            if((i == 0) && (j > 0)) {
+                if(dp[0][j - 1] == 1) {
+                    dp[0][j] = 1;
+                }
+            }
+            if((j == 0) && (i > 0)) {
+                if(dp[i - 1][j] == 1) {
+                    dp[i][j] = 1;
+                }
+            }
+
+            if(s1[i] == s2[j]) {
+                dp[i][j] = dp[i][j] + 1;
+            } else {
+                dp[i][j] = dp[i - 1][j] >= dp[i][j - 1] ? dp[i - 1][j] : dp[i][j - 1];
+            }
+        }
+    }
+}
+
+int longest_uniq_subs(char *s) {
+    int hash[256];
+    int pos = -1;
+    int len = 0;
+    int len_max = INT_MIN;
+
+    for(int i = 0; i < 256; i++) {
+        hash[i] = -1;
+    }
+
+    for(int i = 0; i < size; i++) {
+        pos = max(pos, hash[s[i]]);
+        len = i - pos;
+        len_max = max(len_max, len);
+        hash[s[i]] = i;
+    }
+    return len_max;
+}
+
+//TODO ins before
+int *ins_before(pNode *ppHead, int des, int new) {
+    pNode *pp = ppHead;
+
+    while((*pp) && (*pp)->data != des) {
+        pp = &(*pp)->next;
+    }
+    if(!*pp) {
+        return -1;
+    }
+
+    pNode pNew = (pNode)malloc(LEN);
+    pNew->data = new;
+    pNew->next = NULL;
+
+    pNode tmp = *pp;
+
+}
+
+//TODO ins after
+//TODO reverse
+
 int main(void) {    
     char arr1[] = "abcxd";
     char arr2[] = "xabcrpd";
