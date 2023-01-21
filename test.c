@@ -165,24 +165,10 @@ void spiral_matrix(int n) {
     }
 }
 
-
-int main(void) {
-    //int cost[5] = {6, 4, 7, 2, 1};
-    //ladder_energy(5, cost);
-    //integer_break(10);
+int main(void) {    
+    char arr1[] = "abcxd";
+    char arr2[] = "xabcrpd";
+    longest_common_subsequence(arr1, arr2);
     
-    //char s1[] = "abcxd";
-    //char s2[] = "xabcrpd";
-    //longest_common_subsequence(s1, s2);
-    //int arr[] = {-3, -4, 10, -3, -1, 7, -5};
-    //smallestSumSubarr(arr, sizeof(arr) / sizeof(arr[0]));
-
-    //print_bin_ext(14);
-    //bin_print(14);
-
-    int matrix[4][4] = {{0, 1, 2, 3}, {4, 5, 6, 7}, {8, 9, 10, 11}, {12, 13, 14, 15}};
-    //rotate_matrix(matrix,4);
-    spiral_matrix(5);
-
     return 0;
 }
