@@ -97,7 +97,7 @@ void rotate_matrix(void *_matrix, int n) {
     */
 }
 
-void spiral_matrix(int n) {
+void spiral_matrix_x(int n) {
     int startx = 0, starty = 0;
     int count = 0;
     int x = 0, y = 0;
@@ -135,6 +135,35 @@ void spiral_matrix(int n) {
     }
 }
 
+
+void spiral_matrix(int n) {
+    int mid = n / 2;
+    int offset = 1;
+    int startx = 0, starty = 0;
+    int x, y;
+    int count = 0;
+    int matrix[n][n];
+
+    while(mid--) {
+        x = startx;
+        y = starty;
+        for(y = starty; y < n - offset; y++) {
+            matrix[x][y] = count++;
+        }
+        for(x = startx; x < n - offset; x++) {
+            matrix[x][y] = count++;
+        }
+        for(; y > starty; y--) {
+            matrix[x][y] = count++;
+        }
+        for(; x > startx; x--) {
+            matrix[x][y] = count++;
+        }
+
+        startx++, starty++;
+        offset++;
+    }
+}
 
 
 int main(void) {
