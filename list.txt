@@ -100,3 +100,4 @@ https://www.pramp.com/dashboard#/
 1       - 03. mmap example
 0       - 04. mmap using driver
 0       - 05. /dev/mem
+0       - 06. mutex
