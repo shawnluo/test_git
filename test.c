@@ -240,7 +240,6 @@ int longest_uniq_subs(char *s) {
     return len_max;
 }
 
-//TODO ins before
 int *ins_before(pNode *ppHead, int des, int new) {
     pNode *pp = ppHead;
 
@@ -256,11 +255,44 @@ int *ins_before(pNode *ppHead, int des, int new) {
     pNew->next = NULL;
 
     pNode tmp = *pp;
+    *pp = pNew;
+    pNew->next = tmp;
 
+    return 0;
 }
 
-//TODO ins after
-//TODO reverse
+int *ins_after() {
+    pNode *pp = NULL;
+    while(*pp && (*pp)->data != des) {
+        pp = &((*pp)->next);
+    }
+    if(!*pp) {
+        return -1;
+    }
+    pNode pNew = (pNode)malloc(LEN);
+    pNew->data = new;
+    
+    pNode tmp = (*pp)->next;
+    (*pp)->next = pNew;
+    pNew->next = tmp;
+
+    return 0;
+}
+
+
+pNext = pHead;
+pCur = pHead;
+pPre = NULL;
+
+while(pCur) {
+    pNext = pCur->next;
+    pCur->next = pPre;
+    pPre = pCur;
+    pCur = pNext;
+}
+
+//TODO semophor
+
 
 int main(void) {    
     char arr1[] = "abcxd";

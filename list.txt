@@ -101,3 +101,4 @@ https://www.pramp.com/dashboard#/
 0       - 04. mmap using driver
 0       - 05. /dev/mem
 0       - 06. mutex
+0       - 07. pipe
