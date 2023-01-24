@@ -8,290 +8,175 @@
 #include <math.h>
 
 
-void bin_print(int n) {
-    unsigned char *p = (unsigned char *)&n;
-    p = p + 3;
-
-    for(int j = 0; j < 4; j++) {
-        for(int i = 7; i >= 0; i--) {
-            if((*p) & (1 << i)) {
-                printf("1");
-            } else {
-                printf("0");
-            }
-        }
-        p--;
-        printf("\n");
-    }
-}
-
-void print_bin_ext(int num)
-{
-    int i, j, data = 0;
-    unsigned char *p = (unsigned char *)&num + 3;     //point to the top memory address of num. (integer uses 4 bytes)
-    for(i = 0; i < 4; i++)
-    {
-        data = *(p - i); //取每个字节的首地址，从高位字节到低位字节，即p p-1 p-2 p-3地址处
-        for(j = 7; j >= 0; j--) //处理每个字节的8个位，注意字节内部的二进制数是按照人的习惯存储！
-        {
-            if(data & (1 << j))//1左移k位，与单前的字节内容j进行或运算，如k=7时，00000000&10000000=0 ->该字节的最高位为0
-            {
-                printf("1");
-            }
-            else
-            {
-               printf("0");
-            }
-        }
-        printf(" ");
-    }
-    printf("\r\n");
-}
-
-#if 0
-pNode reverse_ll(pNode pHead) {
-    pNode pNext = NULL;
-    pNode pCur = pHead;
-    pNode pPrev = NULL;
+/*
+    delete duplicats from an unsorted linked list
+*/
+void del_dups(pNode pHead) {
+    pNode pPrev = pHead;
+    pNode pCur = pPrev->pHead;
 
     while(pCur) {
-        pNext = pCur->next;
-        pCur->next = pPrev;
-        pPrev = pCur;
-        pCur = pNext;
-    }
-    return pPrev;
-}
-#endif
-
-
-void print_matrix(void *_matrix, int n) {
-    int (*matrix)[n] = _matrix;
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            printf("%d ", matrix[i][j]);
-        }
-        printf("\n");
-    }
-}
-
-void rotate_matrix(void *_matrix, int n) {
-    int (*matrix)[n] = (int (*)[n])_matrix;
-    //print_matrix(matrix, n);
-
-    for(int x = 0; x < n / 2; x++) {
-        for(int y = 0; y < n / 2; y++) {
-            int save = matrix[x][y];
-            matrix[x][y] = matrix[y][n - x - 1];
-            matrix[y][n - x - 1] = matrix[n - x - 1][n - y - 1];
-            matrix[n - x - 1][n - y - 1] = matrix[n - y - 1][x];
-            matrix[n - y - 1][x] = save;
-        }
-    }
-
-    print_matrix(matrix, n);
-    /*
-        matrix[x]        [y]         = matrix[y]        [n - x - 1]
-        matrix[y]        [n - x - 1] = matrix[n - x - 1][n - y - 1]
-        matrix[n - x - 1][n - y - 1] = matrix[n - y - 1][y]
-    */
-}
-
-void spiral_matrix_x(int n) {
-    int startx = 0, starty = 0;
-    int count = 0;
-    int x = 0, y = 0;
-    int matrix[n][n];
-    int offset = 1;
-
-    int num = n / 2;
-    while(num--) {
-        x = startx;
-        y = starty;
-        for(y = starty; y < n - offset; y++) {
-            matrix[x][y] = count++;
-        }
-        for(x = startx; x < n - offset; x++) {
-            matrix[x][y] = count++;
-        }
-        for(; y > starty; y--) {
-            matrix[x][y] = count++;
-        }
-        for(; x > startx; x--) {
-            matrix[x][y] = count++;
-        }
-        startx++, starty++;
-        offset++;
-    }
-    if(n % 2) {
-        matrix[n / 2][n / 2] = count;
-    }
-
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            printf("%d ", matrix[i][j]);
-        }
-        printf("\n");
-    }
-}
-
-
-void spiral_matrix(int n) {
-    int mid = n / 2;
-    int offset = 1;
-    int startx = 0, starty = 0;
-    int x, y;
-    int count = 0;
-    int matrix[n][n];
-
-    while(mid--) {
-        x = startx;
-        y = starty;
-        for(y = starty; y < n - offset; y++) {
-            matrix[x][y] = count++;
-        }
-        for(x = startx; x < n - offset; x++) {
-            matrix[x][y] = count++;
-        }
-        for(; y > starty; y--) {
-            matrix[x][y] = count++;
-        }
-        for(; x > startx; x--) {
-            matrix[x][y] = count++;
-        }
-
-        startx++, starty++;
-        offset++;
-    }
-}
-
-
-void longest_common_substr(char *s1, char *s2) {
-    int size1 = strlen(s1);
-    int size2 = strlen(s2);
-
-    int dp[size1 + 1][size2 + 2];
-
-    for(int i = 0; i <= size1; i++) {
-        for(int j = 0; j <= size2; j++) {
-            if((i == 0 || j == 0) && (s1[i] == s2[j])) {
-                dp[i][j] = 1;
+        pNode pRunner = pHead;
+        while(pRunner != pCur) {
+            if(pRunner->data == pCur->data) {
+                pPrev->next = pCur->next;
+                pCur = pCur->next;
+                break;
             }
-            if(s1[i] == s2[j]) {
-                dp[i][j] = dp[i - 1][j - 1] + 1;
-            } else {
-                dp[i][j] = 0;
-            }
+            pRunner = pRunner->next;
         }
-    }
 
-    //find the biggest dp[][];
-    //if dp[][] > 1
-    //then for loop copy to new arrary
-}
-
-void longest_common_subsequence(char *s1, char *s2) {
-    int size1 = strlen(s1);
-    int size2 = strlen(s2);
-
-    int dp[size1 + 1][size2 + 2];
-
-    for(int i = 0; i <= size1; i++) {
-        for(int j = 0; j <= size2; j++) {
-            if((i == 0 || j == 0) && (s1[i] == s2[j])) {
-                dp[i][j] = 1;
-            }
-            if((i == 0) && (j > 0)) {
-                if(dp[0][j - 1] == 1) {
-                    dp[0][j] = 1;
-                }
-            }
-            if((j == 0) && (i > 0)) {
-                if(dp[i - 1][j] == 1) {
-                    dp[i][j] = 1;
-                }
-            }
-
-            if(s1[i] == s2[j]) {
-                dp[i][j] = dp[i][j] + 1;
-            } else {
-                dp[i][j] = dp[i - 1][j] >= dp[i][j - 1] ? dp[i - 1][j] : dp[i][j - 1];
-            }
+        if(pRunner == pCur) {
+            pRev = pCur;
+            pCur = Pcur->next;
         }
     }
 }
 
-int longest_uniq_subs(char *s) {
-    int hash[256];
-    int pos = -1;
-    int len = 0;
-    int len_max = INT_MIN;
-
-    for(int i = 0; i < 256; i++) {
-        hash[i] = -1;
+/*
+    find the nth to last element of a singly linked list
+*/
+pNode nth_to_Last(pNode pHead, int n) {
+    if(pHead == NULL || n < 1) {
+        return NULL;
     }
 
-    for(int i = 0; i < size; i++) {
-        pos = max(pos, hash[s[i]]);
-        len = i - pos;
-        len_max = max(len_max, len);
-        hash[s[i]] = i;
+    pNode p1 = pHead;
+    pNode p2 = pHead;
+
+    for(int i = 0; i < n - 1; i++) {
+        if(p2 == NULL) {
+            return NULL;
+        }
+        p2 = p2->next;
     }
-    return len_max;
+    while(p2->next) {
+        p1 = p1->next;
+        p2 = p2->next;
+    }
+    return p1;
 }
 
-int *ins_before(pNode *ppHead, int des, int new) {
-    pNode *pp = ppHead;
 
-    while((*pp) && (*pp)->data != des) {
-        pp = &(*pp)->next;
-    }
-    if(!*pp) {
+/*
+    delete a node in the middle of a single linked list, given only access to that node
+*/
+int deleteNode(pNode p) {
+    if(p == NULL || p->next == NULL) {
         return -1;
     }
 
-    pNode pNew = (pNode)malloc(LEN);
-    pNew->data = new;
-    pNew->next = NULL;
-
-    pNode tmp = *pp;
-    *pp = pNew;
-    pNew->next = tmp;
-
-    return 0;
-}
-
-int *ins_after() {
-    pNode *pp = NULL;
-    while(*pp && (*pp)->data != des) {
-        pp = &((*pp)->next);
-    }
-    if(!*pp) {
-        return -1;
-    }
-    pNode pNew = (pNode)malloc(LEN);
-    pNew->data = new;
-    
-    pNode tmp = (*pp)->next;
-    (*pp)->next = pNew;
-    pNew->next = tmp;
+    p->data = p->Next->data;
+    p->next = p->next->next;
 
     return 0;
 }
 
 
-pNext = pHead;
-pCur = pHead;
-pPre = NULL;
+/*
+    TODO: add 2 linkedlist - recusion
+*/
+pNode addLists_recusion(pNode pHead1, pNode pHead2, int carry) {
+    if(pHead1 == NULL && pHead2 == NULL) {
+        return NULL;
+    }
 
-while(pCur) {
-    pNext = pCur->next;
-    pCur->next = pPre;
-    pPre = pCur;
-    pCur = pNext;
+    pNode result = (pNode)malloc(LEN);
+    int value = carry;
+    if(pHead1 != NULL) {
+        value += pHead1->data;
+    }
+    if(pHead2 != NULL) {
+        value += pHead2->data;
+    }
+
+    result->data = value % 10;
+
 }
 
-//TODO semophor
+
+/*
+    add 2 linkedlist - loop
+*/
+int append_LL(pHead pNew, int data) {
+    if(pNew == NULL) {
+        pNew->data = data;
+        pNew->next = NULL;
+        return 0;
+    }
+
+    while(pNew->next) {
+        pNew = pNew->next;
+    }
+    ptmp = (pNode)malloc(LEN);
+    ptmp->data = data;
+    ptmp->next = NULL;
+    pNew->next = ptmp;
+
+    return 0;
+}
+
+pNode addLists(pNode pHead1, pNode pHead2) {
+    if(!pHead1 && !pHead2) {
+        return NULL;
+    }
+
+    pNode pNew = NULL;
+    int carry = 0;
+
+    while(pHead1 != NULL || pHead2 != NULL) {
+        if(pHead1 == NULL) {
+            data = pHead2->data + carry;
+            if(data >= 10) {
+                data = data - 10;
+                carry = 1;
+            }
+            append_LL(pNew, data);
+            pHead2 = pHead2->next;
+            continue;
+        }
+        if(pHead2 == NULL) {
+            data = pHead1->data + carry;
+            if(data >= 10) {
+                data = data - 10;
+                carry = 1;
+            }
+            append_LL(pNew, data);
+            pHead1 = pHead1->next;
+            continue;
+        }
+        data = pHead1->data + pHead2->data + carry;
+        if(data >= 10) {
+            data = data - 10;
+            carry = 1;
+        }
+        append_LL(pNew, data);
+        pHead1 = pHead1->next;
+        pHead2 = pHead2->next;        
+    }
+    return pNew;
+}
+
+
+pNode Find_Entry_circular(pNode pHead) {
+    pNode pFast = pHead->next->next;
+    pNode pSlow = pHead->next;
+
+    while(pFast != NULL && pFast != pSlow) {
+        pFast = pFast->next->next;
+        pSlow = pSlow->next;
+    }
+    if(pFast == NULL) {
+        return NULL;
+    }
+
+    pFast = pHead;
+    while(pFast != pSlow) {
+        pFast = pFast->next;
+        pSlow = pSlow->next;
+    }
+    return pFast;
+}
 
 
 int main(void) {    
