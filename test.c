@@ -179,6 +179,22 @@ pNode Find_Entry_circular(pNode pHead) {
 }
 
 
+//stack
+int stackSize = 100;
+int stack[stackSize];
+int sp = 0;
+void push(int stack, int value) {
+
+}
+
+int pop(int stack) {
+
+}
+
+int peek(int stack) {
+
+}
+
 int main(void) {    
     char arr1[] = "abcxd";
     char arr2[] = "xabcrpd";
