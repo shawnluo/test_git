@@ -213,6 +213,19 @@ int shortest_consective_arr(int arr[], int size, int key) {
 }
 
 
+int short_consecutive(int arr[], int size, int key) {
+    for(right = 0; right < size; right++) {
+        sum += arr[right];
+        while(left <= right && sum >= key) {
+            len = right - left + 1;
+            len_min = len < len_min ? len : len_min;
+            sum -= arr[left++];
+        }
+    }
+    return len_min;
+}
+
+
 int main(void) {
     #if 0
     pNode pHead = NULL;
