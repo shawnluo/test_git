@@ -1,9 +1,10 @@
 #include <stdlib.h>
+#include <unistd.h>
 #include <pthread.h>
 #include <stdio.h>
 #include <semaphore.h>
 
-#define NUM 1
+#define NUM 5
 int queue[NUM];
 sem_t blank_number, product_number;
 void *producer(void *arg) {
@@ -14,7 +15,8 @@ void *producer(void *arg) {
         printf("Produce %d\n", queue[p]);
         sem_post(&product_number);
         p = (p + 1) % NUM;
-        sleep(rand() % 5);
+        //sleep(rand() % 5);
+        sleep(1);
     }
 }
 void *consumer(void *arg) {
@@ -25,7 +27,8 @@ void *consumer(void *arg) {
         queue[c] = 0;
         sem_post(&blank_number);
         c = (c + 1) % NUM;
-        sleep(rand() % 5);
+        //sleep(rand() % 5);
+        sleep(5);
     }
 }
 

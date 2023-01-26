@@ -23,10 +23,23 @@ int mystrstr(char *haystack, char *needle) {
         }
     }
     
-    return 0;
+    return -1;
 }
 
+//[4] first non-repeat char
+int first_non_repeat2(char *s) {
+    int size = strlen(s);
+    int hash[256] = {0};
+    int i;
 
+    for(i = 0; i < size; i++) {
+        if(hash[s[i]]) {
+            return i;
+        }
+        hash[s[i]] = i;
+    }
+    return -1;
+}
 
 
 #if 0
@@ -50,6 +63,7 @@ int shortest_consective_arr_dp(int *arr, int size, int key) {
 }
 #endif
 
+//[8] shortest
 int shortest_consective_arr_dp(int *res, int size, int key) {
     int left = 0, right = 0;
     int len, len_min = INT_MAX;
