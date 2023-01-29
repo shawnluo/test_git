@@ -377,6 +377,24 @@ void spiral_matrix_2(const int n) {
 }
 
 
+//[16]
+unsigned int reverse_interger(unsigned int num) {
+    if(num < 10) {
+        return num;
+    }
+
+    int sum = 0;
+    int remainder = 0;
+
+    while(num) {
+        remainder = num % 10;
+        num /= 10;
+        sum = sum * 10 + remainder;
+    }
+
+    return sum;
+}
+
 int main(void) {
     int mat[][4] = {{1, 2, 3, 4},
                     {5, 6, 7, 8},

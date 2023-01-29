@@ -33,6 +33,7 @@ https://www.pramp.com/dashboard#/
 1       - 13. remove duplicated elements
 1       - 14. insert key to array
 1       - 15. move elements backward 1 pos from number n
+1       - 16. reverse interger
 
 /*******************  chapter 3 - sorting  ********************/
 1       - 01. binary search
