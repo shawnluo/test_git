@@ -15,6 +15,7 @@ https://www.pramp.com/dashboard#/
 1       - 06. longest common subsequnce in 2 strings
 1       - 07. longest unique substring
 0       - 08. shortest sum of consective array equal key
+0       - 09. z transform
 
 /*******************  chapter 2 - array  ********************/
 1       - 01. char *arr[], char (*arr)[]

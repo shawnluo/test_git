@@ -498,3 +498,48 @@ void merge_2_arrays(int *res1, int size1, int *res2, int size2, int *resNew) {
     }
     printf("\n");
 }
+
+/*
+a       e
+b   d   f   h
+c       g
+
+->aebdfhcg
+*/
+//TODO [09]
+void z_transform(char *s, int n) {
+    int x = 0, y = 0;
+    int count = 0;
+    int size = strlen(s);
+    int row = n;
+    int col = 2 * size / (n + n - 2);
+    int arr[row][col];
+
+    for(int i = 0; i < row; i++) {
+        for(int j = 0; j < col; j++) {
+            arr[i][j] = '\0';
+        }
+    }
+
+    while(count < size) {
+        for(int i = 0; i < n; i++) {
+            printf("%d, %d\n", x, y);
+            arr[x++][y] = s[count++];
+        }
+        x -= 2;
+        ++y;
+        
+
+        for(int i = 0; i < n - 2; i++) {
+            printf("%d, %d\n", x, y);
+            arr[x--][y++] = s[count++];
+        }
+    }
+
+    for(x = 0; x < row; x++) {
+        for(y = 0; y < col; y++) {
+            printf("%c ", arr[x][y]);
+        }
+        printf("\n");
+    }
+}
