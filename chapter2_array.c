@@ -227,7 +227,7 @@ int smallestSumSubarr(int arr[], int n) {
 }
 
 
-//[13] remove duplicated elements
+//[13] - 1 remove duplicated elements
 //
 void rm_dup_elements(char *str) {
     int hash[256] = {0};
@@ -264,6 +264,30 @@ void rm_dup_elements_integer(int *arr, int size) {
     }
     printf("\n");
 }
+
+
+//[13] - double pointers
+int rm_dup(int arr[], int size, int target) {
+    int fast = 0, slow = 0;
+    for(fast = 0; fast < size; ) {
+        if(arr[fast] == target) {
+            fast++;
+        } else {
+            arr[slow++] = arr[fast++];
+        }
+    }
+    return slow;
+}
+
+void rm_dup(int arr[], int size) {
+    int pos;
+    int newSize;
+    for(pos = 1; pos < size; pos++) {
+        newSize = pos + rm_dup(arr + pos, size - pos, arr[pos - 1]);
+        size = newSize;
+    }
+}
+
 
 //[7]
 void spiral_matrix(int n) {
