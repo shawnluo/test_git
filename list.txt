@@ -26,6 +26,7 @@ https://www.pramp.com/dashboard#/
 1       - 06. sorting the square of an array elements
 1       - 07. spiral matrix
 1       - 08. rotate matrix
+1       - 08 - 2. rotate matrix (flip over diagonal)
 1       - 09. shortest consective sum of elements(positive) >= key  brute force
 1       - 10. shortest consective sum of elements(positive) >= key  slide window
 1       - 11. smallest sum contiguous subarray
