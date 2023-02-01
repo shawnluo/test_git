@@ -45,7 +45,6 @@ void rotate() {
 
 
 int reverse_int(int num) {
-    int n;
     int remainder;
     int sum = 0;
     while(num) {
@@ -60,14 +59,32 @@ int reverse_int(int num) {
 
 //https://zhuanlan.zhihu.com/p/459055987
 
+
+int tribonacci(int n){
+    //int *dp = (int *)malloc(sizeof(int) * (n + 1));
+    int dp[n];
+    dp[0] = 0;
+    dp[1] = 1;
+    dp[2] = 1;
+    for(int i = 3; i < n; i++) {
+        dp[n] = dp[n - 1] + dp[n - 2] + dp[n - 3];
+    }
+    printf("%d\n", dp[n]);
+    //return dp[n];
+    return 1;
+}
+
 int main(void) {
     //int nums[] = {1, 1, 1, 8, 6, 0, 6 ,7};
     //int size = sizeof(nums) / sizeof(nums[0]);
     //int ret = removeDuplicates(nums, size);
     //longestPalindrome("xyxyz");
-    rotate();
+    //rotate();
     //hanoi(5, 'A', 'B', 'C'); //TODO
     //reverse_int(1234);
+    tribonacci(4);
+    //tribonacci(5);
+    //printf("%d\n", res);
 
     return 0;
 }
