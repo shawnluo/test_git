@@ -89,6 +89,7 @@ https://www.pramp.com/dashboard#/
 0       - 07. robot path 2
 0       - 08. one integer break to - sum of 2 integers, and maximum of multiple
 1       - 09. tribpnacci
+0       - 10. Longest Increasing Subsequence
 
 /*******************  chapter 8 - hash table  ********************/
 0       - 01. isAnagram
