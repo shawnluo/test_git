@@ -353,7 +353,7 @@ int isSub2(char *s, char *sub) {
 }
 
 //abcba -> c
-int first_nonrepeat(char *s) {
+int is_repeat(char *s) {
     int hash[256] = {0};
     char *p;
     for(p = s; *p; p++) {
@@ -368,6 +368,25 @@ int first_nonrepeat(char *s) {
     printf("there is no non-repeat character!\n");
     return -1;
 }
+
+/*
+    - 04. first non-repeat char
+*/
+int firs_non_repeat(char *s) {
+    if(!s) {
+        return -1;
+    }
+    int hash[256] = {0};
+    int size = strlen(s);
+    for(int i = 0; i < size; i++) {
+        if(hash[s[i]]) {
+            return i;
+        }
+        hash[s[i]]++;
+    }
+    return -2;
+}
+
 
 void common_sub_str(char *s1, char *s2, int size1, int size2) {
     //int size1 = strlen(s1);

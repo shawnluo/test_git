@@ -395,6 +395,45 @@ unsigned int reverse_interger(unsigned int num) {
     return sum;
 }
 
+
+
+void move(char x, char y) {
+    printf("%c --> %c\n", x, y);
+}
+//move n plates, from one to three, by using two as a buffer
+void hanoi(int n, char one, char two, char three) {
+    if (n == 1) {
+        move(one, three);
+    } else {
+        hanoi(n - 1, one, three, two);
+        move(one, three);
+        hanoi(n - 1, two, one, three);
+    }
+}
+
+
+void rotate() {
+    int arr[][4] = {{0, 1, 2, 3},
+                {4, 5, 6, 7},
+                {8, 9, 10, 11},
+                {12, 13, 14, 15}};
+
+    for(int i = 0; i < 4; i++) {
+        for(int j = i; j < 4; j++) {
+            int save = arr[j][i];
+            arr[j][i] = arr[i][j];
+            arr[i][j] = save;
+        }
+    }
+
+    for(int i = 0; i < 4; i++) {
+        for(int j = 0; j < 4; j++) {
+            printf("%d ", arr[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 int main(void) {
     int mat[][4] = {{1, 2, 3, 4},
                     {5, 6, 7, 8},

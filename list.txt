@@ -14,7 +14,7 @@ https://www.pramp.com/dashboard#/
 1       - 05. longest common sub string in 2 strings
 1       - 06. longest common subsequnce in 2 strings
 1       - 07. longest unique substring
-0       - 08. shortest sum of consective array equal key
+0       - 08. shortest sum of consective array equal or larger than key
 0       - 09. z transform
 
 /*******************  chapter 2 - array  ********************/
@@ -35,6 +35,7 @@ https://www.pramp.com/dashboard#/
 1       - 14. insert key to array
 1       - 15. move elements backward 1 pos from number n
 1       - 16. reverse interger
+1       - 17. hanoi
 
 /*******************  chapter 3 - sorting  ********************/
 1       - 01. binary search
@@ -87,6 +88,7 @@ https://www.pramp.com/dashboard#/
 0       - 06. robot path
 0       - 07. robot path 2
 0       - 08. one integer break to - sum of 2 integers, and maximum of multiple
+1       - 09. tribpnacci
 
 /*******************  chapter 8 - hash table  ********************/
 0       - 01. isAnagram

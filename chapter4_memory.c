@@ -5,6 +5,17 @@
 #include <stddef.h>
 #include <assert.h>
 
+
+/*  1. malloc new size;
+        1). new_size = size + offset;
+        2). offset = base - 1 + sizeof(size_t)
+        3). address = malloc(new_size)
+    3. what's the return new_address
+        1). new_address = (address + offset) & ~(base - 1)
+    4. save the difference between address and new_address
+        *(new_address - 1) = new_address - address
+    5. return new_address
+*/
 void *alignment_malloc(size_t size, size_t alignment) {
     //1. need add a offset to malloc enough space
     int offset = alignment - 1;

@@ -138,6 +138,20 @@ int integer_break(int n) {
     return dp[n];
 }
 
+int tribonacci(int n){
+    //int *dp = (int *)malloc(sizeof(int) * (n + 1));
+    int dp[n];
+    dp[0] = 0;
+    dp[1] = 1;
+    dp[2] = 1;
+    for(int i = 3; i < n; i++) {
+        dp[n] = dp[n - 1] + dp[n - 2] + dp[n - 3];
+    }
+    printf("%d\n", dp[n]);
+    //return dp[n];
+    return 1;
+}
+
 
 int main() {
     char s1[MAX_LEN + 1] = "AGGTAB";
