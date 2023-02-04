@@ -36,6 +36,7 @@ https://www.pramp.com/dashboard#/
 1       - 15. move elements backward 1 pos from number n
 1       - 16. reverse interger
 1       - 17. hanoi
+0       - 18. roman to decimal
 
 /*******************  chapter 3 - sorting  ********************/
 1       - 01. binary search

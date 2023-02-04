@@ -57,11 +57,39 @@ int bestTeamScore(int* scores, int scoresSize, int* ages, int agesSize){
   return ret;
 }
 
+
+void romanToInt() {
+    char s[] = "MDC";
+    int t['X' + 1] = {
+        ['I'] = 1,
+        ['V'] = 5,
+        ['X'] = 10,
+        ['L'] = 50,
+        ['C'] = 100,
+        ['D'] = 500,
+        ['M'] = 1000,
+    };
+    int res = 0;
+    for (int i = 0; s[i]; i++) {
+        if (t[s[i]] < t[s[i+1]])
+            res -= t[s[i]];
+        else
+            res += t[s[i]];
+    }
+    printf("%d\n", res);
+}
+
+
+void test2() {
+  int nums[] = {
+    ['I'] = 1,
+    ['M']  = 1000,
+  };
+
+}
+
+
 int main(void) {
-    int scores[]    = {10,  80, 60, 50, 100};
-    int ages[]      = {1,   8,  6,  5,  1};
-    int ret = bestTeamScore(scores, 5, ages, 5);
-    printf("%d\n", ret);
- 
+    test();
     return 0;
 }
