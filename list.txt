@@ -16,6 +16,7 @@ https://www.pramp.com/dashboard#/
 1       - 07. longest unique substring
 0       - 08. shortest sum of consective array equal or larger than key
 0       - 09. z transform
+0       - 10. Permutation in String(leetcode 567)
 
 /*******************  chapter 2 - array  ********************/
 1       - 01. char *arr[], char (*arr)[]

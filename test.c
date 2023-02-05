@@ -24,50 +24,28 @@ void test() {
 
 
 bool checkInclusion(char * s1, char * s2){
-#if 0
     int size1 = strlen(s1);
     int size2 = strlen(s2);
     if(size1 > size2) {
         return 0;
     }
-
+    int i, j;
     int hash[256] = {0};
-    for(int i = 0; i < size1; i++) {
+    for(i = 0; i < size1; i++) {
         hash[s1[i]]++;
     }
 
-    for(int i = 0; i < size2; i++) {
+    for(i = 0; i < size2; i++) {
         hash[s2[i]]--;
-    }
-    for(int i = 0; i < size1; i++) {
-        if(hash[s1[i]] > 0) {
-            return 0;
+        if(i >= size1) {
+            hash[s2[i - size1]]++;
         }
-    }
-    return 1;
-#endif
-int len1 = strlen(s1);
-    int len2 = strlen(s2);
-    if(len1 > len2) {
-        return false;
-    }
-
-    int count[26] = {0};
-    for(int i = 0; i < len1; i++){
-        count[s1[i] - 'a']++;
-    }
-    for(int i = 0; i < len2; i++){
-        count[s2[i] - 'a']--;
-        if(i >= len1){
-            count[s2[i - len1] - 'a']++;
-        }
-        int j;
-        for(j = 0; j < 26; j++){
-            if(count[j] != 0) {
+        for(j = 0; j < size2; j++) {
+            if(hash[j] != 0) {
                 break;
             }
         }
-        if(j == 26) {
+        if(j == 256) {
             return true;
         }
     }
@@ -76,7 +54,7 @@ int len1 = strlen(s1);
 
 
 int main(void) {
-    test();
+    checkInclusion("ab", "xabt");
 
     return 0;
 }
