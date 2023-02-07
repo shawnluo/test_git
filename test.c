@@ -2,59 +2,38 @@
 #include "test.h"
 
 
-void test() {
-    int scores[]    = {10,  80, 60, 50, 10};
-    int ages[]      = {1,   8,  6,  5,  1};
-
-    for(int i = 0; i < 5; i++) {
-        for(int j = 0; j < 5 - i - 1; j++) {
-            if(ages[j] > ages[j + 1]) {
-                int tmp = scores[j];
-                scores[j] = scores[j + 1];
-                scores[j + 1] = tmp;
-            }
+void test(int **nums, int row, int col) {
+    int count = 0;
+    for(int i = 0; i < 4; i++) {
+        for(int j = 0; j < 3; j++) {
+            nums[i][j] =  count++;
         }
     }
-
-    for(int i = 0; i < 5; i++) {
-        printf("%d ", scores[i]);
-    }
-    printf("\n");
 }
 
 
-bool checkInclusion(char * s1, char * s2){
-    int size1 = strlen(s1);
-    int size2 = strlen(s2);
-    if(size1 > size2) {
-        return 0;
-    }
-    int i, j;
-    int hash[256] = {0};
-    for(i = 0; i < size1; i++) {
-        hash[s1[i]]++;
-    }
-
-    for(i = 0; i < size2; i++) {
-        hash[s2[i]]--;
-        if(i >= size1) {
-            hash[s2[i - size1]]++;
+void myprintt(int **nums, int row, int col) {
+    for(int i = 0; i < row; i++) {
+        for(int j = 0; j < col; j++) {
+            printf("%d ", nums[i][j]);
         }
-        for(j = 0; j < size2; j++) {
-            if(hash[j] != 0) {
-                break;
-            }
-        }
-        if(j == 256) {
-            return true;
-        }
+        printf("\n");
     }
-    return false;
 }
 
 
 int main(void) {
-    checkInclusion("ab", "xabt");
+    int row = 4;
+    int col = 3;
+
+    int **nums = (int **)malloc(sizeof(int *) * row);
+    for(int i = 0; i < 4; i++) {
+        nums[i] = (int *)malloc(sizeof(int *) * col);
+    }
+
+    //{{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {9, 10, 11}};
+    test(nums, 4, 3);
+    myprintt(nums, 4, 3);
 
     return 0;
 }

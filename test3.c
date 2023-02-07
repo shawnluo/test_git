@@ -27,6 +27,26 @@ void findAnagrams(const char *s1, const char *s2) {
     }
 }
 
+//TODO 1
+void findAnagrams_1(const char *s1, const char *s2) {
+
+}
+
+//TODO 2
+int longest_increasing_subsequence(const int nums[], int len) {
+    int i, j;
+    int dp[len];
+
+    dp[]
+
+    for(i = 1; i < size; i++) {
+        for(j = 0; j < i; j++) {
+            if(nums[i] > nums[j]) {
+                dp[i] = max(dp[i], dp[j] + 1);
+            }
+        }
+    }
+}
 
 int main(void) {
     findAnagrams("xabtbay", "ab");
