@@ -11,6 +11,6 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <stdbool.h>
-
+#include <assert.h>
 
 #endif
