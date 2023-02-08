@@ -19,7 +19,6 @@ https://www.pramp.com/dashboard#/
 0       - 10. Permutation in String(leetcode 567)
 0       - 11. find andgrams in a string
 
-
 /*******************  chapter 2 - array  ********************/
 1       - 01. char *arr[], char (*arr)[]
 1       - 02. longest unique characters in a string
@@ -104,6 +103,7 @@ https://www.pramp.com/dashboard#/
 /*******************  chapter 9 - recursion  ********************/
 0       - 01. binary print 1
 0       - 02. two recursion in one recursion
+0       - 03. permutation
 
 /*******************  chapter 10 - others  ********************/
 1       - 01. sizeof(int) returns unsigned longest
