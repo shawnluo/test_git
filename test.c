@@ -21,13 +21,15 @@ void myprintt(int **nums, int row, int col) {
     }
 }
 
-
+/*
 void swap(char *x, char *y) {
     char tmp = *x;
     *x = *y;
     *y = tmp;
 }
+*/
 
+#define swap(a, b) (a) = (b) - (a), (b) = (b) - (a), (a) = (b) + (a)
 
 void permutation(char *pStr, char *pBegin) {
     assert(pStr && pBegin);
@@ -36,9 +38,9 @@ void permutation(char *pStr, char *pBegin) {
         printf("%s\n", pStr);
     } else {
         for(char *pCh = pBegin; *pCh != '\0'; pCh++) {
-            swap(pBegin, pCh);
+            swap(*pBegin, *pCh);
             permutation(pStr, pBegin + 1);
-            swap(pBegin, pCh);
+            swap(*pBegin, *pCh);
         }
     }
 }

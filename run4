@@ -1,0 +1,1 @@
+rm test4; gcc test4.c -o test4 && ./test4
