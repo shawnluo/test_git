@@ -12,5 +12,6 @@
 #include <sys/mman.h>
 #include <stdbool.h>
 #include <assert.h>
+#include <limits.h>
 
 #endif

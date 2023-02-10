@@ -3,36 +3,46 @@
 
 
 
-#define swap(a, b) (a) = (b) - (a), (b) = (b) - (a), (a) = (b) + (a)
-
-void permutation(char *pStr, char *pBegin) {
-    assert(pStr && pBegin);
-
-    if(*pBegin == '\0') {
-        printf("%s\n", pStr);
-    } else {
-        for(char *pCh = pBegin; *pCh != '\0'; pCh++) {
-            swap(*pBegin, *pCh);
-            permutation(pStr, pBegin + 1);
-            swap(*pBegin, *pCh);
-        }
+//TODO chapter 5
+create() {
+    pNode pHead = NULL;
+    while(size--) {
+        p = (pNode)malloc(LEN);
+        p->data = nums[size];
+        p->next = pHead;
+        pHead = p;
     }
 }
 
-
-void test(char *x, char *y) {
-    char tmp;
-    tmp = *x;
-    *x = *y;
-    *y = tmp;
+create2() {
+    if(pHead == NULL) {
+        p = (pNode)malloc(LEN);
+        p->data = nums[0];
+        p->next = NULL:
+        pNext = pHead;
+    }
+    pNew = pHead;
+    for(i = 1; i < size; i++) {
+        p = (pNode)malloc(LEN);
+        p->data = nums[i];
+        p->next = NULL;
+        pNext->next = p;
+        pNext = p;
+    }
 }
 
+//TODO chapter 6
+
+#define REG *(volatile unsigned int *)0x55000000
+REG | 0x1
+for(i = 0; i < 8; i++) {
+    REG |= (1 << i);
+    REG &= ~(1 << i);
+}
 
 int main(void) {
-    char s[] = "abc";
-    printf("%s\n", s);
-    test(&s[0], &s[2]);
-    printf("%s\n", s);
+    //char s[] = "abc";
+    //find_anagrams("xvabc", "av");
     
     return 0;
 }
