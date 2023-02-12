@@ -6,6 +6,9 @@
 #include <sys/mman.h>
 #include <unistd.h>
 
+/*
+    ./mmap_read test.txt 
+*/
 int main(int argc, const char *argv[])
 {    
     //const char *filepath = "/tmp/mmapped.bin";

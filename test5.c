@@ -31,8 +31,9 @@ int main(void) {
         qsort(s, len, sizeof(char), cmp); // s字符串递增排序
         d[0] = s[0];
         for (i = 1, j = 1; i < len; i++) {// 挑选出s中独一无二的字符 存到d
-            if (s[i] != s[i - 1])
+            if (s[i] != s[i - 1]) {
                 d[j++] = s[i];
+            }
         }
         d[j] = '\0';
         for (i = 1; i <= j; i++){

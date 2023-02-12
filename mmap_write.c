@@ -7,6 +7,10 @@
 #include <sys/mman.h>
 #include <string.h>
 
+/*
+    ./mmap_write test.txt "show me the money ?"  
+*/
+
 int main(int argc, const char *argv[])
 {
     if (argc < 2)
