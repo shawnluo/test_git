@@ -152,6 +152,26 @@ int tribonacci(int n){
     return 1;
 }
 
+/*  Longest Increasing Subsequence
+    2, 9, 3, 0, 5, 13 -> 2, 3, 5, 13
+
+*/
+int longest_increasing_subseq(int nums[], int len) {
+    int dp[len];
+    int res = INT_MIN;
+
+    //dp[i]: longest sub sequence including nums[i]
+    for(int i = 0; i < len; i++) {
+        for(int j = 0; j < i; j++) {
+            if(dp[i] > dp[j]) {
+                dp[i] = max(dp[i], dp[j] + 1);
+            }
+        }
+        res = dp[i] > res ? dp[i] : res;
+    }
+    return res;
+}
+
 
 int main() {
     char s1[MAX_LEN + 1] = "AGGTAB";
