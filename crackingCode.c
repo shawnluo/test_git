@@ -209,9 +209,15 @@ char *addBinary(char *a, char *b) {
 
     while(sizeA > 0 || sizeB > 0 || sizeOutput > 0) {
         if(sizeA > 0) {
-            output[--sizeA]
+            sum += a[--sizeA] - '0';
         }
+        if(sizeB > 0) {
+            sum += b[--sizeB] - '0';
+        }
+        output[--sizeOutput] = sum % 2 + '0';
+        sum /= 2;
     }
+    return output + sizeOutput;
 }
 
 
