@@ -113,3 +113,5 @@ https://www.pramp.com/dashboard#/
 0       - 05. /dev/mem
 0       - 06. mutex
 0       - 07. pipe
+
+0       - 100. add binary, return string

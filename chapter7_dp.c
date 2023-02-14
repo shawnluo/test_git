@@ -29,7 +29,7 @@ static inline int min(int i, int j) {
     return i < j ? i : j;
 }
 
-int ladder_energy(int n, int cost[n]) {
+int ladder_cost(int n, int cost[n]) {
     int i = 0;
     int dp[n + 1];
     dp[0] = 0;

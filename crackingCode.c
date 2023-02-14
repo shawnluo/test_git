@@ -195,6 +195,26 @@ int peek(int stack) {
 
 }
 
+//[100] add binary, and return string
+//  "101" "1001" -> "1110"
+char *addBinary(char *a, char *b) {
+    if(a == NULL || b == NULL) {
+        return NULL;
+    }
+    int sizeA = strlen(a);
+    int sizeB = strlen(b);
+    int sum = 0;
+    int sizeOutput = (sizeA > sizeB ? sizeA : sizeB) + 1;
+    char *output = (char *)malloc(sizeOutput + 1);
+
+    while(sizeA > 0 || sizeB > 0 || sizeOutput > 0) {
+        if(sizeA > 0) {
+            output[--sizeA]
+        }
+    }
+}
+
+
 int main(void) {    
     char arr1[] = "abcxd";
     char arr2[] = "xabcrpd";
