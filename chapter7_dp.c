@@ -173,6 +173,31 @@ int longest_increasing_subseq(int nums[], int len) {
 }
 
 
+void knapsack() {
+    int knapsack = 100; //knapsack cap
+    int weight[5] = {1, 76, 5, 18, 7};
+    int value[5] = {10, 65, 91, 6, 18};
+    int size = sizeof(weight) / sizeof(weight[0]);
+    int dp[size][size + 1];
+    int i, j;
+
+    for(j = weight[0]; j <= knapsack; j++) {
+        dp[0][j] = value[0];
+    }
+
+    for(i = 1; i < size; i++) {
+        for(j = 0; j <= knapsack; j++) {
+            if(j < weight[i]) {
+                dp[i][j] = dp[i - 1][j];
+            } else {
+                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
+            }
+        }
+    }
+    printf("%d\n", dp[size - 1][size]);
+}
+
+
 int main() {
     char s1[MAX_LEN + 1] = "AGGTAB";
     char s2[MAX_LEN + 1] = "GXTXAYB";
