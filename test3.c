@@ -1,55 +1,65 @@
 #include "common.h"
 #include "test.h"
 
+/**
+ * Return an array of arrays of size *returnSize.
+ * The sizes of the arrays are returned as *returnColumnSizes array.
+ * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
+ */
+int inc(const void *a, const void *b)
+{
+    return *(int *)a - *(int *)b;
+}
 
-void findAnagrams(const char *s1, const char *s2) {
-    int size1 = strlen(s1);
-    int size2 = strlen(s2);
-    int hash[256] = {0};
-    int left = 0, right = 0;
+int **threeSum(int *nums, int numsSize, int *returnSize, int **returnColumnSizes)
+{
+    *returnSize = 0;
+    int i;
+    if (nums == NULL || numsSize < 3)
+        return NULL;
 
-    for(int i = 0; i < size2; i++) {
-        hash[s2[i]]++;
-    }
-    int count = size2;
-    while(right < size1) {
-        if(hash[s1[right++]]-- >= 1) {
-            count--;
-        }
-        if(count == 0) {
-            printf("%d\n", left);
-        }
-        if(right - left == size2) {
-            if(hash[s1[left++]]++ >= 0) {
-                count++;
+    qsort(nums, numsSize, sizeof(int), inc);
+    *returnColumnSizes = (int *)malloc(sizeof(int) * numsSize * numsSize);
+    int **han = (int **)malloc(sizeof(int *) * numsSize * numsSize);
+    for (i = 0; i < numsSize; i++)
+    {
+        if (nums[i] > 0)
+            break;
+        if (i > 0 && nums[i] == nums[i - 1])
+            continue;
+        int L = i + 1, R = numsSize - 1;
+        while (L < R)
+        {
+            int sum = nums[i] + nums[L] + nums[R];
+            int n, m;
+            if (sum == 0)
+            {
+                han[*returnSize] = (int *)malloc(sizeof(int) * 3);
+                han[*returnSize][0] = nums[i];
+                han[*returnSize][1] = nums[L];
+                han[*returnSize][2] = nums[R];
+                (*returnColumnSizes)[*returnSize] = 3;
+                *returnSize += 1;
+                //(*returnSize)++;
+
+                /*非常不规范的写法，但是极其舒适！
+                while(L < R && nums[L] == nums[++L]);
+                while(L < R && nums[R] == nums[--R]);
+                */
+                do
+                {
+                    n = L++;
+                } while (n < R && nums[L] == nums[n]);
+                do
+                {
+                    m = R--;
+                } while (L < m && nums[R] == nums[m]);
             }
+            else if (sum < 0)
+                L++;
+            else if (sum > 0)
+                R--;
         }
     }
-}
-
-//TODO 1
-void findAnagrams_1(const char *s1, const char *s2) {
-
-}
-
-//TODO 2
-int longest_increasing_subsequence(const int nums[], int len) {
-    int i, j;
-    int dp[len];
-
-    dp[]
-
-    for(i = 1; i < size; i++) {
-        for(j = 0; j < i; j++) {
-            if(nums[i] > nums[j]) {
-                dp[i] = max(dp[i], dp[j] + 1);
-            }
-        }
-    }
-}
-
-int main(void) {
-    findAnagrams("xabtbay", "ab");
-
-    return 0;
+    return han;
 }
