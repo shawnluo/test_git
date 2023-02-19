@@ -1,7 +1,13 @@
 
 001. string reverse
 002. sprintf
+003. qsort() function
+004. strtok implement
 
 100. a1b2c3a8c6 - > a9b2c9
 101. two sum
 102. three sum https://blog.csdn.net/weixin_42109012/article/details/99699600
+103. valid parenthesess
+104. find islands
+105. pow
+106. palindrome ext

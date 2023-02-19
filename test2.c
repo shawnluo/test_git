@@ -7,71 +7,90 @@
 #include <math.h>
 
 
-#include <bits/stdc++.h>
-using namespace std;
-char* mystrtok(char* s, char d)
-{
-    // Stores the state of string
-    static char* input = NULL;
- 
-    // Initialize the input string
-    if (s != NULL)
-        input = s;
- 
-    // Case for final token
-    if (input == NULL)
-        return NULL;
- 
-    // Stores the extracted string
-    char* result = new char[strlen(input) + 1];
-    int i = 0;
- 
-    // Start extracting string and
-    // store it in array
-    for (; input[i] != '\0'; i++) {
- 
-        // If delimiter is not reached
-        // then add the current character
-        // to result[i]
-        if (input[i] != d)
-            result[i] = input[i];
- 
-        // Else store the string formed
-        else {
-            result[i] = '\0';
-            input = input + i + 1;
-            return result;
+int partition(int *nums, int L, int R) {
+    int save = nums[L];
+    while(L < R) {
+        while(L < R && nums[R] >= save) {
+            R--;
+        }
+        if(L < R){
+            nums[L++] = nums[R];
+        }
+        while(L < R && nums[L] <= save) {
+            L++;
+        }
+        if(L < R) {
+            nums[R--] = nums[L];
         }
     }
- 
-    // Case when loop ends
-    result[i] = '\0';
-    input = NULL;
- 
-    // Return the resultant pointer
-    // to the string
-    return result;
+    nums[L] = save;
+    return L;
 }
- 
-// Driver Code
-int main()
-{
-    // Given string str
-    char str[90] = "It, is my, day";
- 
-    // Tokenized the first string
-    char* ptr = mystrtok(str, ' ');
- 
-    // Print current tokenized string
-    cout << ptr << endl;
- 
-    // While ptr is not NULL
-    while (ptr != NULL) {
-        // Tokenize the string
-        ptr = mystrtok(NULL, ' ');
- 
-        // Print the string
-        cout << ptr << endl;
+
+void quick_sort(int *nums, int L, int R) {
+    if(L >= R) {
+        return;
     }
+    int mid = partition(nums, L, R);    //return mid, split the numbers
+    quick_sort(nums, L, mid - 1);
+    quick_sort(nums, mid + 1, R);
+
+}
+
+int **threeSum(int *nums, int numsSize, int *returnSize, int **returnColumnSizes) {
+    int base_alloc_size = 16;
+    int **res = (int **)malloc(sizeof(int *) * base_alloc_size);
+    int L, R, i;
+    int sum = 0;
+
+    quick_sort(nums, 0, numsSize - 1);
+    for(i = 0; i < numsSize - 2; i++) {
+        L = i + 1;
+        R = numsSize - 1;
+        //
+        if(nums[i] > 0) {
+            break;
+        }
+        if(i > 0 && nums[i - 1] == nums[i]) {
+            continue;
+        }
+        while(L < R) {
+            sum = nums[i] + nums[L] + nums[R];
+            if(sum > 0) {
+                R--;
+            } else if(sum < 0) {
+                L++;
+            } else {
+                res[*returnSize] = (int *)calloc(3, sizeof(int));
+                res[*returnSize][0] = nums[i];
+                res[*returnSize][1] = nums[L];
+                res[*returnSize][2] = nums[R];
+
+                (*returnColumnSizes)[*returnSize] = 3;
+                (*returnSize)++;
+                while(L < R && nums[L] == nums[L + 1]) {
+                    L++;
+                }
+                while(L < R && nums[R] == nums[R - 1]) {
+                    R--;
+                }
+                L++, R--;
+            }
+
+            if(*returnSize == base_alloc_size) {
+                base_alloc_size = base_alloc_size * 2;
+                res = (int **)realloc(res, base_alloc_size * sizeof(int *));
+                (*returnColumnSizes) = (int *)realloc((*returnColumnSizes), base_alloc_size * sizeof(int));
+            }
+        }
+    }
+    return res;
+} 
+
+int main() {
+    int nums[] = {-21, -21, -34, 98, 0, 65, 5};
+    int size = sizeof(nums) / sizeof(nums[0]);
+    int returnSize[] = 
+    threeSum(nums, size, );
     return 0;
 }

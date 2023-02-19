@@ -1,78 +1,40 @@
 #include "common.h"
 #include "test.h"
 
-int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes){
-    int i, j, k;
-    int **res = (int **)malloc(sizeof(int *) * 10000);
+//Given a string, return true if the s can be palindrom after deleting at most one character from it.
+int palindrom_ext(char *s) {
+    //left and right pointers.
+    //step1. compare *left with *right, if don't match then skip 1 on left. 
+    //    if skip <= 1, then return true
+    //step2. do the same thing on right.
+    //  if skip <= 1, then return true;
+    int size = strlen(s);
+    int left = s;
+    int right = s + size - 1;
     int count = 0;
-
-    for(i = 0; i < numsSize; i++) {
-        for(j = 1; j < numsSize; j++) {
-            for(k = 2; k < numsSize; k++) {
-                if(i != j && i != k && j != k && nums[i] + nums[j] + nums[k] == 0) {
-                    res[count] = (int *)malloc(sizeof(int) * 3);
-                    res[count][0] = nums[i];
-                    res[count][1] = nums[j];
-                    res[count][2] = nums[k];
-                    count++;
-                }
-            }
+    while(left < right) {
+        if(*left == *right) {
+            left++, right--;
+        } else {
+            count++;
+            left++;
         }
     }
-    *returnSize = count;
-    **returnColumnSizes = ;
-    return res;
+    if(count <= 1) return true;
+    count = 0;
+    while(left < right) {
+        if(*left == *right) left++, right--;
+        else    count++, right--;
+    }
+    if count <= 1 return true;
+
+    return false;
 }
 
-vector<vector<int>> threeSum(vector<int>& arr)
-    {
-       vector<vector<int>> ans;
-        int n=arr.size();
-        sort(arr.begin(),arr.end());
-        int low,high;
-        for(int i=0;i<n-2;i++)
-        {
-            if(i==0||(i>0&&arr[i]!=arr[i-1]))
-              {
-              low=i+1,high=n-1;
-              while(low<high)
-              {
-                if(arr[low]+arr[high]+arr[i]==0)
-                {
-                    vector<int>temp;
-                    temp.push_back(arr[i]);
-                    temp.push_back(arr[low]);
-                    temp.push_back(arr[high]);
-                    ans.push_back(temp);
-                    while(low<high&&arr[low]==arr[low+1])
-                    {
-                        low++;
-                    }
-                    while(high>low&&arr[high]==arr[high-1])
-                    {
-                        high--;
-                    }
-                    low++;
-                    high--;
-                }
-                else if(arr[low]+arr[high]+arr[i]>0)
-                {
-                    high--;
-                }
-                else
-                {
-                    low++;
-                }
-             }
-            }
-        }
-        return ans;
-    }
-};
-
 int main(void) {
-    //break_int(8);
-    string_reverse();
+    // break_int(8);
+    int res = myPow(-0.3, -3);
+    printf("%d\n", res);
 
     return 0;
 }
