@@ -1,0 +1,27 @@
+
+1. 72 hours law
+2. 10000 hours law
+3. 8 hours practice every day
+4. don't get distracted
+5. do it now
+6. exercise
+
+good blog:
+    https://blog.csdn.net/kinbo88?type=blog
+
+001. string reverse
+002. sprintf
+003. qsort() function
+004. strtok implement
+005. long long vs double
+006. isalnum() using letters and numerals
+007. the differences between 0 and '\0' of string end
+
+100. a1b2c3a8c6 - > a9b2c9
+101. two sum
+102. three sum https://blog.csdn.net/weixin_42109012/article/details/99699600
+103. valid parenthesess
+104. find islands
+105. pow
+106. palindrome ext
+
