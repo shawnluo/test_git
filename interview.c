@@ -43,6 +43,24 @@ void sort_arr(void) {
     qsort(values, size, sizeof(int), cmpfunc);
 }
 
+/*  004
+    strtok()
+*/
+
+
+/*  005
+    long long vs double
+    
+    0. c语言采用float和double来定义小数！
+        float 单精度（4个字节 32-bit）
+        double 双精度（8个字节 64-bit）
+    
+    1. long: is a data type that is capable of storing 64 bit two's complement integer
+    2. double: is a doulbe-precision(8 bytes) 64-bit floating point
+    3. long long is integer
+*/
+
+
 /*
     100. a1b2c3a8c6 -> a9b2c9
 */
