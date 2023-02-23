@@ -24,4 +24,6 @@ good blog:
 104. find islands
 105. pow
 106. palindrome ext
-
+107. isNumber
+108. check inclusion
+109. find all anagrams in a string

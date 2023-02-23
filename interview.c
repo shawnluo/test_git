@@ -402,3 +402,116 @@ int palindrom_ext(char *s) {
     if(count <= 1) return true;
     return false;
 }
+
+/*  [107]
+    1. Digits (one of ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"])
+        Both decimal numbers and integers must contain at least one digit.
+
+    2. A sign ("+" or "-"):
+        Sign characters are optional for both decimal numbers and integers, but if one is present, it will always be the first character. Note, this means that a sign character can also appear immediately after an exponent.
+
+    3. An exponent ("e" or "E")
+        Exponents are also optional, but if the string contains one then it must be after a decimal number or an integer.
+        An integer must follow the exponent.
+
+    4. A dot (".")
+        A decimal number should only contain one dot. Integers cannot contain dots.
+
+    5. Anything else
+        There will never be anything else in a valid number.
+        From these facts, we can logically determine a set of rules to follow in our algorithm.
+*/
+bool isNumber(char *s) {
+    bool seenDigit = false;
+    bool seenExponent = false;
+    bool seenDot = false;
+
+    int size = strlen(s);
+    for(int i = 0; i < size; i++) {
+        char cur = s[i];
+        if(s[cur] >= '0' && s[cur] <= '9') {
+            seenDigit = true;
+        } else if(cur == '+' || cur == '-') {
+            if(i > 0 && s[i - 1] != 'e' && s[i - 1] != 'E') {
+                return false;
+            }
+        } else if(cur == 'e' || cur == 'E') {
+            if(seenExponent || !seenDigit) {
+                return false;
+            }
+            seenExponent = true;
+            seenDigit = false;
+        } else if(cur == '.') {
+            if(seenDot || seenExponent) {
+                return false;
+            }
+            seenDot = true;
+        } else {
+            return false;
+        }
+    }
+    return seenDigit;
+}
+
+/*  [108] leetcode 567. Permutation in String
+    Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
+    In other words, return true if one of s1's permutations is the substring of s2.
+*/
+bool checkInclusion(char *s1, char *s2) {
+    int len1 = strlen(s1);
+    int len2 = strlen(s2);
+    if(len1 < len2) {
+        return false;
+    }
+    int count[26] = {0};
+    for(int i = 0; i < len1; i++) {
+        count[s1[i] - 'a']++;
+    }
+    for(int i = 0; i < len2; i++) {
+        count[s2[i] - 'a']--;
+        if(i >= len1) {
+            count[s2[i - len1] -'a']++;
+        }
+        int j;
+        for(j = 0; j < 26; j++) {
+            if(count[j] != 0) break;
+        }
+        if(j == 26) return true;
+    }
+    return false;
+}
+
+
+/*  [109] leetcode 438. 
+    Input: s = "cbaebabacd", p = "abc"
+    Output: [0,6]
+*/
+int *findAnagrams(char *s, char *p, int *returnSize) {
+    if(!s || !p)    return NULL;
+
+    int size1 = strlen(s);
+    int size2 = strlen(p);
+    int *res = (int *)malloc(sizeof(int) * size1);
+    memset(res, 0, sizeof(int) * size1);
+    int hash[256] = {0};
+    int left = 0, right = 0;
+
+    for(int i = 0; i < size2; i++) {
+        hash[p[i]]++;
+    }
+
+    int count = size2;
+    int i = 0;
+    while(right < size1) {
+        if(hash[s[right++]]-- >= 1) {
+            count--;
+        }
+        if(count == 0) {
+            res[i++] = left;
+        }
+        if(right - left == size2 && hash[s[left++]]++ >= 0) {
+            count++;
+        }
+    }
+    *returnSize = i;
+}
