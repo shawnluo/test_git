@@ -16,6 +16,7 @@ good blog:
 005. long long vs double
 006. isalnum() using letters and numerals
 007. the differences between 0 and '\0' of string end
+008. const pointer vs pointer to const: const int *p  int * const p;
 
 100. a1b2c3a8c6 - > a9b2c9
 101. two sum
