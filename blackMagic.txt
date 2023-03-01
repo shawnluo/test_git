@@ -1,10 +1,11 @@
 
-1. 72 hours law
-2. 10000 hours law
-3. 8 hours practice every day
+===============================================================================
+1. 72 hours law                     - do it now. After 72 hours, you may NOT do it anymore.
+2. 10000 hours law                  - study hard, study harder
+3. 8 hours practice every day       - no exception
 4. don't get distracted
-5. do it now
-6. exercise
+5. exercise
+===============================================================================
 
 good blog:
     https://blog.csdn.net/kinbo88?type=blog
