@@ -1,0 +1,6 @@
+test: test.cpp
+	g++ test.cpp -o test -g -Wall -lm
+
+.PHONY: clean
+clean:
+	rm test

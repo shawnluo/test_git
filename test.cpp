@@ -1,4 +1,6 @@
-#include "iostream"
+#include <iostream>
+#include <string.h>
+#include "common.h"
 using namespace std;
 
 class animal {
@@ -29,15 +31,37 @@ void playLand(animal &animal, plant *plant) {
 	else                                cout << "植物赢了" << endl;
 }
 
+
+char *my_strtok(char *hay, const char needle) {
+    static char *s = NULL;
+    char *res = new char[strlen(hay) + 1];
+    while(*hay) {
+        if(*hay == needle) {
+            //set s and return res
+            strncpy(res, hay, s - hay + 1);
+            s = hay + 1;
+            return res;
+        }
+        hay++;
+    }
+    return res;
+}
+
+
 int main(void) {
 	animal animal1;
 	mouse mouse1;
 	bird bird1;
 	plant flowers;
 
-	playLand(animal1, &flowers);
-	playLand(mouse1, &flowers);
-	playLand(bird1, &flowers);
+	//playLand(animal1, &flowers);
+	//playLand(mouse1, &flowers);
+	//playLand(bird1, &flowers);
+
+    char hay[] = "abc def c!";
+    char needle = ' ';
+    my_strtok(hay, needle);
+
 
     return 0;
 }

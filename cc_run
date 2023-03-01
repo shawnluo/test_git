@@ -1,0 +1,1 @@
+make -f Makefile_cc clean; make -f Makefile_cc && ./test
