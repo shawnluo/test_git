@@ -46,7 +46,38 @@ void sort_arr(void) {
 /*  004
     strtok()
 */
+char *my_strtok(char *hay, coonst char needle) {
+    static char *input = NULL;
+    if(hay != NULL) input = hay;
+    if(input == NULL) return NULL;
 
+    char *res = (char *)calloc(20, sizeof(char));
+    int i = 0;
+    for(; input[i] != '\0'; i++) {
+        if(input[i] != needle) {
+            res[i] = input[i];
+        } else {
+            res[i] = '\0';
+            input = input + i + 1;
+            return res;
+        }
+    }
+    res[i] = '\0';
+    input = NULL;
+
+    return res;
+}
+
+int main(void) {
+    char hay[] = "show me the money!";
+    char needle = ' ';
+    char *s = my_strtok(hay, needle);
+    while(s) {
+        s = my_strtok(NULL, needle);
+        printf("- %s\n", s);
+    }
+    return 0;
+}
 
 /*  005
     long long vs double
