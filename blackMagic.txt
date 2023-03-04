@@ -5,7 +5,8 @@
 3. 8 hours practice every day       - no exception
 4. don't get distracted
 5. exercise
-===============================================================================
+
+=== basic ============================================================================
 
 good blog:
     https://blog.csdn.net/kinbo88?type=blog
@@ -18,6 +19,8 @@ good blog:
 006. isalnum() using letters and numerals
 007. the differences between 0 and '\0' of string end
 008. const pointer vs pointer to const: const int *p  int * const p;
+
+==== advanced ===========================================================================
 
 100. a1b2c3a8c6 - > a9b2c9
 101. two sum

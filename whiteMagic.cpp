@@ -4,7 +4,6 @@ using namespace std;
 /*  [100]
     virtual function
 */
-
 class animal {
 public:
 	virtual int eat()   {return 10;}
