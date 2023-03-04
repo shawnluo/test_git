@@ -41,7 +41,7 @@ char *my_strtok(char *hay, const char needle) {
             strncpy(res, hay, s - hay + 1);
             s = hay + 1;
             return res;
-        }
+        }z	asq
         hay++;
     }
     return res;

@@ -1,37 +1,48 @@
 #include "common.h"
 #include "test.h"
 
-char *my_strtok(char *hay, const char needle) {
-    static char *input = NULL;
-    if(hay != NULL) input = hay;
-    if(input == NULL)   return NULL;
+int max(int x, int y) {
+    return x > y ? x : y;
+}
 
-    char *res = (char *)malloc(20 * sizeof(char));
-    int i = 0;
-    for(; input[i] != '\0'; i++) {
-        if(input[i] != needle) {
-            res[i] = input[i];
-        } else {
-            res[i] = '\0';
-            input = input + i + 1;
-            return res;
+int longest_increase_arr(int *arr, int len) {
+    int dp[len];
+
+    int res = 0;
+    for(int i = 0; i < len; i++) dp[i] = 1;
+
+    for(int i = 1; i < len; i++) {
+        for(int j = 0; j < i; j++) {
+            if(arr[i] > arr[j]) {
+                dp[i] = max(dp[i], dp[j] + 1);
+            }
         }
+        res = max(dp[i], res);
     }
-    res[i] = '\0';
-    input = NULL;
+    printf("%d\n", res);
+    return res;
+}
+
+int maxSubArray(int *arr, int len) {
+    int dp[len];
+    int res = INT_MIN;
+    dp[0] = arr[0];
+
+    for(int i = 1; i < len; i++) {
+        for(int j = 0; j < i; j++) {
+            dp[i] = max(dp[i - 1] + arr[i], arr[i]);
+        }
+        res = max(res, dp[i]);
+    }
+    printf("%d\n", res);
     return res;
 }
 
 int main(void) {
-    const char hay[] = "abc def c!";
-    char needle = ' ';
-    char *str = my_strtok(hay, needle);
-    printf("- %s\n", str);
-
-    while(str != NULL) {
-        str = my_strtok(NULL, needle);
-        printf("- %s\n", str);
-    }
+    int arr[] = {1, 7, -9, 0, 12};
+    int len = sizeof(arr) / sizeof(arr[0]);
+    longest_increase_arr(arr, len);
+    //maxSubArray(arr, len);
 
     return 0;
 }

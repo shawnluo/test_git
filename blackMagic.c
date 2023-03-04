@@ -546,3 +546,36 @@ int *findAnagrams(char *s, char *p, int *returnSize) {
     }
     *returnSize = i;
 }
+
+/*  [110]   the longest increasing sub array
+*/
+int longest_increasing_sub(int *arr, int len) {
+    int dp[len];
+    for(int i = 0; i < len; i++) dp[i] = 1;
+
+    for(int i = 1; i < len; i++) {
+        for(int j = 0; j < i; j++) {
+            if(arr[i] > arr[j]) {
+                dp[i] = max(dp[i], dp[j] + 1)
+            }
+        }
+        res = max(res, dp[i]);
+    }
+    return res;
+}
+
+/*  [111]   the max sum of sub array
+*/
+int max_sum_arr(int *arr, int len) {
+    int dp[len];
+    int res = INT_MIN;
+    dp[0] = arr[0];
+
+    for(int i = 1; i < len; i++) {
+        for(int j = 0; j < i; j++) {
+            dp[i] = max(dp[i - 1] + arr[i], arr[i]);
+        }
+        res = max(res, dp[i]);
+    }
+    return res;
+}
