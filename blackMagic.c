@@ -33,6 +33,7 @@ int use_sprintf(void) {
 /*  003
     using qsort to sort array
 */
+//case1
 int cmpfunc(const void *a, const void *b) {
     return (*(int *)a - *(int *)b);
 }
@@ -41,6 +42,41 @@ void sort_arr(void) {
     int values[] = {88, 56, 100, 2, 25};
     int size = sizeof(values) / sizeof(values[0]);
     qsort(values, size, sizeof(int), cmpfunc);
+}
+
+//case2
+typedef struct Node {
+    int num1;
+    int num2;
+} node;
+
+int func(void *a, void *b) {
+    node x = *(node *)a;
+    node y = *(node *)b;
+
+    return x.num1 - y.num1;
+}
+
+void sort(void) {
+    node data[5];
+    data[0].num1 = 5;
+    data[0].num2 = 50;
+    data[1].num1 = 4;
+    data[1].num2 = 40;
+    data[2].num1 = 3;
+    data[2].num2 = 30;
+    data[3].num1 = 1;
+    data[3].num2 = 10;
+    data[4].num1 = 2;
+    data[4].num2 = 20;
+
+    qsort(data, 5, sizeof(struct Node), func);
+
+    for(int i = 0; i < 5; i++) {
+        printf("%d\n", data[i].num1);
+    }
+
+    return 0;
 }
 
 /*  004
@@ -91,6 +127,16 @@ int main(void) {
     3. long long is integer
 */
 
+/*  006
+    isalnum: letters and numbers
+    isalpha: letters
+    isdigit: numbers
+*/
+
+/*  007
+    the differences between 0 and '\0' of string end:
+    '\0'
+*/
 
 /*
     100. a1b2c3a8c6 -> a9b2c9
@@ -165,6 +211,8 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize){
 }
 
 /*  [102] three sum
+    给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，
+    使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
 */
 
 void quickSort(int* nums, int first, int end) {     //快速排序 
@@ -194,6 +242,10 @@ void quickSort(int* nums, int first, int end) {     //快速排序
 	quickSort(nums, l + 1, end);
 }
 
+int comp(int *x, int *y) {
+    return *x - *y;
+}
+
 int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes)
 {
 	int i = 0;								//当前数值下标
@@ -210,6 +262,7 @@ int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes
 	}
 
 	quickSort(nums, 0, numsSize - 1);                           //排序
+    //qsort(nums, numsSize, sizeof(int), comp);
 
 	for (i = 0; i <= numsSize - 3; i++) {
 		left = i + 1;

@@ -16,7 +16,7 @@ good blog:
 003. qsort() function
 004. strtok implement
 005. long long vs double
-006. isalnum() using letters and numerals
+006. isalnum() using letters and numerals. isalpa(): letters. isdigit: numbers
 007. the differences between 0 and '\0' of string end
 008. const pointer vs pointer to const: const int *p  int * const p;
 
