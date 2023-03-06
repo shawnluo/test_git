@@ -567,6 +567,25 @@ bool checkInclusion(char *s1, char *s2) {
     return false;
 }
 
+bool check_inclusion_ext(char *s, char *sub) {
+    int len_s = strlen(s);
+    int len_sub = strlen(sub);
+    int hash[256] = {0};
+    for(int i = 0; i < len_sub; i++) {
+        hash[sub[i]]++;
+    }
+    int left = 0, right = 0;
+    int count = 0;
+    while(right < len_s) {
+        if(hash[s[right++]]-- >= 1)     count++;
+        if(count == len_sub)            return true;
+        if(right - left >= len_sub && \
+            hash[s[left++]]++ >= 0) {
+            count--;
+        }
+    }
+    return false;
+}
 
 /*  [109] leetcode 438. 
     Input: s = "cbaebabacd", p = "abc"
@@ -606,6 +625,7 @@ int *findAnagrams(char *s, char *p, int *returnSize) {
 }
 
 /*  [110]   the longest increasing sub array
+    Output: the number of longest increasing sub
 */
 int longest_increasing_sub(int *arr, int len) {
     int dp[len];
