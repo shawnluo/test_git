@@ -393,17 +393,16 @@ int main(void) {
 /*  [104]
     find islands
 */
-void find_clear(char **s, int i, int j, int gridSize, int gridColSize) {
-    if(i < 0 || i >= gridSize || j < 0 || j >= gridColSize) {
-        return;
-    }
-    if(s[i][j] == '1') {
-        s[i][j] = '0';
-        find_clear(s, i + 1, j, gridSize, gridColSize);
-        find_clear(s, i - 1, j, gridSize, gridColSize);
-        find_clear(s, i, j + 1, gridSize, gridColSize);
-        find_clear(s, i, j - 1, gridSize, gridColSize);
-    }
+void sink_island(char **s, int i, int j, int gridSize, int gridColSize) {
+    if(i < 0 || i >= gridSize)      return;
+    if(j < 0 || j >= gridColSize)   return;
+    if(s[i][j] == 0)                return;
+
+    s[i][j] = '0';
+    sink_island(s, i + 1, j, gridSize, gridColSize);
+    sink_island(s, i - 1, j, gridSize, gridColSize);
+    sink_island(s, i, j + 1, gridSize, gridColSize);
+    sink_island(s, i, j - 1, gridSize, gridColSize);
 }
 
 int numIslands(char** grid, int gridSize, int* gridColSize){
@@ -416,7 +415,7 @@ int numIslands(char** grid, int gridSize, int* gridColSize){
     for(i = 0; i < gridSize; i++) {
         for(j = 0; j < *gridColSize; j++) {
             if(grid[i][j] == '1') {
-                find_clear(grid, i, j, gridSize, *gridColSize);
+                sink_island(grid, i, j, gridSize, *gridColSize);
                 count++;
             }
         }
@@ -513,7 +512,7 @@ bool isNumber(char *s) {
     int size = strlen(s);
     for(int i = 0; i < size; i++) {
         char cur = s[i];
-        if(s[cur] >= '0' && s[cur] <= '9') {
+        if(cur >= '0' && cur <= '9') {
             seenDigit = true;
         } else if(cur == '+' || cur == '-') {
             if(i > 0 && s[i - 1] != 'e' && s[i - 1] != 'E') {
@@ -540,6 +539,9 @@ bool isNumber(char *s) {
 /*  [108] leetcode 567. Permutation in String
     Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
     In other words, return true if one of s1's permutations is the substring of s2.
+    for example: 
+        input:  s1 "abc"     s2 "xbacy"
+        return: true
 */
 bool checkInclusion(char *s1, char *s2) {
     int len1 = strlen(s1);
@@ -593,6 +595,9 @@ int *findAnagrams(char *s, char *p, int *returnSize) {
         if(count == 0) {
             res[i++] = left;
         }
+        
+        //1. right - left == size2      already passed the len of sub, so s[left] need increase 1
+        //2. hash[s[left++]]++ >= 0     >= 0 means s[left] was the member of sub, now need increase the count
         if(right - left == size2 && hash[s[left++]]++ >= 0) {
             count++;
         }
@@ -631,4 +636,32 @@ int max_sum_arr(int *arr, int len) {
         res = max(res, dp[i]);
     }
     return res;
+}
+
+/*  [112]   minimum meeting room II
+
+*/
+int min_meeting_rooms(int **intervals) {
+    int len = sizeof(intervals) / sizeof(intervals[0]);
+    int start[len];
+    int end[len];
+    for(int i = 0; i < len i++) {
+        start[i] = intervals[i][0];
+        end[i] = intervals[i][1];
+    }
+    qsort(start);
+    qsort(end);
+
+    int pStart = 0;
+    int pEnd = 0;
+    int room = 0;
+    while(pStart != len) {
+        if(pStart == 0 || start[pStart] < end[pEnd]) {
+            room++;
+        } else {
+            pEnd++;
+        }
+        pStart++;
+    }
+    return room;
 }

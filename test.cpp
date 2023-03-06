@@ -12,6 +12,9 @@ public:
 class plant {
 public:
 	int eat()           {return 25;}
+
+private:
+	int sing() {cout << "wow!" << endl;}
 };
 
 //多态第一步，要有继承
@@ -45,6 +48,7 @@ int main(void) {
 	//playLand(animal1, &flowers);
 	//playLand(mouse1, &flowers);
 	//playLand(bird1, &flowers);
+	flowers.sing();
 
 
     return 0;

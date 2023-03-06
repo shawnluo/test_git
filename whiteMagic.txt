@@ -1,2 +1,2 @@
-100. virtual function
-101. pure virtual function
+001. virtual function
+002. pure virtual function
