@@ -1,7 +1,7 @@
 #include "iostream"
 using namespace std;
 
-/*  [100]
+/*  [001]
     virtual function
 */
 class animal {
@@ -11,13 +11,11 @@ public:
 
 class plant {
 public:
-	int eat()           {return 25;}
+	int eat()           {return 25;}	//1. virtual function. You can redefine it. But it's not have to do.
 };
 
-//多态第一步，要有继承
 class mouse: public animal {
 public:
-    //多态第二步，要有函数重写（重写发生在2个类之间，两个类之间有继承关系，且出现同名的函数；虚函数重写将发生多态）
 	virtual int eat()   {return 20;}
 };
 
@@ -25,6 +23,21 @@ class bird: public animal {
 public:
 	virtual int eat()   {return 30;}
 };
+
+
+//pure virtual function
+class god {
+	virtual int run() = 0;	//2. pure virtual function. 2.1. so god class cannot be instantation
+}
+
+god mygod;	//2.2. failed.
+
+class mygod: god {
+public:
+	virtual int run() {
+		cout << "run" << endl;	//2.3 MUST be redefined in derived class
+	}
+}
 
 //多态的第三步，用父类指针(父类引用)指向子类对象....//即在函数的形参使用父类的对象替代子类对象，但是在调用重写了的虚函数时，仍然调用的是传递过来子类对象的函数
 void playLand(animal &animal, plant *plant) {

@@ -1,2 +1,3 @@
-001. virtual function
-002. pure virtual function
+001. virtual/pure virtual
+002. public/protected/private
+003. overload/override/redefine
