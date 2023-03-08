@@ -96,8 +96,19 @@ int max_sum(int *nums, int size) {
     return res;
 }
 
-int meeting_room() {
 
+pNode reverse(pNode pHead) {
+    pNode pNext = pHead;
+    pNode pCur = pHead;
+    pNode pPre = NULL;
+
+    while(pNext) {
+        pNext = pCur->next;
+        pCur->next = pPre;
+        pPre = pCur;
+        pCur = pNext;
+    }
+    return pPre;
 }
 
 
