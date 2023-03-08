@@ -52,9 +52,9 @@ int main(void) {
 class animal {
 public:
 	animal() {
-		cout << name_pub << endl;	//2. OK!
+		cout << name_pub << endl;	//1. OK!
 		cout << name_pro << endl;	//2. OK! - protected data can ONLY be accessed in the class
-		cout << name_pri << endl;	//1. OK! - private data can ONLY be accessed in the class
+		cout << name_pri << endl;	//3. OK! - private data can ONLY be accessed in the class
 		
 	}
 	string name_pub = "name_pub";
@@ -69,16 +69,16 @@ private:
 class dog: animal {
 public:
 	dog() {
-		cout << name_pro << endl;	//3. OK! - protected data can be accessed by derived class
-		cout << name_pri << endl;	//4. Failed! - private data can NOT be accessed by derived class
+		cout << name_pro << endl;	//4. OK! - protected data can be accessed by derived class
+		cout << name_pri << endl;	//5. Failed! - private data can NOT be accessed by derived class
 	}
 };
 
 int test(void) {
 	animal monster;
-	cout << monster.name_pub << endl;	//5. OK!
-	cout << monster.name_pro << endl;	//6. Failed! - proteced data can NOT be accessed by outside.
-	cout << monster.name_pri() << endl;	//7. Failed! - private data can NOT be accessed by outside of the class which difined the data.
+	cout << monster.name_pub << endl;	//6. OK!
+	cout << monster.name_pro << endl;	//7. Failed! - proteced data can NOT be accessed by outside.
+	cout << monster.name_pri() << endl;	//8. Failed! - private data can NOT be accessed by outside of the class which difined the data.
 
 	return 0;
 }
