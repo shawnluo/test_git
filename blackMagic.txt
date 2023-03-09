@@ -39,3 +39,4 @@ good blog:
 110. the longest increasing sub arrar
 111. the max sum of sub array
 112. minimum meeting room II
+113. permutation in string (leetcode 567)
