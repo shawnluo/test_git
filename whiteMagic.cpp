@@ -1,7 +1,8 @@
 #include "iostream"
 using namespace std;
 
-/*  [001]
+/************************************************  
+	[001]
     virtual function
 */
 class animal {
@@ -59,7 +60,8 @@ int main(void) {
 }
 
 
-/*	[003]
+/************************************************
+	[002]
 */
 
 class animal {
@@ -95,3 +97,48 @@ int test(void) {
 
 	return 0;
 }
+
+
+/************************************************
+ * 	[003]
+ * 	overload: 同一个类中。函数名相同，参数个数，顺序，类型或返回值不同
+ * 	override: 不在同类中。指派生类重新定义基类的虚函数。有virtual关键字，不能有static
+ * 	redefine: 不在同类中。函数名相同，参数个数，顺序，类型或返回值可以不同
+ * /
+5 class Base {
+public:
+    virtual void a(int x)    {    cout << "Base::a(int)" << endl;      }
+    // overload the Base::a(int) function
+    virtual void a(double x) {    cout << "Base::a(double)" << endl;   }
+    virtual void b(int x)    {    cout << "Base::b(int)" << endl;      }
+    void c(int x)            {    cout << "Base::c(int)" << endl;      }
+};
+
+class Derived : public Base {
+public:
+    // redefine the Base::a() function
+    void a(complex<double> x)   {    cout << "Derived::a(complex)" << endl;      }
+    // override the Base::b(int) function
+    void b(int x)               {    cout << "Derived::b(int)" << endl;          }
+    // redefine the Base::c() function
+    void c(int x)               {    cout << "Derived::c(int)" << endl;          }
+};
+
+int main() {
+    Base b;
+    Derived d;
+    Base* pb = new Derived;
+    // ----------------------------------- //
+    b.a(1.0);                              // Base::a(double)
+    d.a(1.0);                              // Derived::a(complex)
+    pb->a(1.0);                            // Base::a(double), This is redefine the Base::a() function
+    // pb->a(complex<double>(1.0, 2.0));   // clear the annotation and have a try
+    // ----------------------------------- //
+    b.b(10);                               // Base::b(int)
+    d.b(10);                               // Derived::b(int)
+    pb->b(10);                             // Derived::b(int), This is the virtual function
+    // ----------------------------------- //
+    delete pb;
+
+    return 0;
+} 
