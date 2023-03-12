@@ -26,10 +26,25 @@ public:
 	}
 };
 
+
+//TODO 1
+void partition(int *sums, int left, int right) {
+	int save = sums[right];
+	while() {
+
+	}
+}
+
+//TODO 2	signals
+
+
 int main(void) {
-	animal monster;
+	//animal monster;
 	//cout << monster.name_pro << endl;	//5. Failed! - proteced data can NOT be accessed by outside.
-	cout << monster.name_pub << endl;	//6. Failed! - private data can NOT be accessed by outside of the class which difined the data.
+	//cout << monster.name_pub << endl;	//6. Failed! - private data can NOT be accessed by outside of the class which difined the data.
     
+	int x = 9;
+	char c = '9';
+	cout << c << endl;
 	return 0;
 }

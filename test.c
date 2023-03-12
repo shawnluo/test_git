@@ -76,9 +76,9 @@ int longest_increasing(int *nums, int size) {
     int res = 0;
     for(int i = 1; i < size; i++) {
         for(int j = 0; j < i; i++) {
-            if(nums[i] > nums[j])   dp[i] = max(dp[i], dp[dp[j] + 1]);
+            if(nums[i] > nums[j])   dp[i] = fmax(dp[i], dp[dp[j] + 1]);
         }
-        res = max(res, dp[i]);
+        res = fmax(res, dp[i]);
     }
     return res;
 }
@@ -89,34 +89,73 @@ int max_sum(int *nums, int size) {
     int res = INT_MIN;
     for(int i = 1; i < size; i++) {
         for(int j = 0; j < i; j++) {
-            dp[i] = max(dp[i - 1] + nums[i], nums[i]);
+            dp[i] = fmax(dp[i - 1] + nums[i], nums[i]);
         }
-        res = max(res, dp[i]);
+        res = fmax(res, dp[i]);
     }
     return res;
 }
 
 
-pNode reverse(pNode pHead) {
-    pNode pNext = pHead;
-    pNode pCur = pHead;
-    pNode pPre = NULL;
-
-    while(pNext) {
-        pNext = pCur->next;
-        pCur->next = pPre;
-        pPre = pCur;
-        pCur = pNext;
+void fun(int n) {
+    if(n > 2) {
+        fun(n - 1);
+        fun(n - 2);
+        fun(n - 3);
     }
-    return pPre;
+    printf("%d\n", n);
+}
+
+void swap(char *x, char *y) {
+    char tmp = *x;
+    *x = *y;
+    *y = tmp;
+}
+
+void permutation(char *s, int start) {
+    int size = strlen(s);
+        
+    //if(start == size)
+        printf("%s\n", s);
+
+    for(int i = start; i < size; i++) {
+        swap(s + i, s + start);
+        permutation(s, start + 1);
+        swap(s + i, s + start);
+    }
+}
+
+int partition_2(int *arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for(int j = low; j <= high -1; j++) {
+        if(arr[j] < pivot) {
+            i++;
+            swap(arr + i, arr + j);
+        }
+    }
+    swap(arr + i + 1, arr + high);
+    return i + 1;
+}
+
+void quick_sort_2(int *arr, int low, int high) {
+    if(low < high) {
+        int pivot = partition_2(arr, low, high);
+        quick_sort_2(arr, low, pivot - 1);
+        quick_sort_2(arr, pivot + 1, high);
+    }
 }
 
 
 int main(void) {
-    char *s = "xabcy";
-    char *sub = "acpb";
-    bool res = check_inclusion_e(s, sub);
-    printf("%d\n", res);
+    //char *s = "xabcy";
+    //char *sub = "acpb";
+    //bool res = check_inclusion_e(s, sub);
+    //printf("%d\n", res);
+    //fun(5);
+
+    char s[] = "abc";
+    permutation(s, 0);
 
     return 0;
 }

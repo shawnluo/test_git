@@ -14,5 +14,6 @@
 #include <assert.h>
 #include <limits.h>
 #include <stdint.h>
+#include <math.h>
 
 #endif
