@@ -28,11 +28,19 @@ public:
 
 
 //TODO 1
-void partition(int *sums, int left, int right) {
-	int save = sums[right];
-	while() {
-
+int partition(int *sums, int start, int end) {
+	int save = sums[end];
+	int left = start - 1;
+	int right;
+	for(right = start; right < end; right++) {
+		if(sums[right] > save) {
+			left++;
+			swap(sums[left], sums[right]);
+		}
 	}
+	swap(sums[left + 1], sums[end]);
+	
+	return left + 1;
 }
 
 //TODO 2	signals
@@ -43,8 +51,12 @@ int main(void) {
 	//cout << monster.name_pro << endl;	//5. Failed! - proteced data can NOT be accessed by outside.
 	//cout << monster.name_pub << endl;	//6. Failed! - private data can NOT be accessed by outside of the class which difined the data.
     
-	int x = 9;
-	char c = '9';
-	cout << c << endl;
+	int nums[] = {2, 7, 5, 4};
+	int res = partition(nums, 0, 3);
+	cout << "pivot: " << res << endl;
+	for(int i = 0; i < 4; i++) {
+		cout << nums[i] << endl;
+	}
+
 	return 0;
 }
