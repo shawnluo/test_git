@@ -657,12 +657,13 @@ int *findAnagrams(char *s, char *p, int *returnSize) {
 */
 int longest_increasing_sub(int *arr, int len) {
     int dp[len];
+    int res = INT_MIN;
     for(int i = 0; i < len; i++) dp[i] = 1;
 
     for(int i = 1; i < len; i++) {
         for(int j = 0; j < i; j++) {
             if(arr[i] > arr[j]) {
-                dp[i] = max(dp[i], dp[j] + 1)
+                dp[i] = max(dp[i], dp[j] + 1);
             }
         }
         res = max(res, dp[i]);
@@ -670,7 +671,9 @@ int longest_increasing_sub(int *arr, int len) {
     return res;
 }
 
-/*  [111]   the max sum of sub array
+/*  [111]   the largest contiguous sum of sub array
+    input: {3, -2, 4, 5, 6};
+    output: 16
 */
 int max_sum_arr(int *arr, int len) {
     int dp[len];
@@ -678,9 +681,7 @@ int max_sum_arr(int *arr, int len) {
     dp[0] = arr[0];
 
     for(int i = 1; i < len; i++) {
-        for(int j = 0; j < i; j++) {
-            dp[i] = max(dp[i - 1] + arr[i], arr[i]);
-        }
+        dp[i] = max(dp[i - 1] + arr[i], arr[i]);
         res = max(res, dp[i]);
     }
     return res;

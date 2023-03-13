@@ -83,67 +83,17 @@ int longest_increasing(int *nums, int size) {
     return res;
 }
 
+
 int max_sum(int *nums, int size) {
     int dp[size];
-    dp[0] = nums[0];
     int res = INT_MIN;
+    dp[0] = nums[0];
+
     for(int i = 1; i < size; i++) {
-        for(int j = 0; j < i; j++) {
-            dp[i] = fmax(dp[i - 1] + nums[i], nums[i]);
-        }
+        dp[i] = fmax(dp[i - 1] + nums[i], dp[i]);            
         res = fmax(res, dp[i]);
     }
     return res;
-}
-
-
-void fun(int n) {
-    if(n > 2) {
-        fun(n - 1);
-        fun(n - 2);
-        fun(n - 3);
-    }
-    printf("%d\n", n);
-}
-
-void swap(char *x, char *y) {
-    char tmp = *x;
-    *x = *y;
-    *y = tmp;
-}
-
-void permutation(char *s, int start) {
-    int size = strlen(s);
-        
-    //if(start == size)
-        printf("%s\n", s);
-
-    for(int i = start; i < size; i++) {
-        swap(s + i, s + start);
-        permutation(s, start + 1);
-        swap(s + i, s + start);
-    }
-}
-
-int partition_2(int *arr, int low, int high) {
-    int pivot = arr[high];
-    int i = low - 1;
-    for(int j = low; j <= high -1; j++) {
-        if(arr[j] < pivot) {
-            i++;
-            swap(arr + i, arr + j);
-        }
-    }
-    swap(arr + i + 1, arr + high);
-    return i + 1;
-}
-
-void quick_sort_2(int *arr, int low, int high) {
-    if(low < high) {
-        int pivot = partition_2(arr, low, high);
-        quick_sort_2(arr, low, pivot - 1);
-        quick_sort_2(arr, pivot + 1, high);
-    }
 }
 
 
@@ -153,9 +103,9 @@ int main(void) {
     //bool res = check_inclusion_e(s, sub);
     //printf("%d\n", res);
     //fun(5);
-
-    char s[] = "abc";
-    permutation(s, 0);
+    int nums[] = {3, -2, 4, 5, 6};
+    int res = max_sum(nums, 5);
+    printf("%d\n", res);
 
     return 0;
 }

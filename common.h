@@ -16,4 +16,7 @@
 #include <stdint.h>
 #include <math.h>
 
+
+void swap(char *x, char *y);
+
 #endif
