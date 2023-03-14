@@ -714,3 +714,39 @@ int min_meeting_rooms(int **intervals) {
     }
     return room;
 }
+
+
+/*  [113] - permutation
+*/
+void permutition(char *s, int pos) {
+    int size = strlen(s);
+    if(pos >= size) printf("%s\n", s);
+    for(int i = pos; i < size; i++) {
+        swap(&s[i], &s[pos]);
+        permutation(s, pos + 1);
+        swap(&s[i], &s[pos]);
+    }
+}
+
+
+/*  [114] - leetcode 392
+    Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+    A subsequence of a string is a new string that is formed from the original string by 
+    deleting some (can be none) of the characters without disturbing the relative positions 
+    of the remaining characters. (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
+*/
+bool isSubsequence(char *s, char *sub) {
+    int len_s = strlen(s);
+    int len_sub = strlen(sub);
+    int dp[len_s + 1][len_sub + 1];
+    dp[0][0] = 0;
+    int i, j;
+    for(i = 1; i < len_s; i++) {
+        for(j = 1; j < len_sub; j++) {
+            if(s[i] == sub[j])  dp[i][j] = dp[i - 1][j - 1] + 1;
+            else                dp[i][j] = dp[i][j - 1];
+        }
+    }
+    if(dp[i][j] == len_sub) return true;
+    return false;
+}

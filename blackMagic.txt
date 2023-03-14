@@ -41,3 +41,4 @@ good blog:
 111. the largest contiguous sum of sub array
 112. minimum meeting room II
 113. permutation in string (leetcode 567)
+114. if sub is the substring of s by deleting some(can be none) of the characters

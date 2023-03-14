@@ -97,6 +97,15 @@ int max_sum(int *nums, int size) {
 }
 
 
+for(i = 0; i < s; i++) {
+    //define dp[i]:
+    //  i: whien travel in s, from [0 - size);
+    //  dp[i]: 
+    if(s[dp[i]] == dp[i])
+        dp[i] = 
+}
+
+
 int main(void) {
     //char *s = "xabcy";
     //char *sub = "acpb";
