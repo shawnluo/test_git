@@ -97,14 +97,70 @@ int max_sum(int *nums, int size) {
 }
 
 
-for(i = 0; i < s; i++) {
-    //define dp[i]:
-    //  i: whien travel in s, from [0 - size);
-    //  dp[i]: 
-    if(s[dp[i]] == dp[i])
-        dp[i] = 
+int book_meeting_room(int arr[][2], int size) {
+    int start[size];
+    int end[size];
+    //1. sorting start and end
+
+
+    while(pStart != size) {
+        if(pStart == 0 || start[pStart] < end[pEnd]) {
+            room++;
+        } else {
+            pEnd++;
+        }
+        pStart++;
+    }
+    return room;
 }
 
+
+int book_meeting_room(int arr[][2], int size) {
+    int start[size];
+    int end[size];
+    for(int i = 0; i < size; i++) {
+        start[i] = arr[i][0];
+        end[i] = arr[i][1];
+    }
+
+    int pStart = 0;
+    int pEnd = 0;
+    int room = 0;
+    while(pStart < size) {
+        if(pStart == 0 || start[pStart] < end[pEnd]) {
+            room++;
+        } else {
+            pEnd++;
+        }
+        pStart++;
+    }
+    return room;
+}
+
+
+int *findAnagrams(char *s, char *sub) {
+    int len_sub = strlen(sub);
+    int len_s = strlen(s);
+
+    //init hash by go throught sub
+    hash[256];
+
+    int left = 0;
+    int right = 0;
+    int count = 0;
+    //for(int i = 0; i < len_s; i++) {
+    while(right < len_s) {
+        if(hash[s[right++]]-- >= 1) {
+            count++;
+        }
+        if(count == len_s) {
+            res[i++] = left;
+        }
+        if(right - left == len_sub  && hash[s[left++]]++ >= 0) {
+            count--;
+        }
+    }
+}
 
 int main(void) {
     //char *s = "xabcy";

@@ -643,8 +643,10 @@ int *findAnagrams(char *s, char *p, int *returnSize) {
             res[i++] = left;
         }
         
-        //1. right - left == size2      already passed the len of sub, so s[left] need increase 1
-        //2. hash[s[left++]]++ >= 0     >= 0 means s[left] was the member of sub, now need increase the count
+        //1. right - left == size2      already passed the len of sub, so left need increase 1
+        //2. hash[s[left++]]++ >= 0     >= 0 means s[left] was the member of sub, now need increase the count 
+        //      to compensate the hash, because decreased one more at the beginning loop.
+        //      also, if hash >=0, means the count also need to be compensated. 
         if(right - left == size2 && hash[s[left++]]++ >= 0) {
             count++;
         }
