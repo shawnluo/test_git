@@ -138,7 +138,7 @@ int book_meeting_room(int arr[][2], int size) {
 }
 
 
-int *findAnagrams(char *s, char *sub) {
+int *findAnagrams_x(char *s, char *sub) {
     int len_sub = strlen(sub);
     int len_s = strlen(s);
 
@@ -159,6 +159,22 @@ int *findAnagrams(char *s, char *sub) {
         if(right - left == len_sub  && hash[s[left++]]++ >= 0) {
             count--;
         }
+    }
+}
+
+int *findAnagrams(char *s, char *sub) {
+    int len_s;
+    int len_sub;
+
+    for(int i = 0; i < size; i++) hash[sub[i]]++;
+
+    int right = 0;
+    int left = 0;
+    int count = 0;
+    while(right < size_s) {
+        if(hash[s[right++]]-- >= 1) count++;
+        if(count == size) v.push_back(left);
+        if(right - left == size_sub && hash[s[left++]]++ >= 0) count--;
     }
 }
 

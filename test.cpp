@@ -1,62 +1,85 @@
 #include <iostream>
 #include <string.h>
+#include <vector>
+#include <memory>
 #include "common.h"
 using namespace std;
 
-class animal {
-public:
-	animal() {
-		cout << name_pri << endl;	//1. OK! - private data can ONLY be accessed in the class
-		cout << name_pro << endl;	//2. OK! - protected data can ONLY be accessed in the class
+
+int test_vector(void) {
+	int i = 0;
+
+	//0.
+	vector<int> vec;
+	for(i = 0; i < 10; i++) {
+		vec.push_back(i);
 	}
-	string name_pub = "name_pub";
 
-protected:
-	string name_pro = "name_pro";
-
-private:
-	string name_pri = "name_pri";
-};
-
-class dog: animal {
-public:
-	dog() {
-		cout << name_pro << endl;	//3. OK! - protected data can be accessed by derived class
-		//cout << name_pri << endl;	//4. Failed! - private data can NOT be accessed by derived class
+	//1. 
+	for(unsigned int i = 0; i < vec.size(); i++) {
+		//cout << vec[i] << endl;
 	}
-};
 
-
-//TODO 1
-int partition(int *sums, int start, int end) {
-	int save = sums[end];
-	int left = start - 1;
-	int right;
-	for(right = start; right < end; right++) {
-		if(sums[right] > save) {
-			left++;
-			swap(sums[left], sums[right]);
-		}
+	//2. 
+	vector<int>::iterator it;
+	for(it = vec.begin(); it != vec.end(); ++it) {
+		//cout << *it << endl;
 	}
-	swap(sums[left + 1], sums[end]);
-	
-	return left + 1;
+
+	//3.
+	vec.insert(vec.begin() + 4, 0);
+	for(unsigned int i = 0; i < vec.size(); i++) {
+		cout << vec[i] << endl;
+	}
+
+	//4.
+	vec.erase(vec.begin() + 2);
+	for(unsigned int i = 0; i < vec.size(); i++) {
+		cout << vec[i] << endl;
+	}
+
+	//5.
+	vec.erase(vec.begin() + 3, vec.begin() + 5);
+	for(vector<int>:: iterator it = vec.begin(); it != vec.end(); it++) {
+		cout << *it << endl;
+	}
+	return 0;
 }
 
-//TODO 2	signals
+void test_v() {
+	vector <string> v(10);
+	v[0] = "abcd";
+
+	vector <int> v2(5);
+	
+}
+
+template <class T>	/*1. 声明类模板时必须写的关键字
+							mimtype并不是一个已存在的实际类型名，
+							它只是一个虚拟类型参数名。在以后将被一个实际的类型名取代。*/
+class Compare {
+public:
+	Compare(T a, T b) {
+		x = a;
+		y = b;
+	}
+	T max()	{return x > y ? x : y;}
+	T min()	{return x < y ? x : y;}
+
+private:
+	T x, y;
+};
 
 
 int main(void) {
-	//animal monster;
-	//cout << monster.name_pro << endl;	//5. Failed! - proteced data can NOT be accessed by outside.
-	//cout << monster.name_pub << endl;	//6. Failed! - private data can NOT be accessed by outside of the class which difined the data.
-    
-	int nums[] = {2, 7, 5, 4};
-	int res = partition(nums, 0, 3);
-	cout << "pivot: " << res << endl;
-	for(int i = 0; i < 4; i++) {
-		cout << nums[i] << endl;
-	}
+	test_smart_pointer();
+	Compare <int> cmp1(4, 7);	/*2. 必须用实际类型名去取代虚拟的类型, 把类模板实例化 */
+	cout << cmp1.max() << endl;
+	cout << cmp1.min() << endl;
+
+	Compare <float> cmp2(23.5, 98.97);
+	cout << cmp2.max() << endl;
+	cout << cmp2.min() << endl;
 
 	return 0;
 }
