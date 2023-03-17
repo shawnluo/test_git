@@ -243,31 +243,31 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize){
     使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
 */
 
-void quickSort(int* nums, int first, int end) {     //快速排序 
-	int temp, l, r;
-	if (first >= end) {
+void quickSort(int* nums, int start, int end) {     //快速排序 
+	int pivot, L, R;
+	if (start >= end) {
 		return;
 	}
-	temp = nums[first];
-	l = first;
-	r = end;
-	while (l < r) {
-		while (l < r && nums[r] >= temp) {
-			r--;
+	pivot = nums[start];
+	L = start;
+	R = end;
+	while (L < R) {
+		while (L < R && nums[R] >= pivot) {
+			R--;
 		}
-		if (l < r) {
-			nums[l] = nums[r];
+		if (L < R) {
+			nums[L++] = nums[R];
 		}
-		while (l < r && nums[l] <= temp) {
-			l++;
+		while (L < R && nums[L] <= pivot) {
+			L++;
 		}
-		if (l < r) {
-			nums[r] = nums[l];
+		if (L < R) {
+			nums[R--] = nums[L];
 		}
 	}
-	nums[l] = temp;
-	quickSort(nums, first, l - 1);
-	quickSort(nums, l + 1, end);
+	nums[L] = pivot;
+	quickSort(nums, start, L - 1);
+	quickSort(nums, L + 1, end);
 }
 
 int comp(int *x, int *y) {
