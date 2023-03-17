@@ -480,10 +480,9 @@ double myPow2(double x, int n) {
         N = -N;
     }
     double res = 1;
-    double cur = x;
     for(long long i = N; i; i /= 2) {
-        if((i % 2) == 1)    res = res * cur;
-        cur = cur * cur;
+        if((i % 2) == 1)    res = res * x;
+        x = x * x;
     }
     return res;
 }
@@ -707,6 +706,8 @@ int min_meeting_rooms(int **intervals) {
     int pEnd = 0;
     int room = 0;
     while(pStart != len) {
+        //make an example, then it's easy to understand!
+        //[1, 3], [4, 5], [6, 7]
         if(pStart == 0 || start[pStart] < end[pEnd]) {
             room++;
         } else {
