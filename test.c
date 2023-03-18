@@ -38,6 +38,9 @@ void quickSort(int *arr, int start, int end) {
     }
 }
 
+void test() {
+}
+
 int main(void) {
     printf("%f\n", myPow2(3, 3));
 
