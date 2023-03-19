@@ -1,17 +1,46 @@
-/*
-    001. string reverse
+/*  [001] string reverse
 */
 void string_reverse() {
     char s[] = "abcd";
     char *left = s;
     char *right = s + strlen(s) - 1;
     while(left < right) {
-        char tmp = *right;
-        *right = *left;
-        *left = tmp;
+        //char tmp = *right;
+        //*right = *left;
+        //*left = tmp;
+        swap(left, right);
         left++, right--;
     }
     printf("%s\n", s);
+}
+
+/*  [001] - 01. strcpy implement
+*/
+int str_cpy(const char *s, char *res) {
+    if(s == NULL)   return -1;
+    while(*res = *s) ;
+    return 0;
+}
+
+/*  [001] - 02. memcpy implement
+*/
+int mem_cpy(char *s, char *res, int len) {
+    if(s == NULL)   return -1;
+    if(s == res)    return 0;
+    char *left = s;
+
+    if(s < res) {
+        s = s + strlen(s) - 1;
+        res += (strlen(s) - 1);
+        //copy from tail
+        *res-- = *s--;
+        return 0;
+    }
+    //just copy
+    while(len++ > 0) {
+        *res++ = *s++;
+    }
+    return 0;
 }
 
 /*  0002
@@ -110,7 +139,7 @@ void quick_sort(int *nums, int start, int end) {
 /*  004
     strtok()
 */
-char *my_strtok(char *hay, coonst char needle) {
+char *my_strtok(char *hay, const char needle) {
     static char *input = NULL;
     if(hay != NULL) input = hay;
     if(input == NULL) return NULL;
@@ -166,8 +195,48 @@ int main(void) {
     '\0'
 */
 
-/*
-    100. a1b2c3a8c6 -> a9b2c9
+
+/* [010] aligned malloc
+*/
+/*  1. malloc new size;
+        1). new_size = size + offset;
+        2). offset = base - 1 + sizeof(size_t)
+        3). address = malloc(new_size)
+    3. what's the return new_address
+        1). new_address = (address + offset) & ~(base - 1)
+    4. save the difference between address and new_address
+        *(new_address - 1) = new_address - address
+    5. return new_address
+*/
+void *alignment_malloc(size_t size, size_t alignment) {
+    //1. need add a offset to malloc enough space
+    int offset = alignment - 1;
+    /*2. malloc enough space: 
+        1). original memory
+        2). offset
+        3). space to save the difference between address and aligned_address
+    */
+    size_t *address = (size_t *)malloc(size + offset + sizeof(size_t));
+
+    //3. adjust the aligned_address
+    void *aligned_address;
+    aligned_address = (void *)((size_t)(address + offset) & ~(offset));
+
+    //4. save the difference
+    *(size_t *)(aligned_address - 1) = (size_t *)aligned_address - address;
+
+    //5. return it
+    return aligned_address;
+}
+
+
+void alignment_free(void *aligned_address) {
+    void *address = (size_t *)aligned_address - *((size_t *)aligned_address - 1);
+    free(address);
+}
+
+
+/*  [100] a1b2c3a8c6 -> a9b2c9
 */
 void print_hash(int hash[], int size) {
     for(int i = 0; i < 256; i++) {
@@ -245,25 +314,16 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize){
 
 void quickSort(int* nums, int start, int end) {     //快速排序 
 	int pivot, L, R;
-	if (start >= end) {
-		return;
-	}
+	if (start >= end)   return;
+
 	pivot = nums[start];
 	L = start;
 	R = end;
 	while (L < R) {
-		while (L < R && nums[R] >= pivot) {
-			R--;
-		}
-		if (L < R) {
-			nums[L++] = nums[R];
-		}
-		while (L < R && nums[L] <= pivot) {
-			L++;
-		}
-		if (L < R) {
-			nums[R--] = nums[L];
-		}
+		while (L < R && nums[R] >= pivot)   R--;
+		if (L < R)                          nums[L++] = nums[R];
+		while (L < R && nums[L] <= pivot)   L++;
+		if (L < R)                          nums[R--] = nums[L];
 	}
 	nums[L] = pivot;
 	quickSort(nums, start, L - 1);

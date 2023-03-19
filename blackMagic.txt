@@ -11,19 +11,22 @@
 good blog:
     https://blog.csdn.net/kinbo88?type=blog
 
-001. string reverse
-002. sprintf
-003. qsort() function
+001.    string reverse
+001-01. strcpy
+001-02. memory copy
+002.    sprintf
+003.    qsort() function
 003-01. binary sorting
-004. strtok implement
-005. long long vs double
-006. isalnum() using letters and numerals. isalpa(): letters. isdigit: numbers
-007. the differences between 0 and '\0' of string end
-008. const pointer vs pointer to const: const int *p  int * const p;
+004.    strtok implement
+005.    long long vs double
+006.    isalnum() using letters and numerals. isalpa(): letters. isdigit: numbers
+007.    the differences between 0 and '\0' of string end
+008.    const pointer vs pointer to const: const int *p  int * const p;
 009. LL create
 009-01. insert-front LL
 009-02. insert-behind
 009-03. reverse LL
+010.    aligned malloc
 
 ==== advanced ===========================================================================
 
