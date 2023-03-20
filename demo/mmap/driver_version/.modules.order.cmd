@@ -1,1 +1,0 @@
-cmd_/home/wallace/workSPACE/test_git/demo/mmap/driver_version/modules.order := {   echo /home/wallace/workSPACE/test_git/demo/mmap/driver_version/chrdevbase.ko; :; } | awk '!x[$$0]++' - > /home/wallace/workSPACE/test_git/demo/mmap/driver_version/modules.order

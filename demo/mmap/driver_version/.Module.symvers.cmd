@@ -1,1 +1,0 @@
-cmd_/home/wallace/workSPACE/test_git/demo/mmap/driver_version/Module.symvers := sed 's/\.ko$$/\.o/' /home/wallace/workSPACE/test_git/demo/mmap/driver_version/modules.order | scripts/mod/modpost -m -a  -o /home/wallace/workSPACE/test_git/demo/mmap/driver_version/Module.symvers -e -i Module.symvers   -T -

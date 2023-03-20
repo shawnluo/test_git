@@ -1,1 +1,0 @@
-cmd_/home/wallace/workSPACE/test_git/demo/mmap/driver_version/chrdevbase.mod := { echo  /home/wallace/workSPACE/test_git/demo/mmap/driver_version/chrdevbase.o;  echo; } > /home/wallace/workSPACE/test_git/demo/mmap/driver_version/chrdevbase.mod

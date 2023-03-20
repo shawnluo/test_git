@@ -44,7 +44,7 @@ const struct file_operations chrdevbase_fops = {
  
 static int __init chrdevbase_init(void) {
     int ret = -1;
-    ret = register_chrdev(200, "chrdevbase", &chrdevbase_fops);
+    ret = register_chrdev(200, "chrdevbase", &chrdevbase_fops); //静态申请
     if (ret < 0)    printk("register_chrdev failed\n");
  
     printk("chrdevbase_init\n");
