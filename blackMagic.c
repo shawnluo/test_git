@@ -813,3 +813,23 @@ bool isSubsequence(char *s, char *sub) {
     if(dp[i][j] == len_sub) return true;
     return false;
 }
+
+/*  [120] - binary additation
+    "101" + "11" = "1000"
+*/
+char *addBinary(char *s1, char *s2) {
+    if(s1 == NULL || s2 == NULL)    return NULL;
+    int len1 = strlen(s1);
+    int len2 = strlen(s2);
+    int sum = 0;
+    int size = (len1 > len2 ? len1 : len2) + 1;
+
+    while(len1 > 0 || len2 > 0 || size > 0) {
+        if(len1 > 0) sum += s1[--len1] - '0';
+        if(len2 > 0) sum += s2[--len2] - '0';
+
+        res[--size] = sum % 2 + '0';
+        sum /= 2;
+    }
+    return res + size;
+}
