@@ -27,21 +27,28 @@ good blog:
 009-02. insert-behind
 009-03. reverse LL
 010.    aligned malloc
+011.    appended LL
 
 ==== advanced ===========================================================================
 
-100. a1b2c3a8c6 - > a9b2c9
-101. two sum
-102. three sum https://blog.csdn.net/weixin_42109012/article/details/99699600
-103. valid parenthesess
-104. find islands
-105. pow
-106. palindrome ext
-107. isNumber
-108. check inclusion
-109. find all anagrams in a string
-110. the longest increasing sub arrar
-111. the largest contiguous sum of sub array
-112. minimum meeting room II
-113. permutation in string (leetcode 567)
-114. if sub is the substring of s by deleting some(can be none) of the characters
+100.    a1b2c3a8c6 - > a9b2c9
+101.    two sum
+102.    three sum https://blog.csdn.net/weixin_42109012/article/details/99699600
+103.    valid parenthesess
+104.    find islands
+105.    pow
+106.    palindrome ext
+107.    isNumber
+108.    check inclusion
+109.    find all anagrams in a string
+110.    the longest increasing sub arrar
+111.    the largest contiguous sum of sub array
+112.    minimum meeting room II
+113.    permutation in string (leetcode 567)
+114.    if sub is the substring of s by deleting some(can be none) of the characters
+115.    delete duplicates from an unsoted linked list
+116.    find the nth to last element of a singly linked list
+117.    delete a node data in the middle of a single linked list, given only access to that node
+118.    add 2 linkedlist, beware of carry bit
+119.    find the entry of LL circular
+120. *  binary addtition

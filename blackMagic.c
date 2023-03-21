@@ -259,7 +259,7 @@ void convert_string(void) {
             save = i;
             i++;
             sum = 0;
-            while(s[i] >= '0' && s[i] <= '9') {
+            while(s[i] >= '0' && s[i] <= '9') { //isdigit(s[i]) == 0
                 sum += sum * 10 + s[i] - '0';
                 i++;
             }
@@ -664,10 +664,10 @@ bool check_inclusion_ext(char *s, char *sub) {
     int left = 0, right = 0;
     int count = 0;
     while(right < len_s) {
-        if(hash[s[right++]]-- >= 1)     count++;
+        if(hash[s[right++]]-- >= 1)     count++;    //s[right] is one of sub[]
         if(count == len_sub)            return true;
         if(right - left >= len_sub && \
-            hash[s[left++]]++ >= 0) {
+            hash[s[left++]]++ >= 0) {   //s[left] is one of sub[]
             count--;
         }
     }
