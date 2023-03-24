@@ -5,122 +5,81 @@
 #include "common.h"
 using namespace std;
 
-
-int test_vector(void) {
-	int i = 0;
-
-	//0.
-	vector<int> vec;
-	for(i = 0; i < 10; i++) {
-		vec.push_back(i);
-	}
-
-	//1. 
-	for(unsigned int i = 0; i < vec.size(); i++) {
-		//cout << vec[i] << endl;
-	}
-
-	//2. 
-	vector<int>::iterator it;
-	for(it = vec.begin(); it != vec.end(); ++it) {
-		//cout << *it << endl;
-	}
-
-	//3.
-	vec.insert(vec.begin() + 4, 0);
-	for(unsigned int i = 0; i < vec.size(); i++) {
-		cout << vec[i] << endl;
-	}
-
-	//4.
-	vec.erase(vec.begin() + 2);
-	for(unsigned int i = 0; i < vec.size(); i++) {
-		cout << vec[i] << endl;
-	}
-
-	//5.
-	vec.erase(vec.begin() + 3, vec.begin() + 5);
-	for(vector<int>:: iterator it = vec.begin(); it != vec.end(); it++) {
-		cout << *it << endl;
-	}
-	return 0;
+template<class T>
+void printVector(std::vector<std::vector<T>> const &matrix) {
+    for (std::vector<T> row: matrix) {
+        for (T val: row) {
+            std::cout << val << " ";
+        }
+        std::cout << std::endl;
+    }
 }
 
-void test_v() {
-	vector <string> v(10);
-	v[0] = "abcd";
+void test_2_wei_bag_problem1() {
+    vector<int> weight = {1, 3, 4};
+    vector<int> value = {15, 20, 30};
+    int bagWeight = 4;
 
-	vector <int> v2(5);
-	
+    // 二维数组
+    vector<vector<int>> dp(weight.size() + 1, vector<int>(bagWeight + 1, 0));
+
+    // 初始化 
+    for (int j = bagWeight; j >= weight[0]; j--) {
+        dp[0][j] = dp[0][j - weight[0]] + value[0];
+    }
+
+    // weight数组的大小 就是物品个数
+    for(int i = 1; i < weight.size(); i++) { // 遍历物品
+        for(int j = 0; j <= bagWeight; j++) { // 遍历背包容量
+            if (j < weight[i]) 	dp[i][j] = dp[i - 1][j];
+            else 				dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
+        }
+    }
+
+    cout << dp[weight.size() - 1][bagWeight] << endl;
 }
 
-template <class T>	/*1. 声明类模板时必须写的关键字
-							mimtype并不是一个已存在的实际类型名，
-							它只是一个虚拟类型参数名。在以后将被一个实际的类型名取代。*/
-class Compare {
-public:
-	Compare(T a, T b) {
-		x = a;
-		y = b;
+
+void spiral_mat() {
+	int m = 3;
+	//int mat[m][m] = {	{1, 2, 3},
+	//					{4, 5, 6},
+	//					{7, 8, 9}};
+	//vector<vector<int>> mat(m, vector<int> (m, 0));
+
+	vector<vector<int>> mat {
+						{1, 2, 3},
+						{4, 5, 6},
+						{7, 8, 9}
+						};
+
+	int loop = m / 2;
+	int startx = 0;
+	int starty = 0;
+	int offset = 1; //?
+
+	while(loop--) {
+		int x = startx;
+		int y = starty;
+
+		for(y = starty; y < m - offset; y++) printf("%d ", mat[x][y]);
+		//printf("\n");
+
+		for(x = startx; x < m - offset; x++) printf("%d ", mat[x][y]);
+		//printf("\n");
+		
+		for( ; y > starty; y--) printf("%d ", mat[x][y]);
+		//printf("\n");
+		
+		for( ; x > startx; x--) printf("%d ", mat[x][y]);
+		//printf("\n");
+
+		startx++, starty++;
+		offset++;
 	}
-	T max()	{return x > y ? x : y;}
-	T min()	{return x < y ? x : y;}
+	if(loop % 2)	printf("%d ", mat[m / 2][m / 2]);
+}
 
-private:
-	T x, y;
-};
-#include "common.h"
-using namespace std;
-
-
-
-int main(void) {
-	int i = 0;
-
-	//0.
-	vector<int> vec;
-	for(i = 0; i < 10; i++) {
-		vec.push_back(i);
-	}
-
-	//1. 
-	for(unsigned int i = 0; i < vec.size(); i++) {
-		//cout << vec[i] << endl;
-	}
-
-	//2. 
-	vector<int>::iterator it;
-	for(it = vec.begin(); it != vec.end(); ++it) {
-		//cout << *it << endl;
-	}
-
-	//3.
-	vec.insert(vec.begin() + 4, 0);
-	for(unsigned int i = 0; i < vec.size(); i++) {
-		cout << vec[i] << endl;
-	}
-
-	//4.
-	vec.erase(vec.begin() + 2);
-	for(unsigned int i = 0; i < vec.size(); i++) {
-		cout << vec[i] << endl;
-	}
-
-int main(void) {
-	test_smart_pointer();
-	Compare <int> cmp1(4, 7);	/*2. 必须用实际类型名去取代虚拟的类型, 把类模板实例化 */
-	cout << cmp1.max() << endl;
-	cout << cmp1.min() << endl;
-
-	Compare <float> cmp2(23.5, 98.97);
-	cout << cmp2.max() << endl;
-	cout << cmp2.min() << endl;
-	//5.
-	vec.erase(vec.begin() + 3, vec.begin() + 5);
-	for(vector<int>:: iterator it = vec.begin(); it != vec.end(); it++) {
-		cout << *it << endl;
-	}
-
-
-	return 0;
+int main() {
+	spiral_mat();
 }

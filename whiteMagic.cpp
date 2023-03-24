@@ -154,6 +154,15 @@ int test_vector(void) {
 	vector<int> vec;
 	for(int i = 0; i < 10; i++)		vec.push_back(i);
 
+	vector<int> nums1 = {1, 2, 3, 4, 5};
+	for(int x : nums1)	cout << x << endl;
+
+	int size = 5;
+	vector<int> nums(size, 0);
+
+	vector<int>::iterator itr;
+	for(itr = nums.begin(); itr != nums.end(); itr++)	cout << *itr << endl;
+
 	//1. 
 	for(unsigned int i = 0; i < vec.size(); i++) 	cout << vec[i] << endl;
 
@@ -176,6 +185,37 @@ int test_vector(void) {
 	return 0;
 }
 
+template<class T>
+void printVector(std::vector<std::vector<T>> const &matrix) {
+    for (std::vector<T> row: matrix) {
+        for (T val: row) {
+            std::cout << val << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+void vector_init() {
+	//one dimension vector initlization: way1
+	int size = 5;
+	vector<int> nums_1(size);
+
+	//one dimension vector initlization: way2
+	vector<int> nums_2;
+	nums_2.resize(size);
+
+	//two dimension: way1
+	int size_row = 5;
+	int size_col = 3;
+	vector<vector<int>> nums_3(size_row, vector<int> (size_col, 0));
+
+	//two dimension: way2
+	vector<vector<int>> nums_4;
+	nums_4.resize(size_row);
+	for(int i = 0; i < size_col; i++)	nums_4[i].resize(size_col);
+
+	printVector(nums_4);
+}
 
 /******************************************************************************************
 	[005] template
