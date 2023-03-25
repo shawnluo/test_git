@@ -23,6 +23,11 @@ int bin_add(char *s1, char *s2) {
 
 
 //最短的大于或等于key的长度
+/* 4, 1, 8, 9, 6, -2     key: 8
+    step 1: sorting -> -2, 1, 4, 6, 8, 9
+    step 2: 
+*/
+
 int shortest_consective(int *arr, int size, int key) {
     int left = 0;
     int right = 0;
@@ -42,6 +47,8 @@ int shortest_consective(int *arr, int size, int key) {
     }
     return len_min;
 }
+
+
 
 
 int main(void) {
