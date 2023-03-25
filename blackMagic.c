@@ -833,3 +833,110 @@ char *addBinary(char *s1, char *s2) {
     }
     return res + size;
 }
+
+/*  [122] - spiral matrix
+    Input: 
+        [[1,2,3],
+        [4,5,6],
+        [7,8,9]]
+    Output: [1,2,3,6,9,8,7,4,5]
+*/
+
+
+/*  [123] - spiral matrix ii
+    Input: N = 5
+    Output: 
+        1,  2,  3,  4,  5
+        16, 17, 18, 19, 6
+        15, 24, 25  20, 7
+        14, 23, 22, 21, 8
+        13, 12, 11, 10, 9
+*/
+
+
+/*  [123] - merge intervals
+    Input: intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
+    Output: [[1, 6], [8, 10], [15, 18]]
+    Explanation: [1, 3] and [2, 6] overlap, merge them into [1, 6]
+
+ * Return an array of arrays of size *returnSize.
+ * The sizes of the arrays are returned as *returnColumnSizes array.
+ * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
+ */
+int Comp(const void **a, const void **b) {
+    int *one = *(int **)a;
+    int *two = *(int **)b;
+    
+    if (one[0] == two[0]) {
+        return one[1] - two[1];
+    } 
+    return one[0] - two[0];
+}
+ 
+int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize, int** returnColumnSizes){
+    int i;
+    int left = 0;
+    int right = 0;
+    int **res;
+    int idx = 0;
+    
+    res = (int **)malloc(sizeof(int *) * intervalsSize);
+    for ( i = 0; i < intervalsSize; i++) {
+        res[i] = (int *)malloc(sizeof(int) *2);
+        memset(res[i], 0, sizeof(int) *2);
+    }
+    
+    returnColumnSizes[0] = (int *)malloc(sizeof(int) * intervalsSize);
+    for (i = 0; i < intervalsSize; i++) {
+        returnColumnSizes[0][i] = 2;
+    }
+    
+    qsort(intervals, intervalsSize, sizeof(intervals[0]), Comp);
+    
+    left = intervals[0][0];
+    right = intervals[0][1];
+    for (i = 1; i < intervalsSize; i++){
+        if ((intervals[i][0] >= left) && (intervals[i][0] <= right) && (intervals[i][1] > right)) {
+            right = intervals[i][1];
+        } else if (intervals[i][0] > right) {
+            res[idx][0] = left;
+            res[idx][1] = right;
+            left = intervals[i][0];
+            right = intervals[i][1];
+            idx++;
+        }
+    }
+    
+    res[idx][0] = left;
+    res[idx][1] = right;
+    idx++;
+    
+    *returnSize = idx;
+    
+    return res;
+}
+
+/*  [124] - simplify path
+*/
+char *simplify_path(char *path) {
+    char *save[100];
+    int size = 0;
+    for(char *s = strtok(path, "/"); s; s = strtok(NULL, "/")) {
+        if(strcmp(s, ".")) {
+            
+        } else if (strcmp(s, "..")) {
+            size = fmax(0, size - 1);
+        } else {
+            save[size++] = s;
+        }
+    }
+    if(size == 0) {
+        return "/";
+    }
+    char *res = calloc(1000, sizeof(char));
+    for(int i = 0; i < size; i++) {
+        strcat(res, "/");
+        strcat(res, save[i]);
+    }
+    return res;
+}

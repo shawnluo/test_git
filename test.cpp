@@ -6,12 +6,12 @@
 using namespace std;
 
 template<class T>
-void printVector(std::vector<std::vector<T>> const &matrix) {
-    for (std::vector<T> row: matrix) {
+void printVector(vector<vector<T>> const &matrix) {
+    for (vector<T> row: matrix) {
         for (T val: row) {
-            std::cout << val << " ";
+            cout << val << " ";
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 }
 
@@ -80,6 +80,49 @@ void spiral_mat() {
 	if(loop % 2)	printf("%d ", mat[m / 2][m / 2]);
 }
 
+int spiral_mat_2(vector<vector<int>> matx, int m, int n) {
+	vector<vector<int>> mat {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}};
+	int row = 4;
+	int col = 3;
+	int count = row * col;
+	int offset = 1;
+	int startx = 0;
+	int starty = 0;
+
+	#if 1
+	printVector(mat);
+
+	return 0;
+	#endif
+
+	while(count) {
+		int x = startx;
+		int y = starty;
+		for(y = starty; y < col - offset; y++) {
+			//printf("%d, ", mat[x][y]);
+			cout << mat[x][y] << " ";
+			count--;
+		}
+		for(x = startx; y < row - offset; x++) {
+			printf("%d, ", mat[x][y]);
+			count--;
+		}
+		for( ; y > starty; y--) {
+			printf("%d, ", mat[x][y]);
+			count--;
+		}
+		for( ; x > startx; x--) {
+			printf("%d, ", mat[x][y]);
+			count--;
+		}
+		startx++;
+		starty++;
+		offset++;
+	}
+	return 0;
+}
+
 int main() {
-	spiral_mat();
+	vector<vector<int>> mat {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}};
+	spiral_mat_2(mat, 3, 4);
 }

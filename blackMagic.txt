@@ -52,3 +52,12 @@ good blog:
 118.    add 2 linkedlist, beware of carry bit
 119.    find the entry of LL circular
 120. *  binary addtition
+121.    rotate mat
+122.    spiral mat
+123.    merge intervals
+124.    simplify path
+125.    valid Palindrome (leetcode 125)
+126.    find kth largest element in the array (leetcode 215)
+127.    valid palindrome (leetcode 125)
+128.    valid palindrome ii (leetcode 680)
+129.    shortest path in binary matrix (leetcode 1091)
