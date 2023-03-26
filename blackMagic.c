@@ -854,7 +854,8 @@ char *addBinary(char *s1, char *s2) {
 */
 
 
-/*  [123] - merge intervals
+/*************************************************************
+    [123] - merge intervals
     Input: intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
     Output: [[1, 6], [8, 10], [15, 18]]
     Explanation: [1, 3] and [2, 6] overlap, merge them into [1, 6]
@@ -873,7 +874,7 @@ int Comp(const void **a, const void **b) {
     return one[0] - two[0];
 }
  
-int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize, int** returnColumnSizes){
+int** merge_intervals(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize, int** returnColumnSizes){
     int i;
     int left = 0;
     int right = 0;

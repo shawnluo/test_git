@@ -65,3 +65,4 @@ good blog:
 131.    shortest consective nums sum equal or larger than given value
 132.    Depth first search in matrix using recursion
 133.    Shortest path from source to destination in matrix – Code
+134.    interger break
