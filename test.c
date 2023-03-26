@@ -25,6 +25,33 @@ int bin_add(char *s1, char *s2) {
 }
 
 
+/*
+    0 0 1
+    0 1 0
+    0 1 0
+*/
+int find_path(int **mat, int x, int y, int posx, int posy) {
+    if(mat == NULL) return false;
+    if(posx < 0 || posx >= x)   return false;
+    if(posy < 0 || posy >= y)   return false;
+
+    if(mat[posx][posy] == 0) {
+        if(posx == x && posy == y){
+            mat[posx][posy] = 1;
+            return 1;
+        }
+        if((posx >= 0) && (posx < x) && (posy > 0) && (posy < y - 1)) {
+            find_path(mat, );
+        }
+    } 
+    if(mat[posx][posy] == 1)  return false;
+
+    if(mat[posx][posy] == 0){
+        find_path(mat, x, y, posx + 1, posy);
+    }
+}
+
+
 int main(void) {
     char s[] = "abc";
     string_reverse(s);
