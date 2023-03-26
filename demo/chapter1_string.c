@@ -480,9 +480,11 @@ void longest_uniq_substr(char *s, int size) {
     }
 
     for(int i = 0; i < size; i++) {
-        pos = pos > hash[s[i]] ? pos : hash[s[i]];
+        //pos = pos > hash[s[i]] ? pos : hash[s[i]];
+        pos = fmax(pos, hash[s[i]]);
         len = i - pos;
-        longest = len > longest ? len : longest;
+        //longest = len > longest ? len : longest;
+        longest = fmax(longest, len);
         hash[s[i]] = i;
     }
 

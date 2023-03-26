@@ -916,7 +916,8 @@ int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* retu
     return res;
 }
 
-/*  [124] - simplify path
+/*************************************************************
+    [124] - simplify path
 */
 char *simplify_path(char *path) {
     char *save[100];
@@ -939,4 +940,59 @@ char *simplify_path(char *path) {
         strcat(res, save[i]);
     }
     return res;
+}
+
+/*************************************************************
+    [130] - longest unique sub strings
+    abca     -> abc 3
+*/
+int longest_uniq_sub(char *s) {
+    /*1. initialize hash[] to all -1. pos set to -1;
+      2. get len by chosing the larger value of hash[] and pos.
+        2.1 hash[] saves the postion of repeat character last position.
+        2.2 pos save the largest position except the current char
+      3. update the hash of char i to i
+    */
+
+    int hash[256];
+    for(int i = 0; i < 256; i++) hash[i] = -1;
+
+    int len = strlen(s);
+    int len_max = 0;
+    int pos = -1;
+    for(int i = 0; i < len; i++) {
+        pos = fmax(pos, hash[s[i]]);
+        len = i - pos;
+        len_max = fmax(len_max, len);
+        hash[s[i]] = i;
+    }
+    return len_max;
+}
+
+/*************************************************************
+    [131] - shortest 
+    1.  L points to start, R points to L
+    2.  R in the loop [R, end], 
+        if sum >= key, then
+            save and compare len with len_min
+            break;
+*/
+int shortest_consective(const int *nums, int len, const int key) {
+    int L = 0;
+    int R = 0;
+    int sum;
+    int len = 0;
+    int len_min = INT_MAX;
+    for(L = 0; L < len; L++) {
+        sum = 0;
+        for(R = L; R < len; R++) {
+            sum += nums[R];
+            if(sum >= key) {
+                len = R - L + 1;
+                len_min = fmin(len_min, len);
+                break;
+            }
+        }
+    }
+    return len_min;
 }

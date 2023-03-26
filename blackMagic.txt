@@ -61,3 +61,5 @@ good blog:
 127.    valid palindrome (leetcode 125)
 128.    valid palindrome ii (leetcode 680)
 129.    shortest path in binary matrix (leetcode 1091)
+130.    longest unique sub strings
+131.    shortest consective nums sum equal or larger than given value
