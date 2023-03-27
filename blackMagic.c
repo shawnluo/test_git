@@ -1327,3 +1327,39 @@ int longest_increasing_subseq(int nums[], int len) {
     return res;
 }
 
+/*  [136] find Median Sorted Arrays (leetcode 4)
+    Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+    The overall run time complexity should be O(log (m+n)).
+
+    Example 1:
+    Input: nums1 = [1,3], nums2 = [2]
+    Output: 2.00000
+    Explanation: merged array = [1,2,3] and median is 2.
+
+    Example 2:
+    Input: nums1 = [1,2], nums2 = [3,4]
+    Output: 2.50000
+    Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
+*/
+double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Size){
+    int newSize = nums1Size + nums2Size;
+    int tmp[newSize];
+    int i = 0, j = 0, count = 0;
+    while(i < nums1Size || j < nums2Size) {
+        if(i == nums1Size) {
+            tmp[count++] = nums2[j++];
+        } else if(j == nums2Size) {
+            tmp[count++] = nums1[i++];
+        } else if(nums1[i] <= nums2[j]) {
+            tmp[count++] = nums1[i++];
+        } else if(nums1[i] > nums2[j]) {
+            tmp[count++] = nums2[j++];
+        }
+    }
+
+    if(newSize % 2) {
+        return tmp[newSize / 2];
+    } else {
+        return (tmp[newSize / 2 - 1] + tmp[newSize / 2]) / 2.0;
+    }
+}
