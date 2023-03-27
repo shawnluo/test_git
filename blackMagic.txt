@@ -66,3 +66,5 @@ good blog:
 132.    Depth first search in matrix using recursion
 133.    Shortest path from source to destination in matrix – Code
 134.    interger break
+135.    best team with No conflicts (leetcode 1626)
+136.    longest increasing subseq

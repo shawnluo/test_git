@@ -64,7 +64,8 @@ int use_sprintf(void) {
 */
 //case1
 int cmpfunc(const void *a, const void *b) {
-    return (*(int *)a - *(int *)b);
+    return (*(int *)a - *(int *)b);     //ascending
+    //return (*(int *)b - *(int *)a);     //descending
 }
 
 void sort_arr(void) {
@@ -1205,6 +1206,7 @@ public class ShortestPathBetweenCellsBFS {
 	} 
 }
 
+
 /*************************************************************
     [134] - interger break (leetcode 343)
         Given an integer n, break it into the sum of k positive integers, 
@@ -1223,3 +1225,105 @@ long long integerBreak(int n) {
     }
     return dp[n];
 }
+
+/*************************************************************
+    [135] - best team with no conflicts
+    You are the manager of a basketball team. For the upcoming tournament, you want to choose the team with the highest overall score. 
+    The score of the team is the sum of scores of all the players in the team.
+    However, the basketball team is not allowed to have conflicts. A conflict exists if a younger player has a strictly higher score 
+    than an older player. A conflict does not occur between players of the same age.
+    Given two lists, scores and ages, where each scores[i] and ages[i] represents the score and age of the ith player, 
+    respectively, return the highest overall score of all possible basketball teams.
+
+    Example 1:
+    Input: scores = [1,3,5,10,15], ages = [1,2,3,4,5]
+    Output: 34
+    Explanation: You can choose all the players.
+
+    Example 2:
+    Input: scores = [4,5,6,5], ages = [2,1,2,1]
+    Output: 16
+    Explanation: It is best to choose the last 3 players. Notice that you are allowed to choose multiple people of the same age.
+
+    Example 3:
+    Input: scores = [1,2,3,5], ages = [8,9,10,1]
+    Output: 6
+    Explanation: It is best to choose the first 3 players. 
+
+    solution:
+        1. sorting by age descending
+        2. longest increasing subseq
+*/
+static
+int cmp_pair(const void* l, const void* r) {
+  const int (*lhs)[2] = l;
+  const int (*rhs)[2] = r;
+  return ((*lhs)[0] != (*rhs)[0]) ? (*rhs)[0] - (*lhs)[0] : (*rhs)[1] - (*lhs)[1];
+}
+
+static
+int imax(int a, int b) { return (a > b) ? a : b; }
+
+int bestTeamScore(int* scores, int scoresSize, int* ages, int agesSize){
+  int (*pairs)[2] = malloc(scoresSize * sizeof(*pairs));
+  for (int i = 0; i < scoresSize; ++i) {
+    pairs[i][0] = ages[i];
+    pairs[i][1] = scores[i];
+  }
+
+  /* Sort via age, then score, descending */
+  qsort(pairs, scoresSize, sizeof(*pairs), &cmp_pair);
+
+  /* Initialise the 'best' for each player to be a team of just them */
+  int* const best = malloc(scoresSize * sizeof(*best));
+  for (int i = 0; i < scoresSize; ++i) {
+    best[i] = pairs[i][1];
+  }
+
+  /*
+  Pairs is sorted by ages, then scores, descendingly, as such, the age of any
+	pair to the right of another is irrelevant and we only need to consider the
+	score to see whether the pairs are in conflict.  
+	*/
+  for (int i = 0; i < scoresSize; ++i) {
+    for (int j = i + 1; j < scoresSize; ++j) {
+      if (pairs[i][1] >= pairs[j][1]) {
+        best[j] = imax(best[j], best[i] + pairs[j][1]);
+      }
+    }
+  }
+
+  /* The find the best of the best */
+  int ret = best[0];
+  for (int i = 1; i < scoresSize; ++i) {
+    ret = imax(ret, best[i]);
+  }
+
+  free(pairs);
+  free(best);
+  return ret;
+}
+
+
+
+/*  [136]
+    Longest Increasing Subsequence
+    2, 9, 3, 0, 5, 13 -> 2, 3, 5, 13
+
+*/
+int longest_increasing_subseq(int nums[], int len) {
+    int dp[len];
+    int res = INT_MIN;
+
+    //dp[i]: longest sub sequence including nums[i]
+    for(int i = 0; i < len; i++) {
+        for(int j = 0; j < i; j++) {
+            if(dp[i] > dp[j]) {
+                dp[i] = max(dp[i], dp[j] + 1);
+            }
+        }
+        res = dp[i] > res ? dp[i] : res;
+    }
+    return res;
+}
+

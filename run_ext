@@ -1,0 +1,24 @@
+#!/bin/bash
+#make clean; make && ./test
+
+target=test
+while getopts ":a:b:c:" opt; do
+#while getopts "a:b:" opt; do
+  case $opt in
+     a)
+       #echo "argument -a called with parameter $OPTARG" >&2
+       target=$2
+       ;;
+     b)
+       echo "argument -b called with parameter $OPTARG" >&2
+       ;;
+     c)
+       echo "argument -c called with parameter $OPTARG" >&2
+       ;;
+     *)
+       echo "invalid command: no parameter included with argument $OPTARG"
+       ;;
+  esac
+done
+echo $target
+#make clean; make $target; 
