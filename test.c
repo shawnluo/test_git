@@ -52,6 +52,44 @@ int find_path(int **mat, int x, int y, int posx, int posy) {
 }
 
 
+/*  [123] - merge intervals
+    [1, 8] [2, 9]   -> [1, 9]
+    [1, 8] [9, 17]  -> [1, 8] [9, 17]
+    1. sortint: 
+        1). by first element
+        2). if first elements are equal. then by send elements
+    2. travel from second paire. L and R point to first and second
+    3. the core concept: how to get L and R?
+        1). L and R are set to the first pair array
+        2). the conditions of updating L and R?
+*/
+int merge_intervals(int **nums, int row, int col) {
+    int **res = (int **)malloc(row * sizeof(int *));
+    for(int i = 0; i < col; i++) {
+        res[i] = (int *)malloc(col * sizeof(int));
+    }
+
+    int L = nums[0][0];
+    int R = nums[0][1];
+    int idx = 0;
+
+    for(int i = 1; i < row; i++) {
+        if(nums[i][0] <= R && nums[i][1] >= R) {
+            R = nums[i][1];
+        } else if(nums[i][0] > R) {
+            res[idx][0] = L;
+            res[idx][1] = R;
+            L = res[idx][0];
+            R = res[idx][1];
+            idx++;
+        }
+    }
+    res[idx][0] = L;
+    res[idx][1] = R;
+    return res;
+}
+
+
 int main(void) {
     char s[] = "abc";
     string_reverse(s);

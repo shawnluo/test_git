@@ -1204,3 +1204,22 @@ public class ShortestPathBetweenCellsBFS {
 	   	shortestPath(matrix, start1, end1);
 	} 
 }
+
+/*************************************************************
+    [134] - interger break (leetcode 343)
+        Given an integer n, break it into the sum of k positive integers, 
+        where k >= 2, and maximize the product of those integers.
+*/
+long long integerBreak(int n) {
+    long long dp[n + 1];
+    for(int i = 0; i <= n + 1; i++) dp[i] = 0;
+
+    int max = 0;
+    dp[2] = 1;
+    for(int i = 3; i <= n + 1; i++) {
+        for(int j = 1; j < i - 1; j++) {
+            dp[i] = fmax(dp[i], fmax((i - j) * j), dp[i - j] * j);
+        }
+    }
+    return dp[n];
+}
