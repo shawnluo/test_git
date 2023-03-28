@@ -70,3 +70,6 @@ good blog:
 136.    longest increasing subseq
 137.    find Median Sorted Arrays (leetcode 4)
 138.    hanoi
+139.*   the next and previous binary
+140.    bits swap required
+141.    swap odd with even bits

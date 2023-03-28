@@ -356,10 +356,10 @@ int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes
 	for (i = 0; i <= numsSize - 3; i++) {
 		left = i + 1;
 		right = numsSize - 1;
-		if (nums[i] > 0) {										// 如果当前数字大于0，则三数之和一定大于0，所以结束循环
+		if (nums[i] > 0) {			// 如果当前数字大于0，则三数之和一定大于0，所以结束循环
 			break;
 		}
-		if (i > 0 && nums[i] == nums[i - 1]) {					// 去重
+		if (i > 0 && nums[i] == nums[i - 1]) {	// 去重
 			continue;
 		}
 		while (left < right) {
@@ -391,7 +391,8 @@ int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes
 			if (*returnSize == base_alloc_size) {							//空间不足，扩充内存
 				base_alloc_size = base_alloc_size * 2;
 				res = (int**)realloc(res, base_alloc_size * sizeof(int*));
-				(*returnColumnSizes) = (int*)realloc((*returnColumnSizes), base_alloc_size * sizeof(int));
+				(*returnColumnSizes) = (int*)realloc((*returnColumnSizes), \
+                    base_alloc_size * sizeof(int));
 			}
 		}
 	}
@@ -405,7 +406,8 @@ int main() {
 	int* returnSize = (int*)calloc(1, sizeof(int));
 	//这里的内存分配最大值,即排列组合知识,C几取3
 	//C6取3 == 20
-	int** returnColumnSizes = (int**)malloc(sizeof(int*) * (numsSize * (numsSize - 1) * (numsSize - 2)) / 6);
+	int** returnColumnSizes = (int**)malloc(sizeof(int*) * \
+        (numsSize * (numsSize - 1) * (numsSize - 2)) / 6);
 	int** res = threeSum(nums, numsSize, returnSize, returnColumnSizes);
 
 	for (int i = 0; i < *returnSize; i++) {				//打印
@@ -579,10 +581,13 @@ int palindrom_ext(char *s) {
         Both decimal numbers and integers must contain at least one digit.
 
     2. A sign ("+" or "-"):
-        Sign characters are optional for both decimal numbers and integers, but if one is present, it will always be the first character. Note, this means that a sign character can also appear immediately after an exponent.
+        Sign characters are optional for both decimal numbers and integers, 
+        but if one is present, it will always be the first character. 
+        Note, this means that a sign character can also appear immediately after an exponent.
 
     3. An exponent ("e" or "E")
-        Exponents are also optional, but if the string contains one then it must be after a decimal number or an integer.
+        Exponents are also optional, but if the string contains one then 
+        it must be after a decimal number or an integer.
         An integer must follow the exponent.
 
     4. A dot (".")
@@ -1267,11 +1272,14 @@ long long integerBreak(int n) {
 
 /*************************************************************
     [135] - best team with no conflicts
-    You are the manager of a basketball team. For the upcoming tournament, you want to choose the team with the highest overall score. 
+    You are the manager of a basketball team. For the upcoming tournament, 
+    you want to choose the team with the highest overall score. 
     The score of the team is the sum of scores of all the players in the team.
-    However, the basketball team is not allowed to have conflicts. A conflict exists if a younger player has a strictly higher score 
+    However, the basketball team is not allowed to have conflicts. 
+    A conflict exists if a younger player has a strictly higher score 
     than an older player. A conflict does not occur between players of the same age.
-    Given two lists, scores and ages, where each scores[i] and ages[i] represents the score and age of the ith player, 
+    Given two lists, scores and ages, where each scores[i] and ages[i] represents 
+    the score and age of the ith player, 
     respectively, return the highest overall score of all possible basketball teams.
 
     Example 1:
@@ -1282,7 +1290,8 @@ long long integerBreak(int n) {
     Example 2:
     Input: scores = [4,5,6,5], ages = [2,1,2,1]
     Output: 16
-    Explanation: It is best to choose the last 3 players. Notice that you are allowed to choose multiple people of the same age.
+    Explanation: It is best to choose the last 3 players. Notice that you are allowed 
+    to choose multiple people of the same age.
 
     Example 3:
     Input: scores = [1,2,3,5], ages = [8,9,10,1]
@@ -1415,4 +1424,92 @@ void hanoi(int n, char one, char two, char three) {
         move(one, three);
         hanoi(n - 1, two, one, three);
     }
+}
+
+/*  [139] - the next and previous binary
+*/
+int count_one0(int x){
+    int cnt = 0;
+    for(int i=0; i<32; ++i){
+        if(x & 1) ++cnt;
+        x >>= 1;
+    }
+    return cnt;
+}
+int count_one(int x){
+    x = (x & (0x55555555)) + ((x >> 1) & (0x55555555));
+    x = (x & (0x33333333)) + ((x >> 2) & (0x33333333));
+    x = (x & (0x0f0f0f0f)) + ((x >> 4) & (0x0f0f0f0f));
+    x = (x & (0x00ff00ff)) + ((x >> 8) & (0x00ff00ff));
+    x = (x & (0x0000ffff)) + ((x >> 16) & (0x0000ffff));
+    return x;
+}
+int next(int x){
+    int max_int = ~(1<<31);
+    int num = count_one(x);
+    if(num == 0 || x == -1) return -1;
+    for(++x; count_one(x) != num && x < max_int; ++x);
+    if(count_one(x) == num) return x;
+    return -1;	
+}
+int previous(int x){
+    int min_int = (1<<31);
+    int num = count_one(x);
+    if(num == 0 || x == -1) return -1;
+    for(--x; count_one(x) != num && x > min_int; --x);
+    if(count_one(x) == num) return x;
+    return -1;	
+}
+int next1(int x){
+    int xx = x, bit = 0;
+    for(; (x&1) != 1 && bit < 32; x >>= 1, ++bit);
+    for(; (x&1) != 0 && bit < 32; x >>= 1, ++bit);
+    if(bit == 31) return -1; //011.., none satisify
+    x |= 1;
+    x <<= bit; // wtf, x<<32 != 0,so use next line to make x=0
+    if(bit == 32) x = 0; // for 11100..00
+    int num1 = count_one(xx) - count_one(x);
+    int c = 1;
+    for(; num1 > 0; x |= c, --num1, c <<= 1);
+    return x;
+}
+int previous1(int x){
+    int xx = x, bit = 0;
+    for(; (x&1) != 0 && bit < 32; x >>= 1, ++bit);
+    for(; (x&1) != 1 && bit < 32; x >>= 1, ++bit);
+    if(bit == 31) return -1; //100..11, none satisify
+    x -= 1;
+    x <<= bit;
+    if(bit == 32) x = 0;
+    int num1 = count_one(xx) - count_one(x);
+    x >>= bit;
+    for(; num1 > 0; x = (x<<1) | 1, --num1, --bit);
+    x <<= bit;
+    return x;
+}
+int test_binary(){
+    int a = -976756;//(1<<31)+(1<<29);//-8737776;
+    cout<<next(a)<<" "<<previous(a)<<endl; // very slow
+    cout<<next1(a)<<" "<<previous1(a)<<endl;;
+    return 0;
+}
+
+/*  [140] - bit swap required
+    using xor,     
+        0 ^ 1 = 1
+        0 ^ 0 = 0
+        1 ^ 1 = 0 
+*/
+int bitSwapRequired(int a, int b) {
+    int cnt = 0;
+    int data = a ^ b;
+    for(; data != 0; data >= 1) cnt += data & 1;
+
+    return cnt;
+}
+
+/*  [141] - swap odd with even bits
+*/
+int swap_odd_even_bits(int x) {
+    return ((x & 0xaaaaaaaa) >> 1) | ((x & 0x55555555) << 1);
 }
