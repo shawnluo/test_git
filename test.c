@@ -65,14 +65,20 @@ int main(void) {
     for(int i = 0; i < 3; i++) {
         visited[i] = (int *)malloc(5 * sizeof(int));
     }
-*/
+
     int arr[5][3] = {{0, 1, 2},
                     {3, 4, 5},
                     {6, 7, 8},
                     {9, 10, 11},
                     {12, 13, 14}};
+*/
+
+    int arr[][3] = {{0, 1, 2},
+                    {3, 4, 5},
+                    {6, 7, 8}};
+
     //rotate_matrix(arr, 3, 3);
-    rotate(arr, 5, 3);
+    rotate(arr, 3, 3);
 
     //printf("%s\n", s);
 
