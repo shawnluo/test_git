@@ -1366,7 +1366,7 @@ int longest_increasing_subseq(int nums[], int len) {
     return res;
 }
 
-/*  [136] find Median Sorted Arrays (leetcode 4)
+/*  [137] find Median Sorted Arrays (leetcode 4)
     Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
     The overall run time complexity should be O(log (m+n)).
 
@@ -1400,5 +1400,19 @@ double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Si
         return tmp[newSize / 2];
     } else {
         return (tmp[newSize / 2 - 1] + tmp[newSize / 2]) / 2.0;
+    }
+}
+
+/*  [138] - hanoi
+*/
+void move(char x, char y) {
+    printf("%c -> %c\n", x, y);
+}
+void hanoi(int n, char one, char two, char three) {
+    if(n == 1)  move(one, three);
+    else {
+        hanoi(n - 1, one, three, two);
+        move(one, three);
+        hanoi(n - 1, two, one, three);
     }
 }

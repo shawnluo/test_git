@@ -54,6 +54,13 @@ void rotate(int mat[][3], int row, int col) {
     }
 }
 
+
+
+void hanoi(int num, int start, int buf, int end) {
+    
+}
+
+
 int main(void) {
     /*
     int **mat = (int **)malloc(3 * sizeof(int *));
