@@ -865,7 +865,7 @@ void rotate(){
 int **rotate_matrix(int **mat, int row, int col) {
     int save = mat[x][y];
     for(int x = 0; x < row / 2; x++) {
-        for(int y = x; y < col / 2; y++) {
+        for(int y = x; y < col - x - 1; y++) {
             mat[x][y]                       = mat[y][col - x + 1];
             mat[y][col - x - 1]             = mat[col - x - 1][row - y - 1];
             mat[col - x - 1][row - y - 1]   = mat[row - y - 1][x];

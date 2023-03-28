@@ -37,7 +37,7 @@ void rotate(int mat[][3], int row, int col) {
     int save;
 
     for(x = 0; x < row / 2; x++) {
-        for(y = x; y < col / 2; y++) {
+        for(y = x; y < col - x - 1; y++) {
             save                            = mat[x][y];
             mat[x][y]                       = mat[y][row - x - 1];
             mat[y][row - x - 1]            = mat[row - x - 1][col - y - 1];
