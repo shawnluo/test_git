@@ -61,6 +61,17 @@ void hanoi(int num, int start, int buf, int end) {
 }
 
 
+void permutation(char *s, int pos) {
+    int len = strlen(s);
+    if(pos >= len)  printf("%s\n", s);
+    for(int i = pos; i < len; i++) {
+        swap(&s[i], &s[pos]);
+        permutation(s, pos + 1);
+        swap(&s[i], &s[pos]);
+    }
+}
+
+
 int main(void) {
     /*
     int **mat = (int **)malloc(3 * sizeof(int *));
@@ -85,9 +96,33 @@ int main(void) {
                     {6, 7, 8}};
 
     //rotate_matrix(arr, 3, 3);
-    rotate(arr, 3, 3);
+    char s[3] = "abc";
+    permutation(s, 0);
 
     //printf("%s\n", s);
 
     return 0;
 }
+
+
+pNode pPre = NULL;
+pNode pCur = pHead;
+pNode pNext = pHead;
+
+while(pCur) {
+    pNext = pCur->next;
+    pCur->next = pPre;
+    pPre = pCur;
+    pCur = pNext;
+}
+return pPre;
+
+int k = m + n - 1;
+int i = n - 1;
+int j = m - 1;
+
+while(i >= 0 && j >= 0) {
+    if(a[i] > b[j]) a[k--] = a[i--];
+    else    a[k--] = b[j--];
+}
+while(j >= 0)   a[k--] = b[j--];

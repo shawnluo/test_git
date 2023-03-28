@@ -1513,3 +1513,103 @@ int bitSwapRequired(int a, int b) {
 int swap_odd_even_bits(int x) {
     return ((x & 0xaaaaaaaa) >> 1) | ((x & 0x55555555) << 1);
 }
+
+/*  [142] - 
+An array A[1...n] contains all the integers from 0 to n except for one number 
+which is missing.In this problem, we cannot access an entire integer in A with a single operation.
+The elements of A are represented in binary, and the only operation we can use to access them 
+is "fetch the jth bit of A[i]", which takes constant time. Write code to find the missing integer.
+Can you do it in O(n) time?
+以0-5，少了3为例:
+000
+001
+010
+011
+100
+101
+首先观察最后一位，由于数是从0开始的，因此，如果没有去掉一个数，0的数目应该比一的数目大1（奇数个数）
+或者相等（偶数个数）。现在的具体情况是3个0，2个1，因此去掉的数的最后一位一定是1，因为如果为0，
+那么就有4个0和2个1，显然不合理。
+这样，我们就可以排除最后一位不是1的数，这些数都是存在的，即不可能是所求。
+000
+001
+010
+011
+100
+101
+现在来看倒数第二位，2个0,0个1，因此去掉的数的倒数第二位一定是1。
+排除倒数第二位不是1的数
+000
+001
+010
+011
+100
+101
+此时A[]里的数已经全部被排除了，那么结果就是最后一位和倒数第二位为1，其余为0的数，即011
+*/
+int fetch(int i, int j) {//获取整数i的第j位
+    if(j > 32 || j < 0) return 0;
+    else            return (i >> j) & 1;
+}
+
+int func(int colum, int *A, int len) {  //colum是倒数第几位，len是数组A的长度
+    if(len == 0)    return 0;
+
+    int cnt0, cnt1;//colum位有几个1，几个0
+    cnt0 = 0;
+    cnt1 = 0;
+
+    for(int i = 0; i < len; i++) {
+        if((fetch(A[i], colum) & 1) > 0)   cnt1++;
+        else    cnt0++;
+    }
+
+    int *A1, *A0;
+    if(cnt1 > 0)        A1 = new int[cnt1];
+    else        A1=NULL;
+
+    if(cnt0 > 0)  A0 = new int[cnt0];
+    else    A0 = NULL;
+
+    cnt1 = 0;
+    cnt0 = 0;
+
+    for(int i = 0; i < len; i++) {//将colum位为1的和为0的分别放在两个新的数组A1,A0中
+        if((fetch(A[i],colum)&1) > 0) {
+            A1[cnt1] = A[i];
+            cnt1++;
+        }
+        else {
+            A0[cnt0] = A[i];
+            cnt0++;
+        }
+    }
+
+    if(cnt1 >= cnt0) {return func(colum+1, A0, cnt0);}//结果的colum位为0
+    else    {return (1 << colum) + func(colum + 1, A1, cnt1);} //结果的colum位为1
+
+    delete[]A1;
+    A1 = NULL;
+    delete[]A0;
+    A0 = NULL;
+}
+
+int test() {
+    int A[] = {0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11};
+    printf("%d\n", func(0, A, sizeof(A) / sizeof(int)));
+    return 0;
+}
+
+/*  [143] - merge sorted array
+*/
+void merge(int a[], int b[], int len_a, int len_b) {
+    int len = len_a + len_b - 1;
+    int i = len_a - 1;
+    int j = len_b - 1;
+
+    while(i >= 0 && j >= 0) {
+        if(a[i] > b[j]) a[len--] = a[i--];
+        else    a[len--] = b[j--];
+    }
+    while(j >= 0) a[len--] = b[j--];    //if len_b > len_a
+}

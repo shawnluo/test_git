@@ -73,3 +73,5 @@ good blog:
 139.*   the next and previous binary
 140.    bits swap required
 141.    swap odd with even bits
+142.    find the number - Cracking the Coding Interview 5.7
+143.    merge sorted array
