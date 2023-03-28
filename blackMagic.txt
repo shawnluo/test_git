@@ -52,8 +52,8 @@ good blog:
 118.    add 2 linkedlist, beware of carry bit
 119.    find the entry of LL circular
 120. *  binary addtition
-121.    rotate mat
-122.    spiral mat
+121.    rotate matrix
+122.    spiral matrix
 123.    merge intervals
 124.    simplify path
 125.    valid Palindrome (leetcode 125)

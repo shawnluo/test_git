@@ -835,6 +835,45 @@ char *addBinary(char *s1, char *s2) {
     return res + size;
 }
 
+/*  [121] rotate matrix **********************************
+ *  
+*/
+void rotate(){
+    int a[4][3] = {{1,2,3},
+                   {4,5,6},
+                   {7,8,9},
+                   {10,11,12}};
+    int b[3][4];
+    int m = 4, n = 3;
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+           b[i][j] = a[j][n - 1 - i];
+        }
+    }
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 4; j++){
+            printf("%d ", b[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+//TODO
+/*  [121] rotate matrix in place**********************************
+ *  
+*/
+int **rotate_matrix(int **mat, int row, int col) {
+    int save = mat[x][y];
+    for(int x = 0; x < row / 2; x++) {
+        for(int y = x; y < col / 2; y++) {
+            mat[x][y]                       = mat[y][col - x + 1];
+            mat[y][col - x - 1]             = mat[col - x - 1][row - y - 1];
+            mat[col - x - 1][row - y - 1]   = mat[row - y - 1][x];
+            mat[row - y - 1][x] = save;
+        }
+    }
+}
+
 /*  [122] - spiral matrix
     Input: 
         [[1,2,3],
