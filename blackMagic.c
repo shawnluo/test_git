@@ -27,6 +27,9 @@ int str_cpy(const char *s, char *res) {
 int mem_cpy(char *s, char *res, int len) {
     if(s == NULL)   return -1;
     if(s == res)    return 0;
+    
+    if(len <= 0)    return 0;   //important!
+
     char *left = s;
 
     if(s < res) {
