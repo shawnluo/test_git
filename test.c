@@ -73,24 +73,6 @@ void permutation(char *s, int pos) {
 
 
 int main(void) {
-    /*
-    int **mat = (int **)malloc(3 * sizeof(int *));
-    for(int i = 0; i < 3; i++) {
-        mat[i] = (int *)malloc(5 * sizeof(int));
-    }
-
-    int **visited = (int **)malloc(3 * sizeof(int *));
-    for(int i = 0; i < 3; i++) {
-        visited[i] = (int *)malloc(5 * sizeof(int));
-    }
-
-    int arr[5][3] = {{0, 1, 2},
-                    {3, 4, 5},
-                    {6, 7, 8},
-                    {9, 10, 11},
-                    {12, 13, 14}};
-*/
-
     int arr[][3] = {{0, 1, 2},
                     {3, 4, 5},
                     {6, 7, 8}};
