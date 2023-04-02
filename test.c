@@ -103,26 +103,3 @@ int main(void) {
 
     return 0;
 }
-
-
-pNode pPre = NULL;
-pNode pCur = pHead;
-pNode pNext = pHead;
-
-while(pCur) {
-    pNext = pCur->next;
-    pCur->next = pPre;
-    pPre = pCur;
-    pCur = pNext;
-}
-return pPre;
-
-int k = m + n - 1;
-int i = n - 1;
-int j = m - 1;
-
-while(i >= 0 && j >= 0) {
-    if(a[i] > b[j]) a[k--] = a[i--];
-    else    a[k--] = b[j--];
-}
-while(j >= 0)   a[k--] = b[j--];
