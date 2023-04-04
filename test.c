@@ -2,86 +2,30 @@
 #include "test.h"
 
 
-#if 0
-void rotate_matrix(void *arr, int row, int col) {
-    int (*mat)[row] = (int (*)[])arr;
-
-    for(int x = 0; x < col; x++) {
-        for(int y = 0; y < row; y++) {
-            printf("%d ", mat[x][y]);
-        }
-        printf("\n");
+int shortest_path(int grid[][], int n, int m) {
+    if(grid == NULL || n) return 0;
+    //int n = grid.length;
+    //int m = grid[0].length;        
+    int dp[][] = new int[n][m];
+    for(int j=0;j<m;j++){
+        dp[0][j] = (j==0?grid[0][0]:dp[0][j-1]+grid[0][j]);
     }
-    printf("\n");
-
-    int save;
-    for(int x = 0; x < row / 2; x++) {
-        for(int y = 0; y < col / 2; y++) {
-            save = mat[x][y];
-            mat[x][y]                       = mat[y][col - x - 1];
-            mat[y][col - x - 1]             = mat[col - x - 1][row - y - 1];
-            mat[col - x - 1][row - y - 1]   = mat[row - y - 1][x];
-            mat[row - y - 1][x] = save;
+    for(int i=1;i<n;i++){
+        dp[i][0] = dp[i-1][0]+grid[i][0];
+    }
+    for(int i=1;i<n;i++){
+        for(int j=1;j<m;j++){
+            dp[i][j] = Math.min(dp[i-1][j],dp[i][j-1])+grid[i][j];
         }
     }
-    for(int x = 0; x < col; x++) {
-        for(int y = 0; y < row; y++) {
-            printf("%d ", mat[x][y]);
-        }
-        printf("\n");
-    }
-}
-#endif
-void rotate(int mat[][3], int row, int col) {
-    int x, y;
-    int save;
-
-    for(x = 0; x < row / 2; x++) {
-        for(y = x; y < col - x - 1; y++) {
-            save                            = mat[x][y];
-            mat[x][y]                       = mat[y][row - x - 1];
-            mat[y][row - x - 1]            = mat[row - x - 1][col - y - 1];
-            mat[row - x - 1][col - y - 1] = mat[col - y - 1][x];
-            mat[col - y - 1][x]            = save;
-        }
-    }
-
-    for(x = 0; x < row; x++) {
-        for(y = 0; y < col; y++) {
-            printf("%d ", mat[x][y]);
-        }
-        printf("\n");
-    }
-}
-
-
-
-void hanoi(int num, int start, int buf, int end) {
-    
-}
-
-
-void permutation(char *s, int pos) {
-    int len = strlen(s);
-    if(pos >= len)  printf("%s\n", s);
-    for(int i = pos; i < len; i++) {
-        swap(&s[i], &s[pos]);
-        permutation(s, pos + 1);
-        swap(&s[i], &s[pos]);
-    }
+    return dp[n-1][m-1];
 }
 
 
 int main(void) {
-    int arr[][3] = {{0, 1, 2},
-                    {3, 4, 5},
-                    {6, 7, 8}};
-
-    //rotate_matrix(arr, 3, 3);
-    char s[3] = "abc";
-    permutation(s, 0);
-
-    //printf("%s\n", s);
-
+    int mat[3][4] = {{1, 4, 2, 9}, 
+                    {0, 4, 9, 6}, 
+                    {4, 1, 4, 2}};
+    shortest_path(mat, 3, 4);
     return 0;
 }
