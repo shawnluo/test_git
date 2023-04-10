@@ -1616,3 +1616,17 @@ void merge(int a[], int b[], int len_a, int len_b) {
     }
     while(j >= 0) a[len--] = b[j--];    //if len_b > len_a
 }
+
+/*  [144] - find element in matrix
+    the matrix each row and each column is sorted
+*/
+bool find_element(int row, int col, int mat[row][col], int target) {
+    int x = 0;
+    int y = col - 1;
+    while(x < row && y >= 0) {
+        if(target == mat[x][y]) return true;
+        if(target < mat[x][y])  y--;
+        else    x++;
+    }
+    return false;
+}

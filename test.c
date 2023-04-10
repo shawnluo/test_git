@@ -72,14 +72,30 @@ void permutation(char *s, int pos) {
 }
 
 
+int find_data(int row, int col, int arr[row][col], int target) {
+    int x = 0;
+    int y = col - 1;
+    while(x < row && y >= 0) {
+        if(arr[x][y] == target) {
+            printf("%d, %d\n", x, y);
+            return 0;
+        }
+        if(target < arr[x][y])  y--;
+        else    x++;
+    }
+
+    return -1;
+}
+
 int main(void) {
     int arr[][3] = {{0, 1, 2},
                     {3, 4, 5},
                     {6, 7, 8}};
 
     //rotate_matrix(arr, 3, 3);
-    char s[3] = "abc";
-    permutation(s, 0);
+    //char s[3] = "abc";
+    //permutation(s, 0);
+    find_data(3, 3, arr, 6);
 
     //printf("%s\n", s);
 

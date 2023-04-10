@@ -75,3 +75,4 @@ good blog:
 141.    swap odd with even bits
 142.    find the number - Cracking the Coding Interview 5.7
 143.    merge sorted array
+144.    find an element in matrix (cracking code 9.6)
