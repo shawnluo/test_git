@@ -29,6 +29,7 @@ good blog:
 009-03. reverse LL
 010.    aligned malloc
 011.    appended LL
+012.    array vs &array pointers
 
 ==== advanced ===========================================================================
 

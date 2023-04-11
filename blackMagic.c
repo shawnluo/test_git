@@ -240,6 +240,23 @@ void alignment_free(void *aligned_address) {
 }
 
 
+/*  [012] array vs &array pointers
+*/
+void array_vs_pointers(void) {
+    int array[5];
+    array[2] = 5;
+    printf("array: %zu\n", array);      //array是第一个数组元素的地址
+    //0x00000000
+    printf("array: %zu\n", &array);     //&array是整个数组的首地址
+    //0x00000000
+
+    printf("array + 1 : %zu\n", array + 1);  //array + 1是第二个数组元素的地址
+    //0x00000004    偏移了一个字节
+    printf("&array + 1: %zu\n", &array + 1);  //array是偏移了整个数组的地址
+    //0x000000020   偏移了5个字节
+}
+
+
 /*  [100] a1b2c3a8c6 -> a9b2c9
 */
 void print_hash(int hash[], int size) {

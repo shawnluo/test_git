@@ -26,7 +26,7 @@ int shortest_path(int grid[][], int n, int m) {
         printf("\n");
     }
 }
-#endif
+
 void rotate(int mat[][3], int row, int col) {
     int x, y;
     int save;
