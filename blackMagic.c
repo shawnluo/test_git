@@ -243,8 +243,10 @@ void alignment_free(void *aligned_address) {
 /*  [012] array vs &array pointers
 */
 void array_vs_pointers(void) {
+    //1. 
     int array[5];
     array[2] = 5;
+
     printf("array: %zu\n", array);      //array是第一个数组元素的地址
     //0x00000000
     printf("array: %zu\n", &array);     //&array是整个数组的首地址
@@ -254,6 +256,45 @@ void array_vs_pointers(void) {
     //0x00000004    偏移了一个字节
     printf("&array + 1: %zu\n", &array + 1);  //array是偏移了整个数组的地址
     //0x000000020   偏移了5个字节
+
+    //2. 
+    int mat[3][5] = {
+        {0, 1, 2, 3, 4},
+        {5, 6, 7, 8, 9},
+        {10, 11, 12, 13, 14}
+    };
+
+    printf("mat[0]: %zu\n", mat[0]);      //mat[0]是第一个数组元素的地址
+    //00000000
+    printf("mat[0]: %zu\n", &mat[0]);      //mat[0]是整个第一个数组的地址
+    //00000000
+
+    printf("mat[0] + 1: %zu\n", mat[0] + 1);      //mat[0] + 1是第一个数组元素的地址
+    //00000004
+    printf("&mat[0] + 1: %zu\n", &mat[0] + 1);      //&mat[0] + 1是第一个数组偏移整个数组后的地址
+    //000000020
+}
+
+
+/*  [012] pass 2D pointer
+*/
+//1. pass 2D pointer
+void pass_2D(int **mat, int x, int y) {
+    for(int i = 0; i < x; i++) {
+        for(int j = 0; j < y; j++) {
+            printf("%d ", arr[i][j]);
+        }
+    }
+}
+
+//2. pass 2D array
+void pass_2D_ext(void *p, int x, int y) {
+    int (*p)[y] = p;
+    for(int i = 0; i < x; i++) {
+        for(int j = 0; j < y; j++) {
+            printf("%d ", p[i][j]);
+        }
+    }
 }
 
 

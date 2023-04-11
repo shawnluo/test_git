@@ -30,6 +30,7 @@ good blog:
 010.    aligned malloc
 011.    appended LL
 012.    array vs &array pointers
+013.    pass 2D pointer
 
 ==== advanced ===========================================================================
 
