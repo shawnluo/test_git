@@ -309,10 +309,10 @@ void pass_2D(int **mat, int x, int y) {
 
 //2. pass 2D array
 void pass_2D_ext(void *p, int x, int y) {
-    int (*p)[y] = p;
+    int (*mat)[y] = p;
     for(int i = 0; i < x; i++) {
         for(int j = 0; j < y; j++) {
-            printf("%d ", p[i][j]);
+            printf("%d ", mat[i][j]);
         }
     }
 }
@@ -933,7 +933,8 @@ void rotate(){
     int m = 4, n = 3;
     for(int i = 0; i < n; i++){
         for(int j = 0; j < m; j++){
-           b[i][j] = a[j][n - 1 - i];
+           b[i][j] = a[j][n - 1 - i];   //counterclockwise
+           //b[i][j] = a[x - j - 1][i];   //clockwise
         }
     }
     for(int i = 0; i < 3; i++){
