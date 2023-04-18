@@ -924,6 +924,9 @@ char *addBinary(char *s1, char *s2) {
 /*  [121] rotate matrix **********************************
  *  
 */
+
+//void rotate(void *p, int x, int y) {
+    //int (*mat)[y] = p;
 void rotate(){
     int a[4][3] = {{1,2,3},
                    {4,5,6},
