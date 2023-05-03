@@ -952,17 +952,33 @@ void rotate(){
 /*  [121] rotate matrix in place**********************************
  *  
 */
-int **rotate_matrix(int **mat, int row, int col) {
-    int save = mat[x][y];
-    for(int x = 0; x < row / 2; x++) {
-        for(int y = x; y < col - x - 1; y++) {
-            mat[x][y]                       = mat[y][col - x + 1];
-            mat[y][col - x - 1]             = mat[col - x - 1][row - y - 1];
-            mat[col - x - 1][row - y - 1]   = mat[row - y - 1][x];
-            mat[row - y - 1][x] = save;
+void myPrint(void *p, int N) {
+    int (*mat)[N] = p;
+    for(int i = 0; i < N; i++) {
+        for(int j = 0; j < N; j++) {
+            printf("%d, ", mat[i][j]);
         }
+        printf("\n");
     }
 }
+
+void rotate_matrix(void *p, int N) {
+    int (*mat)[N] = p;
+    
+    myPrint(mat, N);
+
+    for(int x = 0; x < N / 2; x++) {
+        for(int y = 0; y < N / 2; y++) {
+            int save = mat[x][y];
+            mat[x][y]                       = mat[y][N - x - 1];
+            mat[y][N - x - 1]             = mat[N - x - 1][N - y - 1];
+            mat[N - x - 1][N - y - 1]   = mat[N - y - 1][x];
+            mat[N - y - 1][x] = save;
+        }
+    }
+    myPrint(mat, N);
+}
+
 
 /*  [122] - spiral matrix
     Input: 
