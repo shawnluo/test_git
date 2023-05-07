@@ -19,17 +19,16 @@ void rotate(void *p, int x, int y) {
     int mat2[y][x];
     for(int i = 0; i < y; i++) {
         for(int j = 0; j < x; j++) {
-            //mat2[i][j] = mat[x - j - 1][i];   //clockwise - right
-            mat2[i][j] = mat[j][y - i - 1];     //counterclockwise - left
         }
     }
     myPrint(mat2, y, x);
 }
 
 int main(void) {
-    int mat[3][4] = {{0, 1, 2, 3}, 
+    int mat[4][4] = {{0, 1, 2, 3}, 
                     {4, 5, 6, 7}, 
-                    {8, 9, 10, 11}};
+                    {8, 9, 10, 11},
+                    {12, 13, 14, 15}};
 
     rotate(mat, 3, 4);
 
