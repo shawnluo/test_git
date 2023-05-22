@@ -1,0 +1,1 @@
+/usr/local/lib/python3.10/dist-packages/mfg-1.0.0.egg-info
