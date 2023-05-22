@@ -2,7 +2,7 @@
 import unittest
 from ddt import ddt, data
 import HtmlTestRunner
-
+import sys
 
 
 
@@ -29,10 +29,17 @@ class ParametrizedTestCase(unittest.TestCase):
 
 class my_test(ParametrizedTestCase):
     def test_001(self):
-        print( 'param =', self.param)
+        param = self.param
+        print( 'param =', param.split(',')[0])
+        print( 'param =', param.split(',')[1])
         self.assertEqual(1, 1)
  
     def test_002(self):
+        param = self.param.split(',')[1]
+        print( 'param =', param)
+        if param == '456':
+            print('good')
+        
         self.assertEqual(2, 2)
 
 
@@ -53,12 +60,14 @@ if __name__ == '__main__':
     testMain = unittest.main(testRunner = runner_setting)
     '''
 
+    args = sys.argv[1:]
+
     # 1、 创建 TestSuite
     suite = unittest.TestSuite()
 
     # 2。 添加测试用例 类名称("方法名称")
     #suite.addTest(my_test1("test_001"))
-    suite.addTest(ParametrizedTestCase.parametrize(my_test, param=42))
+    suite.addTest(ParametrizedTestCase.parametrize(my_test, param=args[0]))
     #suite.addTest(my_test1("test1_002"))
     # 2. 或者用 unittest.makeSuite(类名) 添加所有的方法
     #suite.addTest(unittest.makeSuite(my_test1))
@@ -74,3 +83,5 @@ if __name__ == '__main__':
         add_timestamp = False)
     runner.run(suite)  # 调用对象的run方法
     file_result.close()
+
+    # run   python3 test.py j50,192.168.0.10
