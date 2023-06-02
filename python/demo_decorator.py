@@ -28,17 +28,36 @@ class planet:
         
         
 if __name__ == '__main__':
-    #logging.basicConfig(level = logging.INFO)
-    logging.basicConfig(filename='app.log', \
-        filemode='w', \
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', \
-        datefmt='%d-%b-%y %H:%M:%S')
+    # set up logging to file
+    logging.basicConfig( \
+        filename = 'app.log', \
+        level = logging.DEBUG, \
+        filemode = 'w', \
+        format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s', \
+        datefmt = '%d-%b-%y %H:%M:%S'
+        )
     
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
+    #logger = logging.getLogger()
     
-    logger.warning('This will get logged to a file')
+    
+    #logger.warning('This will get logged to a file')
+    
+    #x = planet('xx')
+    #logger.info(x)
+    #x.static_run()
+    
+    # set up logging to console
+    console = logging.StreamHandler()
+    console.setLevel(logging.DEBUG)
+    
+    # set a format which is simpler for console use
+    formatter = logging.Formatter('%(name)-12s: %(levelname-8s %(message)s')
+    console.setFormatter(formatter)
+    
+    # add the handler to the root logger
+    logging.getLogger('').addHandler(console)
+    
+    logger = logging.getLogger(__name__)
     
     x = planet('xx')
-    logger.info(x)
     x.static_run()

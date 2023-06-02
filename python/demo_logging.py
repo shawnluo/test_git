@@ -1,38 +1,31 @@
 import logging
-import threading
-import time
-
-def fun():
-    logging.debug('debug - fun - 1')
-
-def main():
-    format = "%(asctime)s: %(message)s"
-    logging.basicConfig(format=format)#, level=logging.DEBUG)
-
-    #logging.basicConfig(format=format, level=logging.INFO,
-    #                    datefmt="%H:%M:%S")
-
-    logging.warning("warning - 111")
-    logging.info("info - 222")
-    logging.error("error - 333")
-    logging.debug("debug - 444")
-
-    fun()
-
-if __name__ == "__main__":
-    log = logging.getLogger("my-logger")
-    main()
-
-'''
 
 
-# Import logging.handlers module
-import logging.handlers
-# Create the demo handler
-demoHandler = logging.handlers.HTTPHandler('logs-00.loggly.com', '/inputs/<TOKEN>/tag/http/', method= 'POST')
-logger = logging.getLogger()
-# Add the handler we created
-log = logger.addHandler(demoHandler)
-# Emit a log message
-logger.warning("Warning Message!")
-'''
+
+if __name__ == '__main__':
+    logger = logging.getLogger(__file__)
+    logger.setLevel(logging.DEBUG)
+    
+    # 建立一个filehandler来把日志记录在文件里，级别为debug以上
+    fh = logging.FileHandler("log.log")
+    fh.setLevel(logging.DEBUG)
+    
+    # 建立一个streamhandler来把日志打在CMD窗口上，级别为error以上
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.ERROR)
+    
+    # 设置日志格式
+    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(lineno)s %(message)s",datefmt="%Y-%m-%d %H:%M:%S")
+    ch.setFormatter(formatter)
+    fh.setFormatter(formatter)
+    
+    #将相应的handler添加在logger对象中
+    logger.addHandler(ch)
+    logger.addHandler(fh)
+    
+    # 开始打日志
+    logger.debug("debug message")
+    logger.info("info message")
+    logger.warning("warn message")
+    logger.error("error message")
+    logger.critical("critical message")
