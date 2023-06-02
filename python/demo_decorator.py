@@ -32,10 +32,10 @@ if __name__ == '__main__':
     logging.basicConfig(filename='app.log', \
         filemode='w', \
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', \
-        datefmt='%d-%b-%y %H:%M:%S', \
-        level = logging.INFO)
+        datefmt='%d-%b-%y %H:%M:%S')
     
     logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
     
     logger.warning('This will get logged to a file')
     
