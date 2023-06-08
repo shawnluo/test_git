@@ -88,7 +88,11 @@ if __name__ == "__main__":
     # 0.1 using argparser: 
     # python3 test.py --user1 'morning_star' --user2 'mighty' --pw 101
     parser = argparse.ArgumentParser(description='manual to this script')
-    parser.add_argument("--user1", type=str, default="0", help='input user name')
+    parser.add_argument('-u', \
+                        '--user1', \
+                        type=str, \
+                        default='0', \
+                        help='input user name')
     parser.add_argument("--user2", type=str, default="0", help='input user name')
     parser.add_argument("--pw", type=int, default=32,help='input password')
     args = parser.parse_args()
