@@ -1,0 +1,12 @@
+1. var
+2. __builtins__
+3. dir(cls)
+4. def __init__(self, out)  self.x = x
+5. classmethod
+6. staticmethod
+7. vars
+8. *args, **kwargs
+9. * operator
+    Misc.print_values(*args, **kwargs)  # * operator tells print_values to unpack the list first
+10. yield
+11. reduce
