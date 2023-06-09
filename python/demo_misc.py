@@ -3,6 +3,7 @@ import inspect
 from pprint import pprint
 import ast
 import argparse
+import sys
 
 class Planet:
     num = 98
@@ -85,7 +86,8 @@ if __name__ == "__main__":
     # kwargs = {'kwargs_1': 'val_1', 'kwargs_2': 'val_2', 'kwargs_3': 'val_3'}
     # main(*args, **kwargs)   # * operator tells print_values to unpack the list first
     
-    # 0.1 using argparser: 
+    # ---------------------- 0.1 ----------------------
+    # using argparser:
     # python3 test.py --user1 'morning_star' --user2 'mighty' --pw 101
     parser = argparse.ArgumentParser(description='manual to this script')
     parser.add_argument('-u', \
@@ -100,16 +102,27 @@ if __name__ == "__main__":
     print(args.user2)
     print(args.pw)
     main(args)
+    
+    # ---------------------- 0.2 ----------------------
+    # put argparser into main() function  
+    # Another solution is move parser into main function. here using sys.argv
+    # main(sys.argv)
 
+    # ---------------------- 0.3 ---------------------- 
+    # using click
+    # 
 
-    # 1. list all functions in a module 
+    # ---------------------- 1. ----------------------
+    # list all functions in a module 
     # functions = inspect.getmembers(pprint)
     # pprint(functions)
 
-    # 2. list built-in functions for python
+    # ---------------------- 2. ----------------------
+    # list built-in functions for python
     # pprint(__builtins__)
 
-    # 3. list module attributes
+    # ---------------------- 3. ----------------------
+    # list module attributes
     # y = Planet('11')
     # pprint(y.num)
     # res = y.run()

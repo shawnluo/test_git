@@ -1,0 +1,19 @@
+{
+    "_setup": {
+        "user": "Shawn",
+        "pw": 1001
+    },
+    "test_items": [
+        {
+            "pcie": {
+                "setup": "connection"
+            }
+        },
+        {
+            "run": 1
+        }, 
+        {
+            "happy" : 0
+        }
+    ]
+}
