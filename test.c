@@ -10,7 +10,7 @@ void myPrint(void *p, int x, int y) {
         }
         printf("\n");
     }
-}
+}fdsa
 
 void rotate(void *p, int x, int y) {
     int (*mat)[y] = p;
