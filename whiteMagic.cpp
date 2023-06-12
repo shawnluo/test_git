@@ -257,3 +257,16 @@ int &ref; //wrong code! reference must be initilized to a obj. - like a link
 int x{100}
 int &ref{x}		// way1
 int &ref = x	// way2
+
+//3. understand "reference will point to the initlized obj forever!"
+	int x = 100;
+	int y = 200;
+
+	int &ref = x;
+	cout << ref << endl;	// 100
+
+	ref = y;
+	cout << x << endl;		// 200 - ref still points to x, it just changed the value to y
+
+	y = 300;
+	cout << ref << endl;	// still 200 ! - ref will points to x forever!

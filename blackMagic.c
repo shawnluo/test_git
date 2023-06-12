@@ -179,7 +179,7 @@ int main(void) {
 /*  005
     long long vs double
     
-    0. c语言采用float和double来定义小数！
+    0. c语言采用float和double来定义小数(decimal)！
         float 单精度（4个字节 32-bit）
         double 双精度（8个字节 64-bit）
     
