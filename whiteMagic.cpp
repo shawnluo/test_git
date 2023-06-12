@@ -247,3 +247,13 @@ int test_template(void) {
 
 	return 0;
 }
+
+/******************************************************************************************
+	[006] reference
+*/
+//2. how to initlize
+int &ref; //wrong code! reference must be initilized to a obj. - like a link
+
+int x{100}
+int &ref{x}		// way1
+int &ref = x	// way2
