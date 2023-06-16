@@ -5,7 +5,7 @@
 #include "common.h"
 using namespace std;
 
-/************************************************  
+/************************************************************************************************
 	[001]
     virtual function
 */
@@ -64,46 +64,65 @@ int main(void) {
 }
 
 
-/************************************************
+/************************************************************************************************
 	[002]
 */
 
-class animal {
+
+class car {
+private:
+	string name = "name_pri";
+protected:
+	string date = "name_pro";
 public:
-	animal() {
+	car() {
 		cout << name_pub << endl;	//1. OK!
 		cout << name_pro << endl;	//2. OK! - protected data can ONLY be accessed in the class
 		cout << name_pri << endl;	//3. OK! - private data can ONLY be accessed in the class
-		
 	}
-	string name_pub = "name_pub";
-
-protected:
-	string name_pro = "name_pro";
-
-private:
-	string name_pri = "name_pri";
+	string number = "name_pub";
 };
 
-class dog: animal {
+class tesla: public car {
 public:
-	dog() {
+	string name;
+	tesla() {
 		cout << name_pro << endl;	//4. OK! - protected data can be accessed by derived class
 		cout << name_pri << endl;	//5. Failed! - private data can NOT be accessed by derived class
 	}
 };
 
+class ford: private car {
+private:
+	string name;
+};
+
+class nissan: protected car {
+protected:
+	string date;
+};
+
+
 int test(void) {
-	animal monster;
+	car monster;
 	cout << monster.name_pub << endl;	//6. OK!
 	cout << monster.name_pro << endl;	//7. Failed! - proteced data can NOT be accessed by outside.
 	cout << monster.name_pri() << endl;	//8. Failed! - private data can NOT be accessed by outside of the class which difined the data.
+
+	tesla ev;
+	cout << ev.name_pub << endl;	//9. OK!
+
+	ford focus;
+	cout << focus.name_pub << endl;	//10. Failed!
+
+	nissan leaf;
+	cout << leaf.name_pub << endl;	//11. Failed!
 
 	return 0;
 }
 
 
-/************************************************
+/************************************************************************************************
  * 	[003]
  * 	overload: 同一个类中。函数名相同，参数个数，顺序，类型或返回值不同
  * 	override: 不在同类中。指派生类重新定义基类的虚函数。有virtual关键字，不能有static
@@ -270,3 +289,52 @@ int &ref = x	// way2
 
 	y = 300;
 	cout << ref << endl;	// still 200 ! - ref will points to x forever!
+
+
+/******************************************************************************************
+	[007] const
+	知识点1：
+		getvalue2() const ；
+	知识点2：
+		使用const Func mars来实例化
+*/
+class Func {
+public:
+    int value;
+    Func();
+    virtual ~Func();
+    const int getValue();		// 前面加了const，表示返回值为const
+    int getValue2 () const ;	// 使用const, 此函数内部不能修改成员函数value
+								// 成员函数可以被非const对象和const对象调用
+};
+
+
+Func::Func() : value (1200) {
+
+}
+
+Func::~Func() {
+
+}
+
+const int Func::getValue() {
+	value = 5;
+	return value;
+}
+
+int Func::getValue2() const {	// 使用const, 此函数不能修改成员函数value
+	// value = 15;				// wrong! 因为函数后面加了const, 此函数不能修改value
+	return value;
+}
+
+int main() {
+	Func mars;
+	int res = mars.getValue();	// OK
+	res = mars.getValue2();		// OK
+
+	const Func mars2;		// 使用const, 
+	res = mars.getValue();	// wrong! 实例化使用了const, 则需要调用const类型的方法getvalue2()
+	res = mars.getValue2();	// OK!
+
+	return 0;
+}
