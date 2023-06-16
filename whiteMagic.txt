@@ -6,3 +6,7 @@
 006. reference
 007. const for class function. - 如果类的成员函数后面加了const关键字，说明这个函数是不能改变类中的成员变量的。
 008. 运算符重载
+009. iterators
+010. polymorphism and virtual function
+011. friend
+012. shared_ptr vs unique_ptr vs weak_ptr
