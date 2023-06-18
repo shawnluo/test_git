@@ -32,7 +32,7 @@ public:
 private:
     T re, im;
 
-    friend complex_ext& __doapl (complex_ext*, const complex_ext&);
+    // friend complex_ext& __doapl (complex_ext*, const complex_ext&);
 };
 
 
