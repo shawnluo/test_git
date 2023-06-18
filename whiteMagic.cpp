@@ -124,9 +124,10 @@ int test(void) {
 
 /************************************************************************************************
  * 	[003]
- * 	overload: 同一个类中。函数名相同，参数个数，顺序，类型或返回值不同
- * 	override: 不在同类中。指派生类重新定义基类的虚函数。有virtual关键字，不能有static
- * 	redefine: 不在同类中。函数名相同，参数个数，顺序，类型或返回值可以不同
+ * 	overload (重载): 同一个类中。函数名相同，参数个数，顺序，类型或返回值不同
+ * 	override (重写): 不在同类中。指派生类重新定义基类的虚函数。有virtual关键字，不能有static
+ *  Overwrite is meaning Override without virtual keyword.
+ * 	redefine (): 不在同类中。函数名相同，参数个数，顺序，类型或返回值可以不同
  */
 class Base {
 public:
@@ -404,3 +405,80 @@ int main() {
 
 	return 0;
 }
+
+/******************************************************************************************
+	[011] friend
+*/
+class CB {
+public:
+	CB() {
+		cout << "CB::construction\n";
+	}
+	virtual void f(int) {
+		cout << "CB::f(int)" << endl;
+	}
+	
+	// virtual void f1() = 0;
+
+	void f2() {
+		cout << "CB::f2" << endl;
+	}
+
+private:
+	int var = 19;
+
+	friend void Dog(CB);
+	friend class Cat;
+};
+
+void Dog(CB x) {
+	cout << x.var << endl;
+}
+
+class Cat {
+public:
+	void cat(CB x) {
+		cout << x.var << endl;
+	}
+};
+
+int main(void) {
+	CB tt;
+	Dog(tt);
+	Cat x;
+	x.cat(tt);
+
+	return 0;
+}
+
+/******************************************************************************************
+	[013] string
+*/
+	//1. string to char *
+	string s = "gooday!";
+	const char *a = s.c_str();	//must use const
+	const char *b = s.data();	//must use const
+	cout << a << endl;
+	cout << b << endl;
+
+	//2. char * to string
+	char *a = "good";
+	string s = a;
+
+
+/******************************************************************************************
+	[014] class instance
+*/
+	// 1. on stack
+	base Base_stack(6);
+	Base_stack.disp();
+
+	// 2. on heap
+	base *Base_heap = new base(7);
+	Base_heap->disp();
+	delete Base_heap;
+
+	// 3. on heap
+	base *Base_heap2 = NULL, obj_heap2(100);
+	obj_heap2.disp();
+	delete Base_heap2;
