@@ -1,6 +1,6 @@
 001. virtual/pure virtual
 002. public/protected/private
-003. overload/override/redefine
+003. overload/override/redefine/hidden
 004. vector
 005. template
 006. reference
@@ -10,3 +10,5 @@
 010. polymorphism and virtual function
 011. friend
 012. shared_ptr vs unique_ptr vs weak_ptr
+013. string and others
+014. class instance
