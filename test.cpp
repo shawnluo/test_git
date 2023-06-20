@@ -5,34 +5,50 @@
 #include "common.h"
 using namespace std;
 
-template<class T>
-void printVector(vector<vector<T>> const &matrix) {
-    for (vector<T> row: matrix) {
-        for (T val: row) {
-            cout << val << " ";
-        }
-        cout << endl;
-    }
+// 1.1
+int test(const char *s) {
+	int hash[256] = {0};
+	for(int i = 0; i < strlen(s); i++) {
+		if(hash[s[i]]) {return 0;}
+		else {hash[s[i]] = 1;}
+	}
+	return 1;
 }
 
-typedef unsigned long BankAccount;
-class BankAccout {
-public:
-	void MakeDeposit(float amount);
-	float WithDraw();
-	bool Transfer(BankAccount& to, float amount);
-	float GetBalance() const;
-private:
-	float balance;
-	float interestYTD;
-	char* owner;
-	int account_number;
-};
+// 1.2
+void reverse_s(char *s) {
+	char *pL = s;
+	char *pR = s + strlen(s) - 1;
 
+	while(pL != pR) {
+		char tmp = *pL;
+		*pL = *pR;
+		*pR = tmp;
+		pL++, pR--;
+	}
+	cout << s << endl;
+}
 
-int main() {
-	vector<vector<int>> mat {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}};
-	printVector(mat);
+// 1.3
+void remove_dup(char *s) {
+	if(!s) return;
 
+	char *pL = s;
+	char *pR = pL + 1;
+	char *tmp = s;
+	while(*pR != '\0') {
+		for(tmp = s; tmp <= pL; tmp++) {
+			
+		}
+	}
+}
+
+int main(void) {
+	// char *s = "abcd";
+	// auto res = test(s);
+	// cout << res << endl;
+
+	char s[] = "abc";
+	reverse_s(s);
 	return 0;
 }
