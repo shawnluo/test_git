@@ -126,8 +126,33 @@ void rotate_matrix(void) {
 
 // 1.6.2
 void rotate_mat_inplace() {
-	
+	int mat[4][4] = {
+		{0, 1, 2, 3},
+		{4, 5, 6, 7},
+		{8, 9, 10, 11},
+		{12, 13, 14, 15}};
+
+	int n = 4;
+
+	for(int i = 0; i < n / 2; i++) {
+		for(int j = 0; j < n / 2; j++) {
+			int tmp = mat[i][j];
+
+		}
+	}
 }
+
+class A {
+private:
+	int i;
+
+public:
+	A(int i):i(i) {cout << "construction\n";}
+	A(A& a) {this->i = a.i; cout << "copy construction\n";}
+	void print() {cout << i << endl;}
+	void print2(A a) {a.print();}
+	A getRef() {return *this;}
+};
 
 int main(void) {
 	// char *s = "abcd";
@@ -138,7 +163,15 @@ int main(void) {
 	// reverse_s(s);
 	// remove_dup(s);
 	// replace_spaces(s);
-	rotate_matrix();
+	// rotate_matrix();
+
+	A a(100);
+	a.print();
+
+	a.print2(a);
+
+	A a3 = a.getRef();
+	a3.print();
 
 	return 0;
 }
