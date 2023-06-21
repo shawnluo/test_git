@@ -1,48 +1,28 @@
-// C++ program to demonstrate the function
-// strtok() to tokenized the string
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
-/*
-Here is my code for the design of a parking lot in C++. The following assumptions are made. Referred from Geeks for Geeks
-
-The parking lot has multiple levels. Each level has multiple rows of spots.
-The parking lot can park motorcycles, cars, and buses.
-The parking lot has motorcycle spots, compact spots, and large spots.
-A motorcycle can park in any spot.
-A car can park in either a single compact spot or a single large spot.
-A bus can park in five large spots that are consecutive and within the same row. It cannot park in small spots
-*/
-
-class car {
-private:
-	string name;
-protected:
-	string date;
+namespace MyNamespace {
+    int myInt = 1;
+    void myFunction() {}
+}
+ 
+class MyClass {
 public:
-	unsigned int number;
+    static int myStaticInt;
+    void myMethod() {
+        // 使用双冒号指定调用 MyNamespace 命名空间的 myFunction 函数
+        MyNamespace::myFunction();
+        // 使用双冒号指定访问 MyNamespace 命名空间的 myInt 变量
+        int x = MyNamespace::myInt;
+    }
 };
+ 
+// 使用双冒号指定定义 MyClass 的静态成员 myStaticInt
+int MyClass::myStaticInt = 0;
+ 
+// 使用双冒号指定访问 MyClass 的静态成员 myStaticInt
+int x = MyClass::myStaticInt;
 
-class tesla: public car {
-public:
-	string name;
-};
-
-class ford: private car {
-private:
-	string name;
-};
-
-class nissan: protected car {
-protected:
-	string date;
-};
-
-
-// Driver Code
-int main()
-{
-	car trans;
-
+int main() {
 	return 0;
 }

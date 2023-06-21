@@ -1,37 +1,15 @@
-from functools import wraps
+# -*- coding: utf-8 -*-
 
-class A:
-    # Decorator as an instance method
-    def decorator1(self, func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            print('Decorator 1')
-            return func(*args, **kwargs)
-        return wrapper
+#       Author @  Huoty
+#  Create date @  2015-12-19 09:39:36
 
-    # Decorator as a class method
-    @classmethod
-    def decorator2(cls, func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            print('Decorator 2')
-            return func(*args, **kwargs)
-        return wrapper
-    
+import sys
+import pprint
+from functools import reduce
+import os
 
-# As an instance method
-a = A()
-@a.decorator1
-def spam():
-    print('spam')
-    pass
-# As a class method
-@A.decorator2
-def grok():
-    print('grok')
-    pass
+res = os.path.exists('./test') # if folder exist
+print(res)
 
-spam()
-print(spam.__name__)
-grok()
-print(grok.__name__)
+res = os.path.isfile('./test.py')
+print(res)
