@@ -1,51 +1,61 @@
 #include <iostream>
 using namespace std;
 
-class Super {
-public:
-    virtual string getName1(int x) {
-        return "Super";
-    }
 
-    virtual string getName2(int x) const {
-        return "Super";
+class Shape {
+public:
+    virtual float getArea() = 0;
+};
+
+
+class Triangle: public Shape {
+public:
+    float getArea() {
+        cout << "Triangle" << endl;
+        return 0.0;
     }
 };
 
-class Sub: public Super {
+
+class Circle: public Shape {
 public:
-    // virtual string getName1(double x) override {
-    virtual string getName1(int x) override {
-        return "Sub";
-    }
-
-    virtual string getName2(int x) const override {
-        return "Sub";
-    }
-
-    virtual string getName3(int x) {
-        return "Sub";
+    float getArea() {
+        cout << "Circle" << endl;
+        return 0.0;
     }
 };
 
-class Sub_1: public Sub {
+
+class AreaCaculator {
+private:
+    float result;
+
 public:
-    virtual string getName2(int x) const override{
-        return "sub_1";
+    float getResult() {
+        return this->result;
     }
 
-    virtual string getName3(int x) override {
-        return "Sub";
+    float calculateArea(Shape& S) {
+        S.getArea();
+        return 0.0;
     }
 };
 
-int main() {
-    Sub sub;
-    Super* super = &sub;
 
-    cout << super->getName1(1) << endl;  // output: Super
-    cout << super->getName2(2) << endl;  // output: Super
 
-    // cin.ignore(10);
+int main(void) {
+    Shape *shape;
+    AreaCaculator calc;
+
+    Triangle tri;
+    shape = &tri;
+    shape->getArea();
+    calc.calculateArea(tri);
+
+    Circle cir;
+    shape = &cir;
+    shape->getArea();
+    calc.calculateArea(cir);
+
     return 0;
 }
