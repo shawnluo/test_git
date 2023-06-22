@@ -1,0 +1,6 @@
+test: BlackMagic_cracking.cpp
+	g++ BlackMagic_cracking.cpp -o test -g -Wall -lm
+
+.PHONY: clean
+clean:
+	rm test
