@@ -1,61 +1,135 @@
 #include <iostream>
-using namespace std;
+#include <exception>
+#include <memory>
+#include <vector>
 
+// using namespace std;
+using std::cout;
+using std::endl;
+using std::cerr;
+using std::string;
+using std::unique_ptr;
+using std::shared_ptr;
+using std::weak_ptr;
+using std::make_unique;
+using std::make_shared;
+using std::move;
 
-class Shape {
-public:
-    virtual float getArea() = 0;
-};
+typedef struct NODE {
+    int id;
+    struct NODE *next;
+} node, *pNode;
 
+#define LEN sizeof(node)
 
-class Triangle: public Shape {
-public:
-    float getArea() {
-        cout << "Triangle" << endl;
-        return 0.0;
+void showMe(pNode pHead) {
+    if(!pHead) return;
+    while(pHead) {
+        cout << pHead->id << " ";
+        pHead = pHead->next;
     }
-};
+    cout << endl;
+}
 
+pNode create_ll(std::vector<int> &v) {
+    // for(auto i : v) {
+    //     cout << i << " ";
+    // }
+    // cout << endl;
+    auto size = v.size();
 
-class Circle: public Shape {
-public:
-    float getArea() {
-        cout << "Circle" << endl;
-        return 0.0;
+    pNode pHead = NULL, pCur = NULL, pNext = NULL;
+    if(pHead == NULL) {
+        pHead = (pNode)malloc(LEN);
+        if(!pHead) {
+            perror("malloc failed!");
+            return (pNode)NULL;
+        }
+        pHead->id = v[0];
+        pHead->next = NULL;
     }
-};
+    pCur = pHead;
+    pNext = pHead;
+    for(auto i = 1; i < size; i++) {
+        pNext = (pNode)malloc(LEN);
+        if(!pNext) {
+            perror("malloc failed!");
+            return (pNode)NULL;
+        }
 
+        pNext->id = v[i];
+        pNext->next = NULL;
 
-class AreaCaculator {
-private:
-    float result;
-
-public:
-    float getResult() {
-        return this->result;
+        pCur->next = pNext;
+        pCur = pNext;
     }
 
-    float calculateArea(Shape& S) {
-        S.getArea();
-        return 0.0;
+    // showMe(pHead);
+
+    return pHead;
+}
+
+pNode create_ll_ext(std::vector<int> &v) {
+    pNode pHead = NULL, p = NULL;
+    // cout << v.size() << endl;
+    for(int i = v.size() - 1; i >= 0; i--) {    // be carefull! using "auto" may cause infinty loop problem!
+        p = (pNode)malloc(LEN);
+        // cout << v[i] << endl;
+        p->id = v[i];
+        p->next = pHead;
+        pHead = p;
     }
-};
+    return pHead;
+}
 
+pNode insert_ll_front(pNode *ppHead, int target, int new_value) {
 
+}
+
+pNode insert_ll_behind() {
+
+}
+
+pNode reverse_ll() {
+
+}
+
+pNode swap_injacent() {
+
+}
+
+pNode has_circular() {
+
+}
+
+pNode find_circular_entry() {
+
+}
+
+pNode add_ll(pNode pHead1, pNode pHead2) {
+
+}
+
+void test(std::vector<int>& v) {
+    for(auto i : v) {
+        cout << i << endl;
+    }
+}
 
 int main(void) {
-    Shape *shape;
-    AreaCaculator calc;
+    std::vector<int> v;
+    for(auto i = 0; i < 5; i++) {
+        // v[i] = i;
+        v.push_back(i);
+    }
 
-    Triangle tri;
-    shape = &tri;
-    shape->getArea();
-    calc.calculateArea(tri);
+    // for(auto i : v) {
+    //     cout << i << " ";
+    // }
+    // cout << endl;
 
-    Circle cir;
-    shape = &cir;
-    shape->getArea();
-    calc.calculateArea(cir);
+    pNode pHead = create_ll_ext(v);
+    showMe(pHead);
 
     return 0;
 }
