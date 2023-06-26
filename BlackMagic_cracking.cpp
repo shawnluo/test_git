@@ -5,6 +5,7 @@
 #include "common.h"
 using namespace std;
 
+#if 0
 // 1.1
 int test(const char *s) {
 	int hash[256] = {0};
@@ -14,7 +15,9 @@ int test(const char *s) {
 	}
 	return 1;
 }
+#endif
 
+#if 0
 // 1.2
 void reverse_s(char *s) {
 	char *pL = s;
@@ -28,7 +31,9 @@ void reverse_s(char *s) {
 	}
 	cout << s << endl;
 }
+#endif
 
+#if 0
 // 1.3
 void remove_dup(char *s) {
 	if(!s) return;
@@ -49,7 +54,9 @@ void remove_dup(char *s) {
 
 	cout << s << endl;
 }
+#endif
 
+#if 0
 // 1.4
 int is_anagram(const char *s1, const char *s2) {
 	if(!s1 || !s2) {
@@ -72,7 +79,9 @@ int is_anagram(const char *s1, const char *s2) {
 	}
 	return 1;
 }
+#endif
 
+#if 0
 //1.5
 void replace_spaces(char *s) {
 	int count = 0;
@@ -100,7 +109,9 @@ void replace_spaces(char *s) {
 	}
 	cout << s << endl;
 }
+#endif
 
+#if 0
 // 1.6.1
 void rotate_matrix(void) {
 	int mat[3][4] = {
@@ -123,7 +134,9 @@ void rotate_matrix(void) {
 		cout << endl;
 	}
 }
+#endif
 
+#if 0
 // 1.6.2
 void rotate_mat_inplace() {
 	int mat[4][4] = {
@@ -134,14 +147,93 @@ void rotate_mat_inplace() {
 
 	int n = 4;
 
+	for(int i = 0; i < n; i++) {
+		for(int j = 0; j < n; j++) {
+			cout << mat[i][j] << " ";
+		}
+		cout << endl;
+	}
+
 	for(int i = 0; i < n / 2; i++) {
 		for(int j = 0; j < n / 2; j++) {
 			int tmp = mat[i][j];
-
+			mat[i][j] = mat[j][n - i - 1];
+			mat[j][n - i - 1] = mat[n - i - 1][n - j - 1];
+			mat[n - i - 1][n - j - 1] = mat[n - j - 1][i];
+			mat[n - j - 1][i] = tmp;
 		}
 	}
+
+	cout << "---------------------------" << endl;
+
+	for(int i = 0; i < n; i++) {
+		for(int j = 0; j < n; j++) {
+			cout << mat[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+#endif
+
+#if 0
+// 3.4
+void move(char x, char y) {
+	cout << x << " -> " << y << endl;
 }
 
+//				   from    buf      to
+void hanoi(int n, char a, char b, char c) {
+	if(n == 1) {
+		move(a, c);
+	} else {
+		hanoi(n - 1, a, c, b);
+		move(a, c);
+		hanoi(n - 1, b, a, c);
+	}
+}
+#endif
+
+#if 0
+// 3.5 MyQueue which implements a queue using two stacks
+void imp_que_using_
+#endif
+
+#if 0
+// leetcode 88. Merge Sorted Array
+/*
+	Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+	Output: [1,2,2,3,5,6]
+	Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
+	The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.
+*/
+void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n){
+	if(m == 0 && n == 0) {
+		return;
+	}
+	int res[m + n];
+	int left = 0, right = 0;
+	int count = 0;
+	while(count < m + n) {
+		if(left >= m) {
+			res[count++] = nums2[right++];
+		} else if(right >= n) {
+			res[count++] = nums1[left++];
+		} else if(nums1[left] >= nums2[right]) {
+			res[count++] = nums2[right++];
+		} else {
+			res[count++] = nums2[left++];
+		}
+	}
+
+	for(int i = 0; i < m + n; i++) {
+		nums1[i] = res[i];
+	}
+}
+#endif
+
+#if 1
+
+#endif
 
 int main(void) {
 	// char *s = "abcd";
@@ -153,8 +245,8 @@ int main(void) {
 	// remove_dup(s);
 	// replace_spaces(s);
 	// rotate_matrix();
-
-
+	// rotate_mat_inplace();
+	hanoi(5, 'a', 'b', 'c');
 
 	return 0;
 }

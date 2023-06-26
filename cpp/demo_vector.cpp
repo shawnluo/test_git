@@ -7,7 +7,9 @@
 #include "complex.hpp"
 
 using namespace std;
-
+using std::cout;
+using std::endl;
+using std::string;
 
 
 vector <int> v[5];

@@ -1,6 +1,6 @@
-test: test2.cpp
-	g++ test.cpp -o test -g -Wall -lm
+test2: test2.cpp
+	g++ test2.cpp -o test2 -g -Wall -lm
 
 .PHONY: clean
 clean:
-	rm test
+	rm test2

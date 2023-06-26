@@ -31,11 +31,12 @@ private:
     float result;
 
 public:
-    float getResult() {
+    float getResult() const {
         return this->result;
     }
 
-    float calculateArea(Shape& S) {
+    float calculateArea(Shape& S) { // Must use reference, cannot declare paramter 'S'
+                                    // to be of abstract type 'Shape'
         S.getArea();
         return 0.0;
     }
@@ -44,7 +45,9 @@ public:
 
 
 int main(void) {
-    Shape *shape;
+    Shape *shape;   // A class having a pure virtual function cannot be instantiated. 
+                    // eg. The object of abstract class cannot be created.
+                    // However, a pointer to the abstract base class or abstract class ca be created
     AreaCaculator calc;
 
     Triangle tri;
