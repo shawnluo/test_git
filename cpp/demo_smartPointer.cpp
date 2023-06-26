@@ -6,6 +6,7 @@ using std::endl;
 using std::string;
 using std::unique_ptr;
 using std::shared_ptr;
+using std::weak_ptr;
 using std::make_unique;
 using std::make_shared;
 using std::move;
@@ -42,6 +43,24 @@ void UseSmartPointer() {
 
     // 4. shared_ptr - using make_shared
     auto song_sp2 = make_shared<Song>("2", "3");
+    cout << song_sp2.use_count() << endl;
+    {
+        auto song_sp3 = song_sp2;
+        cout << song_sp3.use_count() << endl;
+    }
+    cout << song_sp2.use_count() << endl;
+
+    // 5. weak_ptr
+    weak_ptr<int> wp1;
+    {
+        shared_ptr<int>sp1 = make_shared<int>(25);
+        wp1 = sp1;
+        cout << "wp1.expired(): " << wp1.expired() << endl;
+        cout << *sp1 << endl;
+        weak_ptr<int> wp2(sp1);
+        cout << wp2.expired() << endl;
+    }
+    cout << "wp1.expired(): " << wp1.expired() << endl;
 }
 
 int main(void) {
