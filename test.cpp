@@ -82,8 +82,12 @@ pNode create_ll_ext(std::vector<int> &v) {
     return pHead;
 }
 
-pNode insert_ll_front(pNode *ppHead, int target, int new_value) {
-
+int insert_ll_front(pNode *ppHead, int target, int new_value) {
+    // 1. find the target
+    // 2. save the one infront pointer of pointer
+    // 3. malloc memory
+    // 4. saved infront -> next = newMalloc
+    // 5. 
 }
 
 pNode insert_ll_behind() {
