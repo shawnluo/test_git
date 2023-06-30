@@ -1,0 +1,4 @@
+02-Jun-23 10:55:23 - root - WARNING - This will get logged to a file
+02-Jun-23 10:55:23 - root - INFO - planet - init
+02-Jun-23 10:55:23 - root - INFO - <__main__.planet object at 0x7f29f9eea560>
+02-Jun-23 10:55:23 - root - INFO - planet - static

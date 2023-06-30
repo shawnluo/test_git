@@ -1,36 +1,41 @@
-#include "common.h"
-#include "test.h"
-
-
-void myPrint(void *p, int x, int y) {
-    int (*mat)[y] = p;
-    for(int i = 0; i < x; i++) {
-        for(int j = 0; j < y; j++) {
-            printf("%d, ", mat[i][j]);
-        }
-        printf("\n");
+#include <iostream>
+ // Abstract base class
+class Shape {
+public:
+    // Pure virtual function
+    virtual double area() const = 0;
+};
+ // Derived class
+class Rectangle : public Shape {
+private:
+    double length;
+    double width;
+public:
+    Rectangle(double l, double w) : length(l), width(w) {}
+     // Implementation of the pure virtual function
+    double area() const override {
+        return length * width;
     }
-}
-
-void rotate(void *p, int x, int y) {
-    int (*mat)[y] = p;
-    myPrint(p, x, y);
-
-    int mat2[y][x];
-    for(int i = 0; i < y; i++) {
-        for(int j = 0; j < x; j++) {
-        }
+};
+ // Derived class
+class Circle : public Shape {
+private:
+    double radius;
+public:
+    Circle(double r) : radius(r) {}
+     // Implementation of the pure virtual function
+    double area() const override {
+        return 3.14159 * radius * radius;
     }
-    myPrint(mat2, y, x);
-}
+};
 
-int main(void) {
-    int mat[4][4] = {{0, 1, 2, 3}, 
-                    {4, 5, 6, 7}, 
-                    {8, 9, 10, 11},
-                    {12, 13, 14, 15}};
-
-    rotate(mat, 3, 4);
-
-    return 0;
+int main() {
+    Rectangle rectangle(5.0, 3.0);
+    Circle circle(2.5);
+     // Accessing the area of rectangle and circle through base class pointers
+    Shape* shape1 = &rectangle;
+    Shape* shape2 = &circle;
+     std::cout << "Area of rectangle: " << shape1->area() << std::endl;
+    std::cout << "Area of circle: " << shape2->area() << std::endl;
+     return 0;
 }

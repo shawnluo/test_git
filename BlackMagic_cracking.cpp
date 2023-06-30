@@ -1,10 +1,11 @@
-#include <iostream>
-#include <string.h>
-#include <vector>
-#include <memory>
-#include "common.h"
-using namespace std;
 
+#include "test.hpp"
+// class Solution {
+// public:
+// 	int backpack(vector<vector<int>>& items, int backpack);
+// 	vector<vector<int>> combine(int n, int k);
+// };
+#if 1
 #if 0
 // 1.1
 int test(const char *s) {
@@ -231,10 +232,583 @@ void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n){
 }
 #endif
 
+#if 0
+// leetcode 62. robot
+#endif
+
+#if 0
+// leetcode 63. robot meets obstacle
+class Solution {
+public:
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+		int m = obstacleGrid.size();
+		int n = obstacleGrid[0].size();
+        vector<vector<int>> dp(m, vector<int>(n, 0));
+		for(int i = 0; i < m && obstacleGrid[i][0] == 0; i++) {dp[i][0] = 1;}
+		for(int j = 0; j < n && obstacleGrid[0][j] == 0; j++) {dp[0][j] = 1;}
+		for(int i = 1; i < m; i++) {
+			for(int j = 1; j < n; j++) {
+				if(obstacleGrid[i][j] == 1) {continue;}
+				dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+			}
+		}
+		return dp[m - 1][n - 1];
+    }
+};
+
+int main(void) {
+	vector<vector<int>> obstacleGrid {
+		{0, 1, 0, 1},	// 1: obstacle
+		{0, 0, 0, 0},
+		{1, 0, 0, 0}
+	};
+
+	Solution solution;
+	cout << solution.uniquePathsWithObstacles(obstacleGrid) << endl;
+}
+#endif
+
+#if 0
+// leetcode 343
+class Solution {
+public:
+    int integerBreak(int n) {
+		vector<int> dp(n + 1);
+		dp[2] = 1;
+		for(int i = 3; i <= n; i++) {
+			for(int j = 1; j < i; j++) {
+				dp[i] = max(dp[i], max(dp[i - j] * j, (i - j) * j));
+			}
+		}
+		return dp[n];
+    }
+};
+
+int main(void) {
+	Solution solution;
+	int n;
+	std::cin >> n;
+	cout << solution.integerBreak(n) << endl;
+}
+#endif
+
+#if 0 // TODO
+// backpack
+int Solution::backpack(vector<vector<int>>& items, int backpack) {
+	// for(auto x : backpack) {
+	// 	for(auto y : x) {
+	// 		cout << y << endl;
+	// 	}
+	// }
+
+	int size = items.size();
+	int item = items[0].size();
+	cout << size << " " << item << endl;
+
+	int max = INT_MIN;
+	for(auto i = 0; i < size; i++) {
+
+	}
+
+	return 0;
+}
+
+int main(void) {
+	vector<vector<int>> items {
+		{1, 15},
+		{3, 20},
+		{4, 30}
+	};
+	Solution solution;
+	solution.backpack(items, 10);
+
+	return 0;
+}
+#endif
+
+#if 0
+// linked list
+
+typedef struct NODE {
+    int id;
+    struct NODE *next;
+} node, *pNode;
+
+#define LEN sizeof(node)
+
+void showMe(pNode pHead) {
+    if(!pHead) return;
+    while(pHead) {
+        cout << pHead->id << " ";
+        pHead = pHead->next;
+    }
+    cout << endl;
+}
+
+pNode create_ll(std::vector<int> &v) {
+    // for(auto i : v) {
+    //     cout << i << " ";
+    // }
+    // cout << endl;
+    auto size = v.size();
+
+    pNode pHead = NULL, pCur = NULL, pNext = NULL;
+    if(pHead == NULL) {
+        pHead = (pNode)malloc(LEN);
+        if(!pHead) {
+            perror("malloc failed!");
+            return (pNode)NULL;
+        }
+        pHead->id = v[0];
+        pHead->next = NULL;
+    }
+    pCur = pHead;
+    pNext = pHead;
+    for(auto i = 1; i < size; i++) {
+        pNext = (pNode)malloc(LEN);
+        if(!pNext) {
+            perror("malloc failed!");
+            return (pNode)NULL;
+        }
+
+        pNext->id = v[i];
+        pNext->next = NULL;
+
+        pCur->next = pNext;
+        pCur = pNext;
+    }
+
+    // showMe(pHead);
+
+    return pHead;
+}
+
+pNode create_ll_ext(std::vector<int> &v) {
+    pNode pHead = NULL, p = NULL;
+    // cout << v.size() << endl;
+    for(int i = v.size() - 1; i >= 0; i--) {    // be carefull! using "auto" may cause infinty loop problem!
+        p = (pNode)malloc(LEN);
+        // cout << v[i] << endl;
+        p->id = v[i];
+        p->next = pHead;
+        pHead = p;
+    }
+    return pHead;
+}
+
+static int insert_ll_front(pNode *const ppHead, const int target, const int new_value) {
+    // 1. find the target
+    // 2. save the one infront pointer of pointer: pp
+    // 3. malloc memory
+    // 4. save *pp to tmp - which is the target address
+    // 5. replace *pp with newMalloc address: *pp = newAddr
+    // 6. (*pp)->next = tmp
+
+    if(!*ppHead) {
+        return -1;
+    }
+    pNode *pp = ppHead;
+    while(*pp && (*pp)->id != target) {
+        pp = &((*pp)->next);
+    }
+
+    if((*pp) == NULL) {
+        return -1;
+    }
+
+    pNode p = (pNode)malloc(LEN);
+    p->id = new_value;
+    pNode tmp = *pp;
+    *pp = p;
+    p->next = tmp;
+
+    return 0;
+}
+
+static int insert_ll_behind(pNode const pHead, const int target, const int newValue) {
+    if(!pHead) {return -1;}
+    pNode p = pHead;
+    while(p && p->id != target) {
+        p = p->next;
+    }
+    if(!p) {return -1;}
+
+    pNode pNew = (pNode)malloc(LEN);
+    pNew->id = newValue;
+
+    pNode tmp = p->next;
+    p->next = pNew;
+    pNew->next = tmp;
+
+    return 0;
+}
+
+pNode reverse_ll(pNode pHead) {
+    if(!pHead) {return NULL;}
+
+    pNode pPre = NULL;
+    pNode pCur = pHead;
+    pNode pNex = pHead;
+
+    while(pCur) {
+        pNex = pCur->next;
+        pCur->next = pPre;
+        pPre = pCur;
+        pCur = pNex;
+    }
+
+    return pPre;
+}
+
+int del_ll(pNode *const ppHead, const int target) {
+    if(!*ppHead) {return NULL;}
+
+    pNode *pp = ppHead;
+    while(*pp && (*pp)->id != target) {
+        pp = &((*pp)->next);
+    }
+    if(!*pp) {return -1;}
+
+    pNode tmp = *pp;
+    *pp = (*pp)->next;
+    free(tmp);
+
+    return 0;
+}
+
+static int do_swap_adjacent(pNode *const ppHead) {
+    if(!*ppHead) {return -1;}
+
+    // 1. remain nodes >= 2?
+    // 2. if no then return
+    // 3. if yes, then 
+        // 1). save the *ppCur to tmp
+        // 2). *ppCur = *ppNex
+        // 3). *ppNex = tmp
+
+    pNode *pp = ppHead;
+    pNode *ppCur = ppHead;
+    pNode *ppNex = &((*ppHead)->next);
+    if(!pp) {return -1;}
+
+    if(!((*pp)->next)) {
+        return -1;
+    }
+
+    pNode tmp = *ppCur;
+    *ppCur = *ppNex;
+
+    pNode tmpNext = (*ppCur)->next;
+    (*ppCur)->next = tmp;
+    tmp->next = tmpNext;
+
+    return 0;
+}
+
+int swap_adjacent(pNode *const ppHead) {
+    if(!*ppHead) {return -1;}
+
+    pNode *pp = ppHead;
+    while(*pp != NULL && (*pp)->next != NULL) {
+        do_swap_adjacent(pp);
+        pp = &((*pp)->next->next);
+    }
+    return 0;
+}
+
+int create_circular(pNode pHead) {
+    if(!pHead) {return -1;}
+
+    pNode p_slow = pHead->next;
+    pNode p_fast = pHead->next->next;
+    while(!p_slow && !p_fast && p_slow != p_fast) {
+        p_slow = p_slow->next;
+        p_fast = p_fast->next->next;
+    }
+    if(p_slow == NULL || p_fast == NULL) {
+        return 0;
+    }
+    return 1;
+}
+
+// TODO
+pNode has_circular(pNode pHead) {
+
+}
+
+// TODO
+pNode find_circular_entry() {
+
+}
+
+//TODO
+pNode add_ll(pNode pHead1, pNode pHead2) {
+
+}
+
+#endif
+
 #if 1
 
 #endif
 
+#endif
+
+#if 1
+// leetcode 77: 
+//	Given two integers n and k, return all possible combinations of k numbers chosen 
+//	from the range [1, n].
+class Solution {
+private:
+	vector<vector<int>> result;
+	vector<int> path;
+	void backtracking(int n, int k, int startIndex);
+
+public:
+	vector<vector<int>> combine(int n, int k);
+};
+
+void Solution::backtracking(int n, int k, int startIndex) {
+	if(path.size() == k) {
+		result.push_back(path);
+		return;
+	}
+	for(int i = startIndex; i <= n; i++) {
+		path.push_back(i);
+		backtracking(n, k, i + 1);
+		path.pop_back();
+	}
+}
+
+vector<vector<int>> Solution::combine(int n, int k) {
+	result.clear();
+	path.clear();
+	backtracking(n, k, 1);
+	return result;
+}
+
+
+int main(void) {
+	Solution Solution;
+	vector<vector<int>> res = Solution.combine(5, 3);
+
+	for(auto i : res) {
+		for(auto j : i) {
+			cout << j << " ";
+		}
+		cout << endl;
+	}
+	return 0;
+}
+#endif
+
+#if 1
+// permutation
+void permutation(string s, int pos) {
+    int size = s.size();
+    if(pos >= size) {
+        cout << s << endl;
+    }
+    for(int i = pos; i < size; i++) {
+        std::swap(s[i], s[pos]);
+        permutation(s, pos + 1);
+        std::swap(s[i], s[pos]);
+    }
+}
+
+int main(void) {
+    string s = "abc";
+    permutation(s, 0);
+
+    return 0;
+}
+#endif
+
+#if 0
+class Solution {
+public:
+    // greedy
+    int maxProfit(std::vector<int>& prices) {
+        int profit = 0;
+        int low = INT16_MAX;
+        for(auto i = 0; i < prices.size(); i++) {
+            low = std::min(low, prices[i]);
+            profit = std::max(profit, prices[i] - low);
+        }
+        return profit;
+    }
+
+    // dp[i][0] - having stock,    the cash mount: prices[i]
+    // dp[i][1] - having NO stock, the cash mount
+    int maxProfit_dp(std::vector<int>& prices) {
+        auto len = prices.size();
+        if(len == 0) return 0;
+
+        std::vector<std::vector<int>> dp(len, std::vector<int>(2));
+        // std::vector<std::vector<int>> dp(len, vector<int>(2));
+        // std::cout << dp[0][0] << std::endl;
+        dp[0][0] -= prices[0];
+        dp[0][1] = 0;
+        for(int i = 1; i < len; i++) {
+            dp[i][0] = std::max(dp[i - 1][0], -prices[i]); // take the stock lower price
+            dp[i][1] = std::max(dp[i - 1][1], prices[i] + dp[i - 1][0]);
+        }
+        return dp[len - 1][1];
+    }
+
+    // leetCode 509
+    int fib_dp(int N) {
+        std::vector<int> dp(N + 1, 0);
+        // for(auto x : dp) {std::cout << x << std::endl;}
+
+        dp[1] = 1;
+        dp[2] = 1;
+        for(auto i = 3; i <= N; i++)
+            dp[i] = dp[i - 1] + dp[i - 2];
+
+        return dp[N];
+    }
+
+    int fib_recu(int N) {
+        if(N < 2) {return N;}
+
+        return fib_recu(N - 1) + fib_recu(N - 2);
+    }
+
+    // leetcode 70
+    int ladder(int N) {
+        std::vector<int> dp(N + 1, 0);
+
+        dp[0] = 1;
+        dp[1] = 1;
+        for(auto i = 2; i <= N; i++)
+            dp[i] = dp[i - 1] + dp[i - 2];
+
+        return dp[N];
+    }
+
+    // leetcode 746
+    int cost_climb(std::vector<int>& cost) {
+        int N = cost.size();
+        // std::cout << N << std::endl;
+        std::vector<int> dp(N);
+
+        dp[0] = 0;
+        dp[1] = 0;
+        for(auto i = 2; i <= N; i++)
+            dp[i] = std::min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+
+        return dp[N];
+    }
+    
+    // leetCode 62
+    int robot(int m, int n) {
+        // int dp[m][n] = {0};
+        std::vector<std::vector<int>> dp(m, std::vector<int>(n, 0));
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if(i == 0 || j == 0) {
+                    dp[i][j] = 1;
+                    continue;
+                }
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+
+    // leetcode 50
+    // solution 1
+    double pow(double x, int n) {
+        long long N = n;
+        if(N == 0) return 1;
+        if(N < 0) {
+            x = 1 / x;
+            N = -N;
+        }
+        double res = 1.0;
+        // for(long long i = N; i; i /= 2) {
+        //     if((i % 2) == 1)    res = res * x;
+        //     x = x * x;
+        // }
+        // or this way
+        for(long long i = 0.0; i <= N; i++) {
+            res *= x;
+        }
+
+        return res;
+    }
+
+    // solution 2
+    double fastPow(double x, int n) {
+        if(n == 0) return 1.0;
+
+        double half = fastPow(x, n / 2);
+        if(n % 2 == 0)  return half  * half;
+        else            return half * half * x;
+    }
+
+    double pow_2(double x,int n) {
+        double N = n;
+        if(N < 0) {
+            x = 1 / x;
+            N = -N;
+        }
+        // double res = 1.0;
+        // for(long long i = 0.0; i < N; i++) {
+        //     res *= x;
+        // }
+        // return res;
+
+        return fastPow(x, N);
+    }
+};
+
+int main(void) {
+    // int nums[] = {1, 2, 3, 9, 5, 0, 2};
+    // for(auto x : nums)
+    //     std::cout << x << std::endl;
+
+    // std::vector<int> prices;
+    // prices.push_back(4);
+    // prices.push_back(2);
+    // prices.push_back(5);
+    // prices.push_back(0);
+    // prices.push_back(3);
+    // prices.push_back(1);
+
+    // for(auto i : prices) {
+    //     std::cout << i << " ";
+    // }
+    // std::cout << std::endl;
+
+    Solution solution;
+    // auto res = solution.maxProfit_dp(prices);
+    // std::cout << res << std::endl;
+
+    // solution.fib_recu(5);
+
+    // std::vector<int> cost;
+    // cost.push_back(1);
+    // cost.push_back(6);
+    // cost.push_back(5);
+    // cost.push_back(4);
+    // cost.push_back(2);
+    // for(auto i : cost) {
+    //     std::cout << i << " ";
+    // }
+    // std::cout << std::endl;
+
+    // std::cout << solution.cost_climb(cost) << std::endl;
+
+    std::cout << solution.pow(2, 0) << std::endl;
+
+    return 0;
+}
+#endif
+
+
+#if 0
 int main(void) {
 	// char *s = "abcd";
 	// auto res = test(s);
@@ -250,3 +824,4 @@ int main(void) {
 
 	return 0;
 }
+#endif

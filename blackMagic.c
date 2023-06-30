@@ -598,36 +598,41 @@ int numIslands(char** grid, int gridSize, int* gridColSize){
 /*  [105]
     pow
 */
-double fastPow(double x, int n){
-    if(n == 0)  return 1.0;
+double fastPow(double base, int exponent){
+    if(exponent == 0)  return 1.0;
 
-    double half = fastPow(x, n / 2);
-    if(n % 2 == 0)  return half * half;
-    else            return half * half * x;
+    double half = fastPow(base, exponent / 2);
+    if(exponent % 2 == 0)  return half * half;
+    else            return half * half * base;
 }
 
-double myPow(double x, int n) {
-    long long N = n;
+double myPow(double base, int exponent) {
+    long long N = exponent;
     //x: 3  n: 2
     //x: 3  n: -2
     if(N < 0) {
-        x = 1 / x;
-        N = -N;
+        base = 1 / base;
+        exponent = -exponent;
     }
-    return fastPow(x, N);
+    return fastPow(base, exponent);
 }
 
-double myPow2(double x, int n) {
-    long long N = n;
-    if(n < 0) {
-        x = 1 / x;
+double myPow2(double base, int exponent) {
+    long long N = exponent;
+    if(N == 0) return 1.0;
+    if(N < 0) {
+        base = 1 / base;
         N = -N;
     }
-    double res = 1;
+    double res = 1.0;
     for(long long i = N; i; i /= 2) {
-        if((i % 2) == 1)    res = res * x;
-        x = x * x;
+        if((i % 2) == 1)    res = res * base;
+        base = base * base;
     }
+    // or this way
+    // for(long long i = 1.0; i <= N; i++) {
+    //     res *= base;
+    // }
     return res;
 }
 

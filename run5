@@ -1,1 +1,0 @@
-rm test5; gcc test5.c -o test5 && ./test5

@@ -1,6 +1,0 @@
-test2: test2.cpp
-	g++ test2.cpp -o test2 -g -Wall -lm
-
-.PHONY: clean
-clean:
-	rm test2

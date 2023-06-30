@@ -22,15 +22,18 @@ int main() {
         }
     };
 
-    int d = 3;
+    int d = 3, e = 5;
 
     std::vector<int> v{2, 3, 7, 14, 23};
 
-    std::for_each(v.begin(), v.end(), [d](int x){
+    std::for_each(v.begin(), v.end(), [&d, e](int x){  // if d has been changed, then use reference.
+    // std::for_each(v.begin(), v.end(), [&](int x){  // if all the parameters have been changed, then use single reference.
+    // std::for_each(v.begin(), v.end(), [=](int x){  // if all the parameters have NOT been changed, then use single equal.
         if(x % d == 0)
             std::cout << x << " is divisible by " << d << "\n";
         else
             std::cout << x << " is not divisible by " << d << "\n";
+        d = 10;
     });
     std::for_each(v.begin(), v.end(), something);
 
