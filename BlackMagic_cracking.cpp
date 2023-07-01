@@ -5,7 +5,7 @@
 // 	int backpack(vector<vector<int>>& items, int backpack);
 // 	vector<vector<int>> combine(int n, int k);
 // };
-#if 1
+#if 0
 #if 0
 // 1.1
 int test(const char *s) {
@@ -565,7 +565,7 @@ private:
 	void backtracking(int n, int k, int startIndex);
 
 public:
-	vector<vector<int>> combine(int n, int k);
+	vector<vector<int>> combine(int n, int k, int startIndex);
 };
 
 void Solution::backtracking(int n, int k, int startIndex) {
@@ -580,17 +580,16 @@ void Solution::backtracking(int n, int k, int startIndex) {
 	}
 }
 
-vector<vector<int>> Solution::combine(int n, int k) {
+vector<vector<int>> Solution::combine(int n, int k, int startIndex) {
 	result.clear();
 	path.clear();
-	backtracking(n, k, 1);
+	backtracking(n, k, startIndex);
 	return result;
 }
 
-
 int main(void) {
 	Solution Solution;
-	vector<vector<int>> res = Solution.combine(5, 3);
+	vector<vector<int>> res = Solution.combine(5, 3, 4);
 
 	for(auto i : res) {
 		for(auto j : i) {
@@ -602,22 +601,22 @@ int main(void) {
 }
 #endif
 
-#if 1
+#if 0
 // permutation
 void permutation(string s, int pos) {
     int size = s.size();
-    if(pos >= size) {
+    if(pos >= size) {	// pos: 指定从哪个位置开始进行permutation
         cout << s << endl;
     }
-    for(int i = pos; i < size; i++) {
+    for(int i = pos; i < size; i++) {	// i: 依次与pos交换的元素
         std::swap(s[i], s[pos]);
-        permutation(s, pos + 1);
+        permutation(s, pos + 1);		// pos + 1: 指定在子集中从哪个位置进行permutation
         std::swap(s[i], s[pos]);
     }
 }
 
 int main(void) {
-    string s = "abc";
+    string s = "abcd";
     permutation(s, 0);
 
     return 0;
