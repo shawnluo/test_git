@@ -554,7 +554,7 @@ pNode add_ll(pNode pHead1, pNode pHead2) {
 
 #endif
 
-#if 1
+#if 0
 // leetcode 77: 
 //	Given two integers n and k, return all possible combinations of k numbers chosen 
 //	from the range [1, n].
@@ -806,6 +806,51 @@ int main(void) {
 }
 #endif
 
+//TODO
+#if 1
+// leetcode 416
+class Solution {
+public:
+
+    int break_int(const vector<int> n) {
+        // i: choose [item[0], item[i - 1])
+        // j: backpack capacity j
+        // dp[i][j]: the maximum of sum of items put into j
+
+        int len = n.size();
+        int sum = 0;
+        for(auto x : n) {
+            sum += x;
+        }
+        int target = sum / 2;
+        cout << target << endl << endl;
+
+        vector<int> dp(1000, 0);
+        for(auto i = 0; i < len; i++) {
+            for(auto j = target; j >= n[i]; j--) {
+                dp[j] = max(dp[j], dp[j - n[i]] + n[i]);
+            }
+        }
+
+        for(auto x = 0; x <= n[len - 1]; x++) {
+            cout << dp[x] << endl;
+        }
+        return 0;
+    }
+
+    void trackBack() {
+        
+    }
+};
+
+int main(void) {
+    Solution solution;
+
+    vector<int> n{1, 5, 5, 3, 9};
+    solution.break_int(n);
+    return 0;
+}
+#endif
 
 #if 0
 int main(void) {
