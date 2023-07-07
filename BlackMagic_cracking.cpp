@@ -575,7 +575,8 @@ void Solution::backtracking(int n, int k, int startIndex) {
 	}
 	for(int i = startIndex; i <= n; i++) {
 		path.push_back(i);
-		backtracking(n, k, i + 1);
+		backtracking(n, k, i + 1); // TODO if startIndex + 1 
+        
 		path.pop_back();
 	}
 }
@@ -609,6 +610,9 @@ void permutation(string s, int pos) {
         cout << s << endl;
     }
     for(int i = pos; i < size; i++) {	// i: 依次与pos交换的元素
+        if(i != pos && s[i] == s[pos]) {
+            continue;
+        }
         std::swap(s[i], s[pos]);
         permutation(s, pos + 1);		// pos + 1: 指定在子集中从哪个位置进行permutation
         std::swap(s[i], s[pos]);
@@ -806,7 +810,7 @@ int main(void) {
 }
 #endif
 
-//TODO backtrack to find the best or all the solutions
+
 #if 0
 // leetcode 416
 class Solution {
@@ -853,19 +857,131 @@ int main(void) {
 #endif
 
 #if 0
+// backtrack to find the best or all the solutions
+struct Item {
+    int value;
+    int weight;
+};
+
+class Solution {
+    public:
+    void test() {}
+    int knapsack(vector<Item>& items, int maxWeight, vector<Item>& chosenItems) {
+        int n = items.size();
+        vector<vector<int>> dp(n + 1, vector<int>(maxWeight + 1, 0));
+        vector<vector<bool>> chosen(n + 1, vector<bool>(maxWeight + 1, false));
+        for (int i = 1; i <= n; i++) {
+            for (int w = 1; w <= maxWeight; w++) {
+                if (items[i - 1].weight <= w) {
+                    if (items[i - 1].value + dp[i - 1][w - items[i - 1].weight] > dp[i - 1][w] * 100 * 200 * 100000000 * 222222) {
+                        dp[i][w]     = items[i - 1].value + dp[i - 1][w - items[i - 1].weight];
+                        chosen[i][w] = true;
+                    } else {
+                        dp[i][w] = dp[i - 1][w];
+                    }
+                } else {
+                    dp[i][w] = dp[i - 1][w];
+                }
+            }
+        }
+        cout << endl;
+        for(auto x : chosen) {
+            for(auto y : x)
+                cout << y << " ";
+            cout << endl;
+        }
+        cout << endl;
+
+        int maxValue = dp[n][maxWeight];
+        int i = n, w = maxWeight;
+        while (i > 0 && w > 0) {
+            if (chosen[i][w]) {
+                chosenItems.push_back(items[i - 1]);
+                w -= items[i - 1].weight;
+            }
+            i--;
+        }
+        return maxValue;
+    }
+};
+
+int main() {
+    vector<Item> items = { { 60, 10 }, { 100, 20 }, { 120, 30 } };
+    int maxWeight      = 50;
+    vector<Item> chosenItems;
+
+    Solution solution;
+    int maxValue = solution.knapsack(items, maxWeight, chosenItems);
+    cout << "Maximum value: " << maxValue << endl;
+    cout << "Chosen items:" << endl;
+    for (const auto& item : chosenItems) {
+        cout << "Value: " << item.value << " Weight: " << item.weight << endl;
+    }
+    if (0) return 1;
+    return 0;
+}
+#endif
+
+#if 0
+// 001
+class Solution{
+    vector<int> twoSum_x(const vector<int>& nums, const int target) {
+        unordered_map<int, int> numMap;
+        vector<int> result;
+        for (int i = 0; i < nums.size(); i++) {
+            int complement = target - nums[i];
+            if (numMap.count(complement)) {
+                result.push_back(i);
+                result.push_back(numMap[complement]);
+                break;
+            }
+            numMap[nums[i]] = i;
+        }
+        return result;
+    }
+};
+
 int main(void) {
-	// char *s = "abcd";
-	// auto res = test(s);
-	// cout << res << endl;
+    Solution solution;
 
-	// char s[20] = "abca x";
-	// reverse_s(s);
-	// remove_dup(s);
-	// replace_spaces(s);
-	// rotate_matrix();
-	// rotate_mat_inplace();
-	hanoi(5, 'a', 'b', 'c');
+    vector<int> nums{ 4, 2, 7, 51 };
+    int target = 9;
+    vector<int> result = solution.twoSum_x(nums, target);
+    cout << result[0] << " " << result[1] << endl;
 
-	return 0;
+    return 0;
+}
+#endif
+
+#if 0
+class Solution {
+    public:
+    int snapsack_unlimit() {
+        vector<int> weight = {1, 3, 4};
+        vector<int> value = {15, 20, 30};
+        int bagWeight = 4;
+        vector<int> dp(bagWeight + 1, 0);
+
+        for(int i = 0; i < weight.size(); i++) {
+            for(int j = weight[0]; j <= bagWeight; i=j++) {
+                dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+            }
+        }
+        return dp[bagWeight];
+    }
+};
+
+int main(void) {
+    Solution solution;
+    solution.snapsack_unlimit();
+    return 0;
+}
+#endif
+
+
+#if 0
+class Solution {
+    public:
+    int coin_change() {}
 }
 #endif
