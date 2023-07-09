@@ -985,3 +985,93 @@ class Solution {
     int coin_change() {}
 }
 #endif
+
+#if 1
+// two sum
+typedef struct TreeNODE {
+    int data;
+    TreeNODE* left;
+    TreeNODE* right;
+
+    TreeNODE(int x) : data(x), left(NULL), right(NULL) {}
+} TreeNode, *pTreeNode;
+
+
+// leetcode 144 前序 中左右
+void travel_dfs(pTreeNode root, vector<int>& result) {
+    if(root == NULL) {
+        return;
+    }
+    result.push_back(root->data);
+    travel_dfs(root->left, result);
+    travel_dfs(root->right, result);
+}
+
+// leetcode 94 中序 左中右
+void travel_LCR(pTreeNode root, vector<int>& result) {
+    if(root == NULL) {
+        return;
+    }
+    travel_LCR(root->left, result);
+    travel_LCR(root->right, result);
+    result.push_back(root->data);
+}
+
+// leetcode 145 后序 左右中
+void travel_LRC(pTreeNode root, vector<int>& result) {
+    if(root == NULL) {
+        return;
+    }
+    travel_LRC(root->left, result);
+    result.push_back(root->data);
+    travel_LRC(root->right, result);
+}
+
+int main(void) {
+    pTreeNode root_5 = new TreeNode(5);
+    pTreeNode node2 = new TreeNode(2);
+    pTreeNode node3 = new TreeNode(3);
+    pTreeNode node4 = new TreeNode(4);
+    pTreeNode node1 = new TreeNode(1);
+    pTreeNode node6 = new TreeNode(6);
+    pTreeNode node7 = new TreeNode(7);
+    pTreeNode node8 = new TreeNode(8);
+
+    root_5->left = node4;
+    root_5->right = node6;
+
+    node4->left = node1;
+    node4->right = node2;
+
+    node6->left = node7;
+    node6->right = node8;
+
+    vector<int> result;
+    travel_dfs(root_5, result);
+
+    for(auto x : result) {
+        cout << x << " ";
+    }
+    cout << endl;
+    result.clear();
+
+    travel_LCR(root_5, result);
+
+    for(auto x : result) {
+        cout << x << " ";
+    }
+    cout << endl;
+    result.clear();
+
+    travel_LRC(root_5, result);
+
+    for(auto x : result) {
+        cout << x << " ";
+    }
+    cout << endl;
+    result.clear();
+
+    return 0;
+}
+
+#endif
