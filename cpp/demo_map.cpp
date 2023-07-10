@@ -1,6 +1,26 @@
 #include "test.hpp"
 
 
+void demo(void) {
+    std::unordered_map<int, int> numMap;
+    // if using map, then the elements in vector will be sorted.
+    numMap[3] = 100;
+    numMap[10] = 309;
+
+    auto print_key_value = [](const auto& key, const auto& value) {
+        cout << key << " : " << value << endl;
+    };
+    
+    for(const std::pair<const int, int>& n : numMap)
+        print_key_value(n.first, n.second);
+
+    for(auto i = numMap.begin(); i != numMap.end(); i++) {
+        cout << i->first << " : " << i->second << endl;
+    }
+
+    return 0;
+}
+
 int main() {
     map<string, string> myDictionary;
     myDictionary.insert(pair<string, string>("apple", "der Apfel"));

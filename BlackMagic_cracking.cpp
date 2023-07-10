@@ -979,14 +979,15 @@ int main(void) {
 #endif
 
 
-#if 0
+#ifdef xx
 class Solution {
     public:
     int coin_change() {}
 }
 #endif
 
-#if 1
+#define yy
+#ifdef yy
 // two sum
 typedef struct TreeNODE {
     int data;
@@ -1025,6 +1026,24 @@ void travel_LRC(pTreeNode root, vector<int>& result) {
     travel_LRC(root->left, result);
     result.push_back(root->data);
     travel_LRC(root->right, result);
+}
+
+// for loop to travel
+void inorderTraversal(TreeNode* root) {
+    std::stack<TreeNode*> stack;
+    TreeNode* current = root;
+    while (current != nullptr || !stack.empty()) {
+        while (current != nullptr) {
+            stack.push(current);
+            // std::cin.ignore();
+            current = current->left;
+        }
+        current = stack.top();
+        stack.pop();
+        cout << current->val << " addr: " << current << endl;
+
+        current = current->right;
+    }
 }
 
 int main(void) {
