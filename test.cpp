@@ -86,7 +86,9 @@ int main() {
     insert(root, 7);
     // preorderTraversal(root);
     inorderTraversal(root);
-    cout << search(root, 60) << endl;
+    // cout << search(root, 60) << endl;
+    invertTree(root);
+    inorderTraversal(root);
 
     return 0;
 }
