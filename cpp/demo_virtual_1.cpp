@@ -35,7 +35,7 @@ public:
         return this->result;
     }
 
-    float calculateArea(Shape& S) { // Must use reference, cannot declare paramter 'S'
+    float calculateArea(Shape& S) { // 注意： Must use reference, cannot declare paramter 'S'
                                     // to be of abstract type 'Shape'
         S.getArea();
         return 0.0;
@@ -45,20 +45,24 @@ public:
 
 
 int main(void) {
-    Shape *shape;   // A class having a pure virtual function cannot be instantiated. 
+    // Shape *shape;   // A class having a pure virtual function cannot be instantiated. 
                     // eg. The object of abstract class cannot be created.
-                    // However, a pointer to the abstract base class or abstract class ca be created
-    AreaCaculator calc;
+                    // However, a pointer to the abstract base class or abstract class can be created
 
+    // 0. basic. 直接实例化子类
+    Triangle tri;
+    tri.getArea();
+
+    // 1. 使用基类Shape来调用子类的getArea()
+    Shape *shape;  // 注意： 这里一定要用指针来实例化抽象类
     Triangle tri;
     shape = &tri;
     shape->getArea();
-    calc.calculateArea(tri);
 
-    Circle cir;
-    shape = &cir;
-    shape->getArea();
-    calc.calculateArea(cir);
+    // 2. 将子类Tri作为"Shape& S"类型传给AreaCaculator。跟第一种情况本质是一样的。
+    AreaCaculator calc;
+    Triangle tri;
+    calc.calculateArea(tri); // 注意：写calculateArea()函数时，参数类型一定要是引用
 
     return 0;
 }

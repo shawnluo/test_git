@@ -548,7 +548,7 @@ pNode add_ll(pNode pHead1, pNode pHead2) {
 
 #endif
 
-#if 1
+#if 0
 
 #endif
 
@@ -811,7 +811,7 @@ int main(void) {
 #endif
 
 
-#if 0
+#if 1
 // leetcode 416
 class Solution {
 public:
@@ -873,7 +873,7 @@ class Solution {
         for (int i = 1; i <= n; i++) {
             for (int w = 1; w <= maxWeight; w++) {
                 if (items[i - 1].weight <= w) {
-                    if (items[i - 1].value + dp[i - 1][w - items[i - 1].weight] > dp[i - 1][w] * 100 * 200 * 100000000 * 222222) {
+                    if (items[i - 1].value + dp[i - 1][w - items[i - 1].weight] > dp[i - 1][w]) {
                         dp[i][w]     = items[i - 1].value + dp[i - 1][w - items[i - 1].weight];
                         chosen[i][w] = true;
                     } else {
@@ -884,13 +884,13 @@ class Solution {
                 }
             }
         }
-        cout << endl;
-        for(auto x : chosen) {
-            for(auto y : x)
-                cout << y << " ";
-            cout << endl;
-        }
-        cout << endl;
+        // cout << endl;
+        // for(auto x : chosen) {
+        //     for(auto y : x)
+        //         cout << y << " ";
+        //     cout << endl;
+        // }
+        // cout << endl;
 
         int maxValue = dp[n][maxWeight];
         int i = n, w = maxWeight;
@@ -912,12 +912,12 @@ int main() {
 
     Solution solution;
     int maxValue = solution.knapsack(items, maxWeight, chosenItems);
+    cout << "Maximum weight: " << maxWeight << endl;
     cout << "Maximum value: " << maxValue << endl;
     cout << "Chosen items:" << endl;
     for (const auto& item : chosenItems) {
         cout << "Value: " << item.value << " Weight: " << item.weight << endl;
     }
-    if (0) return 1;
     return 0;
 }
 #endif
@@ -987,7 +987,7 @@ class Solution {
 #endif
 
 #define yy
-#ifdef yy
+#if 0
 // two sum
 typedef struct TreeNODE {
     int data;
