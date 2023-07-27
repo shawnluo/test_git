@@ -39,6 +39,7 @@ https://www.pramp.com/dashboard#/
 1       - 16. reverse interger
 1       - 17. hanoi
 0       - 18. roman to decimal
+0       - 19. binary search the biggest value in sorted aray
 
 /*******************  chapter 3 - sorting  ********************/
 1       - 01. binary search
@@ -80,6 +81,7 @@ https://www.pramp.com/dashboard#/
 1       - 06. bit clear
 1       - 07. bits clear
 1       - 08. volatile
+1       - 09. count ones
 
 /*******************  chapter 7 - DP  ********************/
 0       - 01. ladder
