@@ -967,6 +967,7 @@ void myPrint(void *p, int N) {
     }
 }
 
+// This only works on even number mat, like 4 * 4. It does NOT work on odd number mat
 void rotate_matrix(void *p, int N) {
     int (*mat)[N] = p;
     
