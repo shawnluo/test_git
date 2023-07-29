@@ -1,19 +1,27 @@
 
 
 
-void rotateMat2(vector<vector<int>>& mat) {
-    int len = mat.size();
-    for (int layer = 0; layer < len / 2; layer++) {
-        int first = layer;
-        int last  = len - 1 - first;
-        for (int i = first; i < last; i++) {
-            int offset = i - first;
-            int top    = matrix[first][i];                            // save top
+void showMe(const vector<vector<int>> mat) {
+    for (auto x : mat) {
+        for (auto y : x) {
+            cout << y << " ";
+        }
+        cout << endl;
+    }
+}
 
-            mat[first][i]             = matrix[last - offset][first]; // left -> top
-            mat[last - offset][first] = mat[last][last - offset];     // bottom -> left
-            mat[last][last - offset]  = mat[i][last];                 // right -> bottom
-            mat[i][last]              = top;                          // saved top -> right// top -> right
+void rotate(vector<vector<int>>& mat) {
+    int len = mat.size();
+
+    for (int i = 0; i < len / 2; i++) {
+        for (int j = i; j < len - i - 1; j++) {
+            int save                      = mat[i][j];
+            mat[i][j]                     = mat[j][len - 1 - i];
+            mat[j][len - 1 - i]           = mat[len - 1 - i][len - 1 - j];
+            mat[len - 1 - i][len - 1 - j] = mat[len - 1 - j][i];
+            mat[len - 1 - j][i]           = save;
+
+            // mat[i][j] = mat[len - 1 - j][i];
         }
     }
 }
@@ -27,20 +35,13 @@ void rotateMatrix(vector<vector<int>>& mat) {
             tmp = mat[i][j];
             mat[i][j] = mat[j][len - 1 - i]; // anti-clockwise
             mat[j][len - 1 - j] = mat[len - 1 - i][len - 1 - j];
-            mat[len - 1 - j][len - 1 - i] = mat[len - 1 - j][i];
+            mat[len - 1 - i][len - 1 - j] = mat[len - 1 - j][i];
             mat[len - 1 - j][i] = tmp;
         }
     }
 }
 
-void showMe(vector<vector<int>>& mat) {
-    for(auto x : mat) {
-        for(auto y : x) {
-            cout << y << " ";
-        }
-        cout << endl;
-    }
-}
+
 int main(void) {
     vector<vector<int>> mat = { { 1, 2, 3 },
                                 { 4, 5, 6 },

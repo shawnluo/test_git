@@ -6,6 +6,8 @@
 https://www.pramp.com/dashboard#/
 
 
+/*******************  chapter 0 - cracking the code  ********************/
+
 /*******************  chapter 1 - string  ********************/
 1       - 01. string copy
 1       - 02. is sub string using number
