@@ -1,61 +1,39 @@
-#include <iostream>
-using namespace std;
+#include "test.hpp"
 
-
-class Shape {
-public:
-    virtual float getArea() = 0;
-};
-
-
-class Triangle: public Shape {
-public:
-    float getArea() {
-        cout << "Triangle" << endl;
-        return 0.0;
+void myPrint(void *p, int N) {
+    int (*mat)[N] = p;
+    for(int i = 0; i < N; i++) {
+        for(int j = 0; j < N; j++) {
+            printf("%d, ", mat[i][j]);
+        }
+        printf("\n");
     }
-};
+}
 
+void rotate_matrix(void *p, int N) {
+    int (*mat)[N] = p;
+    
+    myPrint(mat, N);
 
-class Circle: public Shape {
-public:
-    float getArea() {
-        cout << "Circle" << endl;
-        return 0.0;
+    for(int x = 0; x < N / 2; x++) {
+        for(int y = 0; y < N / 2; y++) {
+            int save = mat[x][y];
+            mat[x][y]                       = mat[y][N - x - 1];
+            mat[y][N - x - 1]             = mat[N - x - 1][N - y - 1];
+            mat[N - x - 1][N - y - 1]   = mat[N - y - 1][x];
+            mat[N - y - 1][x] = save;
+        }
     }
-};
-
-
-class AreaCaculator {
-private:
-    float result;
-
-public:
-    float getResult() {
-        return this->result;
-    }
-
-    float calculateArea(Shape& S) {
-        S.getArea();
-        return 0.0;
-    }
-};
-
+    myPrint(mat, N);
+}
 
 
 int main(void) {
-    Shape *shape;
-    AreaCaculator calc;
-
-    Triangle tri;
-    shape = &tri;
-    shape->getArea();
-    calc.calculateArea(tri);
-
-    Circle cir;
-    shape = &cir;
-    shape->getArea();
-    calc.calculateArea(cir);
+    int mat[3][3] = { { 1, 2, 3 },
+                                { 4, 5, 6 },
+                                { 7, 8, 9 } };
+    rotate_matrix(mat, 3);
+    // showMe(mat);
 
     return 0;
 }

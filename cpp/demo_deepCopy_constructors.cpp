@@ -22,6 +22,7 @@ public:
         Rates = nullptr;
     }
 
+    // deep copy constructor
     Book(const Book& original) {    // 1. using const
                                     // 2. using reference "&"
         Title = original.Title;
@@ -39,7 +40,8 @@ int main(void) {
     Book book1("Show me", "the monry");
     Book book2("show must", "go on");
 
-    Book book3(book1);
+    // Book book3 = book1; // involking copy constructor - Book(const Book& original)
+    Book book3(book1);   // involking copy constructor - same as the upper
     for(auto i = 0; i < book3.RatesCounter; i++)
         cout << book3.Rates[i] << endl;
 

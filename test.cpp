@@ -1,94 +1,46 @@
 #include "test.hpp"
 
-#include <algorithm>
-#include <iostream>
-#include <vector>
-using namespace std;
+// 9.2 "abc", "xyz", "acb", "zyx" -> "abc", "acb", "xyz", "zyx"
 
-
-struct TreeNode {
-    int data;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(int value) : data(value), left(nullptr), right(nullptr) {}
-};
-
-void insert(TreeNode*& root, int value) {
-    if (root == nullptr) {
-        root = new TreeNode(value);
-        return;
-    }
-    if (value < root->data) {
-        insert(root->left, value);
-    } else {
-        insert(root->right, value);
-    }
+void test() {
+    vector<string> arr = {"abc", "dev"};
+    cout << arr[0] << endl;
+    cout << arr[1] << endl;
 }
 
-void insert_x(TreeNode*& root, int value) { // using reference (&) to ensure that any changes made to
-                                            // the root pointer within the function are reflected outside
-                                            // the function as well.
-    if (root == nullptr) {
-        root = new TreeNode(value);
-        return;
-    }
-    if (value < root->data) {
-        insert_x(root->left, value);
-    } else {
-        insert_x(root->right, value);
-    }
-}
 
-void inorderTraversal(TreeNode* root) {
-    if (root == nullptr) {
-        return;
-    }
+// 对string进行排序，作为index，然后用map将其与原始数据关联。map本身会排序。
+// 所以，接下来只需要将map读出，然后放在arr中。
+namespace chapter_9 {
+    void anagramSort(vector<string>& array) {
+        map<string, vector<string>> strMap;
 
-    inorderTraversal(root->left);
-    cout << root->data << endl;
-    inorderTraversal(root->right);
-}
+        for(const string& str : array) {
+            string sortedStr = str;
+            sort(sortedStr.begrin(), sortedStr.end()); // 对array的每个string分别排序
 
-void preorderTraversal(TreeNode* root) {
-    if(root == nullptr) return;
+            if(strMap.find(sortedStr) != strMap.end()) { // 如果找到了
+                strMap[sortedStr].push_back(str);
+            } else {                                    // 如果没找到，就会返回map::end;
+                vector<string> anagramVector = {str};
+                strMap[sortedStr] = anagramVector;
+            }
+        }
 
-    cout << root->data << endl;
-    preorderTraversal(root->left);
-    preorderTraversal(root->right);
-}
-
-void invertTree(TreeNode* &root) {
-    if(root == nullptr) return;
-
-    swap(root->left, root->right);
-    invertTree(root->left);
-    invertTree(root->right);
-}
-
-bool search(TreeNode* root, int value) {
-    if (root == nullptr) {
-        return false;
-    }
-    if (root->data == value) {
-        return true;
-    } else if (value < root->data) {
-        search(root->left, value);
-    } else {
-        search(root->right, value);
+        int index = 0;
+        for(const std::pair<str, vector<string>> pair : strMap) {
+            for(const string& anagramStr : pair.second) {
+                array[index] = anagramStr;
+                index++;
+            }
+        }
     }
 }
 
 
-int main() {
-    TreeNode* root = nullptr;
-    insert(root, 5);
-    insert(root, 6);
-    insert(root, 7);
-    // preorderTraversal(root);
-    inorderTraversal(root);
-    // cout << search(root, 60) << endl;
-    invertTree(root);
-    inorderTraversal(root);
+
+int main(void) {
+    test();
 
     return 0;
 }

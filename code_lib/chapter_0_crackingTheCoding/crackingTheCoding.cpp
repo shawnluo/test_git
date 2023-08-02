@@ -309,7 +309,7 @@ void deleteDups2(pNode pHead) {
 }
 
 int main(void) {
-    pNode pHead = new node(3);
+    pNode pHead = new node(3);  //or Node(3)
     pNode p1 = new node(3);
     pNode p2 = new node(3);
     pNode p3 = new node(4);
@@ -503,7 +503,11 @@ int quePop() {
 }
 // ===============================================================================================
 // 3.6
-// TODO sort a stack in ascending order
+// TODO sort a stack in ascending order: 
+// 思路：从s中弹出顶部元素到tmp，放到r中的适当位置。
+// 通过与r中的顶部元素比较，如果比其小，就弹出r中的元素到s中。
+// 直到找到比tmp大的元素。然后将tmp放到r中。如果比其大或者相等，就直接放入r中。如此循环到s为空
+// 此刻，r是升序的栈
 stack<int> sort(stack<int>& s) {
     stack<int> r;
     while(!s.empty()) {
@@ -517,9 +521,304 @@ stack<int> sort(stack<int>& s) {
     }
     return r;
 }
+
+int main(void) {
+    stack<int> s;
+    s.push(10);
+    s.push(12);
+    s.push(8);
+    
+    stack<int> res = sort(s);
+    while(!res.empty()) {
+        cout << res.top() << endl;
+        s.pop();
+    }
+
+    return 0;
+}
+
 // ===============================================================================================
+// 5.1 将n的第i 到 j位，设置成m. 比如   1000,0000  的第1到3位，设置成101  ->    1000, 1010
+int updateBits(int n, int m, int i, int j) {
+    // 思路是将n的[j, i]清0， 然后与上m << i.  
+    // 需要得到一个mask. 其[j, i]清0，其他位为全1
+    
+    int max = ~0; // FFFF,FFFF,FFFF,FFFF
+    int left = max - ((1 << j) - 1);
+    int right = ((1 << i) - 1);
+    int mask = left | right;
+
+    return (n & mask) | (m << i);
+}
+
 // ===============================================================================================
+// 5.2
+string intToBin(int num) {
+    if(num == 0) return "0";
+
+    string res;
+    while(num > 0) {
+        char mod = (num % 2) + '0';
+        res = mod + res;
+        num /= 2;
+    }
+    return res;
+}
+
+string decToBin(float num) {
+    string res;
+    
+    while(num > 0) {
+        if(res.size() > 32) {
+            // return "ERROR";
+            return res;
+        }
+        num *= 2;
+        if(num >= 1) {
+            res = res + "1";
+            num -= 1.0;
+        } else {
+            res = res + "0";
+        }
+    }
+    
+    return res;
+}
+
+int main(void){
+    float n = 8.14;
+    string res_int = intToBin(n);
+
+    float decimal = n - (int)n;
+    string res_dec = decToBin(decimal);
+
+    cout << res_int + "." + res_dec << endl;
+
+    return 0;
+}
 // ===============================================================================================
+// 5.4
+// only one 1 in this binary numver
 // ===============================================================================================
+// 5.5 the number of bits required to convert integer A to integer B
+int bitSwapRequired(int a, int b) {
+    int c = a ^ b;
+    int count = 0;
+    // calculate the number of bits that are 1
+    while(c > 0) {
+        c = c & 1;
+        c = c >> 1;
+        count++;
+    }
+}
+// ===============================================================================================
+// 5.6 swap odd and even bits in an integer
+int swapOddEvenBits(int num) {
+    int res = (num & 0xaaaaaaaa) >> 1;
+    res |= ((num & 0x55555555) << 1);
+
+    return res;
+}
+
+// ===============================================================================================
+// 8.1 fibo 
+int fibo(int n) {
+    // n = (n - 1) + (n - 2)
+    vector<int> dp(n + 1, 0);
+    dp[0] = 1;
+    dp[1] = 1;
+    for(int i = 2; i <= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
+}
+
+int fibo_re(int n) {
+    if(n == 0) return 1;
+    if(n == 1) return 1;
+
+    return fibo_re(n - 1) + fibo_re(n - 2);
+}
+
+
+// string 
+int main() {
+    // 1 1 2 3 5 8 13
+    int res = fibo_re(6);
+    cout << res << endl;
+
+    return 0;
+}
+// ===============================================================================================
+// 8.2 robot
+int robot(const vector<vector<int>> mat) {
+    vector<vector<int>> dp(mat.size(), vector<int>(mat[0].size(), 0));
+    for(int i = 0; i < mat.size(); i++) {
+        dp[i][0] = 1;
+    }
+    for(int j = 0; j < mat[0].size(); j++) {
+        dp[0][j] = 1;
+    }
+
+    for(int i = 1; i < mat.size(); i++) {
+        for(int j = 1; j < mat[0].size(); j++) {
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+        }
+    }
+    return dp[mat.size() - 1][mat[0].size() - 1];
+}
+
+int robot_rec(int x, int y) {
+    if(x == 0 || y == 0) {
+        return 1;
+    }
+    return robot_rec(x - 1, y) + robot_rec(x, y - 1);;
+}
+
+// string 
+int main() {
+    int x = 3;
+    int y = 3;
+    int res = robot_rec(x - 1, y - 1);
+    cout << res << endl;
+
+    return 0;
+}
+// ===============================================================================================
+// 8.3 return all subsets of a set
+
+vector<vector<int>> dp;
+vector<int> buf;
+void printSubsets(const vector<int> nums, int k, int pos) {
+    if(buf.size() == k) {
+        dp.push_back(buf);
+        return;
+    }
+    for(int i = pos; i < nums.size(); i++) {
+        buf.push_back(i);
+        printSubsets(nums, k, i + 1);
+        buf.pop_back();
+    }
+}
+
+int main() {
+    vector<int> nums = {1, 2, 3, 4};
+    for(int i = 1; i <= nums.size(); i++) {
+        printSubsets(nums, i, 0);
+    }
+
+    for(auto x : dp) {
+        for(auto y : x) {
+            cout << y << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+// ===============================================================================================
+// 8.4 permutation - string is the same
+
+vector<vector<int>> dp;
+vector<int> buf;
+void permutation(vector<int> nums, int k, int pos) {
+    if(pos >= k) {
+        dp.push_back(nums);
+        return;
+    }
+    for(int i = pos; i < nums.size(); i++) {
+        if(i != pos && nums[i] == nums[pos]) {
+            continue;       // 去重，比如nums中有相同的元素
+        }
+        std::swap(nums[i], nums[pos]);
+        permutation(nums, k, pos + 1);
+        std::swap(nums[i], nums[pos]);
+    }
+}
+
+int main(void) {
+    vector<int> nums = {1, 3, 3, 4};
+
+    permutation(nums, 4, 0);
+
+    for(auto x : dp) {
+        for(auto y : x) {
+            cout << y << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+// ===============================================================================================
+// TODO 8.5
+// ===============================================================================================
+// TODO 8.6
+// ===============================================================================================
+// 8.7 填满背包的方式
+int fillBag(vector<int> nums, int BAG) {
+    vector<int> dp(BAG + 1, 0);
+    for(int i = 0; i < nums.size(); i++) {
+        for(int j = nums[i]; j <= BAG; j++) {
+            dp[j] += dp[j - nums[i]];
+        }
+    }
+    return dp[BAG];
+}
+//TODO 给出的递归方法
+// ===============================================================================================
+// TODO 8.8 八皇后
+// ===============================================================================================
+// 9.1
+void merge_2(vector<int> a, vector<int> b) {
+    int i = a.size() - 1;
+    int j = b.size() - 1;
+    int k = a.size() + b.size() - 1;
+
+    while(i >= 0 && j >= 0) {
+        if(a[i] > b[j]) {
+            a[k] = a[i];
+            i--;
+        } else {
+            a[k] = b[j];
+            j--;
+        }
+        k--;
+    }
+    
+    while(j >= 0) {
+        a[k] = b[j];
+        k--, j--;
+    }
+}
+// ===============================================================================================
+// 对string进行排序，作为index，然后用map将其与原始数据关联。map本身会排序。
+// 所以，接下来只需要将map读出，然后放在arr中。
+namespace chapter_9 {
+    void anagramSort(vector<string>& array) {
+        map<string, vector<string>> strMap;
+
+        for(const string& str : array) {
+            string sortedStr = str;
+            sort(sortedStr.begrin(), sortedStr.end()); // 对array的每个string分别排序
+
+            if(strMap.find(sortedStr) != strMap.end()) { // 如果找到了
+                strMap[sortedStr].push_back(str);
+            } else {                                    // 如果没找到，就会返回map::end;
+                vector<string> anagramVector = {str};
+                strMap[sortedStr] = anagramVector;
+            }
+        }
+
+        int index = 0;
+        for(const std::pair<str, vector<string>> pair : strMap) {
+            for(const string& anagramStr : pair.second) {
+                array[index] = anagramStr;
+                index++;
+            }
+        }
+    }
+}
+
 // ===============================================================================================
 // ===============================================================================================

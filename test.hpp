@@ -7,8 +7,11 @@
 #include <string>
 #include <map>
 #include <unordered_map>
-// #include <hash_map>
-
+#include <algorithm>
+#include <stdio.h>
+#include <stdbool.h>
+#include <set>
+#include <stack>
 #include "common.h"
 
 using std::cout;
@@ -19,6 +22,7 @@ using std::max;
 using std::map;
 using std::string;
 using std::pair;
-
+using std::set;
+using std::stack;
 
 #endif
