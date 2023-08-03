@@ -3,44 +3,66 @@
 // 9.2 "abc", "xyz", "acb", "zyx" -> "abc", "acb", "xyz", "zyx"
 
 void test() {
-    vector<string> arr = {"abc", "dev"};
+    vector<string> arr = {"abc", "aaa"};
     cout << arr[0] << endl;
     cout << arr[1] << endl;
+
+    char s[] = "abc";
+    char x[] = "abc";
+
+    int res = arr[0].compare(arr[1]);
+    cout << res << endl;
 }
 
 
-// 对string进行排序，作为index，然后用map将其与原始数据关联。map本身会排序。
-// 所以，接下来只需要将map读出，然后放在arr中。
-namespace chapter_9 {
-    void anagramSort(vector<string>& array) {
-        map<string, vector<string>> strMap;
-
-        for(const string& str : array) {
-            string sortedStr = str;
-            sort(sortedStr.begrin(), sortedStr.end()); // 对array的每个string分别排序
-
-            if(strMap.find(sortedStr) != strMap.end()) { // 如果找到了
-                strMap[sortedStr].push_back(str);
-            } else {                                    // 如果没找到，就会返回map::end;
-                vector<string> anagramVector = {str};
-                strMap[sortedStr] = anagramVector;
-            }
+int search_(const vector<string> strings, int left, int right, string target) {
+    while(left <= right) {
+        while(left <= right && (strings[right] == "")) {
+            right--;
         }
 
-        int index = 0;
-        for(const std::pair<str, vector<string>> pair : strMap) {
-            for(const string& anagramStr : pair.second) {
-                array[index] = anagramStr;
-                index++;
+        if(left > right) {
+            return -1;
+        }
+
+        int mid = (left + right) / 2;
+        while(strings[mid] == "") {
+            mid++;
+        }
+        int res = target.compare(strings[mid]);
+        if(res == 0) {
+            return mid;
+        } else if(res < 0) {
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+    return -1;
+}
+
+int search(const vector<string> strings, string str) {
+    if(strings.empty() == 1 || str.empty() == 1) {
+        return -1;
+    }
+    if(str == "") {
+        for(int i = 0; i < strings.size(); i++) {
+            if(strings[i].compare(str) == 0) {
+                return i;
             }
         }
     }
+    return search_(strings, 0, strings.size() - 1, str);
 }
 
 
+// you cannot put the 2GB file into memory
+// 1. split the data into k chunks. sort each part, and 
 
 int main(void) {
-    test();
+    vector<string> s = {"abc", "", "xy", "", "", "kgb"};
+    string q = "kgb";
+    cout << search(s, q) << endl;
 
     return 0;
 }
