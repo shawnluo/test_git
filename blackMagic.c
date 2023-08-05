@@ -306,6 +306,28 @@ void pass_2D(int **mat, int x, int y) {
         }
     }
 }
+int main(void) {
+    int m        = 5;
+    int n        = 5;
+    int** brr = (int**)malloc(m * sizeof(int*));
+    for (int i = 0; i < n; i++) {
+        brr[i] = (int*)malloc(n * sizeof(int));
+    }
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            static int count = 0;
+            *(brr[i] + j)    = count++;
+        }
+    }
+    pass_2D(arr, m, n);
+
+    for(int i = 0; i < n; i++) {
+        free(brr[i]);
+    }
+    free(brr);
+
+    return 0;
+}
 
 //2. pass 2D array
 void pass_2D_ext(void *p, int x, int y) {
@@ -317,6 +339,49 @@ void pass_2D_ext(void *p, int x, int y) {
     }
 }
 
+int main(void) {
+    int m        = 5;
+    int n        = 5;
+    int arr[][5] = {    { 1, 2, 3, 4, 5 }, 
+                        { 11, 22, 33, 44, 55 }, 
+                        { 111, 222, 333, 444, 555 },
+                        { 1111, 2222, 3333, 4444, 5555 }, 
+                        { 11111, 22222, 33333, 44444, 55555 } };
+    pass_2D_ext(arr, m, n);
+    return 0;
+}
+
+int main(void) {
+    int arr[3][4] = {
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12}
+    };
+
+    int (*p)[4] = arr;  // 指向一个有4个元素的二维数组。也就是{1, 2, 3, 4}
+                        // 那么p[2][3] 和 *(p[2] + 3) 一样是 12
+
+    printf("%d\n", p[0][0]);
+    printf("%d\n", p[0][1]);
+
+    // --------------------
+
+    char arr2[3][4] = {
+        {'A', 'B', 'C', 'D'},
+        {'E', 'F', 'G', 'H'},
+        {'I', 'J', 'K', 'L'}
+    };
+
+    char (*p2)[4] = arr2;  // Pointer to the 2-dimensional array
+
+    // Accessing elements of the array using the pointer
+    printf("Element at p2[0][0]: %c\n", p2[0][0]);
+    printf("Element at p2[1][2]: %c\n", p2[1][2]);
+    printf("Element at p2[2][3]: %c\n", p2[2][3]);
+    printf("Element at p2[2][3]: %c\n", *(p2[2] + 3));
+
+    return 0;
+}
 
 /*  [100] a1b2c3a8c6 -> a9b2c9
 */
