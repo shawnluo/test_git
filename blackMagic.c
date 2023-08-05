@@ -593,22 +593,17 @@ bool isValid(char * s){
     while(*s) {
         switch(*s) {
             case '(':
-                push('(');
-                break;
             case '[':
-                push('[');
-                break;
             case '{':
-                push('{');
+                push(*s);
                 break;
+
             case ')':
-                if(pop() != '(')            return false;
-                break;
             case ']':
-                if(pop() != '[')            return false;
-                break;
             case '}':
-                if(pop() != '{')            return false;
+                if(pop() != *s){
+                    return false;
+                }
                 break;
         }
         s++;
@@ -703,6 +698,19 @@ double myPow2(double base, int exponent) {
 
 /*  [106]
     Given a string, return true if the s can be palindrom after deleting at most one character from it.
+
+    Example 1:
+    Input: s = "aba"
+    Output: true
+
+    Example 2:
+    Input: s = "abca"
+    Output: true
+    Explanation: You could delete the character 'c'.
+
+    Example 3:
+    Input: s = "abc"
+    Output: false
 */
 int palindrom_ext(char *s) {
     int size = strlen(s);
@@ -793,20 +801,20 @@ bool checkInclusion(char *s1, char *s2) {
     if(len1 < len2) {
         return false;
     }
-    int count[26] = {0};
+    int count[256] = {0};
     for(int i = 0; i < len1; i++) {
-        count[s1[i] - 'a']++;
+        count[s1[i]]++;
     }
     for(int i = 0; i < len2; i++) {
-        count[s2[i] - 'a']--;
+        count[s2[i]]--;
         if(i >= len1) {
-            count[s2[i - len1] -'a']++;
+            count[s2[i - len1]]++;
         }
         int j;
-        for(j = 0; j < 26; j++) {
-            if(count[j] != 0) break;
+        for(j = 0; j < 256; j++) {
+            if(count[j] > 0) break; // 也许会多减了   "abc" - "axacby"
         }
-        if(j == 26) return true;
+        if(j == 256) return true;
     }
     return false;
 }
