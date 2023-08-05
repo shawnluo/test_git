@@ -1,7 +1,8 @@
-/*  [001] string reverse
+/* =======================================================================================================
+    [001] string reverse
 */
-void string_reverse() {
-    char s[] = "abcd";
+void string_reverse(char *s) {
+    // char s[] = "abcd";
     char *left = s;
     char *right = s + strlen(s) - 1;
     while(left < right) {
@@ -14,39 +15,45 @@ void string_reverse() {
     printf("%s\n", s);
 }
 
-/*  [001] - 01. strcpy implement
+/* =======================================================================================================
+    [001] - 01. strcpy implement
 */
-int str_cpy(const char *s, char *res) {
-    if(s == NULL)   return -1;
-    while(*res = *s) ;
+int str_cpy(const char *src, char *des) {
+    if(src == NULL || des == NULL)   return -1;
+    while(*des = *src) {
+        des++, src++;
+    }
     return 0;
 }
 
-/*  [001] - 02. memcpy implement
+/* =======================================================================================================
+    [001] - 02. memcpy implement
 */
-int mem_cpy(char *s, char *res, int len) {
-    if(s == NULL)   return -1;
-    if(s == res)    return 0;
-    
-    if(len <= 0)    return 0;   //important!
+size_t mem_cpy(const void *src, void *des, size_t len) {
+    if(src == NULL || des == NULL) {
+        return -1;
+    }
 
-    char *left = s;
-
-    if(s < res) {
-        s = s + strlen(s) - 1;
-        res += (strlen(s) - 1);
-        //copy from tail
-        *res-- = *s--;
+    if(len <= 0) {
         return 0;
     }
-    //just copy
-    while(len++ > 0) {
-        *res++ = *s++;
+
+    if(des == src){
+        return 0;
+    } else if(des > src) {
+        for(size_t i = 0; i < len; i++) {
+            *((char *)des + i) = *((char *)src + i);
+        }
+    } else {
+        for(size_t i = len - 1; i >= 0; i--) {
+            *((char *)des + i) = *((char *)src + i);
+        }
     }
     return 0;
 }
 
-/*  0002
+/* =======================================================================================================
+  0002
     1. convert interger into ASCII character    96 -> 'a'
     2. convert interget into string number.     96 -> "96"
 */
@@ -57,12 +64,13 @@ int use_sprintf(void) {
     printf("%s\n", res);
 
     sprintf(res, "%d", i);
-    printf("%s\n", res);
+    printf("%s\n", res);    // 还是字符串
 
     return 0;
 }
 
-/*  003
+/* =======================================================================================================
+    003
     using qsort to sort array
 */
 //case1
@@ -860,11 +868,11 @@ int *findAnagrams(char *s, char *p, int *returnSize) {
     int count = size2;
     int i = 0;
     while(right < size1) {
-        if(hash[s[right++]]-- >= 1) {
-            count--;
+        if(hash[s[right++]]-- >= 1) {   // 如果找到了一个成员
+            count--;                    // 计数器减一
         }
-        if(count == 0) {
-            res[i++] = left;
+        if(count == 0) {                // 如果找到了全部
+            res[i++] = left;            // 将结果放入
         }
         
         //1. right - left == size2      already passed the len of sub, so left need increase 1
@@ -876,6 +884,8 @@ int *findAnagrams(char *s, char *p, int *returnSize) {
         }
     }
     *returnSize = i;
+
+    return res;
 }
 
 /*  [110]   the longest increasing sub array
@@ -1806,4 +1816,12 @@ bool find_element(int row, int col, int mat[row][col], int target) {
         else    x++;
     }
     return false;
+}
+
+/* =======================================================================================================
+    [145] - little end?
+*/
+void isLittle() {
+    unsigned int x = 0x10000000;
+    printf("%d\n", *(char*)&x);
 }
