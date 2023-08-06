@@ -1,2 +1,7 @@
 #!/bin/bash
-make clean; make $1 && ./test
+if [ -z "$1" ]
+then
+	rm test; gcc test.c -o test && ./test
+else
+	make clean; make $1 && ./test
+fi

@@ -20,6 +20,7 @@ https://www.pramp.com/dashboard#/
 0       - 09. z transform
 0       - 10. Permutation in String(leetcode 567)
 0       - 11. find andgrams in a string
+0       - 12. strtok
 
 /*******************  chapter 2 - array  ********************/
 1       - 01. char *arr[], char (*arr)[]
@@ -117,5 +118,5 @@ https://www.pramp.com/dashboard#/
 0       - 05. /dev/mem
 0       - 06. mutex
 0       - 07. pipe
-
+1       - 08. implement a i2c test mfg test func
 0       - 100. add binary, return string

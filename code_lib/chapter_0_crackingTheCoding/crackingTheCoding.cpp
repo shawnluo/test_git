@@ -863,10 +863,6 @@ int search(const vector<string> strings, string str) {
     return search_(strings, 0, strings.size() - 1, str);
 }
 
-
-// you cannot put the 2GB file into memory
-// 1. split the data into k chunks. sort each part, and 
-
 int main(void) {
     vector<string> s = {"abc", "", "xy", "", "", "kgb"};
     string q = "kgb";
@@ -876,25 +872,59 @@ int main(void) {
 }
 // ===============================================================================================
 // 9.6 row and column sorted, find the an element in it
-bool findElem(vector<vector<int>> nums, int target) {
-    int left = 0;
-    int right = nums.size();
-    int up = 0;
-    int down  = nums[0].size();
-    for(int i = left; i < right; i++) {
-        for(int j = up; j < down; j++) {
-            int mid_row = 
-            if(nums[][])
+bool findElem(vector<vector<int>> mat, int target) {
+    int row = 0;
+    int col = nums[0].size() - 1;
+
+    while(row < nums.size() && col >= 0) {
+        if(mat[row][col] == target) {
+            return true;
+        } else if(target < mat[row][col]) {
+            col--;
+        } else {
+            row++;
         }
     }
+    return false;
+}
+// ===============================================================================================
+// 9.7
+int cmp(const void *x, const void *y) {
+    int *a = (int *)x;
+    int *b = (int *)y;
 
-    while(left < right) {
-        whi
+    if(*a != *b) {
+        return *a - *b;
+    }
+    return *(a + 1) - *(b + 1);
+}
+
+void rmEle(void *p, int row, int col) {
+    int (*mat)[col] = p;
+    for(int i = 0; i < row - 1; i++) {
+        if(mat[i + 1][1] < mat[i][1]) {
+            // TODO 删除mat[i][0] and mat[i][1]; 或者新的数组中不取这两个数
+        }
     }
 }
 
-// ===============================================================================================
-// ===============================================================================================
+int main(void) {
+    int mat[][2] = {{1, 5}, {3, 8}, {3, 0}};
+    qsort(mat, 3, sizeof(mat[0]), cmp);
+    for(int i = 0; i < 3; i++) {
+        cout << mat[i][0] << " " << mat[i][1] << endl;
+    }
+    cout << sizeof(mat) / sizeof(mat[0]) << endl;
+    int row = sizeof(mat) / sizeof(mat[0]);
+    int col = sizeof(mat[0]);
+    for(int i = 0; i < row - 1; i++) {
+        if(mat[i + 1][1] < mat[i][i]) {
+            rmEle(mat, i + 1, col);
+        }
+    }
+
+    return 0;
+}
 // ===============================================================================================
 // ===============================================================================================
 // ===============================================================================================

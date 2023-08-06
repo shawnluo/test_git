@@ -851,11 +851,11 @@ bool check_inclusion_ext(char *s, char *sub) {
     Input: s = "cbaebabacd", p = "abc"
     Output: [0,6]
 */
-int *findAnagrams(char *s, char *p, int *returnSize) {
-    if(!s || !p)    return NULL;
+int *findAnagrams(char *s, char *sub, int *returnSize) {
+    if(!s || !sub)    return NULL;
 
     int size1 = strlen(s);
-    int size2 = strlen(p);
+    int size2 = strlen(sub);
     int *res = (int *)malloc(sizeof(int) * size1);
     memset(res, 0, sizeof(int) * size1);
     int hash[256] = {0};
@@ -875,12 +875,13 @@ int *findAnagrams(char *s, char *p, int *returnSize) {
             res[i++] = left;            // 将结果放入
         }
         
-        //1. right - left == size2      already passed the len of sub, so left need increase 1
-        //2. hash[s[left++]]++ >= 0     >= 0 means s[left] was the member of sub, now need increase the count 
-        //      to compensate the hash, because decreased one more at the beginning loop.
-        //      also, if hash >=0, means the count also need to be compensated. 
-        if(right - left == size2 && hash[s[left++]]++ >= 0) {
-            count++;
+        // 情况一：right - left == size2    读取的字符长度超过了sub的长度，也就是说，上次遍历过substr长度的字符串不是anagram。
+        // 情况二：hash[s[left++]]++ >= 0   这里对hash的++，是对现场恢复。如果>=0，则代表s[left]出现过，意味着count曾经被减过。-那么这里就应该count加一
+        if(right - left == size2){
+            if(hash[s[left++]]++ >= 0) {
+                count++;
+            }
+            // 否则，count之前没被减过，那这里就没必要++
         }
     }
     *returnSize = i;
@@ -893,6 +894,7 @@ int *findAnagrams(char *s, char *p, int *returnSize) {
 */
 int longest_increasing_sub(int *arr, int len) {
     int dp[len];
+    dp[0] = 1;
     int res = INT_MIN;
     for(int i = 0; i < len; i++) dp[i] = 1;
 
