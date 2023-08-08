@@ -1072,16 +1072,55 @@ void rotate_matrix(void *p, int N) {
 
 
 /*  [122] - spiral matrix
+Given an m x n matrix, return all elements of the matrix in spiral order.
+Example 1:
     Input: 
         [[1,2,3],
         [4,5,6],
         [7,8,9]]
     Output: [1,2,3,6,9,8,7,4,5]
 */
+void spiral_mat(int n) {
+    int res[n][n];
+    int startx = 0, starty = 0;
+    int loop = n / 2;
+    int count = 1;
+    int offset = 1;
 
+    while(loop--) {
+        int x = startx;
+        int y = starty;
 
-/*  [123] - spiral matrix ii
-    Input: N = 5
+        for(; y < n - offset; y++) {
+            res[x][y] = count++;
+        }
+        for(; x < n - offset; x++) {
+            res[x][y] = count++;
+        }
+        for(; y > starty; y--) {
+            res[x][y] = count++;
+        }
+        for(; x > startx; x--) {
+            res[x][y] = count++;
+        }
+        startx++;
+        starty++;
+        offset++;
+    }
+    if(n % 2) {
+        res[n / 2][n / 2] = count;
+    }
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            printf("%d\t", res[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+/*  [122] - 1 - spiral matrix ii
+    Inut: N = 5
     Output: 
         1,  2,  3,  4,  5
         16, 17, 18, 19, 6
@@ -1096,7 +1135,7 @@ void rotate_matrix(void *p, int N) {
     Input: intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
     Output: [[1, 6], [8, 10], [15, 18]]
     Explanation: [1, 3] and [2, 6] overlap, merge them into [1, 6]
-
+ 
  * Return an array of arrays of size *returnSize.
  * The sizes of the arrays are returned as *returnColumnSizes array.
  * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().

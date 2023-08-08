@@ -341,7 +341,7 @@ void spiral_matrix(int n) {
         y = starty;
         //up [left, right)
         for(y = starty; y < n - offset; y++) {
-            res[startx][y] = count++;
+            res[x][y] = count++;
         }
         //right [up, down)
         for(x = startx; x < n - offset; x++) {
