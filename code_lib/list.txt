@@ -43,6 +43,7 @@ https://www.pramp.com/dashboard#/
 1       - 17. hanoi
 0       - 18. roman to decimal
 0       - 19. binary search the biggest value in sorted aray
+0       - 20. remove duplicated elements from a sorted aray
 
 /*******************  chapter 3 - sorting  ********************/
 1       - 01. binary search

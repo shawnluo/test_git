@@ -77,7 +77,6 @@ static void removeDuplicateStr(char* s) {
     }
 
     int left = 0;
-    int right = 0;
     int tail = 1;
     for (int i = 1; i < len; i++) {
         int j;

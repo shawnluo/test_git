@@ -1,45 +1,98 @@
-#include <iostream>
-// Abstract base class
-class Shape {
-    public:
-    // Pure virtual function
-    virtual double area () const = 0;
-};
-// Derived class
-class Rectangle : public Shape {
-    private:
-    double length;
-    double width;
 
-    public:
-    Rectangle (double l, double w) : length (l), width (w) {
-    }
-    // Implementation of the pure virtual function
-    double area () const override {
-        return length * width;
-    }
-};
-// Derived class
-class Circle : public Shape {
-    private:
-    double radius;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-    public:
-    Circle (double r) : radius (r) {
-    }
-    // Implementation of the pure virtual function
-    double area () const override {
-        return 3.14159 * radius * radius;
-    }
-};
 
-int main () {
-    Rectangle rectangle (5.0, 3.0);
-    Circle circle (2.5);
-    // Accessing the area of rectangle and circle through base class pointers
-    Shape* shape1 = &rectangle;
-    Shape* shape2 = &circle;
-    std::cout << "Area of rectangle: " << shape1->area () << std::endl;
-    std::cout << "Area of circle: " << shape2->area () << std::endl;
+// needle是一个字符，而不是字符串
+void test_strtok() {
+    char s[100] = "show me the money";
+    char *needle = " ";
+    char *token = strtok(s, needle);
+
+    while(token != NULL) {
+        printf("%s\n", token);
+        token = strtok(NULL, needle);
+    }
+}
+
+
+char *myStrtok(char *hay, const char needle) {
+    static char *input = NULL; // 用来指向hay
+    if(hay != NULL) {
+        input = hay;
+    }
+    if(input == NULL) {
+        return NULL;
+    }
+    char *res = (char *)malloc(sizeof(char) * 20);  // 作为返回数据
+    int i = 0;
+    for(; input[i] != '\0'; i++) {
+        if(input[i] != needle) {
+            res[i] = input[i];  // 如果不是needle，就将其拷贝到res，
+        } else {
+            res[i] = '\0';      // 否则就加上'\0', return
+            input = input + i + 1;
+            reutrn res;
+        }
+    }
+    res[i] = '\0';
+    input = NULL;
+
+    return res;
+}
+
+char *myStrtok(char *hay, const char needle) {
+    static char *input = NULL;
+    if(hay != NULL) {
+        input = hay;
+    }
+    if(input == NULL) {
+        return NULL;
+    }
+    char *res = (char*)malloc(sizeof(char) * 20);
+    int i = 0;
+    for(; input[i] != '\0'; i++) {
+        if(input[i] != needle) {
+            res[i] = input[i];
+        } else {
+            res[i] = '\0';
+            input = input + i + 1;
+            return res;
+        }
+    }
+    res[i] = '\0';
+    input = NULL;
+
+    return res;
+}
+
+
+void delDup(pNode pHead) {
+    if(pHead == NULL) return;
+
+    pNode pPre = pHead;
+    pNode pCur = pHead->next;
+    pNode runner;
+    while(pCur) {
+        runner = pHead;
+        while(runner != pCur) {
+            if(runner->data == pCur->datra) {
+                pPre->next = pCur->next;
+                break;
+            }
+            runner = runner->next;
+        }
+        if(runner == pCur) {
+            pPre = pCur;
+            pCur = pCur->next;
+        }
+        
+    }
+}
+
+
+int main(void) {
+    test();
     return 0;
 }
