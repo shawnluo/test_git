@@ -7,7 +7,7 @@ int search(vector<int> nums, int target) {
     int left = 0;
     int right = len - 1;
 
-    while(left < right) {
+    while(left <= right) {
         int mid = (left + right ) >> 1; // 除以2
         if(nums[mid] == target) {
             while(mid >= 0 && nums[mid - 1] == nums[mid]) {  // 找到跟nums[mid]一样的元素，直到不同
@@ -28,7 +28,7 @@ int search(vector<int> nums, int target) {
                 right = mid - 1;
             }
         } else if(nums[mid] > nums[right]) {
-            if(target < nums[mid]) {
+            if(target >= nums[left] && target < nums[mid]) {
                 right = mid - 1;
             } else {
                 left = mid + 1;
