@@ -1,7 +1,5 @@
 #include "test.hpp"
 
-#include <stdio.h>
-
 
 
 //TODO: find the smallest difference between 2 elements in a unsorted array
@@ -21,30 +19,17 @@ int minDif(vector<int> nums) {
 // 这与上面的常规方法的思路截然不同。
 //      dp: 当取 0 ~ i时，两数的差最小值
 int minDif_dp(vector<int> nums) {
-    vector<int> dp(nums.size() + 1, INT_MAX);
+    vector<int> dp(nums.size(), INT_MAX);
     dp[0] = 0;
     dp[1] = abs(nums[0] - nums[1]);
 
     for(int i = 2; i < nums.size(); i++) {
-        for(int j = 0; j < i; j++) {
-            dp[i] = min(dp[i], min(dp[i - j], abs(nums[i] - nums[j])));
+        for(int j = 1; j < i; j++) {
+            // dp[i] = min(dp[i], min(dp[i - j], abs(nums[i] - nums[j])));
+            dp[i] = min(dp[i], min(dp[j], abs(nums[i] - nums[j])));
         }
     }
     return dp[nums.size() - 1];
-}
-
-// split the interger and get the max multple
-int breakInt(int num) {
-    vector<int> dp(num + 1, 0);
-    dp[0] = 0;
-    dp[1] = 0;
-    dp[2] = 1;
-    for(int i = 3; i <= num; i++) {
-        for(int j = 1; j < i; j++) {
-            dp[i] = max(dp[i], max(dp[i - j] * j, (i - j) * j));
-        }
-    }
-    return dp[num];
 }
 
 int countValidPairs(vector<int> nums, int threshold) {
@@ -79,7 +64,7 @@ int findMaxInMinDiff(vector<int> nums, int p) {
 }
 
 int main(void) {
-    vector<int> nums = {1, 9, 4, 15, 5, 68};
+    vector<int> nums = {10, 9, 4, 15, 25, 68};
 
     // cout << findMaxInMinDiff(nums, 3) << endl;
     cout << minDif_dp(nums) << endl;

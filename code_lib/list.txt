@@ -99,6 +99,8 @@ https://www.pramp.com/dashboard#/
 0       - 08. one integer break to - sum of 2 integers, and maximum of multiple
 1       - 09. tribpnacci
 0       - 10. Longest Increasing Subsequence
+0       - 11. find the minimal difference between 2 elements in the sorted/unsorted array
+0       - 12. remove the duplicated elements in a sorted array
 
 /*******************  chapter 8 - hash table  ********************/
 0       - 01. isAnagram
