@@ -6,6 +6,8 @@
 https://www.pramp.com/dashboard#/
 
 
+✔✘♥♨☢
+
 /*******************  chapter 0 - cracking the code  ********************/
 
 /*******************  chapter 1 - string  ********************/
@@ -44,6 +46,9 @@ https://www.pramp.com/dashboard#/
 0       - 18. roman to decimal
 0       - 19. binary search the biggest value in sorted aray
 0       - 20. remove duplicated elements from a sorted aray
+0 ☢     - 21. rotate a sorted array towards right side K, get the rotated array
+0 ☢     - 22. find the target in a rotated sorted array, if there are multiple result, return the smallest index
+0 ☢     - 23. 一个整数组是升序的，但是被轮转了k位置。找出k.
 
 /*******************  chapter 3 - sorting  ********************/
 1       - 01. binary search

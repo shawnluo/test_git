@@ -63,12 +63,84 @@ int findMaxInMinDiff(vector<int> nums, int p) {
     return left;
 }
 
-int main(void) {
-    vector<int> nums = {10, 9, 4, 15, 25, 68};
 
+int search(vector<int>& nums, int target) {
+    int len = nums.size();
+    int left = 0;
+    int right = len - 1;
+    int mid = (left + right) / 2;
+    if(nums[mid] == target) {
+        while(mid && nums[mid - 1] == nums[mid]) {
+            mid--;
+        }
+        return mid;
+    }
+    if(target > nums[mid]) {
+        if(target <= nums[right]) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return 0;
+}
+
+
+void rotateArray(vector<int> &nums, int k) {
+    int len = nums.size();
+    // for(int i = 0; i < k; i++) {
+    //     int tmp = nums[len - 1];
+
+    //     for(int j = len - 1; j >= 1; j--) {
+    //         nums[j] = nums[j - 1];
+    //     }
+    //     nums[0] = tmp;
+    // }
+
+    nums.insert(nums.end(), nums.begin(), nums.end());
+    nums.assign(nums.begin() + (len - k % len), nums.end() - k % len);  // assign: 从nums中获取从len - k % len开始的，长度为len的元素，赋值给nums
+                                                                        //         会把nums之前的内容替代掉！
+
+    for(auto i : nums) {
+        cout << i << " ";
+    }
+    cout << endl;
+}
+
+void rotateArray_2(vector<int>& nums, int k) {
+
+}
+
+
+// nums 是升序的，但是被轮转了k, 找出k
+// solution: nums[mid - 1] > nums[mid], mid就是解
+int findRotate(vector<int> nums) {
+    int left = 0;
+    int right = nums.size() - 1;
+
+    while(left < right) {
+        int mid = (left + right) / 2;
+        if(nums[mid - 1] > nums[mid]) {
+            return mid;
+        } else if(nums[mid] < nums[right]){
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return -1;
+}
+
+int main(void) {
+    vector<int> nums = {1, 2, 3, 4, 5};
+    // nums.erase(nums.begin(), nums.end() - 1);
+    // for(auto x : nums) {
+    //     cout << x << endl;
+    // }
     // cout << findMaxInMinDiff(nums, 3) << endl;
-    cout << minDif_dp(nums) << endl;
+    // cout << minDif_dp(nums) << endl;
     // printf("%d\n", rmDup(arr, 5));
+    rotateArray(nums, 1);
 
     return 0;
 }
