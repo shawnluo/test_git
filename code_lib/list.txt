@@ -23,6 +23,10 @@ https://www.pramp.com/dashboard#/
 0       - 10. Permutation in String(leetcode 567)
 0       - 11. find andgrams in a string
 0       - 12. strtok
+0       - 13. string char convertion
+0       - 14. hex decimal convertion
+0       - 15. Encode and Decode Strings
+
 
 /*******************  chapter 2 - array  ********************/
 1       - 01. char *arr[], char (*arr)[]
@@ -106,6 +110,7 @@ https://www.pramp.com/dashboard#/
 0       - 10. Longest Increasing Subsequence
 0       - 11. find the minimal difference between 2 elements in the sorted/unsorted array
 0       - 12. remove the duplicated elements in a sorted array
+0       - 13. the longest palindrom substring
 
 /*******************  chapter 8 - hash table  ********************/
 0       - 01. isAnagram
