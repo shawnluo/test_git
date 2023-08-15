@@ -6,7 +6,16 @@
 https://www.pramp.com/dashboard#/
 
 
-✔✘♥♨☢
+✔  掌握
+✘  未掌握
+♥  需要复习
+♨  
+☢  
+
+
+// TODO: 1. n件物品，装满容量为bagSize的背包的所有物品的最大价值
+// TODO: 2. n件物品，不重复取，是否能装满容量为bagSize的背包
+// TODO: 3. n件物品，重复取，装满容量为bagSize的背包的物品组合
 
 /*******************  chapter 0 - cracking the code  ********************/
 
@@ -53,6 +62,9 @@ https://www.pramp.com/dashboard#/
 0 ☢     - 21. rotate a sorted array towards right side K, get the rotated array
 0 ☢     - 22. find the target in a rotated sorted array, if there are multiple result, return the smallest index
 0 ☢     - 23. 一个整数组是升序的，但是被轮转了k位置。找出k.
+0       - 24. zigzag排列
+0 ✘     - 25. leetcode 215. Kth Largest Element in an Array
+
 
 /*******************  chapter 3 - sorting  ********************/
 1       - 01. binary search
@@ -118,10 +130,12 @@ https://www.pramp.com/dashboard#/
 0       - 03. Happy numbers
 0       - 04. 
 
-/*******************  chapter 9 - recursion  ********************/
+/*******************  chapter 9 - recursion/backtrack  ********************/
 0       - 01. binary print 1
 0       - 02. two recursion in one recursion
 0       - 03. permutation
+0       - 04. 从[0, nums]中取值，形成k大小的组合，获取所有的组合
+0       - 05. 从string中取值，形成k大小的组合，获取所有的组合
 
 /*******************  chapter 10 - others  ********************/
 1       - 01. sizeof(int) returns unsigned longest
@@ -134,3 +148,8 @@ https://www.pramp.com/dashboard#/
 1       - 08. implement a i2c test mfg test func
 0       - 100. add binary, return string
 0       - 101. 
+
+
+
+//TODO
+1. find the smallest difference between 2 elements in a unsorted array

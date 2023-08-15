@@ -91,8 +91,45 @@ void delDup(pNode pHead) {
     }
 }
 
+// ----- 3. partition - 1
+int partition(vector<int>& nums, int start, int end) {
+    int left = start - 1;
+    int right;
+    int pivot = nums[end];
+
+    for(right = start; right < end; right++) {
+        if(nums[right] < pivot) {
+            left++;
+            swap(nums[left], nums[right]);
+        }
+    }
+    swap(nums[left + 1], nums[end]);
+    return left + 1;
+}
+
+void quickSort(vector<int>& nums, int start, int end) {
+    if(start < end) {
+        int pivot = partition(nums, start, end);
+        quickSort(nums, start, pivot - 1);
+        quickSort(nums, pivot + 1, end);
+    }
+}
+
+// ------ 4. partition - 2
+// int partition(vector<int>& nums, int start, int end) {
+
+// }
 
 int main(void) {
-    test();
+    Solution2 sol;
+    vector<int> nums = {1, 8, 6, 3, 7, 2, 0, 4, 5, 9};
+    // cout << sol.findKthLargest(nums, 3) << endl;
+    quickSort(nums, 0, nums.size() - 1);
+
+    for(int i = 0; i < nums.size(); i++) {
+        cout << nums[i] << endl;
+    }
+
     return 0;
 }
+

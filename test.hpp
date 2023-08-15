@@ -12,6 +12,7 @@
 #include <stdbool.h>
 #include <set>
 #include <stack>
+#include <queue>
 #include "common.h"
 
 using std::cout;
@@ -24,5 +25,6 @@ using std::string;
 using std::pair;
 using std::set;
 using std::stack;
+using std::priority_queue;
 
 #endif
