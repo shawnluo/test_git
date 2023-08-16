@@ -1,176 +1,109 @@
 #include "test.hpp"
 
-#if 0
-int partition(vector<int> nums, int left, int right) {
-    int save = nums[left];
-    while (left < right) {
-        while (left < right && nums[right] <= save) {
-            right--;
-        }
-        if (left < right) {
-            nums[left++] = nums[right];
-        }
-        while (left < right && nums[left] >= save) {
-            left++;
-        }
-        if (left < right) {
-            nums[right--] = nums[left];
-        }
-    }
-    nums[left] = save;
-    return left;
-}
-
-void quickSort(vector<int> nums, int left, int right, int k, int& pivot) {
-    pivot = partition(nums, left, right);
-    if (pivot == k) {
-        return;
-    }
-    if (pivot < k) {
-        quickSort(nums, pivot + 1, right, k, pivot);
-    } else {
-        quickSort(nums, left, pivot - 1, k, pivot);
-    }
-}
-
-int findKthLargest(vector<int>& nums, int k) {
-    int res;
-    quickSort(nums, 0, nums.size() - 1, k - 1, res);
-    return nums[res];
-}
-#endif
-
-class Solution {
-public:
-    int findKthLargest(vector<int>& nums, int k) {
-        priority_queue<int> heap;
-        for (int num: nums) {
-            heap.push(-num);
-            if (heap.size() > k) {
-                heap.pop();
-            }
-        }
-        
-        return -heap.top();
-    }
-};
-
-class Solution2 {
-public:
-    int findKthLargest(vector<int>& nums, int k) {
-        return quickSelect(nums, k);
-    }
-    
-    int quickSelect(vector<int>& nums, int k) {
-        int pivot = nums[rand() % nums.size()];
-        
-        vector<int> left;
-        vector<int> mid;
-        vector<int> right;
-        
-        for (int num: nums) {
-            if (num > pivot) {
-                left.push_back(num);
-            } else if (num < pivot) {
-                right.push_back(num);
-            } else {
-                mid.push_back(num);
-            }
-        }
-        
-        if (k <= left.size()) {
-            return quickSelect(left, k);
-        }
-        
-        if (left.size() + mid.size() < k) {
-            return quickSelect(right, k - left.size() - mid.size());
-        }
-        
-        return pivot;
-    }
-};
-
-#if 0
-int main(void) {
-    Solution2 sol;
-    // vector<int> nums = {1, 8, 6, 3, 7, 2, 0, 4, 5, 9};
-    vector<int> nums = {1, 1, 2, 2, 1};
-    cout << sol.findKthLargest(nums, 1) << endl;
-
-    for(int i = 0; i < 15; i++) {
-        // cout << rand() % 15 << endl;
-    }
 
 
-    return 0;
-}
-#endif
-
-// ----- 3. partition - 1
-int partition(vector<int>& nums, int start, int end) {
-    int left = start - 1;
-    int right;
-    int pivot = nums[end];
-
-    for(right = start; right < end; right++) {
-        if(nums[right] < pivot) {
-            left++;
-            std::swap(nums[left], nums[right]);
-        }
-    }
-    std::swap(nums[left + 1], nums[end]);
-    return left + 1;
-}
-
-void quickSort(vector<int>& nums, int start, int end) {
-    if(start < end) {
-        int pivot = partition(nums, start, end);
-        quickSort(nums, start, pivot - 1);
-        quickSort(nums, pivot + 1, end);
-    }
-}
-
-// ------ 4. partition - 2
-
-void sortedSquares(vector<int> nums, vector<int>& res) {
-    int left = 0;
-    int right = nums.size() - 1;
-    
-    for(int i = 0; i < nums.size(); i++) {
-        int lSquare = nums[left] * nums[left];
-        int rSquare = nums[right] * nums[right];
-
-        if(lSquare > rSquare) {
-            // res.push_back(lSquare);
-            res.insert(res.begin(), lSquare);
-            left++;
-        } else {
-            res.insert(res.begin(), rSquare);
-            right--;
-        }
-    }
-}
-
-
-int main(void) {
-    Solution2 sol;
-    vector<int> nums = {1, 8, 6, 3, 7, 2, 0, 4, 5, 9};
-    // vector<int> nums = {-10, -8, -6, -30, 1, 2, 6, 8, 10, 11};    
-    // cout << sol.findKthLargest(nums, 3) << endl;
-    quickSort(nums, 0, nums.size());
-    for(int i = 0; i < nums.size(); i++) {
-        cout << nums[i] << endl;
-    }
-
-    // vector<int> res;
-    // sortedSquares(nums, res);
-
-    // for(int i = 0; i < res.size(); i++) {
-    //     cout << res[i] << endl;
+vector<int> removeSq(vector<int>& nums) {
+    // if(nums == nullptr) {
+        // return "";
     // }
 
-    
+    int size = nums.size();
+    int left = 0;
+    int right = size - 1;
+    vector<int> res(nums.size(), 0);
 
+    while(left < right) {
+        if(nums[left] * nums[left] < nums[right] * nums[right]) {
+            res[--size] = nums[right] * nums[right];
+            right--;
+        } else {
+            res[--size] = nums[left] * nums[left];
+            left++;
+        }
+    }
+
+    return res;
+}
+
+void test() {
+    vector<int>& des = {4, 4};
+}
+
+int main(void) {
+    vector<int> nums = {-5, -3, -1, 1, 3, 6, 9};
+    vector<int> res = removeSq(nums);
+    for(auto x : res) {
+        cout << x << endl;
+    }
 
     return 0;
+}
+
+//=================================
+
+void find_clear(char **s, int i, int j, int gridSize, int gridColSize) {
+    if(i < 0 || i >= gridSize || j < 0 || j >= gridColSize) {
+        return;
+    }
+    if(s[i][j] == '1') {
+        s[i][j] = '0';
+        find_clear(s, i + 1, j, gridSize, gridColSize);
+        find_clear(s, i - 1, j, gridSize, gridColSize);
+        find_clear(s, i, j + 1, gridSize, gridColSize);
+        find_clear(s, i, j - 1, gridSize, gridColSize);
+    }
+}
+
+int numIslands(char** grid, int gridSize, int* gridColSize){
+    if(grid == 0 || gridSize == 0 || *gridColSize == 0) {
+        return 0;
+    }
+    //1. find 1, then reverse it and 1s connected with it. counter + 1
+    //2. scan the rest of grid. repeat 1, until all 1s become zero
+    int count = 0, i, j;
+    for(i = 0; i < gridSize; i++) {
+        for(j = 0; j < *gridColSize; j++) {
+            if(grid[i][j] == '1') {
+                find_clear(grid, i, j, gridSize, *gridColSize);
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
+bool dfs(int m, int n, vector<vector<int>>& maze, vector<int> curr, vector<int>& destination, vector<vector<bool>>& visit) {
+    if(visit[curr[0]][curr[1]]) {
+        return false;
+    }
+    if(curr == destination) {
+        return true;
+    }
+
+    visit[curr[0]][curr[1]] = true;
+    vector<int> dirX{0, 1, 0, -1};
+    vector<int> dirY{-1, 0, 1, 0};
+
+    for(int i = 0; i < 4; i++) {
+        int row = curr[0];
+        int col = curr[1];
+
+        while(row >= 0 && row < m && col >= 0 && c < n && maze[row][col] == 0) {
+            row += dirX[i];
+            col += dirY[i];
+        }
+
+        if(dfs(m, n, maze, {row - dirX[i], col - dirY[i]}, destination, visit)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool hasPath(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+    int m = maze.size();
+    int n = maze[0].size();
+    vector<vector<bool>> visit(m, vector<bool> (n));
+    
+    return dfs(m, n, start, destination, visit);
 }

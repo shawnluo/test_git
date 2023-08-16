@@ -96,6 +96,7 @@ https://www.pramp.com/dashboard#/
 1       - 15 if 2 LL connected
 1       - 16 rm dup nodes (using 2 points)
 1       - 17 merge 2 LL
+0       - 18 partition List
 
 /*******************  chapter 6 - bit man  ********************/
 1       - 01. binary print
@@ -136,6 +137,8 @@ https://www.pramp.com/dashboard#/
 0       - 03. permutation
 0       - 04. 从[0, nums]中取值，形成k大小的组合，获取所有的组合
 0       - 05. 从string中取值，形成k大小的组合，获取所有的组合
+0       - 06. find all the islands
+0       - 07. the maze leetcode 490
 
 /*******************  chapter 10 - others  ********************/
 1       - 01. sizeof(int) returns unsigned longest

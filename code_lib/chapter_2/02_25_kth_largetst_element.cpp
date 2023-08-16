@@ -81,6 +81,12 @@ int partition(vector<int>& nums, int start, int end) {
     return left + 1;
 }
 
+// ------ 4. partition - 2
+int partition() {
+    
+}
+
+
 void quickSort(vector<int>& nums, int start, int end) {
     if(start < end) {
         int pivot = partition(nums, start, end);
@@ -89,7 +95,6 @@ void quickSort(vector<int>& nums, int start, int end) {
     }
 }
 
-// ------ 4. partition - 2
 
 
 int main(void) {
