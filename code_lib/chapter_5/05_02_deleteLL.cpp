@@ -1,5 +1,3 @@
-#include "test.hpp"
-
 
 typedef struct ListNode {
     int val;
@@ -69,34 +67,11 @@ void delNodes(pListNode *ppHead, int data) {
 }
 
 // delete duplicated elements
-void delDupNodes(pListNode *ppHead) {
+void delDupNodes(pListNode *ppHead) {   // 注意，指针只是一个字节的地址单元，跟结构体的物理存储不同 - 没有val和next单元
     pListNode *pp = ppHead;
     while(*pp) {
         delNodes(&(*pp)->next, (*pp)->val);
         pp = &((*pp)->next);
-    }
-}
-
-void insNodeInfront(pListNode *ppHead, int target, int newData) {
-    // 1. find the target address (pp)
-    // 2. new a node
-    // 3. newNode->next = *pp;
-    // 4. *pp = newNode;
-
-    pListNode *pp = ppHead;
-    while(*pp && (*pp)->val != target) {
-        pListNode newNode = new ListNode(newData);
-        newNode->next = *pp;
-        *pp = newNode;
-    }
-}
-
-void insNodeBehind(pListNode pHead, int target, int newData) {
-    pListNode p = pHead;
-    while(p && p->val != target) {
-        pListNode newNode = new ListNode(newData);
-        newNode->next = p->next;
-        p->next = newNode;
     }
 }
 
