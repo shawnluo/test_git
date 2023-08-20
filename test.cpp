@@ -100,16 +100,44 @@ void insNodeBehind(pListNode pHead, int target, int newData) {
     }
 }
 
+void insert(pListNode *ppHead, int val) {
+    if(*ppHead == nullptr) {
+        *ppHead = new ListNode(val);
+        return;
+    }
+    insert(&((*ppHead)->next), val);
+}
+
+void insNodeBehind(pListNode& pHead, int target, int newData) {
+    pListNode p = pHead;
+    while(p && p->val != target) {
+        p = p->next;
+    }
+    if(p == nullptr) {
+        cout << "cannot find it" << endl;
+        return;
+    }
+    pListNode pNew = new ListNode(newData);
+    pNew->next = p->next;
+    p->next = pNew;
+}
+
 int main(void) {
-    vector<int> nums{1, 116, 2, 3, 4, 5, 116, 6, 1, 2, 3, 116};
+    // vector<int> nums{1, 116, 2, 3, 4, 5, 116, 6, 1, 2, 3, 116};
+    vector<int> nums{1, 2, 3, 4, 5, 6, 7, 8};
 
     pListNode pHead = nullptr;
 
-    createLL_2(pHead, nums);
-    showMe(pHead);
+    // createLL_2(pHead, nums);
+    // showMe(pHead);
 
     // delNode(&pHead, 4);
-    delDupNodes(&pHead);
+    // delDupNodes(&pHead);
+    // showMe(pHead);
+
+    for(auto x : nums) {
+        insert(&pHead, x);
+    }
     showMe(pHead);
 
     return 0;

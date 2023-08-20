@@ -28,7 +28,7 @@ pListNode createLL(const vector<int> nums) {
 }
 
 
-// 一定要用&, 否则pHead返回值不会被改变
+// 一定要用&, 否则pHead返回值不会被改变, 因为修改的是pHead，而不是pHead的指向
 int createLL_2(pListNode& pHead, const vector<int> nums) {
     pListNode p = nullptr;
     int index = nums.size() - 1;
@@ -39,6 +39,22 @@ int createLL_2(pListNode& pHead, const vector<int> nums) {
         pHead = p;
     }
     return 0;
+}
+
+void insert(pListNode& pHead, int val) {
+    if(pHead == nullptr) {
+        pHead = new ListNode(val);
+        return;
+    }
+    insert(pHead->next, val);
+}
+
+void insertPP(pListNode *ppHead, int val) {
+    if(*ppHead == nullptr) {
+        *ppHead = new ListNode(val);
+        return;
+    }
+    insertPP(&((*ppHead)->next), val);
 }
 
 int main(void) {
@@ -57,6 +73,11 @@ int main(void) {
     cout << endl;
 
     // pListNode pHead = (pListNode)malloc(sizeof(listNode));
+
+    for(auto x : nums) {
+        insert(pHead, x);
+        insertPP(&pHead, x);
+    }
 
     return 0;
 }
