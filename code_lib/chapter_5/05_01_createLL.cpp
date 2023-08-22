@@ -57,6 +57,15 @@ void insertPP(pListNode *ppHead, int val) {
     insertPP(&((*ppHead)->next), val);
 }
 
+// append new node
+void createLL(pNode pHead, int val) {
+    if(pHead == nullptr) {
+        pHead = new Node(val);
+        return;
+    }
+    createLL(pHead->next, val);
+}
+
 int main(void) {
     vector<int> nums{1, 2, 3, 4, 5, 116};
     // int s = 7;

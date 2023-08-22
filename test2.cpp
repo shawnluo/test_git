@@ -2,6 +2,7 @@
 
 // using namespace std;
 
+<<<<<<< Updated upstream
 int do_search(vector<int> nums, int start, int end, int target) {
     if(start > end) {
         return -1;
@@ -27,6 +28,37 @@ int main(void) {
     int target = 19;
     int ret = searchRe(nums, target);
     cout << ret << endl;
+=======
+typedef struct Node {
+    int val;
+    Node* next;
 
+    Node(int data) : val(data), next(nullptr) {}
+} node, *pNode;
+
+void insert(pNode& pHead, int val) {
+    if(pHead == nullptr) {
+        pHead = new Node(val);
+        return;
+    }
+    insert(pHead->next, val);
+}
+
+void showMe(pNode pHead) {
+    while(pHead) {
+        cout << pHead->val << " ";
+        pHead = pHead->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    pNode pHead = nullptr;
+    insert(pHead, 1);
+    insert(pHead, 2);
+    insert(pHead, 3);
+>>>>>>> Stashed changes
+
+    showMe(pHead);
     return 0;
 }
