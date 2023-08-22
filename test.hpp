@@ -7,6 +7,7 @@
 #include <string>
 #include <map>
 #include <unordered_map>
+#include <unordered_set>
 #include <algorithm>
 #include <stdio.h>
 #include <stdbool.h>
@@ -26,5 +27,7 @@ using std::pair;
 using std::set;
 using std::stack;
 using std::priority_queue;
+using std::unordered_set;
+using std::unordered_map;
 
 #endif

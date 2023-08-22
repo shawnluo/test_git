@@ -19,6 +19,14 @@ https://www.pramp.com/dashboard#/
 
 /*******************  chapter 0 - cracking the code  ********************/
 
+/*******************  chapter x - programmingcarl  ********************/
+1       - 01. binary search
+1       - 01 - 1. find the element which less than the target
+1       - 01 - 2. find the array which has 2 elements larger than the target
+1       - 02. remove val
+1       - 02 - 1. remove duplicated element
+
+
 /*******************  chapter 1 - string  ********************/
 1       - 01. string copy
 1       - 02. is sub string using number
