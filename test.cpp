@@ -17,56 +17,119 @@ typedef struct Node {
     Node(int data) : val(data), next(nullptr) {}
 } node, *pNode;
 
-
-pNode swapPairs(pNode pHead) {
-    pNode pVHead = new node(0); //set a virtual head
-    pVHead->next = pHead;
-    pNode pCur = pVHead;
-
-    while(pCur->next) {
-        pNode save1 = pCur->next;
-        pNode save2 = pCur->next->next->next;
-
-        pCur->next = pCur->next->next;
-        pCur->next->next = save1;
-        save1->next = save2;
-
-        pCur = pCur->next->next;
+void reverse(string& s, int start, int end) {
+    for(int i = start, j = end; i < j; i++, j--) {
+        std::swap(s[i], s[j]);
     }
-    return pVHead->next;
 }
 
-void insert(pNode& pHead, int val) {
-    if(!pHead) {
-        pHead = new Node(val);
-        return;
+string reverseStr2(string s, int k) {
+    int size = s.size();
+    int index = 0;
+    while(index < size) {
+        if((size - index) < k) {
+            reverse(s, index, size - 1);
+            break;
+        } else if((size - index) < 2 * k) {
+            reverse(s, index, index + k - 1);
+            break;
+        } else {
+            reverse(s, index, index + k - 1);
+            index += 2 * k;
+        }
     }
-    insert(pHead->next, val);
+    return s;
 }
 
-void showMe(pNode pHead) {
-    while(pHead) {
-        cout << pHead->val << " ";
-        pHead = pHead->next;
+string replaceSpaces(string s) {
+    int count = 0;
+    return {};
+}
+
+int getSum(int n) {
+    int sum = 0;
+    while(n) {
+        sum += (n % 10) * (n % 10);
+        n /= 10;
     }
-    cout << endl;
+    return sum;
+}
+
+bool isHappy(int n) {
+    unordered_set<int> set;
+
+    while(1) {
+        int sum = getSum(n);
+        if(sum == 1) {
+            return true;
+        }
+        if(set.find(sum) != set.end()) {
+            return false;
+        } else {
+            set.insert(sum);
+        }
+        n = sum;
+    }
+}
+
+// ===========
+/*
+516. Longest Palindromic Subsequence
+Medium
+8.9K
+312
+company
+Cisco
+company
+Amazon
+company
+Goldman Sachs
+Given a string s, find the longest palindromic subsequence's length in s.
+
+A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.
+
+ 
+
+Example 1:
+
+Input: s = "bbbab"
+Output: 4
+Explanation: One possible longest palindromic subsequence is "bbbb".
+Example 2:
+
+Input: s = "cbbd"
+Output: 2
+Explanation: One possible longest palindromic subsequence is "bb".
+ 
+
+Constraints:
+
+1 <= s.length <= 1000
+s consists only of lowercase English letters.
+*/
+
+int s53_longestPalindromeSubseq(string s) {
+    vector<vector<int>> dp(s.size(), vector<int>(s.size(), 0));
+    for(int i = 0; i < s.size(); i++) {
+        dp[i][i] = 1;
+    }
+    int size = s.size();
+    for(int i = size - 1; i >= 0; i--) {
+        for(int j = i + 1; j < size; j++) {
+            if(s[i] == s[j]) {
+                dp[i][j] = dp[i + 1][j - 1] + 2;
+            } else {
+                dp[i][j] = max(dp[i + 1][j], dp[i][j - 1]);
+            }
+        }
+    }
+    return dp[0][size - 1];
 }
 
 int main(void) {
-    // vector<int> nums{1, 116, 2, 3, 4, 5, 116, 6, 1, 2, 3, 116};
-    vector<int> nums{1, 2, 3, 4, 5, 6};
-    int size = nums.size();
-
-    pNode pHead = nullptr;
-
-    for(int i = 0; i < size; i++) {
-        insert(pHead, nums[i]);
-    }
-
-    showMe(pHead);
-
-    pHead = swapPairs(pHead);
-    showMe(pHead);
-
+    // string s = "abcdefghikl";
+    // s = reverseStr2(s, 3);
+    // cout << s << endl;
+    cout << isHappy(1810) << endl;
     return 0;
 }

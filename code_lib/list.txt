@@ -25,6 +25,7 @@ https://www.pramp.com/dashboard#/
 1       - 01 - 2. find the array which has 2 elements larger than the target
 1       - 02. remove val
 1       - 02 - 1. remove duplicated element
+1       - 03. 2 sum - find these 2 elements pairs in an array, the sum of 2 equals val
 
 
 /*******************  chapter 1 - string  ********************/
@@ -132,6 +133,7 @@ https://www.pramp.com/dashboard#/
 0       - 11. find the minimal difference between 2 elements in the sorted/unsorted array
 0       - 12. remove the duplicated elements in a sorted array
 0       - 13. the longest palindrom substring
+0       - 13-1. the longest palindrom subsequence
 
 /*******************  chapter 8 - hash table  ********************/
 0       - 01. isAnagram
