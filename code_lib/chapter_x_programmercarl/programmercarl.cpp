@@ -593,6 +593,111 @@ bool isHappy(int n) {
     }
 }
 
+// ----------------------- 字符串 04-04
+/*
+151. Reverse Words in a String
+Medium
+7.1K
+4.8K
+company
+Amazon
+company
+Apple
+company
+Arista Networks
+Given an input string s, reverse the order of the words.
+
+A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
+
+Return a string of the words in reverse order concatenated by a single space.
+
+Note that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
+
+ 
+
+Example 1:
+
+Input: s = "the sky is blue"
+Output: "blue is sky the"
+Example 2:
+
+Input: s = "  hello world  "
+Output: "world hello"
+Explanation: Your reversed string should not contain leading or trailing spaces.
+Example 3:
+
+Input: s = "a good   example"
+Output: "example good a"
+Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
+ 
+
+Constraints:
+
+1 <= s.length <= 104
+s contains English letters (upper-case and lower-case), digits, and spaces ' '.
+There is at least one word in s.
+
+*/
+class Solution {
+public:
+    string reverseWords(string s) {
+        // 1. remove extra spaces
+        removeExtraSpaces(s);
+
+        int size = s.size();
+        reverse(s, 0, size - 1);
+
+        int start = 0;
+        int i = 0;
+        while(i <= size) {
+            if(i == size || s[i] == ' ') {
+                reverse(s, start, i - 1);
+                start = i + 1;
+            }
+            i++;
+        }
+        return s;
+    }
+
+    void removeExtraSpaces(string& s) {
+        int size = s.size();
+        int fastIndex = 0;
+        int slowIndex = 0;
+        while(size > 0 && s[fastIndex] == ' ' && fastIndex < size) {
+            fastIndex++;
+        }
+
+        while(fastIndex < size) {
+            if(fastIndex - 1 > 0 \
+                && s[fastIndex - 1] == s[fastIndex] \
+                && s[fastIndex] == ' ') {
+                    fastIndex++;
+                    continue;
+            } else {
+                s[slowIndex] = s[fastIndex];
+                fastIndex++;
+                slowIndex++;
+            }
+        }
+
+        if(slowIndex > 1 && s[slowIndex - 1] == ' ') {
+            s.resize(slowIndex - 1);
+        } else {
+            s.resize(slowIndex);
+        }
+    }
+
+    void reverse(string& s, int start, int end) {
+        int size = s.size();
+        int left = start;
+        int right = end;
+        while(left < right) {
+            swap(s[left], s[right]);
+            left++, right--;
+        }
+    }
+};
+
 /*
 516. Longest Palindromic Subsequence
 Medium

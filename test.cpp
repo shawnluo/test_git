@@ -126,6 +126,44 @@ int s53_longestPalindromeSubseq(string s) {
     return dp[0][size - 1];
 }
 
+void rmExtraSpaces(string& s) {
+    int size = s.size();
+    int index = 0;
+    int fastIndex = 0;
+    int slowIndex = 0;
+
+    while(s.size() > 0 && fastIndex < s.size() && s[fastIndex] == ' ') {
+        fastIndex++;
+    }
+
+    while(fastIndex < size) {
+        if(fastIndex - 1 > 0 && \
+                s[fastIndex - 1] == ' ' && \
+                s[fastIndex] == ' ') {
+            fastIndex++;
+        } else {
+            s[slowIndex] = s[fastIndex];
+            fastIndex++, slowIndex++;
+        }
+    }
+    if(slowIndex - 1 > 0 && s[slowIndex - 1] == ' ') {
+        s.resize(slowIndex - 1);
+    } else {
+        s.resize(slowIndex);
+    }
+}
+
+string reverseWords(string s) {
+    rmExtraSpaces(s);
+    reverse(s, 0, s.size() - 1);
+    int size = s.size();
+    int start = 0;
+    int i;
+    while(i < size) {
+        
+    }
+}
+
 int main(void) {
     // string s = "abcdefghikl";
     // s = reverseStr2(s, 3);
