@@ -668,6 +668,7 @@ public:
         }
 
         while(fastIndex < size) {
+            // fastIndex - 1 > 0 1. 是确保s[fastIndex - 1]是合法的. 2. 之前已经将第一个字符串是空格的情况排除了。
             if(fastIndex - 1 > 0 \
                 && s[fastIndex - 1] == s[fastIndex] \
                 && s[fastIndex] == ' ') {
@@ -713,7 +714,6 @@ Given a string s, find the longest palindromic subsequence's length in s.
 
 A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.
 
- 
 
 Example 1:
 
@@ -750,9 +750,74 @@ int s53_longestPalindromeSubseq(string s) {
     return dp[0][size - 1];
 }
 
-// ----------------------- 字符串 04-07 LeetCode：459.重复的子字符串 
-// brute force
-bool isRepeat(string s, string sub) {
+// 字符串 5-左旋转字符串
+string reverse3(string& s, int start, int end) {
+    int left = start;
+    int right = end;
+
+    while(left < right) {
+        swap(s[left++], s[right--]);
+    }
+    return s;
+}
+
+string rotateString3(string s, int k) {
+    reverse3(s, 0, k - 1);
+    reverse3(s, k, s.size() - 1);
+    reverse3(s, 0, s.size() - 1);
+
+    return s;
+}
+
+// 字符串-myStrstr - KMP算法
+void findNext(int *next, char* s) {
+    int j = 0;
+    next[0] = j;
+
+    for(int i = 1; i < strlen(s); i++) {
+        while(j > 0 && s[i] != s[j]) {
+            j = next[j - 1];
+        }
+        if(s[i] == s[j]) {
+            j++;
+        }
+        next[i] = j;
+    }
+}
+
+int myStrstr(char* s, char* needle, int* next) {
+    int j = 0;
+    for(int i = 0; i < strlen(s); i++) {
+        while(j > 0 && s[i] != needle[j]) {
+            j = next[j - 1];
+        }
+        if(s[i] == needle[j]) {
+            j++;
+        }
+        if(j == strlen(needle)) {
+            return i - strlen(needle) + 1;
+        }
+    }
+    return -1;
+}
+
+int main(void) {
+    char *s = "aabaabaaxaabaaf";
+    char *needle = "aabaaf";
+    int size = strlen(needle);
+    int next[size];
+    findNext(next, needle);
+
+    cout << myStrstr(s, needle, next) << endl;
+
+    return 0;
+}
+
+// 字符串- 7-重复的子字符串
+// 7-1 brute force
+// 判断s是否由sub重复组成？
+bool isRepeatSub(string s, string sub) {
+    int size = s.size();
     int j = 0;
     if(s.size() % sub.size()) {
         return false;
