@@ -750,8 +750,8 @@ int s53_longestPalindromeSubseq(string s) {
     return dp[0][size - 1];
 }
 
-// ----------------------- 字符串 04-07
-// LeetCode：459.重复的子字符串
+// ----------------------- 字符串 04-07 LeetCode：459.重复的子字符串 
+// brute force
 bool isRepeat(string s, string sub) {
     int j = 0;
     if(s.size() % sub.size()) {
@@ -788,3 +788,31 @@ int main(void) {
 
     return 0;
 }
+
+// kmp version. preffix, suffix
+class Solution {
+public:
+    bool repeatedSubstringPattern(string s) {
+        vector<int> next(s.size());
+        getNext(s, next);
+
+        if(next[s.size() - 1] != 0 && s.size() % (s.size() - next[s.size() - 1]) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    void getNext(string s, vector<int>& next) {
+        int j = 0;
+        next[0] = 0;
+        for(int i = 1; i < s.size(); i++) {
+            while(j > 0 && s[i] != s[j]) {
+                j = next[j - 1];
+            }
+            if(s[i] == s[j]) {
+                j++;
+            }
+            next[i] = j;
+        }
+    }
+};
