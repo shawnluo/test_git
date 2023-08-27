@@ -749,3 +749,42 @@ int s53_longestPalindromeSubseq(string s) {
     }
     return dp[0][size - 1];
 }
+
+// ----------------------- 字符串 04-07
+// LeetCode：459.重复的子字符串
+bool isRepeat(string s, string sub) {
+    int j = 0;
+    if(s.size() % sub.size()) {
+        return false;
+    }
+    for(int i = 0; i < s.size(); i++) {
+        if(s[i] != sub[j]) {
+            return false;
+        }
+        if(++j == sub.size()) {
+            j = 0;
+        }
+    }
+    return true;
+}
+
+bool repeatString(string s) {
+    int size = s.size();
+
+    for(int i = 1; i < size; i++) {
+        string sub = s.substr(0, i);
+        if(isRepeat(s, sub) == true) {
+            return true;
+        }
+    }
+    return false;
+}
+
+int main(void) {
+    string s = "ababab";
+    string sub = "ab";
+
+    cout << repeatString(s) << endl;
+
+    return 0;
+}
