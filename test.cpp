@@ -285,7 +285,7 @@ int coin(vector<int> coins, int amount) {
 
     for(int i = 0; i < size; i++) {
         for(int j = coins[i]; j < amount; j++) {
-            if(dp[j - coins[i]] != INT_MAX) {   // dp[j - coins[i]]: 不取 coins[i] 这个硬币，最小硬币数
+            if(dp[j - coins[i]] != INT_MAX) {   // dp[j - coins[i]]: 不取 coins[i] 这个硬币，所需最小硬币数 - 初始化为INT_MAX
                 dp[j] = min(dp[j], dp[j - coins[i]] + 1);
             }
         }
