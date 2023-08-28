@@ -164,10 +164,149 @@ string reverseWords(string s) {
     }
 }
 
+bool isRepeat(string s, string sub) {
+    int j = 0;
+    if(s.size() % sub.size()) {
+        return false;
+    }
+    for(int i = 0; i < s.size(); i++) {
+        if(s[i] != sub[j]) {
+            return false;
+        }
+        if(++j == sub.size()) {
+            j = 0;
+        }
+    }
+    return true;
+}
+
+bool test(string s) {
+    int size = s.size();
+
+    for(int i = 1; i < size; i++) {
+        string sub = s.substr(0, i);
+        if(isRepeat(s, sub) == true) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool isHappy() {
+    // in while(1) loop
+        // 1. cal the sum function
+        // 2. if the sum equal 1, then return true;
+        // 3. check if this sum is in the unordered_set
+        //      3.1. if yes, then return fasle
+        //      3.2. if no, then put the sum into norodered_set
+}
+
+void getNext(const string s, vector<int>& next) {
+    int j = 0;
+    next[0] = 0;
+    for(int i = 1; i < s.size(); i++) {
+        while(j > 0 && s[i] != s[j]) {
+            j = next[j - 1];
+        }
+        if(s[i] == s[j]) {
+            j++;
+        }
+        next[i] = j;
+    }
+}
+
+int myStrstr(const string s, const string needle) {
+    vector<int> next(needle.size());
+    getNext(s, next);
+    int j = 0;
+    for(int i = 0; i < s.size(); i++) {
+        while(j > 0 && s[i] != needle[j]) {
+            j = next[j - 1];
+        }
+        if(s[i] == needle[j]) {
+            j++;
+        }
+        if(j == needle.size()) {
+            return i - needle.size() + 1;
+        }
+    }
+    return -1;
+}
+
+int maxProfit(const vector<int> prices) {
+    int res = 0;
+    int size = prices.size();
+
+    for(int i = 0; i < size; i++) {
+        for(int j = i + 1; j < size; j++) {
+            res = max(res, prices[j] - prices[i]);
+        }
+    }
+    return res;
+}
+
+int maxProfit2(const vector<int> prices) {
+    int res = 0;
+    int size = prices.size();
+
+    // 1. day i - maxprofit - have stock
+    // dp[i][0] = 
+
+    // 2. day i - maxprofit - do NOT have stock
+    // dp[i][1]
+
+}
+
+int change(vector<int> coins, int amount) {
+    int size = coins.size();
+    vector<int> dp(size, 0);
+
+    // dp[i]: 
+}
+
+int bag() {
+    for(int i = 0; i < size; i++) {
+        for(int j = bag; j >= weight[i]; j--) {
+            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+        }
+    }
+}
+
+
+int coin(vector<int> coins, int amount) {
+    int size = coins.size();
+    vector<int> dp(size, INT_MAX); // dp[j]: the minimum amount coins to fullfile amount
+
+    // 凑足总额为 j - coins[i] 的最小个数 - dp[j - coins[i]]
+    // 凑足总额为 j            的最小个数 - dp[j - coins[i]] + 1
+    // dp[j] = min(dp[j], dp[j - coins[i]] + 1)
+    
+    dp[0] = 0;
+
+    for(int i = 0; i < size; i++) {
+        for(int j = coins[i]; j < amount; j++) {
+            if(dp[j - coins[i]] != INT_MAX) {   // dp[j - coins[i]]: 不取 coins[i] 这个硬币，最小硬币数
+                dp[j] = min(dp[j], dp[j - coins[i]] + 1);
+            }
+        }
+    }
+}
+
+// 1. 装满背包的最大价值是多少？    - 纯完全背包
+// 2. 装满背包有多少种方法？求组合  - 零钱兑换2
+// 3. 装满背包有多少种方法？求排列  - 组合总和4
+// 4. 装满背包最少用多少个物品？    - 322零钱兑换
+
 int main(void) {
     // string s = "abcdefghikl";
     // s = reverseStr2(s, 3);
     // cout << s << endl;
-    cout << isHappy(1810) << endl;
+    // cout << isHappy(1810) << endl;
+
+    string s = "ababab";
+    string sub = "ab";
+    // cout << isRepeat(s, sub) << endl;
+    cout << test(s) << endl;
+
     return 0;
 }
