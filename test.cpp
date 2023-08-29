@@ -29,9 +29,10 @@
         // 2. while loop delete
     // 2）. 打印除重后的序列
 
-// 9. 
+// 9. leetcode 1091 - the shortest path in binary matrix
+    // 1. BFS - breadth-first search
 
-// 7.1
+
 int getLen(vector<int> nums) {
     int left = 0;
     int count = 0;
