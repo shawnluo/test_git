@@ -41,85 +41,81 @@
     // 1. BFS - breadth-first search
 
 
-int getLen(vector<int> nums) {
-    int left = 0;
-    int count = 0;
 
-    while(left < nums.size()) {
-        count++;
-        int index = left + 1;
-
-        while(index < nums.size() && nums[index] == nums[left]) {
-            index++;
-        }
-        left = index;
+// sum[left] + sum[right] = nums.size();
+// sum[left] - sum[right] = S
+// sum[left] = (nums.size() + S) / 2
+// solution: 
+// 01 背包：choose from nums[n], find the ways to total value: (nums.size() + S) / 2
+int findTargetSumWays(vector<int> nums, int S) {
+    int sum = 0;
+    for(auto x : nums) {
+        sum += x;
     }
-    return count; 
-}
-
-// 7.2
-int getLen2(vector<int> nums) {
-    int count = 1;
-    for(int i = 1; i < nums.size(); i++) {
-        if(nums[i] != nums[i - 1]) {
-            count++;
-        }
+    if(abs(S) > sum) {
+        return 0;
     }
-    return count;
-}
-
-// 7.3
-int getLen3(vector<int> nums) {
-    vector<int> dp(nums.size(), 0);
-    dp[0] = 1;
-    for(int i = 1; i < nums.size(); i++) {
-        if(nums[i] == nums[i - 1]) {
-            dp[i] = dp[i - 1];
-        } else {
-            dp[i] = dp[i - 1] + 1;
-        }
-    }
-    return dp[nums.size() - 1];
-}
-
-// 7.4
-int getLen4(vector<int> nums) {
-    unordered_set<int> set;
-    int res = 0;
+    if ((nums.size() + S) % 2) {
+        return 0;
+    };
+    int BAG = (nums.size() + S) / 2;
+    vector<int> dp(BAG + 1, 0);         // dp[j] - 凑成j的方法数
 
     for(int i = 0; i < nums.size(); i++) {
-        set.insert(nums[i]);
-    }
-
-    return set.size();
-}
-
-// 0
-int packsack(vector<int> weight, vector<int> value, int BAG) {
-    vector<vector<int>> dp(weight.size(), vector<int>(BAG + 1, 0));
-    int size = weight.size();
-    for(int j = weight[0]; j <= BAG; j++) {
-        dp[0][j] = value[0];
-    }
-
-    for(int i = 1; i < size; i++) {
-        for(int j = 0; j <= BAG; j++) {
-            if(j < weight[i]) {
-                dp[i][j] = dp[i - 1][j];
-            } else {
-                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
-            }
+        for(int j = BAG; j >= nums[i]; j++) {
+            dp[j] += dp[j - nums[i]];
         }
     }
-    return dp[size - 1][BAG];
+    return dp[BAG];
 }
 
-// TODO brute force - back tracking
+#if 0
+// TODO backtracking findTargetSumWays
+int count = 0;
+vector<int> buf;
+vector<int> res;
+int sum = 0;
+void BackTracking(vector<int> nums, int S, int pos) {
+    if(sum == S) {
+        count++;
+        return;
+    }
+    for(int i = ) {
+
+    }
+}
+#endif
+
+// backtracking basic
+// 1. "abc" - 组合: abc acb bac bca cab cba
+void backtracing(string s, int pos) {
+    if(pos == s.size()) {
+        cout << s << endl;
+        return;
+    }
+    for(int i = pos; i < s.size(); i++) {
+        swap(s[i], s[pos]);
+        backtracing(s, pos + 1);
+        swap(s[i], s[pos]);
+    }
+}
+
+// TODO 17. 一和零
+// 一个二进制字符串数组strs和两个整数m和n
+// 找出并返回strs的最大子集的大小
+
+// 19. 零钱兑换II
+int change(vector<int> coins, int sum) {
+    
+}
+
 
 
 int main(void) {
     vector<int> nums{1, 2, 3, 3, 4, 5, 5, 6};
-    cout << getLen4(nums) << endl;
+    string s = "abc";
+    backtracing(s, 0);
+    // cout << getLen4(nums) << endl;
 
     return 0;
 }
