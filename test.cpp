@@ -18,8 +18,10 @@
     // 2）. 打印出上升子序列
 
 // 7. 排序后的单元的序列长度
-    // 1）. 除重后的长度 - dp解
-    // 2）. 打印除重后的序列
+    // 1). 双指针去重
+    // 2). 判断与前一个数不相等
+    // 3). 除重后的长度 - dp解
+    // 4). 打印除重后的序列 - unordered_set
 
 // 8. 未排序后的单元的序列长度
     // 1）. 除重后的长度
@@ -29,126 +31,86 @@
 
 // 9. 
 
-// brute force - back tracking
-int sumWeight = 0;
-int sumValue = 0;
-vector<int> value;
-void packSack_BT(vector<int> weight, vector<int> value, int BAG) {
-    if(sumWeight == BAG) {
-        value.push_back(sumValue);
-        return;
-    }
-    for(int i = 0; i < weight.size(); i++) {
-        sumWeight += weight[i];
-        sumValue += value[i];
+// 7.1
+int getLen(vector<int> nums) {
+    int left = 0;
+    int count = 0;
 
+    while(left < nums.size()) {
+        count++;
+        int index = left + 1;
+
+        while(index < nums.size() && nums[index] == nums[left]) {
+            index++;
+        }
+        left = index;
     }
+    return count; 
 }
 
-int min(vector<int> nums) {
-    int res = nums[0];
-    for(int i = 1; i < nums.size(); i++) {
-        res = min(res, nums[i]);
-    }
-    return res;
-}
-
-int LenOfRemoveDup(vector<int> nums) {
-    if(nums.size() == 0) {
-        return 0;
-    }
-    int res = 1;
-
+// 7.2
+int getLen2(vector<int> nums) {
+    int count = 1;
     for(int i = 1; i < nums.size(); i++) {
         if(nums[i] != nums[i - 1]) {
-            res++;
+            count++;
         }
     }
-    return res;
+    return count;
 }
 
-// TODO
-int LenOfRmDup() {
-    dp[];
-
-    for(int i = 0; i < size; i++) {
-
-    }
-}
-
-int LenOfIncreasingContigous(vector<int> nums) {
-    vector<int> dp(nums.size() + 1, 0);
-    int size = nums.size();
+// 7.3
+int getLen3(vector<int> nums) {
+    vector<int> dp(nums.size(), 0);
     dp[0] = 1;
+    for(int i = 1; i < nums.size(); i++) {
+        if(nums[i] == nums[i - 1]) {
+            dp[i] = dp[i - 1];
+        } else {
+            dp[i] = dp[i - 1] + 1;
+        }
+    }
+    return dp[nums.size() - 1];
+}
+
+// 7.4
+int getLen4(vector<int> nums) {
+    unordered_set<int> set;
+    int res = 0;
+
+    for(int i = 0; i < nums.size(); i++) {
+        set.insert(nums[i]);
+    }
+
+    return set.size();
+}
+
+// 0
+int packsack(vector<int> weight, vector<int> value, int BAG) {
+    vector<vector<int>> dp(weight.size(), vector<int>(BAG + 1, 0));
+    int size = weight.size();
+    for(int j = weight[0]; j <= BAG; j++) {
+        dp[0][j] = value[0];
+    }
 
     for(int i = 1; i < size; i++) {
-        if(nums[i] > nums[i - 1]) {
-            dp[i] += 1;
-        } else {
-            dp[i] = 0;
+        for(int j = 0; j <= BAG; j++) {
+            if(j < weight[i]) {
+                dp[i][j] = dp[i - 1][j];
+            } else {
+                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
+            }
         }
     }
-    return dp[size - 1];
+    return dp[size - 1][BAG];
 }
 
-int LenIncrea(vector<int> nums) {
-    int size = nums.size();
-    vector<int> dp(size, 0);
-    dp[0] = 1;
+// TODO brute force - back tracking
 
-    for(int i = 1; i < size; i++) {
-        if(nums[i] > nums[i - 1]) {
-            dp[i] += 1;
-        } else {
-            dp[i] = dp[i - 1];            
-        }
-    }
-    return dp[size - 1];
-}
-
-
-
-
-
-
-
-
-// dp
-int packSackLimit(const vector<int> weight, const vector<int> value, const int BAG) {
-    int size = weight.size();
-    vector<int> dp(BAG + 1, 0);
-
-    for(int i = 0; i < size; i++) {
-        for(int j = BAG; j >= weight[i]; j--) {
-            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
-        }
-    }
-    return dp[BAG];
-}
-
-// 1. 完全背包: 容量为BAG的背包，从n个物品中任意选取，(weight[], value[]). 求装满背包的物品，最大的价值是多少？
-int packsackNoLimit(const vector<int> weight, const vector<int> value, const int BAG) {
-    int size = weight.size();
-    vector<int> dp(BAG + 1, 0);
-
-    for(int i = 0; i < size; i++) {
-        for(int j = weight[0]; j <= BAG; j++) {
-            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
-        }
-    }
-    return dp[BAG];
-}
 
 int main(void) {
-    // string s = "abcdefghikl";
-    // s = reverseStr2(s, 3);
-    // cout << s << endl;
-    // cout << isHappy(1810) << endl;
-
-    string s = "ababab";
-    string sub = "ab";
-    // cout << isRepeat(s, sub) << endl;
-    cout << test(s) << endl;
+    vector<int> nums{1, 2, 3, 3, 4, 5, 5, 6};
+    cout << getLen4(nums) << endl;
 
     return 0;
 }
