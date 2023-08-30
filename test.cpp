@@ -106,9 +106,35 @@ void backtracing(string s, int pos) {
 
 // 19. 零钱兑换II
 int change(vector<int> coins, int sum) {
+    vector<int> dp(sum + 1, 0); // 组成sum有多少个方式
+
+    dp[0] = 1;  // 注意，这里要设置为1！！！！！！！！！！！！！！！！
     
+    for(int i = 0; i < coins.size(); i++) {
+        for(int j = coins[i]; j <= coins[i]; j++) {
+            dp[j] = dp[j] + dp[j - coins[i]];
+        }
+    }
+
+    return dp[sum];
 }
 
+// 21. 组合总数IV
+// dp[j] = dp[j] + dp[j - nums[i]]
+// 先遍历物品，再遍历背包。是因为物品在外部循环，依次取nums[0, i)。所以nums0只能被先取，nums1只能被后取。
+// 先遍历背包，再遍历物品。是因为物品在内部循环，物品0和物品1可以被反复循环取用。
+int SumOfCombination(vector<int> nums, int sum) {
+    vector<int> dp(sum + 1, 0);
+    dp[0] = 1;  // 凑成总数为0的组合，初始化为1
+    for(int j = 0; j <= sum; j++) {
+        for(int i = 0; i < nums.size(); i++) {
+            if(j - nums[i] >= 0 && dp[j] < INT_MAX -dp[j - nums[i]]) {
+                dp[j] += dp[j - nums[i]];
+            }
+        }
+    }
+    return dp[sum];
+}
 
 
 int main(void) {
@@ -119,3 +145,7 @@ int main(void) {
 
     return 0;
 }
+
+
+// 24 完全平方数
+// dp[j] = min(dp[j], dp[j - i * i] + 1)
