@@ -127,6 +127,7 @@ int DP_2(vector<int> weight, vector<int> value, int BAG) {
 }
 
 // 3. combination
+
 // there are different value coins, and amount
 // how many ways to makeup the amount
 // infinity amount of each coins
@@ -161,6 +162,7 @@ int DP_4(vector<int> nums, int amount) {
             }
         }
     }
+    return dp[amount];
 }
 
 
@@ -181,4 +183,82 @@ int DP_5(vector<int> coins, int amount) {
         return -1;
     }
     return dp[amount];
+}
+
+
+
+// given an integer array coins representing coins of demon
+// how many ways to makeup the amount
+// infinite number of each kind of coin
+int knapSack_3(vector<int> weight, vector<int> value, int BAG) {
+    vector<int> dp(BAG + 1, 0); // dp[j]: the ways to fill knapSack j
+    // dp[j] = dp[j] + dp[j - weight[i]]
+    for(int i = 0; i < weight.size(); i++) {
+        for(int j = BAG; j >= weight[i]; j--) {
+            dp[j] = dp[j] + dp[j - weight[i]] + value[i];
+        }
+    }
+    return dp[BAG];
+}
+
+// 4. permutation
+// 
+
+// 5. least items to fill the knapsack
+int coinsChange(vector<int> coins, int amount) {
+    vector<int> dp(amount + 1, INT_MAX);
+    dp[0] = 0;
+
+    for(int i = 0; i < coins.size(); i++) {
+        for(int j = coins[i]; j <= amount; j++) {
+            if(coins[j - coins[i]] != INT_MAX) {
+                dp[j] = min(dp[j], dp[j - coins[i]] + 1);
+            }
+        }
+    }
+    return dp[amount];
+}
+
+int squareNumber(int n) {
+    vector<int> dp(n + 1, INT_MAX);
+    dp[0] = 0;
+    // dp[i]: 和为i的完全平方数的最少个数
+
+    // dp[j] = min(dp[j], dp[j - nums[i]] + 1);
+    for(int i = 1; i < n; i++) {
+        for(int j = i; j * j <= n; j++) {
+            dp[j] = min(dp[j], dp[j - i * i] + 1);
+        }
+    }
+    return dp[n];
+}
+
+int rob_1(const vector<int> nums, int start, int end) {
+    // if(nums.size() == 0) return 0;
+    // if(nums.size() == 1) return nums[0];
+    // if(nums.size() == 2) return max(nums[0], nums[1]);
+    vector<int> dp(nums.size());
+    dp[start] = nums[start];
+    dp[start + 1] = max(dp[start], dp[start + 1]);
+
+    for(int i = start + 2; i <= end; i++) {
+        dp[i] = max(dp[i - 2] + nums[i], dp[i - 1]);
+    }
+
+    return dp[end];
+}
+
+int rob_2(const vector<int> nums) {
+    if(nums.size() == 0) return 0;
+    if(nums.size() == 1) return nums[0];
+    if(nums.size() == 2) return max(nums[0], nums[1]);
+    
+    return max(rob_1(nums, 0, nums.size() - 2), rob_1(nums, 1, nums.size() - 1));
+}
+
+// stock
+// buy and sell the stock, make the best benifit
+int stock_1(vector<int> prices) {
+    vector<int> dp(prices.size(), 0);
+
 }
