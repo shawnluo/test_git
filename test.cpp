@@ -40,112 +40,62 @@
 // 9. leetcode 1091 - the shortest path in binary matrix
     // 1. BFS - breadth-first search
 
+// 24 完全平方数
+// dp[j] = min(dp[j], dp[j - i * i] + 1)
 
+// bagsack 0-1
+int bagsack(vector<int> weight, vector<int> value, int BAG) {
+    // dp[i][j]: choose from 0-i item, put into j cap, the max value
+    // dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
 
-// sum[left] + sum[right] = nums.size();
-// sum[left] - sum[right] = S
-// sum[left] = (nums.size() + S) / 2
-// solution: 
-// 01 背包：choose from nums[n], find the ways to total value: (nums.size() + S) / 2
-int findTargetSumWays(vector<int> nums, int S) {
-    int sum = 0;
-    for(auto x : nums) {
-        sum += x;
+    int size = weight.size();
+    vector<vector<int>> dp(size, vector<int>(BAG + 1, 0));
+    for(int j = weight[0]; j <= BAG; j++) {
+        dp[0][j] = value[0];
     }
-    if(abs(S) > sum) {
-        return 0;
-    }
-    if ((nums.size() + S) % 2) {
-        return 0;
-    };
-    int BAG = (nums.size() + S) / 2;
-    vector<int> dp(BAG + 1, 0);         // dp[j] - 凑成j的方法数
-
-    for(int i = 0; i < nums.size(); i++) {
-        for(int j = BAG; j >= nums[i]; j++) {
-            dp[j] += dp[j - nums[i]];
-        }
-    }
-    return dp[BAG];
-}
-
-#if 0
-// TODO backtracking findTargetSumWays
-int count = 0;
-vector<int> buf;
-vector<int> res;
-int sum = 0;
-void BackTracking(vector<int> nums, int S, int pos) {
-    if(sum == S) {
-        count++;
-        return;
-    }
-    for(int i = ) {
-
-    }
-}
-#endif
-
-// backtracking basic
-// 1. "abc" - 组合: abc acb bac bca cab cba
-void backtracing(string s, int pos) {
-    if(pos == s.size()) {
-        cout << s << endl;
-        return;
-    }
-    for(int i = pos; i < s.size(); i++) {
-        swap(s[i], s[pos]);
-        backtracing(s, pos + 1);
-        swap(s[i], s[pos]);
-    }
-}
-
-// TODO 17. 一和零
-// 一个二进制字符串数组strs和两个整数m和n
-// 找出并返回strs的最大子集的大小
-
-// 19. 零钱兑换II
-int change(vector<int> coins, int sum) {
-    vector<int> dp(sum + 1, 0); // 组成sum有多少个方式
-
-    dp[0] = 1;  // 注意，这里要设置为1！！！！！！！！！！！！！！！！
-    
-    for(int i = 0; i < coins.size(); i++) {
-        for(int j = coins[i]; j <= coins[i]; j++) {
-            dp[j] = dp[j] + dp[j - coins[i]];
-        }
-    }
-
-    return dp[sum];
-}
-
-// 21. 组合总数IV
-// dp[j] = dp[j] + dp[j - nums[i]]
-// 先遍历物品，再遍历背包。是因为物品在外部循环，依次取nums[0, i)。所以nums0只能被先取，nums1只能被后取。
-// 先遍历背包，再遍历物品。是因为物品在内部循环，物品0和物品1可以被反复循环取用。
-int SumOfCombination(vector<int> nums, int sum) {
-    vector<int> dp(sum + 1, 0);
-    dp[0] = 1;  // 凑成总数为0的组合，初始化为1
-    for(int j = 0; j <= sum; j++) {
-        for(int i = 0; i < nums.size(); i++) {
-            if(j - nums[i] >= 0 && dp[j] < INT_MAX -dp[j - nums[i]]) {
-                dp[j] += dp[j - nums[i]];
+    for(int i = 1; i < size; i++) {
+        // for(int j = weight[i]; j <= BAG; j++) {
+        for(int j = 1; j <= BAG; j++) {
+            if(j < weight[i]) { // 背包装不下当前的物品，即weight[i]，那就等于上一个dp，也就是dp[i - 1]
+                dp[i][j] = dp[i - 1][j];
+            } else {
+                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
+                // dp[1 - 1][3], dp[1 - 1][3 - 3] + 20
+                // dp[1 - 1][4], dp[1 - 1][4 - 3] + 20 --- 15 + 20
             }
         }
     }
-    return dp[sum];
+    for(auto x : dp) {
+        for(auto y : x) {
+            cout << y << " ";
+        }
+        cout << endl;
+    }
+    return dp[size - 1][BAG];
 }
 
+// dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+
+int bagsack() {
+    for(int i = 0; i < coins.size(); i++) {
+        for(int j = coins[i]; j <= amount; j++) {
+            if(dp[j - coins[i]] != INT_MAX) {
+                dp[j] = min(dp[j - coins[i]] + 1, dp[j]);
+            }
+        }
+    }
+}
+for(int i = 0; i < weight.size(); i++) {
+    for(int j = BAG; j >= weight[i]; j--) {
+        dp[j] = max(dp[j], dp[j - weight[i]] + weight[i]);
+    }
+}
 
 int main(void) {
-    vector<int> nums{1, 2, 3, 3, 4, 5, 5, 6};
-    string s = "abc";
-    backtracing(s, 0);
-    // cout << getLen4(nums) << endl;
+    vector<int> weight{1, 3, 4, 8};
+    vector<int> value{15, 20, 30, 40};
+    int BAG = 4;
+    cout << bagsack(weight, value, BAG) << endl;
 
     return 0;
 }
-
-
-// 24 完全平方数
-// dp[j] = min(dp[j], dp[j - i * i] + 1)
