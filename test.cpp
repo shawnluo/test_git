@@ -99,11 +99,86 @@ int dp_44(string s1, string s2) {
             }
         }
     }
+    return dp[s1.size()][s2.size()];
+}
+
+
+// 46. 最大子序和
+// 最大连续子数组和
+int dp_46(vector<int> nums) {
+    if(nums.size() == 0) {
+        return 0;
+    }
+    vector<int> dp(nums.size(), 0);
+    dp[0] = nums[0];
+    int res = dp[0];
+
+    for(int i = 1; i < nums.size(); i++) {
+        dp[i] = max(dp[i], dp[i - 1] + nums[i]);
+        res = max(res, dp[i]);
+    }
+    return res;
+}
+
+// 47. 判断是否子序列。注意，不是子串！
+int dp_47(string s1, string s2) {
+    vector<vector<int>> dp(s1.size() + 1, vector<int>(s2.size() + 1, 0));
+    for(int i = 1; i <= s1.size(); i++) {
+        for(int j = 1; j <= s2.size(); j++) {
+            if(s1[i - 1] == s2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = dp[i - 1][j];
+            }
+        }
+    }
+    return dp[s1.size()][s2.size()] == s2.size() ? true : false;
+}
+
+// 47.1 判断是否子串
+int dp_47_1(string s1, string s2) {
+    vector<vector<int>> dp(s1.size() + 1, vector<int> (s2.size() + 1, 0));
+    int res = 0;
+    for(int i = 1; i <= s1.size(); i++) {
+        for(int j = 1; j <= s2.size(); j++) {
+            if(s1[i - 1] == s2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            }
+            res = max(res, dp[i][j]);
+        }
+    }
+
+    return res == s2.size() ? true : false;
+}
+
+// int isSub(string s1, string s2) {
+int isSub(const char *s1, char *s2) {
+    for( ; *(s1 + strlen(s2) - 1) != '\0'; s1++) {
+        if(strncmp(s1, s2, strlen(s2)) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+int isSubString(string s1, string s2) {
+    for(int i = 0; i < s1.size() - s2.size() + 1; i++) {
+        if(s1.substr(i, s2.size()) == s2) {
+            return true;
+        }
+    }
+    return false;
 }
 
 int main(void) {
-    vector<int> nums{1, 1, 2, 2, 2, 3, 4, 5, 5};
-    cout << lengthOfLCS(nums) << endl;
+    // vector<int> nums{1, 1, 2, 2, 2, 3, 4, 5, 5};
+    // vector<int> nums{-2, 1, -3, 4, -1, 2, 1, -5, 4};
+    // cout << lengthOfLCS(nums) << endl;
+    // cout << dp_46(nums) << endl;
+
+    char s1[] = "abcde";
+    char s2[] = "ade";
+    cout << dp_47(s1, s2) << endl;
 
     return 0;
 }
