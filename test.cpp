@@ -259,6 +259,59 @@ int rob_2(const vector<int> nums) {
 // stock
 // buy and sell the stock, make the best benifit
 int stock_1(vector<int> prices) {
-    vector<int> dp(prices.size(), 0);
+    vector<vector<int>> dp(prices.size(), vector<int> (2, 0));
+    // dp[i][0]: have stock
+    // dp[i][1]: have NO stock
+    dp[0][0] = -prices[0];
+    dp[0][1] = 0;
 
+    for(int i = 1; i < prices.size(); i++) {
+        dp[i][0] = max(dp[i - 1][0], -prices[i]);           // have stock.      [last day bought] vs [today bought]
+        dp[i][1] = max(dp[i - 1][1], dp[i][0] + prices[i]); //have NO stock.    [last sold] vs [today sold]
+    }
+
+    return dp[prices.size() - 1][1];
+}
+
+int stock_1_greedy(vector<int> prices) {
+    int low = 0;
+    // int max = 0;
+    int res = INT_MIN;
+
+    for(int i = 0; i < prices.size(); i++) {
+        low = prices[i] < low ? prices[i] : low;
+        res = (prices[i] - low) > res ? (prices[i] - low) : res;
+    }
+
+    return res;
+}
+
+// stock 2: can trade multiple times. but must sell the stock before buy stock.
+int stock_2(vector<int> prices) {
+    vector<vector<int>> dp(prices.size(), vector<int> (2, 0));
+    // dp[i][0]: have stock
+    // dp[i][1]: have NO stock
+    dp[0][0] = -prices[0];
+    dp[0][1] = 0;
+
+    for(int i = 1; i < prices.size(); i++) {
+        dp[i][0] = max(dp[i - 1][0], -prices[i] + dp[i - 1][1]);           // have stock.      [last day bought] vs [today bought]
+        dp[i][1] = max(dp[i - 1][1], dp[i][0] + prices[i]); //have NO stock.    [last sold] vs [today sold]
+    }
+
+    return dp[prices.size() - 1][1];
+}
+
+// 41. longest incresing subsequence
+int lengthOfLIS(vector<int> nums) {
+    vector<int> dp(nums.size(), 0);
+    // vector<vector<int>> dp(nums.size(), vector<int>(nums.size(), 0));
+    dp[0] = 1;  // dp[i]: nums[0, i]中，以nums[i]为结尾的最长递增子序列的长度
+
+    for(int i = 1; i < nums.size(); i++) {
+        if(nums[i] > nums[i - 1]) {
+            dp[i] = dp[i - 1] + 1;
+        }
+    }
+    return dp[nums.size() - 1];
 }
