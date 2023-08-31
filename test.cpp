@@ -170,6 +170,29 @@ int isSubString(string s1, string s2) {
     return false;
 }
 
+int dp_x(string s, string t) {
+    vector<vector<int>> dp(s.size() + 1, vector<int>(t.size() + 1, 0));
+    // dp[i][j]: 以s[i]结尾的字符串中，出现了以t[j]结尾的子字符串的个数
+    for(int i = 0; i <= s.size(); i++) {
+        dp[i][0] = 1;
+    }
+    for(int j = 0; j <= t.size(); j++) {
+        dp[0][j] = 0;
+    }
+    for(int i = 1; i <= s.size(); i++) {
+        for(int j = 1; j <= t.size(); j++) {
+            if(s[i - 1] == t[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
+            } else {
+                dp[i][j] = dp[i - 1][j];
+            }
+        }
+    }
+    return dp[s.size()][t.size()];
+}
+
+// TODO KMP
+
 int main(void) {
     // vector<int> nums{1, 1, 2, 2, 2, 3, 4, 5, 5};
     // vector<int> nums{-2, 1, -3, 4, -1, 2, 1, -5, 4};
@@ -181,4 +204,35 @@ int main(void) {
     cout << dp_47(s1, s2) << endl;
 
     return 0;
+}
+
+dp[0] = 1;
+for(int i = 1; i < size; i++) {
+    for(int j = 0; j < i; j++) {
+        if(nums[i] > nums[j]) {
+            dp[i] = max(dp[i], dp[j] + 1);
+        }
+        res = max(res, dp[i]);
+    }
+}
+return res;
+// ------------------------------------------------------------
+vector<int>dp(size, 1);
+for(int i = 1; i < size; i++) {
+    if(nums[i] > nums[i - 1]) {
+        dp[i] = dp[i - 1] + 1;
+    }
+    res = max(res, dp[i]);
+}
+return res;
+
+
+dp[i][j]
+for(int i = 1; i <= size1; i++) {
+    for(int j = 1; j < size2; j++) {
+        if(s[i] == t[j]) {
+            dp[i][j] = dp[i - 1][j - 1] + 1;
+        }
+        res = max(res, dp[i][j]);
+    }
 }
