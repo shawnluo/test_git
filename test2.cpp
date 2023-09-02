@@ -1,131 +1,211 @@
-#include "test.hpp"
-
-// using namespace std;
-
-vector<vector<int>> findTwo(vector<int> nums, int val) {
-    unordered_map<int, int> num_map;
-    // for(auto x : nums) {
-    //     num_map[x] = 1;
-    // }
-
-    vector<vector<int>> res;
-    vector<int> save;
-    int size = nums.size();
-    for(int i = 0; i < size; i++) {
-        for(int j = i + 1; j < size; j++) {
-            if(nums[i] + nums[j] == val) {
-                
-                if(num_map[nums[i]] == 0 && num_map[nums[j]] == 0) {
-                    num_map[nums[i]] = 1;
-                    num_map[nums[j]] == 1;
-                    save.clear();
-                    save.push_back(nums[i]);
-                    save.push_back(nums[j]);
-                    res.push_back(save);
-                }
+//0901
+int binary_search_loop(int *pArr,int arr_len,int target)
+{
+    if((pArr == NULL)
+    &&(arr_len < 0))
+    {
+        return -1;
+    }
+    int left = 0;
+    int right = arr_len-1;
+    int ret = -1;
+    int mid = 0;
+    while(left<=right)
+    {
+        if(left == right)
+        {
+            if(pArr[left] == target)
+            {
+                ret = left;
+                goto end;
+            }
+        }
+        else
+        {
+            mid = (left+right)/2;
+            if(pArr[mid] == target)
+            {
+                ret = mid;
+                goto end;
+            }        
+            else if(pArr[mid] < target)
+            {
+                right = mid-1;
+            }
+            else
+            {
+                left = mid+1;
             }
         }
     }
-
-    return res;
+end:
+    return ret;
 }
 
-vector<vector<int>> findThree(vector<int>& nums, int val) {
-    vector<vector<int>> res;
-    sort(nums.begin(), nums.end());
 
-    int size = nums.size();
-    int left = 1;
-    int right = size - 1;
-    int sum = 0;
-    vector<int> buf;
-
-    for(int i = 0; i < size - 2; i++) {
-        if(nums[i] > val) {
-            return res;
+int binary_search_recursion(int *pArr, int left, int right, int target)
+{
+    if((pArr == NULL)
+    ||(left < 0)
+    ||(right < 0))
+    {
+        return -1;
+    }
+    int ret = -1;
+    if(left <= right)
+    {
+        if(left == right)
+        {
+            if(pArr[left] == target)
+            {
+                ret = left;
+                goto end;
+            }
+            else
+            {
+                ret = -1;
+                return end;
+            }
         }
-
-        if(i > 0 && nums[i - 1] == nums[i]) {   // this is the right way to get ride of repeat
-            continue;
-        }
-
-        sum = 0;
-        while(left < right) {
-            sum = nums[i] + nums[left] + nums[right];
-            if(sum == val) {
-                res.push_back(vector<int> {nums[i], nums[left], nums[right]});
-
-                // deal with the duplicates: pass the duplicated numbers
-                while(left < right && nums[right - 1] == nums[right]) {
-                    right--;
-                }
-                while(left < right && nums[left] == nums[left + 1]) {
-                    left++;
-                }
-                left++, right--;
-            } else if(sum < val) {
-                left++;
-            } else {
-                right--;
+        else
+        {
+            int mid = (left+right)/2;
+            if(pArr[mid] == target)
+            {
+                ret = mid;
+                return end;
+            }
+            else if(pArr[mid] > target)
+            {
+                right = mid-1;
+                ret = binary_search_recursion(pArr,left,right,target);
+                goto end;
+            }
+            else
+            {
+                left = mid+1;
+                ret = binary_search_recursion(pArr,left,right,target);
+                goto end;
             }
         }
     }
-
-    return res;
+end:
+    return ret;
 }
 
-vector<vector<int>> fourSum(vector<int>& nums, int target) {
-    vector<vector<int>> res;
-    sort(nums.begin(), nums.end());
-    for(int k = 0; k < nums.size(); k++) {
-        if(nums[k] > target && nums[k] >= 0) {
-            break;
-        }
-        if(k > 0 && nums[k] == nums[k - 1]) {
-            continue;
-        }
-        for(int i = k + 1; i < nums.size(); i++) {
-            if(nums[k] + nums[i] > target && nums[k] + nums[i] >= 0) {
-                break;
+int binary_search_solution2(int *pArr, int arr_len)
+{
+    if((pArr == NULL)
+    ||(arr_len < 0))
+    {
+        return -1;
+    }
+    int left = 0;
+    int right=arr_len-1;
+    ret = binary_search_recursion(pArr,left,right,target);
+    return ret;
+}
+
+
+int delete_given_element(int *pArr, int arr_len, int del_target)
+{
+    if((pArr == NULL)
+    ||(arr_len < 0))
+    {
+        return -1;
+    }
+    int slow_idx = 0;
+    int fast_idx = 0;
+    int find_flag = 0;
+    while((slow_idx <= arr_len-1)
+        &&(fast_idx <= arr_len-1))
+    {
+            if(pArr[slow_idx] != del_target)
+            {
+                slow_idx++;
             }
-            if(i > k + 1 && nums[i] == nums[i - 1]) {
-                continue;
-            }
-            int left = i + 1;
-            int right = nums.size() - 1;
-            while(left < right) {
-                int sum = nums[k] + nums[i] + nums[left] + nums[right];
-                if(sum == target) {
-                    res.push_back(vector<int>{nums[k], nums[i], nums[left], nums[right]});
-                    // 去重
-                    while(left < right && nums[right] == nums[right - 1]) {
-                        right--;
+            else
+            {
+                if(find_flag == 0)
+                {
+                    find_flag = 1;
+                    fast_idx = slow_idx+1;
+                    while((fast_idx <= arr_len-1) &&(pArr[fast_idx] == del_target))
+                    {
+                        fast_idx++;
                     }
-                    while(left < right && nums[left] == nums[left + 1]) {
-                        left++;
+                    if((fast_idx <= arr_len-1) &&(pArr[fast_idx] != del_target))
+                    {
+                        //delete the found target here
+                        pArr[slow_idx] = pArr[fast_idx];
+                        
+                        find_flag = 0;
+                        slow_idx++;
                     }
-                    left++, right--;
-                } else if(sum < target) {
-                    left++;
-                } else {
-                    right--;
-                }
+               }
             }
         }
     }
-    return res;
 }
 
-int main() {
-    vector<int> nums = {1, 2, 3, 4, 5, 6, 7 ,8, 9, 1, 1, 2, 4};
-    // vector<vector<int>> res = findTwo(nums, 8);
-    vector<vector<int>> res = findThree(nums, 8);
-    for(auto x : res) {
-        for(auto y : x) {
-            cout << y << " ";
-        }
-        cout << endl;
+
+int del_duplicated_element(int *pArr, int arr_len)
+{
+    if((pArr == NULL)
+    ||(arr_len < 0))
+    {
+        return -1;
     }
 
-    return 0;
+    int compare_base_idx = 0;
+    int dup_hole_idx = -1;
+    int non_dup_idx = -1;
+    int find_hole_flag = 0;
+    int j = 0;
+    int new_len = 0;
+
+    while((compare_base_idx <= arr_len-1)
+    &&(dup_hole_idx <= arr_len-1)
+    &&(non_dup_idx <= arr_len-1))
+    {
+        if((compare_base_idx+1) <= arr_len-1)
+        {
+            if(pArr[compare_base_idx +1] == pArr[compare_base_idx])
+            {
+                if(find_hole_flag == 0)
+                {
+                    find_hole_flag = 1;
+                    dup_hole_idx = compare_base_idx+1;
+
+                    //find the first non-duplicated element
+                    j = dup_hole_idx+1;
+                    while((j <= arr_len-1)
+                        &&(pArr[j] == pArr[compare_base_idx]))
+                    {
+                        j++;
+                    }
+                    if((j <= arr_len+1) &&(pArr[j] != pArr[compare_base_idx]))
+                    {
+                        non_dup_idx = 0;
+
+                        //delete the duplicated element here
+                        pArr[dup_hole_idx] = pArr[non_dup_idx];
+                        new_len++;
+                        find_hole_flag = 1;
+                        dup_hole_idx++;
+                        compare_base_idx = non_dup_idx;
+                        non_dup_idx=-1;
+                    }
+
+                }            
+
+            }
+        }
+        else
+        {
+            compare_base_idx++;
+            new_len++;
+        }
+    }
+    return new_len;
 }

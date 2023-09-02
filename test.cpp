@@ -76,19 +76,21 @@ int bagsack(vector<int> weight, vector<int> value, int BAG) {
 
 // dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
 
-int bagsack() {
-    for(int i = 0; i < coins.size(); i++) {
-        for(int j = coins[i]; j <= amount; j++) {
+int coinChanges(vector<int> coins, int amount) {
+    int size = coins.size();
+    vector<int> dp(amount + 1, INT_MAX);    // the minimal coin numbers of change i
+    // dp[j] = min(dp[j], dp[j - coins[i]] + 1)
+    dp[0] = 0;
+
+    for(int i = 0; i < size; i++) {
+        for(int j = 0; j <= amount; j++) {
             if(dp[j - coins[i]] != INT_MAX) {
-                dp[j] = min(dp[j - coins[i]] + 1, dp[j]);
+                dp[j] = min(dp[j], dp[j - coins[i]] + 1);
             }
         }
     }
-}
-for(int i = 0; i < weight.size(); i++) {
-    for(int j = BAG; j >= weight[i]; j--) {
-        dp[j] = max(dp[j], dp[j - weight[i]] + weight[i]);
-    }
+
+    return dp[amount];
 }
 
 int main(void) {
@@ -99,3 +101,39 @@ int main(void) {
 
     return 0;
 }
+
+// 1. 0-1 bagsack
+// pick from items[0, i], put into BAG, what's the most value. cannot pick the same item
+int knapSack_1(vector<int> weight, vector<int> value, int BAG) {
+    vector<int> dp(BAG + 1, 0);
+    for(int i = 0; i < weight.size(); i++) {
+        for(int j = BAG; j >= weight[i]; j--) {
+            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+        }
+    }
+    return dp[BAG];
+}
+
+// 2. complete pack
+// pick from items[0, i], put into BAG, what's the most value. repeatly pick the same item is allowed.
+int knapSack_2(vector<int> weight, vector<int> value, int BAG) {
+    vector<int> dp(BAG + 1, 0);
+    for(int i = 0; i < weight.size(); i++) {
+        for(int j = 0; j <= BAG; j++) {
+            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+        }
+    }
+    return dp[BAG];
+}
+
+// 3. combination
+// how many ways to fille the knapsack
+int knapSack_3(vector<int> weight, vector<int> value, int BAG) {
+    vector<int> dp(BAG + 1, 0); // dp[j]: the ways to fill knapSack j
+    // dp[j] = dp[j] + dp[j - weight[i]]
+}
+
+// 4. permutation
+
+
+// 5. least items to fill the knapsack
