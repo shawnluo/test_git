@@ -104,7 +104,7 @@ int main(void) {
 
 // 1. 0-1 bagsack
 // pick from items[0, i], put into BAG, what's the most value. cannot pick the same item
-int knapSack_1(vector<int> weight, vector<int> value, int BAG) {
+int DP_1(vector<int> weight, vector<int> value, int BAG) {
     vector<int> dp(BAG + 1, 0);
     for(int i = 0; i < weight.size(); i++) {
         for(int j = BAG; j >= weight[i]; j--) {
@@ -116,7 +116,7 @@ int knapSack_1(vector<int> weight, vector<int> value, int BAG) {
 
 // 2. complete pack
 // pick from items[0, i], put into BAG, what's the most value. repeatly pick the same item is allowed.
-int knapSack_2(vector<int> weight, vector<int> value, int BAG) {
+int DP_2(vector<int> weight, vector<int> value, int BAG) {
     vector<int> dp(BAG + 1, 0);
     for(int i = 0; i < weight.size(); i++) {
         for(int j = 0; j <= BAG; j++) {
@@ -127,13 +127,58 @@ int knapSack_2(vector<int> weight, vector<int> value, int BAG) {
 }
 
 // 3. combination
-// how many ways to fille the knapsack
-int knapSack_3(vector<int> weight, vector<int> value, int BAG) {
-    vector<int> dp(BAG + 1, 0); // dp[j]: the ways to fill knapSack j
-    // dp[j] = dp[j] + dp[j - weight[i]]
+// there are different value coins, and amount
+// how many ways to makeup the amount
+// infinity amount of each coins
+int DP_3(vector<int> coins, int amount) {
+    vector<int> dp(amount + 1, 0); // dp[j]: the ways to fill knapSack j
+    dp[0] = 1;
+    for(int i = 0; i < coins.size(); i++) {     // TODO 1. loop starts from? from 0
+        for(int j = 1; j <= amount; j++) {      // TODO 2. loop starts from? from 1 or coins[i]
+            // if(j < coins[i]) {               // TODO 3. condition? if from 1, then if(j < coins[i]), so can be skipped
+                // dp[j] = dp[j - 1];           // TODO 4. what the solution under this condition? dp[j] = dp[j - 1]
+            // } else {
+            if (j >= coins[i]) {
+                dp[j] += dp[j - coins[i]];
+            }
+        }
+    }
+    return dp[amount];
 }
 
-// 4. permutation
+// 4. permutation - 组合总数IV
+// given an array of distinct integers nums and a target.
+// return the number of possible combination that add up to target
+int DP_4(vector<int> nums, int amount) {
+    vector<int> dp(amount + 1, 0);
+    // dp[i]: the permutation of choosen from nums[0, i]
+    dp[0] = 1;
+    for(int i = 0; i <= amount; i++) {
+        for(int j = 0; j <= amount; j++) {
+            if(i >= nums[j] && \
+                dp[i] + dp[i - nums[j]] < INT_MAX) {    // 不作要求！但是此题目中提到了两个数相加可能超出计数范围的情况
+                dp[i] += dp[i - nums[j]];
+            }
+        }
+    }
+}
 
 
 // 5. least items to fill the knapsack
+// different value of coins, and amount
+// the minimal coins to makeup the amount
+int DP_5(vector<int> coins, int amount) {
+    vector<int> dp(amount + 1, INT_MAX);
+    dp[0] = 0;
+    for(int i = 0; i < coins.size(); i++) {
+        for(int j = coins[i]; j <= amount; j++) {
+            if(dp[j - coins[i]] != INT_MAX) {
+                dp[j] += dp[j - coins[i]];
+            }
+        }
+    }
+    if(dp[amount] == INT_MAX) {
+        return -1;
+    }
+    return dp[amount];
+}
