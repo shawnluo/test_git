@@ -43,275 +43,67 @@
 // 24 完全平方数
 // dp[j] = min(dp[j], dp[j - i * i] + 1)
 
-// bagsack 0-1
-int bagsack(vector<int> weight, vector<int> value, int BAG) {
-    // dp[i][j]: choose from 0-i item, put into j cap, the max value
-    // dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
+// 41.
+int lengthOfLCS(vector<int> nums) {
+    vector<int> dp(nums.size(), 1);
+    int res = 1;
 
-    int size = weight.size();
-    vector<vector<int>> dp(size, vector<int>(BAG + 1, 0));
-    for(int j = weight[0]; j <= BAG; j++) {
-        dp[0][j] = value[0];
-    }
-    for(int i = 1; i < size; i++) {
-        // for(int j = weight[i]; j <= BAG; j++) {
-        for(int j = 1; j <= BAG; j++) {
-            if(j < weight[i]) { // 背包装不下当前的物品，即weight[i]，那就等于上一个dp，也就是dp[i - 1]
-                dp[i][j] = dp[i - 1][j];
-            } else {
-                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
-                // dp[1 - 1][3], dp[1 - 1][3 - 3] + 20
-                // dp[1 - 1][4], dp[1 - 1][4 - 3] + 20 --- 15 + 20
-            }
+    for(int i = 1; i < nums.size(); i++) {
+        for(int j = 0; j < i; j++) {
+            if(nums[i] > nums[j])
+                dp[i] = max(dp[i], dp[j] + 1);
         }
+        res = max(res, dp[i]);
     }
-    for(auto x : dp) {
-        for(auto y : x) {
-            cout << y << " ";
-        }
-        cout << endl;
-    }
-    return dp[size - 1][BAG];
-}
-
-// dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
-
-int coinChanges(vector<int> coins, int amount) {
-    int size = coins.size();
-    vector<int> dp(amount + 1, INT_MAX);    // the minimal coin numbers of change i
-    // dp[j] = min(dp[j], dp[j - coins[i]] + 1)
-    dp[0] = 0;
-
-    for(int i = 0; i < size; i++) {
-        for(int j = 0; j <= amount; j++) {
-            if(dp[j - coins[i]] != INT_MAX) {
-                dp[j] = min(dp[j], dp[j - coins[i]] + 1);
-            }
-        }
-    }
-
-    return dp[amount];
-}
-
-int main(void) {
-    vector<int> weight{1, 3, 4, 8};
-    vector<int> value{15, 20, 30, 40};
-    int BAG = 4;
-    cout << bagsack(weight, value, BAG) << endl;
-
-    return 0;
-}
-
-// 1. 0-1 bagsack
-// pick from items[0, i], put into BAG, what's the most value. cannot pick the same item
-int DP_1(vector<int> weight, vector<int> value, int BAG) {
-    vector<int> dp(BAG + 1, 0);
-    for(int i = 0; i < weight.size(); i++) {
-        for(int j = BAG; j >= weight[i]; j--) {
-            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
-        }
-    }
-    return dp[BAG];
-}
-
-// 2. complete pack
-// pick from items[0, i], put into BAG, what's the most value. repeatly pick the same item is allowed.
-int DP_2(vector<int> weight, vector<int> value, int BAG) {
-    vector<int> dp(BAG + 1, 0);
-    for(int i = 0; i < weight.size(); i++) {
-        for(int j = 0; j <= BAG; j++) {
-            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
-        }
-    }
-    return dp[BAG];
-}
-
-// 3. combination
-
-// there are different value coins, and amount
-// how many ways to makeup the amount
-// infinity amount of each coins
-int DP_3(vector<int> coins, int amount) {
-    vector<int> dp(amount + 1, 0); // dp[j]: the ways to fill knapSack j
-    dp[0] = 1;
-    for(int i = 0; i < coins.size(); i++) {     // TODO 1. loop starts from? from 0
-        for(int j = 1; j <= amount; j++) {      // TODO 2. loop starts from? from 1 or coins[i]
-            // if(j < coins[i]) {               // TODO 3. condition? if from 1, then if(j < coins[i]), so can be skipped
-                // dp[j] = dp[j - 1];           // TODO 4. what the solution under this condition? dp[j] = dp[j - 1]
-            // } else {
-            if (j >= coins[i]) {
-                dp[j] += dp[j - coins[i]];
-            }
-        }
-    }
-    return dp[amount];
-}
-
-// 4. permutation - 组合总数IV
-// given an array of distinct integers nums and a target.
-// return the number of possible combination that add up to target
-int DP_4(vector<int> nums, int amount) {
-    vector<int> dp(amount + 1, 0);
-    // dp[i]: the permutation of choosen from nums[0, i]
-    dp[0] = 1;
-    for(int i = 0; i <= amount; i++) {
-        for(int j = 0; j <= amount; j++) {
-            if(i >= nums[j] && \
-                dp[i] + dp[i - nums[j]] < INT_MAX) {    // 不作要求！但是此题目中提到了两个数相加可能超出计数范围的情况
-                dp[i] += dp[i - nums[j]];
-            }
-        }
-    }
-    return dp[amount];
-}
-
-
-// 5. least items to fill the knapsack
-// different value of coins, and amount
-// the minimal coins to makeup the amount
-int DP_5(vector<int> coins, int amount) {
-    vector<int> dp(amount + 1, INT_MAX);
-    dp[0] = 0;
-    for(int i = 0; i < coins.size(); i++) {
-        for(int j = coins[i]; j <= amount; j++) {
-            if(dp[j - coins[i]] != INT_MAX) {
-                dp[j] += dp[j - coins[i]];
-            }
-        }
-    }
-    if(dp[amount] == INT_MAX) {
-        return -1;
-    }
-    return dp[amount];
-}
-
-
-
-// given an integer array coins representing coins of demon
-// how many ways to makeup the amount
-// infinite number of each kind of coin
-int knapSack_3(vector<int> weight, vector<int> value, int BAG) {
-    vector<int> dp(BAG + 1, 0); // dp[j]: the ways to fill knapSack j
-    // dp[j] = dp[j] + dp[j - weight[i]]
-    for(int i = 0; i < weight.size(); i++) {
-        for(int j = BAG; j >= weight[i]; j--) {
-            dp[j] = dp[j] + dp[j - weight[i]] + value[i];
-        }
-    }
-    return dp[BAG];
-}
-
-// 4. permutation
-// 
-
-// 5. least items to fill the knapsack
-int coinsChange(vector<int> coins, int amount) {
-    vector<int> dp(amount + 1, INT_MAX);
-    dp[0] = 0;
-
-    for(int i = 0; i < coins.size(); i++) {
-        for(int j = coins[i]; j <= amount; j++) {
-            if(coins[j - coins[i]] != INT_MAX) {
-                dp[j] = min(dp[j], dp[j - coins[i]] + 1);
-            }
-        }
-    }
-    return dp[amount];
-}
-
-int squareNumber(int n) {
-    vector<int> dp(n + 1, INT_MAX);
-    dp[0] = 0;
-    // dp[i]: 和为i的完全平方数的最少个数
-
-    // dp[j] = min(dp[j], dp[j - nums[i]] + 1);
-    for(int i = 1; i < n; i++) {
-        for(int j = i; j * j <= n; j++) {
-            dp[j] = min(dp[j], dp[j - i * i] + 1);
-        }
-    }
-    return dp[n];
-}
-
-int rob_1(const vector<int> nums, int start, int end) {
-    // if(nums.size() == 0) return 0;
-    // if(nums.size() == 1) return nums[0];
-    // if(nums.size() == 2) return max(nums[0], nums[1]);
-    vector<int> dp(nums.size());
-    dp[start] = nums[start];
-    dp[start + 1] = max(dp[start], dp[start + 1]);
-
-    for(int i = start + 2; i <= end; i++) {
-        dp[i] = max(dp[i - 2] + nums[i], dp[i - 1]);
-    }
-
-    return dp[end];
-}
-
-int rob_2(const vector<int> nums) {
-    if(nums.size() == 0) return 0;
-    if(nums.size() == 1) return nums[0];
-    if(nums.size() == 2) return max(nums[0], nums[1]);
-    
-    return max(rob_1(nums, 0, nums.size() - 2), rob_1(nums, 1, nums.size() - 1));
-}
-
-// stock
-// buy and sell the stock, make the best benifit
-int stock_1(vector<int> prices) {
-    vector<vector<int>> dp(prices.size(), vector<int> (2, 0));
-    // dp[i][0]: have stock
-    // dp[i][1]: have NO stock
-    dp[0][0] = -prices[0];
-    dp[0][1] = 0;
-
-    for(int i = 1; i < prices.size(); i++) {
-        dp[i][0] = max(dp[i - 1][0], -prices[i]);           // have stock.      [last day bought] vs [today bought]
-        dp[i][1] = max(dp[i - 1][1], dp[i][0] + prices[i]); //have NO stock.    [last sold] vs [today sold]
-    }
-
-    return dp[prices.size() - 1][1];
-}
-
-int stock_1_greedy(vector<int> prices) {
-    int low = 0;
-    // int max = 0;
-    int res = INT_MIN;
-
-    for(int i = 0; i < prices.size(); i++) {
-        low = prices[i] < low ? prices[i] : low;
-        res = (prices[i] - low) > res ? (prices[i] - low) : res;
-    }
-
     return res;
 }
 
-// stock 2: can trade multiple times. but must sell the stock before buy stock.
-int stock_2(vector<int> prices) {
-    vector<vector<int>> dp(prices.size(), vector<int> (2, 0));
-    // dp[i][0]: have stock
-    // dp[i][1]: have NO stock
-    dp[0][0] = -prices[0];
-    dp[0][1] = 0;
-
-    for(int i = 1; i < prices.size(); i++) {
-        dp[i][0] = max(dp[i - 1][0], -prices[i] + dp[i - 1][1]);           // have stock.      [last day bought] vs [today bought]
-        dp[i][1] = max(dp[i - 1][1], dp[i][0] + prices[i]); //have NO stock.    [last sold] vs [today sold]
-    }
-
-    return dp[prices.size() - 1][1];
-}
-
-// 41. longest incresing subsequence
-int lengthOfLIS(vector<int> nums) {
-    vector<int> dp(nums.size(), 0);
-    // vector<vector<int>> dp(nums.size(), vector<int>(nums.size(), 0));
-    dp[0] = 1;  // dp[i]: nums[0, i]中，以nums[i]为结尾的最长递增子序列的长度
-
+// 42. 
+int lengthOfLCIS(vector<int> nums) {
+    vector<int> dp(nums.size(), 1);
+    int res = 1;
     for(int i = 1; i < nums.size(); i++) {
         if(nums[i] > nums[i - 1]) {
             dp[i] = dp[i - 1] + 1;
         }
+        res = max(res, dp[i]);
     }
-    return dp[nums.size() - 1];
+    return res;
+}
+
+// 43. 最长重复子数组
+int lengOfLRS(vector<int> nums1, vector<int> nums2) {
+    vector<vector<int>> dp(nums1.size() + 1, vector<int> (nums2.size() + 1, 0));
+    int res = 0;
+    // dp[i][j]: when nums1[0, i] and nums2[0, j], the longest repeat sub array
+    for(int i = 1; i <= nums1.size(); i++) {
+        for(int j = 1; j <= nums2.size(); j++) {
+            if(nums1[i - 1] == nums2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            }
+            res = max(res, dp[i][j]);
+        }
+    }
+    return res;
+}
+
+// 44. 最长公共子序列
+int dp_44(string s1, string s2) {
+    vector<vector<int>> dp(s1.size() + 1, vector<int> (s2.size() + 1, 0));
+    for(int i = 1; i <= s1.size(); i++) {
+        for(int j = 1; j <= s2.size(); j++) {
+            if(s1[i - 1] == s2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+    }
+}
+
+int main(void) {
+    vector<int> nums{1, 1, 2, 2, 2, 3, 4, 5, 5};
+    cout << lengthOfLCS(nums) << endl;
+
+    return 0;
 }

@@ -1084,3 +1084,220 @@ int main(void) {
 
     return 0;
 }
+
+
+
+// 1. 0-1 bagsack
+// pick from items[0, i], put into BAG, what's the most value. cannot pick the same item
+int DP_1(vector<int> weight, vector<int> value, int BAG) {
+    vector<int> dp(BAG + 1, 0);
+    for(int i = 0; i < weight.size(); i++) {
+        for(int j = BAG; j >= weight[i]; j--) {
+            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+        }
+    }
+    return dp[BAG];
+}
+
+// 2. complete pack
+// pick from items[0, i], put into BAG, what's the most value. repeatly pick the same item is allowed.
+int DP_2(vector<int> weight, vector<int> value, int BAG) {
+    vector<int> dp(BAG + 1, 0);
+    for(int i = 0; i < weight.size(); i++) {
+        for(int j = 0; j <= BAG; j++) {
+            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+        }
+    }
+    return dp[BAG];
+}
+
+// 3. combination
+
+// there are different value coins, and amount
+// how many ways to makeup the amount
+// infinity amount of each coins
+int DP_3(vector<int> coins, int amount) {
+    vector<int> dp(amount + 1, 0); // dp[j]: the ways to fill knapSack j
+    dp[0] = 1;
+    for(int i = 0; i < coins.size(); i++) {     // 1. loop starts from? from 0
+        for(int j = 1; j <= amount; j++) {      // 2. loop starts from? from 1 or coins[i]
+            // if(j < coins[i]) {               // 3. condition? if from 1, then if(j < coins[i]), so can be skipped
+                // dp[j] = dp[j - 1];           // 4. what the solution under this condition? dp[j] = dp[j - 1]
+            // } else {
+            if (j >= coins[i]) {
+                dp[j] += dp[j - coins[i]];
+            }
+        }
+    }
+    return dp[amount];
+}
+
+// 4. permutation - 组合总数IV
+// given an array of distinct integers nums and a target.
+// return the number of possible combination that add up to target
+int DP_4(vector<int> nums, int amount) {
+    vector<int> dp(amount + 1, 0);
+    // dp[i]: the permutation of choosen from nums[0, i]
+    dp[0] = 1;
+    for(int i = 0; i <= amount; i++) {
+        for(int j = 0; j <= amount; j++) {
+            if(i >= nums[j] && \
+                dp[i] + dp[i - nums[j]] < INT_MAX) {    // 不作要求！但是此题目中提到了两个数相加可能超出计数范围的情况
+                dp[i] += dp[i - nums[j]];
+            }
+        }
+    }
+    return dp[amount];
+}
+
+
+// 5. least items to fill the knapsack
+// different value of coins, and amount
+// the minimal coins to makeup the amount
+int DP_5(vector<int> coins, int amount) {
+    vector<int> dp(amount + 1, INT_MAX);
+    dp[0] = 0;
+    for(int i = 0; i < coins.size(); i++) {
+        for(int j = coins[i]; j <= amount; j++) {
+            if(dp[j - coins[i]] != INT_MAX) {
+                dp[j] += dp[j - coins[i]];
+            }
+        }
+    }
+    if(dp[amount] == INT_MAX) {
+        return -1;
+    }
+    return dp[amount];
+}
+
+
+
+// 5. least items to fill the knapsack
+int coinsChange(vector<int> coins, int amount) {
+    vector<int> dp(amount + 1, INT_MAX);
+    dp[0] = 0;
+
+    for(int i = 0; i < coins.size(); i++) {
+        for(int j = coins[i]; j <= amount; j++) {
+            if(coins[j - coins[i]] != INT_MAX) {
+                dp[j] = min(dp[j], dp[j - coins[i]] + 1);
+            }
+        }
+    }
+    return dp[amount];
+}
+
+int squareNumber(int n) {
+    vector<int> dp(n + 1, INT_MAX);
+    dp[0] = 0;
+    // dp[i]: 和为i的完全平方数的最少个数
+
+    // dp[j] = min(dp[j], dp[j - nums[i]] + 1);
+    for(int i = 1; i < n; i++) {
+        for(int j = i; j * j <= n; j++) {
+            dp[j] = min(dp[j], dp[j - i * i] + 1);
+        }
+    }
+    return dp[n];
+}
+
+int rob_1(const vector<int> nums, int start, int end) {
+    // if(nums.size() == 0) return 0;
+    // if(nums.size() == 1) return nums[0];
+    // if(nums.size() == 2) return max(nums[0], nums[1]);
+    vector<int> dp(nums.size());
+    dp[start] = nums[start];
+    dp[start + 1] = max(dp[start], dp[start + 1]);
+
+    for(int i = start + 2; i <= end; i++) {
+        dp[i] = max(dp[i - 2] + nums[i], dp[i - 1]);
+    }
+
+    return dp[end];
+}
+
+int rob_2(const vector<int> nums) {
+    if(nums.size() == 0) return 0;
+    if(nums.size() == 1) return nums[0];
+    if(nums.size() == 2) return max(nums[0], nums[1]);
+    
+    return max(rob_1(nums, 0, nums.size() - 2), rob_1(nums, 1, nums.size() - 1));
+}
+
+// stock
+// buy and sell the stock, make the best benifit
+int stock_1(vector<int> prices) {
+    vector<vector<int>> dp(prices.size(), vector<int> (2, 0));
+    // dp[i][0]: have stock
+    // dp[i][1]: have NO stock
+    dp[0][0] = -prices[0];
+    dp[0][1] = 0;
+
+    for(int i = 1; i < prices.size(); i++) {
+        dp[i][0] = max(dp[i - 1][0], -prices[i]);           // have stock.      [last day bought] vs [today bought]
+        dp[i][1] = max(dp[i - 1][1], dp[i][0] + prices[i]); //have NO stock.    [last sold] vs [today sold]
+    }
+
+    return dp[prices.size() - 1][1];
+}
+
+int stock_1_greedy(vector<int> prices) {
+    int low = 0;
+    // int max = 0;
+    int res = INT_MIN;
+
+    for(int i = 0; i < prices.size(); i++) {
+        low = prices[i] < low ? prices[i] : low;
+        res = (prices[i] - low) > res ? (prices[i] - low) : res;
+    }
+
+    return res;
+}
+
+// stock 2: can trade multiple times. but must sell the stock before buy stock.
+int stock_2(vector<int> prices) {
+    vector<vector<int>> dp(prices.size(), vector<int> (2, 0));
+    // dp[i][0]: have stock
+    // dp[i][1]: have NO stock
+    dp[0][0] = -prices[0];
+    dp[0][1] = 0;
+
+    for(int i = 1; i < prices.size(); i++) {
+        dp[i][0] = max(dp[i - 1][0], -prices[i] + dp[i - 1][1]);           // have stock.      [last day bought] vs [today bought]
+        dp[i][1] = max(dp[i - 1][1], dp[i][0] + prices[i]); //have NO stock.    [last sold] vs [today sold]
+    }
+
+    return dp[prices.size() - 1][1];
+}
+
+// 41. longest incresing subsequence
+// 本质上就是一个循环来遍历数据。分别计算出最长递增子序列的长度 - dp[i]。然后用res来获取各个dp[i]的最大值。
+int lengthOfLIS(vector<int> nums) {
+    vector<int> dp(nums.size(), 1);
+    // vector<vector<int>> dp(nums.size(), vector<int>(nums.size(), 0));
+    dp[0] = 1;  // dp[i]: nums[0, i]中，以nums[i]为结尾的最长递增子序列的长度
+    int res = 0;
+
+    for(int i = 1; i < nums.size(); i++) {
+        for(int j = 0; j < i; j++) {
+            if(nums[i] > nums[i - 1]) {
+                dp[i] = max(dp[i], dp[j] + 1);  // 记录最长的dp[j] + 1
+            }
+        }
+        res = max(res, dp[i]);
+    }
+    return res;
+}
+
+// 42. 
+int lengthOfLCIS(vector<int> nums) {
+    vector<int> dp(nums.size(), 1);
+    int res = 0;
+    for(int i = 1; i < nums.size(); i++) {
+        if(nums[i] > nums[i - 1]) {
+            dp[i] = max(dp[i], dp[i - 1] + 1);
+        }
+        res = max(res, dp[i]);
+    }
+    return res;
+}
