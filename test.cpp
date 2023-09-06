@@ -236,3 +236,254 @@ for(int i = 1; i <= size1; i++) {
         res = max(res, dp[i][j]);
     }
 }
+
+// 46
+dp[0] = nums[0];
+for(int i = 1; j < size; j++) {
+    dp[i] = max(dp[i - 1] + nums[i], nums[i]);
+    res = max(res, dp[i]);
+}
+return res;
+
+// 47
+// dp[i + 1][j + 1]
+for(int i = 1; i < size1 + 1; i++) {
+    for(int j = 1; j < size2 + 1; j++) {
+        if(s[i - 1] == t[j - 1]) {
+            dp[i][j] = dp[i - 1][j - 1] + 1;
+        } esle {
+            // dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+            dp[i][j] = dp[i][j - 1]
+        }
+        res = max(res, dp[i][j]);
+    }
+    return res == s.size() ? true : false;
+}
+
+// 48
+// dp[i][j]: 以s[i - 1]和t[j - 1]为结尾的两个字符串，s子序列中出现t的个数
+for(int i = 0; i < size1; i++) {
+    dp[i][0] = 1;
+}
+for(int i = 1; i < size1 + 1; i++) {
+    for(int j = 1; j < size2 + 1; j++) {
+        if(s[i - 1] == t[j - 1]) {
+            dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]; // dp[i - 1][j]: 删除s[i - 1]后，以s[i - 2]和t[j - 1]为结尾的情况
+        } else {
+            dp[i][j] = dp[i - 1][j];
+        }
+    }
+}
+
+// 49
+dp[i][j]: 以i - 1和j - 1为结尾的两个字符串, 相同需要的最小步数
+for(int i = 0; i <= size1; i++) {
+    dp[i][0] = i;
+}
+for(int j = 0; j <= size2; j++) {
+    dp[0][j] = j;
+}
+
+for(int i = 1; i <= size1; i++) {
+    for(int j = 1; j <= size2; j++) {
+        if(s[i] == t[j]) {
+            dp[i][j] = dp[i - 1][j - 1];
+        } else {
+            dp[i][j] = min({dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1] + 2});
+        }
+    }
+}
+return dp[size1][size2];
+
+// 50
+for(int i = 1; i <= size1; i++) {
+    for(int j = 1; j <= size2; j++) {
+        if(s[i - 1] == t[j - 1]) {
+            dp[i][j] = dp[i - 1][j - 1];
+        } else {
+            dp[i][j] = min({dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]}) + 1;
+        }
+    }
+}
+return dp[size1][size2];
+
+// 52
+int res = 0;
+dp[][]: initlize to false
+for(int i = size - 1; i >= 0; i--) {
+    for(int j = i + 1; j < size; j++) {
+        if(s[i] == t[j]) {
+            if(i - j <= 1) {
+                dp[i][j] = true;
+                count++;
+            } else if(dp[i + 1][j - 1]) {
+                dp[i][j] = true;
+                count++;
+            }
+        }
+    }
+}
+return count;
+
+// 53
+dp[][]: initlize to 1
+for(int i = size - 1; i >= 0; i--) {
+    for(int j = i + 1; j < size; j++) {
+        if(s[i] == t[j]) {
+            dp[i][j] = dp[i + 1][j - 1] + 2;
+        } else {
+            dp[i][j] = max(dp[i + 1][j], dp[i][j - 1]);
+        }
+    }
+}
+return dp[0][size - 1];
+
+// 2.
+if(n <= 1) {
+    return n;
+}
+dp[1] = 1;
+dp[2] = 1;
+
+for(int i = 3; i <= n; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2];
+}
+return dp[n];
+
+// 3. 
+if(n == 1) return 1;
+if(n == 2) return 2;
+dp[1] = 1;
+dp[2] = 2;
+dp[i] = dp[i - 1] + dp[i - 2]
+
+// 4.
+if(n <= 1) return 0;
+for(int i = 2; i <= n; i++) {
+    dp[i] = min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+}
+
+// 4.1 一步一个台阶，一步两个台阶，三个台阶，知道m个台阶。有多少中方法爬到n阶楼顶？
+// 是个多重背包的组合问题
+dp[0] = 0;
+dp[1] = 1;
+for(int i = 1; i <= n; i++) {   // 物品
+    for(int j = i; j <= size; j++) { // 背包
+        dp[j] += dp[j - ];
+    }
+}
+
+// 6/7
+dp[m + 1][n + 1]
+for(int i = 0; i <= m; i++) {
+    dp[i][0] = 1;
+}
+for(int j = 0; i <= n; j++) {
+    dp[0][j] = 1;
+}
+for(int i = 1; i <= m; i++) {
+    for(int j = 1; j <= n; j++) {
+        if(obs[i][j] == 1) {
+            continue;
+        }
+        dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+    }
+}
+return dp[m - 1][n - 1];
+
+// 8.
+dp[i]: 取i时, 得到的分拆最大乘积
+dp[2] = 1;
+for(int i = 3; i < n; i++) {
+    for(int i = 1; i < n / 2; i++) {
+        dp[i] = max(dp[i], max((i - j) * j, dp[i - j] * j));
+    }
+}
+
+
+// 11.
+dp[i][j]: 从0-i中取, 放入j容量的背包。最大价值是多少?
+for(int j = weight[0]; j <= BAG; j++) {
+    dp[0][j] = value[0];
+}
+
+for(int i = 0; i < weight.size(); i++) {
+    for(int j = 0; j <= BAG; j++) {
+        if(j < weight[i]) {
+            dp[i][j] = dp[i - 1][j];
+        } else {
+            dp[i][j] = max(dp[i - 1][j], dp[i - weight[i]] + value[i]);
+        }
+    }
+}
+return dp[weight.size() - 1][BAG];
+
+// 12
+dp[j]: 容量为j的背包，能放入物品的最大价值
+for(int i = 0; i < weight.size(); i++) {
+    for(int j = BAG; j >= weight[i]; j--) {
+        dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+    }
+}
+return dp[];
+
+// power
+double myPower(int base, int n) {
+    if(n == 0) return 1;
+    if(n == 1) return base;
+    if(n < 0) {
+        base = 1.0 / base;
+        n = -n;
+    }
+    double res = 1.0 * base;
+    for(int i = 2; i <= n; i++) {
+        res = base * res;
+    }
+    return res;
+}
+
+// 13/14
+sum = 
+if(sum % 2) return false;
+half = sum / 2;
+dp[i]: 装满容量为i的背包, 最多能装多少
+for(int i = 0; i < nums.size(); i++) {
+    for(int j = half; j >= nums[i]; j--) {
+        dp[j] = max(dp[j], dp[j - nums[i]] + nums[i]);
+    }
+}
+
+if(dp[half] == half) return true;
+return false;
+
+// 16.
+dp[j]: 背包容量为j, 从物品i中取, 凑满背包的所有方法
+dp[0] = 1;
+for(int i = 0; i < nums.size(); i++) {
+    for(int j = BAG; j >= nums[i]; j--) {
+        dp[j] += dp[j - nums[i]];
+    }
+}
+return dp[BAG];
+
+// 17.
+//TODO
+
+// 18
+for(int i = 0; i < weight.size(); i++) {
+    for(int j = weight[i]; j <= BAG; j++) {
+        dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+    }
+}
+return dp[BAG];
+
+// 19
+dp[0] = 1;
+for(int i = 0; i < nums.size(); i++) {
+    for(int j = nums[i]; j <= BAG; j++) {
+        dp[j] += dp[j - nums[i]];
+    }
+}
+return dp[BAG];
+
+// 21
