@@ -478,12 +478,17 @@ for(int i = 0; i < weight.size(); i++) {
 return dp[BAG];
 
 // 19
+dp[j]: pickup from [0, i], makeup j, the combinations
+完全背包问题, 背包容量为j, 从[0, i]中取有多少种方法
 dp[0] = 1;
-for(int i = 0; i < nums.size(); i++) {
-    for(int j = nums[i]; j <= BAG; j++) {
-        dp[j] += dp[j - nums[i]];
+for(int i = 0; i < coins.size(); i++) {
+    for(int j = coins[i]; j <= amount; j++) {
+        // if(j - coins[i] >= 0) {
+            dp[j] += dp[j - coins[i]];
+        // }
     }
 }
-return dp[BAG];
+dp[j] = dp[j - coins[i]] + 1
+
 
 // 21
