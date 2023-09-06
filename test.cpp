@@ -478,6 +478,7 @@ for(int i = 0; i < weight.size(); i++) {
 return dp[BAG];
 
 // 19
+dp[j]: 从coins[]中取硬币, 凑成j的组合
 dp[0] = 1;
 for(int i = 0; i < nums.size(); i++) {
     for(int j = nums[i]; j <= BAG; j++) {
@@ -487,3 +488,42 @@ for(int i = 0; i < nums.size(); i++) {
 return dp[BAG];
 
 // 21
+dp[0] = 1;
+for(int i = 0; i <= target; i++) {  // BAG
+    for(int j = 1; j < size; j++) {  // items
+        if(i > nums[j] && dp[i] + dp[i - nums[j]] < INT_MAX) {
+            dp[i] += dp[i - nums[j]];
+        }
+    }
+}
+return dp[target];
+
+// 22
+dp[0] = 1;
+for(int i = 1; i <= n; i++) {       // BAG
+    for(int j = i; j <= m; j++) {   // items
+        dp[i] += dp[i - j];
+    }
+}
+
+// 23
+dp[] INT_MAX
+dp[0] = 0;
+// dp[j]: 凑成j需要最少硬币数
+for(int i = 0; i < coins.size(); i++) { // items
+    for(int j = coins[i]; j <= amount; j++) {  // BAG
+        if(dp[j - coins[i]] != INT_MAX) {
+            dp[j] = min(dp[j], dp[j - coins[i]] + 1);
+        }
+    }
+}
+return dp[amount] == INT_MAX ? -1 : dp[amount];
+
+//TODO 24 
+dp[j]: INT_MAX
+dp[0] = 0;
+for(int i = 0; i < n; i++) {
+    for(int j = 1; j * j <= i; j++) {
+        dp[i] = min(dp[i - j * j] + 1, dp[i]);
+    }
+}
