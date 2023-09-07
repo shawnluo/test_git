@@ -79,6 +79,70 @@ vector<vector<int>> combine(int n, int k) {
     return {};
 } 
 
+// 4.
+// int sum = 0;
+void backTracking_3(int n, int k, int sum, int startIndex) {
+    if(buf.size() == k) {
+        if(sum == n) {
+            res.push_back(buf);
+        }
+        return;
+    }
+    for(int i = startIndex; i <= 9; i++) {
+        sum += i;
+        buf.push_back(i);
+        backTracking_3(n, k, sum, i + 1);
+        sum -= i;
+        buf.pop_back();
+    }
+}
+
+// find out the sum is n, the combination of k, only allows [1, ..., 9]
+vector<vector<int>> combine_3(int n, int k) {
+    backTracking_3(n, k, 0, 1);
+    return res;
+}
+
+// 5
+const string letterMap[10] = {
+    "", 
+    "",
+    "abc",
+    "def",
+    "ghi",
+    "jkl",
+    "mno",
+    "pqrs",
+    "tuv",
+    "wxyz",
+};
+
+vector<string> res_5;
+string s;
+void backTracking_5(const string digits, int index) {
+    if(index == digits.size()) {
+        res_5.push_back(s);
+        return;
+    }
+    int digit = digits[index] - '0';
+    string letters = letterMap[digit];
+    for(int i = 0; i < letters.size(); i++) {
+        s.push_back(letters[i]);
+        backTracking_5(digits, index + 1);
+        s.pop_back();
+    }
+}
+
+// the combination of 
+vector<vector<int>> bt_5(string digits) {   // "123"
+    if(digits.size() == 0) {
+        return res;
+    }
+    backTracking_5(digits, 0);
+    return res;
+}
+
+
 int main(void) {
     // vector<int> coins{10, 20, 15, 5};
     // int amount = 25;
@@ -86,9 +150,10 @@ int main(void) {
 
     buf.clear();
     res.clear();
-    combine(4, 3);
+    string digits = "234";
+    backTracking_5(digits, 0);    // sum: 4,   3 numbers
 
-    for(auto x : res) {
+    for(auto x : res_5) {
         for(auto y : x) {
             cout << y << " ";
         }
