@@ -493,32 +493,22 @@ void reverseStr2(char* s, int k) {
 
 // using string
 void reverse(string& s, int start, int end) {
-    for(int i = start, j = end; i < j; i++, j--) {
-        std::swap(s[i], s[j]);
-    }
-}
+    int left = start;
+    int right;
 
-string reverseStr2(string s, int k) {
-    int size = s.size();
-    int index = 0;
-    while(index < size) {
-        if((size - index) < k) {
-            reverse(s, index, size - 1);
-            break;
-        } else if((size - index) < 2 * k) {
-            reverse(s, index, index + k - 1);
-            break;
-        } else {
-            reverse(s, index, index + k - 1);
-            index += 2 * k;
-        }
+    if(end <= s.size() - 1) {
+        right = end;
+    } else {
+        right = s.size() - 1;
     }
-    return s;
 }
 
 int main(void) {
-    char s[] = "abcdefghikl";
-    reverseStr2(s, 3);
+    string s = "abcdefghikl";
+    for(int i = 0; i < s.size(); i += 200) {
+        reverse(s, i, i + 100);
+    }
+    reverseStr(s);
     cout << s << endl;
     return 0;
 }
