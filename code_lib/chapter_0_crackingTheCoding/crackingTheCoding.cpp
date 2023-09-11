@@ -184,6 +184,10 @@ void showMe(const vector<vector<int>> mat) {
 void rotate(vector<vector<int>>& mat) {
     int len = mat.size();
 
+    // 倒三角形
+    // 从最外层开始：[0, 0] -> [0, size - 1] 左闭，右开
+    // [1, 1] -> [1, size - 2]
+    // 直到中心点
     for (int i = 0; i < len / 2; i++) {
         for (int j = i; j < len - i - 1; j++) {
             int save                      = mat[i][j];

@@ -864,7 +864,8 @@ public:
         for(int i = 1; i < s.size(); i++) {
             while(j > 0 && s[i] != s[j]) {
                 j = next[j - 1];    // 如果比较到 s[j]: a 和 s[i]: f 不相等，那么就比较j回退到以s[j-1]为结尾的，共同前后缀的字符之后的位置，继续比较, why?
-                                    // TODO 因为，eg. abxaby, 在s[j]: x比较s[i]：y - 不相等。那么j应该回退到
+                                    //               000 123 0 123 456 7
+                                    // TODO 因为，eg. abc abc x abc abc xy, 在s[j]: x比较s[i]：y, 不相等。那么j应该回退到
             }
             if(s[i] == s[j]) {
                 j++;

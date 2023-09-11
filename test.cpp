@@ -43,495 +43,254 @@
 // 24 完全平方数
 // dp[j] = min(dp[j], dp[j - i * i] + 1)
 
-// 41.
-int lengthOfLCS(vector<int> nums) {
-    vector<int> dp(nums.size(), 1);
-    int res = 1;
+void test() {
+    vector<int> nums{-1, 1, 1, 2, 2, 2, 3, 3};
 
-    for(int i = 1; i < nums.size(); i++) {
-        for(int j = 0; j < i; j++) {
-            if(nums[i] > nums[j])
-                dp[i] = max(dp[i], dp[j] + 1);
+    int low = 0;
+    for(int i = 0; i < nums.size() - 1; i++) {
+        if(nums[i] != nums[i + 1]) {
+            nums[low++] = nums[i];
         }
-        res = max(res, dp[i]);
     }
-    return res;
+    nums[low] = nums.back();
+    cout << nums.back() << endl;
+
+    for(int i = 0; i <= low; i++) {
+        cout << nums[i] << " ";
+    }
+    cout << endl;
 }
 
-// 42. 
-int lengthOfLCIS(vector<int> nums) {
-    vector<int> dp(nums.size(), 1);
-    int res = 1;
-    for(int i = 1; i < nums.size(); i++) {
-        if(nums[i] > nums[i - 1]) {
-            dp[i] = dp[i - 1] + 1;
-        }
-        res = max(res, dp[i]);
-    }
-    return res;
-}
-
-// 43. 最长重复子数组
-int lengOfLRS(vector<int> nums1, vector<int> nums2) {
-    vector<vector<int>> dp(nums1.size() + 1, vector<int> (nums2.size() + 1, 0));
-    int res = 0;
-    // dp[i][j]: when nums1[0, i] and nums2[0, j], the longest repeat sub array
-    for(int i = 1; i <= nums1.size(); i++) {
-        for(int j = 1; j <= nums2.size(); j++) {
-            if(nums1[i - 1] == nums2[j - 1]) {
-                dp[i][j] = dp[i - 1][j - 1] + 1;
+class Solution {
+public:
+    // aabaaf
+    static void getNext(int* next, const string& s) {
+        next[0] = 0;
+        int j = 0;
+        for(int i = 1; i < s.size(); i++) {
+            while(j > 0 && s[i] != s[j]) {
+                j = next[j - 1];    // 
             }
-            res = max(res, dp[i][j]);
+            if(s[i] == s[j]) {
+                j++;
+            }
+            next[i] = j;
         }
+        // for(int i = 0; i < s.size(); i++) {
+        //     cout << next[i] << " ";
+        // }
+        // cout << endl;
     }
-    return res;
-}
 
-// 44. 最长公共子序列
-int dp_44(string s1, string s2) {
-    vector<vector<int>> dp(s1.size() + 1, vector<int> (s2.size() + 1, 0));
-    for(int i = 1; i <= s1.size(); i++) {
-        for(int j = 1; j <= s2.size(); j++) {
-            if(s1[i - 1] == s2[j - 1]) {
-                dp[i][j] = dp[i - 1][j - 1] + 1;
-            } else {
-                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+    static int myStrstr(string s, string t, int *next) {
+        int j = 0;
+        getNext(next, t);
+        for(int i = 0; i < s.size(); i++) {
+            while(j > 0 && s[i] != t[j]) {
+                j = next[j - 1];
+            }
+            if(s[i] == t[j]) {
+                j++;
+            }
+            if(j == t.size()) {
+                return i - t.size() + 1;
             }
         }
+        return -1;
     }
-    return dp[s1.size()][s2.size()];
+};
+
+// dp 2
+// fib[i] = fib[i - 1] + fib[i - 2]
+int fib(int n) {
+    if(n <= 1) return n;
+
+    vector<int> dp(n + 1, 0);
+    dp[0] = 0;
+    dp[1] = 1;
+
+    for(int i = 2; i <= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
 }
 
-
-// 46. 最大子序和
-// 最大连续子数组和
-int dp_46(vector<int> nums) {
-    if(nums.size() == 0) {
-        return 0;
+// mat rotate
+void showMe(const vector<vector<int>> mat) {
+    for (auto x : mat) {
+        for (auto y : x) {
+            cout << y << " ";
+        }
+        cout << endl;
     }
-    vector<int> dp(nums.size(), 0);
-    dp[0] = nums[0];
-    int res = dp[0];
-
-    for(int i = 1; i < nums.size(); i++) {
-        dp[i] = max(dp[i], dp[i - 1] + nums[i]);
-        res = max(res, dp[i]);
-    }
-    return res;
 }
 
-// 47. 判断是否子序列。注意，不是子串！
-int dp_47(string s1, string s2) {
-    vector<vector<int>> dp(s1.size() + 1, vector<int>(s2.size() + 1, 0));
-    for(int i = 1; i <= s1.size(); i++) {
-        for(int j = 1; j <= s2.size(); j++) {
-            if(s1[i - 1] == s2[j - 1]) {
-                dp[i][j] = dp[i - 1][j - 1] + 1;
-            } else {
-                dp[i][j] = dp[i - 1][j];
-            }
+void mat_rotate(vector<vector<int>>& mat) {
+    int size = mat[0].size();
+    // int layers = 0;
+    for(int i = 0; i < size / 2; i++) {
+        for(int j = i; j < size - 1 - i; j++) {
+            int tmp = mat[i][j];
+            mat[i][j] = mat[j][size - i - 1];
+            mat[j][size - i - 1] = mat[size - 1 - i][size - 1 - j];
+            mat[size - 1 - i][size - 1 - j] = mat[size - 1 - j][i];
+            mat[size - 1 - j][i] = tmp;
         }
     }
-    return dp[s1.size()][s2.size()] == s2.size() ? true : false;
 }
 
-// 47.1 判断是否子串
-int dp_47_1(string s1, string s2) {
-    vector<vector<int>> dp(s1.size() + 1, vector<int> (s2.size() + 1, 0));
-    int res = 0;
-    for(int i = 1; i <= s1.size(); i++) {
-        for(int j = 1; j <= s2.size(); j++) {
-            if(s1[i - 1] == s2[j - 1]) {
-                dp[i][j] = dp[i - 1][j - 1] + 1;
-            }
-            res = max(res, dp[i][j]);
+// mat spiral
+void mat_spiral(int n) {
+    int N = n / 2;
+    int startX = 0;
+    int startY = 0;
+    int offset = 0;
+    int count = 0;
+    vector<vector<int>> res(n + 1, vector<int>(n + 1, 0));
+
+    while(N-- > 0) {
+        int x = startX;
+        int y = startY;
+        for(; x < n - offset; x++) {
+            res[x][y] = count++;
         }
-    }
-
-    return res == s2.size() ? true : false;
-}
-
-// int isSub(string s1, string s2) {
-int isSub(const char *s1, char *s2) {
-    for( ; *(s1 + strlen(s2) - 1) != '\0'; s1++) {
-        if(strncmp(s1, s2, strlen(s2)) == 0) {
-            return true;
+        for(; y < n - offset; y++) {
+            res[x][y] = count++;
         }
-    }
-    return false;
-}
-
-int isSubString(string s1, string s2) {
-    for(int i = 0; i < s1.size() - s2.size() + 1; i++) {
-        if(s1.substr(i, s2.size()) == s2) {
-            return true;
+        for(; x > startX; x--) {
+            res[x][y] = count++;
         }
-    }
-    return false;
-}
-
-int dp_x(string s, string t) {
-    vector<vector<int>> dp(s.size() + 1, vector<int>(t.size() + 1, 0));
-    // dp[i][j]: 以s[i]结尾的字符串中，出现了以t[j]结尾的子字符串的个数
-    for(int i = 0; i <= s.size(); i++) {
-        dp[i][0] = 1;
-    }
-    for(int j = 0; j <= t.size(); j++) {
-        dp[0][j] = 0;
-    }
-    for(int i = 1; i <= s.size(); i++) {
-        for(int j = 1; j <= t.size(); j++) {
-            if(s[i - 1] == t[j - 1]) {
-                dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
-            } else {
-                dp[i][j] = dp[i - 1][j];
-            }
+        for(; y > startY; y--) {
+            res[x][y] = count++;
         }
+        startX++;
+        startY++;
+        offset++;
     }
-    return dp[s.size()][t.size()];
+    showMe(res);
 }
 
-// TODO KMP
+// is rectangle from given points(x, y)
+bool isRectangle(int (*nums)[2], int len) {
+    // calculate the length
+    // point0: nums[0][0], nums[0][1]
+    // ...
+    // point3: nums[3][0], nums[3][1]
+    int len1 = nums[1][0] - nums[1][1];
+    // sorting 
+    // if 2 same longest, 2 mid, 2 short: longest * longest = mid * mid + short * short, then yes, else no
+
+    vector<int> res{1, 7, 9, 0, -1};
+    sort(res.begin(), res.end());
+    return true;
+}
+
+// read API is given, readFour(), implement a read function to read the whole file
+// Done
+
+// reverse linked list
+typedef struct node {
+    int data;
+    struct node *next;
+} Node, *pNode;
+
+#define LEN sizeof(Node)
+
+void printLL(pNode pHead) {
+    while(pHead) {
+        cout << pHead->data << endl;
+        pHead = pHead->next;
+    }
+}
+
+void createNode(pNode *ppHead) {
+    int nums[] = {1, 2, 3, 4, 5};
+    if(*ppHead == nullptr) {
+        *ppHead = (pNode)malloc(LEN);
+    }
+    (*ppHead)->data = nums[0];
+    pNode pNow = *ppHead;
+    pNode pNext = *ppHead;
+
+    for(int i = 1; i < sizeof(nums) / sizeof(nums[0]); i++) {
+        pNext = (pNode)malloc(LEN);
+        pNext->data = nums[i];
+        pNow->next = pNext;
+        pNow = pNext;
+    }
+}
+
+pNode reverseLL(pNode pHead) {
+    if(pHead == nullptr) {
+        return nullptr;
+    }
+    pNode pCur = pHead;
+    pNode pPre = nullptr;
+    pNode pNext;
+
+    while(pCur) {
+        pNext = pCur->next;
+        pCur->next = pPre;
+        pPre = pCur;
+        pCur = pNext;
+    }
+    return pPre;
+}
+
+// malloc aligned memory
+void *memAlign(size_t size, size_t alignment) {
+    // 1. 
+}
+
+// binary tree
+    // 1. travel
+    // 2. reverse
+    // 3. search
+    // 4. insert
+
+// my power
+
+// count island
+
+// dp3
+
+// dp4
+
+// 000 123 0 123 456 
+// abc abc x abc abc xy
+void tmpNext(int *next, string s, string t) {
+    next[0] = 0;
+    int j = 0;
+
+    for(int i = 1; i < s.size(); i++) {
+        while(j > 0 && s[i] != t[j]) {
+            j = next[j - 1];
+        }
+        if(s[i] == s[j]) {
+            j++;
+        }
+        next[i] = j;
+    }
+}
 
 int main(void) {
-    // vector<int> nums{1, 1, 2, 2, 2, 3, 4, 5, 5};
-    // vector<int> nums{-2, 1, -3, 4, -1, 2, 1, -5, 4};
-    // cout << lengthOfLCS(nums) << endl;
-    // cout << dp_46(nums) << endl;
+    // string s = "aabaabaaf";
+    // string t = "aabaaf";
+    // int next[5] = {0};
+    // getNext(next, t);
+    // cout << Solution::myStrstr(s, t, next) << endl;
 
-    char s1[] = "abcde";
-    char s2[] = "ade";
-    cout << dp_47(s1, s2) << endl;
+    // vector<vector<int>> mat = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    // mat_rotate(mat);
+    // showMe(mat);
+
+    // mat_spiral(4);
+
+    pNode pHead = nullptr;
+    createNode(&pHead);
+
+    pHead = reverseLL(pHead);
+    printLL(pHead);
 
     return 0;
-}
-
-dp[0] = 1;
-for(int i = 1; i < size; i++) {
-    for(int j = 0; j < i; j++) {
-        if(nums[i] > nums[j]) {
-            dp[i] = max(dp[i], dp[j] + 1);
-        }
-        res = max(res, dp[i]);
-    }
-}
-return res;
-// ------------------------------------------------------------
-vector<int>dp(size, 1);
-for(int i = 1; i < size; i++) {
-    if(nums[i] > nums[i - 1]) {
-        dp[i] = dp[i - 1] + 1;
-    }
-    res = max(res, dp[i]);
-}
-return res;
-
-
-dp[i][j]
-for(int i = 1; i <= size1; i++) {
-    for(int j = 1; j < size2; j++) {
-        if(s[i] == t[j]) {
-            dp[i][j] = dp[i - 1][j - 1] + 1;
-        }
-        res = max(res, dp[i][j]);
-    }
-}
-
-// 46
-dp[0] = nums[0];
-for(int i = 1; j < size; j++) {
-    dp[i] = max(dp[i - 1] + nums[i], nums[i]);
-    res = max(res, dp[i]);
-}
-return res;
-
-// 47
-// dp[i + 1][j + 1]
-for(int i = 1; i < size1 + 1; i++) {
-    for(int j = 1; j < size2 + 1; j++) {
-        if(s[i - 1] == t[j - 1]) {
-            dp[i][j] = dp[i - 1][j - 1] + 1;
-        } esle {
-            // dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
-            dp[i][j] = dp[i][j - 1]
-        }
-        res = max(res, dp[i][j]);
-    }
-    return res == s.size() ? true : false;
-}
-
-// 48
-// dp[i][j]: 以s[i - 1]和t[j - 1]为结尾的两个字符串，s子序列中出现t的个数
-for(int i = 0; i < size1; i++) {
-    dp[i][0] = 1;
-}
-for(int i = 1; i < size1 + 1; i++) {
-    for(int j = 1; j < size2 + 1; j++) {
-        if(s[i - 1] == t[j - 1]) {
-            dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]; // dp[i - 1][j]: 删除s[i - 1]后，以s[i - 2]和t[j - 1]为结尾的情况
-        } else {
-            dp[i][j] = dp[i - 1][j];
-        }
-    }
-}
-
-// 49
-dp[i][j]: 以i - 1和j - 1为结尾的两个字符串, 相同需要的最小步数
-for(int i = 0; i <= size1; i++) {
-    dp[i][0] = i;
-}
-for(int j = 0; j <= size2; j++) {
-    dp[0][j] = j;
-}
-
-for(int i = 1; i <= size1; i++) {
-    for(int j = 1; j <= size2; j++) {
-        if(s[i] == t[j]) {
-            dp[i][j] = dp[i - 1][j - 1];
-        } else {
-            dp[i][j] = min({dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1] + 2});
-        }
-    }
-}
-return dp[size1][size2];
-
-// 50
-for(int i = 1; i <= size1; i++) {
-    for(int j = 1; j <= size2; j++) {
-        if(s[i - 1] == t[j - 1]) {
-            dp[i][j] = dp[i - 1][j - 1];
-        } else {
-            dp[i][j] = min({dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]}) + 1;
-        }
-    }
-}
-return dp[size1][size2];
-
-// 52
-int res = 0;
-dp[][]: initlize to false
-for(int i = size - 1; i >= 0; i--) {
-    for(int j = i + 1; j < size; j++) {
-        if(s[i] == t[j]) {
-            if(i - j <= 1) {
-                dp[i][j] = true;
-                count++;
-            } else if(dp[i + 1][j - 1]) {
-                dp[i][j] = true;
-                count++;
-            }
-        }
-    }
-}
-return count;
-
-// 53
-dp[][]: initlize to 1
-for(int i = size - 1; i >= 0; i--) {
-    for(int j = i + 1; j < size; j++) {
-        if(s[i] == t[j]) {
-            dp[i][j] = dp[i + 1][j - 1] + 2;
-        } else {
-            dp[i][j] = max(dp[i + 1][j], dp[i][j - 1]);
-        }
-    }
-}
-return dp[0][size - 1];
-
-// 2.
-if(n <= 1) {
-    return n;
-}
-dp[1] = 1;
-dp[2] = 1;
-
-for(int i = 3; i <= n; i++) {
-    dp[i] = dp[i - 1] + dp[i - 2];
-}
-return dp[n];
-
-// 3. 
-if(n == 1) return 1;
-if(n == 2) return 2;
-dp[1] = 1;
-dp[2] = 2;
-dp[i] = dp[i - 1] + dp[i - 2]
-
-// 4.
-if(n <= 1) return 0;
-for(int i = 2; i <= n; i++) {
-    dp[i] = min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
-}
-
-// 4.1 一步一个台阶，一步两个台阶，三个台阶，知道m个台阶。有多少中方法爬到n阶楼顶？
-// 是个多重背包的组合问题
-dp[0] = 0;
-dp[1] = 1;
-for(int i = 1; i <= n; i++) {   // 物品
-    for(int j = i; j <= size; j++) { // 背包
-        dp[j] += dp[j - ];
-    }
-}
-
-// 6/7
-dp[m + 1][n + 1]
-for(int i = 0; i <= m; i++) {
-    dp[i][0] = 1;
-}
-for(int j = 0; i <= n; j++) {
-    dp[0][j] = 1;
-}
-for(int i = 1; i <= m; i++) {
-    for(int j = 1; j <= n; j++) {
-        if(obs[i][j] == 1) {
-            continue;
-        }
-        dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
-    }
-}
-return dp[m - 1][n - 1];
-
-// 8.
-dp[i]: 取i时, 得到的分拆最大乘积
-dp[2] = 1;
-for(int i = 3; i < n; i++) {
-    for(int i = 1; i < n / 2; i++) {
-        dp[i] = max(dp[i], max((i - j) * j, dp[i - j] * j));
-    }
-}
-
-
-// 11.
-dp[i][j]: 从0-i中取, 放入j容量的背包。最大价值是多少?
-for(int j = weight[0]; j <= BAG; j++) {
-    dp[0][j] = value[0];
-}
-
-for(int i = 0; i < weight.size(); i++) {
-    for(int j = 0; j <= BAG; j++) {
-        if(j < weight[i]) {
-            dp[i][j] = dp[i - 1][j];
-        } else {
-            dp[i][j] = max(dp[i - 1][j], dp[i - weight[i]] + value[i]);
-        }
-    }
-}
-return dp[weight.size() - 1][BAG];
-
-// 12
-dp[j]: 容量为j的背包，能放入物品的最大价值
-for(int i = 0; i < weight.size(); i++) {
-    for(int j = BAG; j >= weight[i]; j--) {
-        dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
-    }
-}
-return dp[];
-
-// power
-double myPower(int base, int n) {
-    if(n == 0) return 1;
-    if(n == 1) return base;
-    if(n < 0) {
-        base = 1.0 / base;
-        n = -n;
-    }
-    double res = 1.0 * base;
-    for(int i = 2; i <= n; i++) {
-        res = base * res;
-    }
-    return res;
-}
-
-// 13/14
-sum = 
-if(sum % 2) return false;
-half = sum / 2;
-dp[i]: 装满容量为i的背包, 最多能装多少
-for(int i = 0; i < nums.size(); i++) {
-    for(int j = half; j >= nums[i]; j--) {
-        dp[j] = max(dp[j], dp[j - nums[i]] + nums[i]);
-    }
-}
-
-if(dp[half] == half) return true;
-return false;
-
-// 16.
-dp[j]: 背包容量为j, 从物品i中取, 凑满背包的所有方法
-dp[0] = 1;
-for(int i = 0; i < nums.size(); i++) {
-    for(int j = BAG; j >= nums[i]; j--) {
-        dp[j] += dp[j - nums[i]];
-    }
-}
-return dp[BAG];
-
-// 17.
-//TODO
-
-// 18
-for(int i = 0; i < weight.size(); i++) {
-    for(int j = weight[i]; j <= BAG; j++) {
-        dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
-    }
-}
-return dp[BAG];
-
-// 19
-<<<<<<< HEAD
-dp[j]: pickup from [0, i], makeup j, the combinations
-完全背包问题, 背包容量为j, 从[0, i]中取有多少种方法
-=======
-dp[j]: 从coins[]中取硬币, 凑成j的组合
->>>>>>> fafc310e634a8eb0ddfc685e1a9b375c52361a8f
-dp[0] = 1;
-for(int i = 0; i < coins.size(); i++) {
-    for(int j = coins[i]; j <= amount; j++) {
-        // if(j - coins[i] >= 0) {
-            dp[j] += dp[j - coins[i]];
-        // }
-    }
-}
-dp[j] = dp[j - coins[i]] + 1
-
-
-// 21
-dp[0] = 1;
-for(int i = 0; i <= target; i++) {  // BAG
-    for(int j = 1; j < size; j++) {  // items
-        if(i > nums[j] && dp[i] + dp[i - nums[j]] < INT_MAX) {
-            dp[i] += dp[i - nums[j]];
-        }
-    }
-}
-return dp[target];
-
-// 22
-dp[0] = 1;
-for(int i = 1; i <= n; i++) {       // BAG
-    for(int j = i; j <= m; j++) {   // items
-        dp[i] += dp[i - j];
-    }
-}
-
-// 23
-dp[] INT_MAX
-dp[0] = 0;
-// dp[j]: 凑成j需要最少硬币数
-for(int i = 0; i < coins.size(); i++) { // items
-    for(int j = coins[i]; j <= amount; j++) {  // BAG
-        if(dp[j - coins[i]] != INT_MAX) {
-            dp[j] = min(dp[j], dp[j - coins[i]] + 1);
-        }
-    }
-}
-return dp[amount] == INT_MAX ? -1 : dp[amount];
-
-//TODO 24 
-dp[j]: INT_MAX
-dp[0] = 0;
-for(int i = 0; i < n; i++) {
-    for(int j = 1; j * j <= i; j++) {
-        dp[i] = min(dp[i - j * j] + 1, dp[i]);
-    }
 }

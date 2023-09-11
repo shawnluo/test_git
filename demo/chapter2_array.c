@@ -55,6 +55,7 @@ void rotate(int mat[][4], int size) {
     int x, y;
     int save;
 
+    // This only works for even length of mat
     for(x = 0; x < size / 2; x++) {
         for(y = 0; y < size / 2; y++) {
             save                            = mat[x][y];

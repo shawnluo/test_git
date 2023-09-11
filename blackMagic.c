@@ -1090,8 +1090,9 @@ void spiral_mat(int n) {
     while(loop--) {
         int x = startx;
         int y = starty;
-
-        for(; y < n - offset; y++) {
+        // 如果是y, 则是从左上角开始，到右上角
+        // 如果是x，则是从左上角开始，到左下角
+        for(; y < n - offset; y++) { 
             res[x][y] = count++;
         }
         for(; x < n - offset; x++) {
@@ -1875,3 +1876,25 @@ void isLittle() {
         Given [[0, 30],[5, 10],[15, 20]],
         return false.
 */
+
+
+
+/* =======================================================================================================
+    [147] - Read N Characters Given Read4
+*/
+int read(char *buf, int n) {
+    int copiedChars = 0, readChars = 4; // 初始化为4，为while循环提供条件
+    char buf4[4];
+    
+    while (copiedChars < n && readChars == 4) { // 巧妙！readChars != 4，代表上一次已经读到了文件尾部
+        readChars = read4(buf4);
+        
+        for (int i = 0; i < readChars; ++i) {
+            if (copiedChars == n)
+                return copiedChars;
+            buf[copiedChars] = buf4[i];
+            ++copiedChars;    
+        }    
+    }
+    return copiedChars;
+}
