@@ -867,12 +867,14 @@ public:
         return false;
     }
 
-    void getNext(string s, vector<int>& next) {
+    // aabaaf
+    static void getNext(string s, vector<int>& next) {
         int j = 0;
         next[0] = 0;
         for(int i = 1; i < s.size(); i++) {
             while(j > 0 && s[i] != s[j]) {
-                j = next[j - 1];
+                j = next[j - 1];    // 如果比较到 s[j]: a 和 s[i]: f 不相等，那么就比较j回退到以s[j-1]为结尾的，共同前后缀的字符之后的位置，继续比较, why?
+                                    // TODO 因为，eg. abxaby, 在s[j]: x比较s[i]：y - 不相等。那么j应该回退到
             }
             if(s[i] == s[j]) {
                 j++;
@@ -880,8 +882,34 @@ public:
             next[i] = j;
         }
     }
+
+    static int myStrstr(string s, string t, int *next) {
+        int j = 0;
+        getNext(next, t);
+        for(int i = 0; i < s.size(); i++) {
+            while(j > 0 && s[i] != t[j]) {
+                j = next[j - 1];
+            }
+            if(s[i] == t[j]) {
+                j++;
+            }
+            if(j == t.size()) {
+                return i - t.size() + 1;
+            }
+        }
+        return -1;
+    }
 };
 
+int main(void) {
+    string s = "aabaabaaf";
+    string t = "aabaaf";
+    int next[5] = {0};
+    // getNext(next, t);
+    cout << Solution::myStrstr(s, t, next) << endl; // 如果要直接调用类中的方法，需要将方法定义为static
+
+    return 0;
+}
 
 // 动态规划
 
