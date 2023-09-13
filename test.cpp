@@ -259,7 +259,43 @@ void align_free(void * aligned_addr) {
 }
 
 // binary tree
+struct treeNode {
+    int val;
+    treeNode* left;
+    treeNode* right;
+
+    treeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
+    // 0. create
+treeNode* insertTree(treeNode* root, int value) {
+    if(root == nullptr) {
+        // cout << "11" << endl;
+        return new treeNode(value);
+    }
+
+    if(value < root->val) {
+        root->left = insertTree(root->left, value);
+    } else if(value > root->val) {
+        root->right = insertTree(root->right, value);
+    }
+
+    return root;
+}
+
     // 1. travel
+void travelTree(treeNode* root) {
+    if(root == nullptr) {
+        // cout << "empty" << endl;
+        return;
+    }
+    // cout << root->val << endl;
+    travelTree(root->left);
+    // cout << root->val << endl;
+    travelTree(root->right);
+    cout << root->val << endl;
+}
+
     // 2. reverse
     // 3. search
     // 4. insert
@@ -302,11 +338,17 @@ int main(void) {
 
     // mat_spiral(4);
 
-    pNode pHead = nullptr;
-    createNode(&pHead);
+    // pNode pHead = nullptr;
+    // createNode(&pHead);
 
-    pHead = reverseLL(pHead);
-    printLL(pHead);
+    // pHead = reverseLL(pHead);
+    // printLL(pHead);
+
+    treeNode* root = nullptr;
+    root = insertTree(root, 1);
+    root = insertTree(root, 2);
+    root = insertTree(root, 3);
+    travelTree(root);
 
     return 0;
 }
