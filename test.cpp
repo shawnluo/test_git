@@ -283,6 +283,17 @@ treeNode* insertTree(treeNode* root, int value) {
     return root;
 }
 
+void insert2(treeNode** root, int val) {
+    if(*root == nullptr) {
+        *root = new treeNode(val);
+    }
+    if(val < (*root)->val) {
+        insert2(&((*root)->left), val);
+    } else if(val > (*root)->val) {
+        insert2(&((*root)->right), val);
+    }
+}
+
     // 1. travel
 void travelTree(treeNode* root) {
     if(root == nullptr) {
@@ -297,16 +308,196 @@ void travelTree(treeNode* root) {
 }
 
     // 2. reverse
-    // 3. search
-    // 4. insert
+treeNode* reverse(treeNode* root) {
+    if(root == nullptr) {
+        return root;
+    }
+    swap(root->left, root->right);
+
+    reverse(root->left);
+    reverse(root->right);
+
+    return root;
+}
+    // 3. search - simple
+bool search(treeNode* root, int val) {
+    if(root == nullptr) {
+        return false;
+    }
+    if(root->val == val) {
+        return true;
+    }
+
+    if(val < root->val)
+        search(root->left, val);
+    else
+        search(root->right, val);
+
+    return false;
+}
 
 // my power
+float myPow(float base, int num) {
+    if(base == 0) return 0;
+    if(num == 0) return 1;
+    if(num == 1) return base;
+
+    if(num < 0) {
+        base = 1 / base;
+        num = -num;
+    }
+
+    float res = 1.0 * base;
+    // base = (float)base;
+    for(int i = 2; i <= num; i++) {
+        res = res * base;
+    }
+    return res;
+}
+
+// reverse string: show me -> wohs em
+void reverse(string& s, int start, int end) {
+    if(s.size() <= 1) {
+        return;
+    }
+    if(start < 0) start = 0;
+    if(end >= s.size()) end = s.size() - 1;
+
+    while(start < end) {
+        swap(s[start], s[end]);
+        start++, end--;
+    }
+}
+
+void removeExtraSpaces(string& s) {
+    // 1. clear infront spaces
+    int index = 0;
+    int slow = 0;
+    while(s[index] == ' ') {
+        index++;
+    }
+    // 2. remove mid
+    if(index == s.size() - 1) {
+        return;
+    }
+    // while(index < s.size() && ) {
+
+    // }
+    for(int i = index + 1; i < s.size(); i++) {
+        if(s[i] == s[i - 1] && s[i] == ' ') {
+
+        } else {
+            s[slow++] = s[i];
+        }
+    }
+
+    // 3. remove rear spaces
+
+}
+
+void removeSpaces(string& s) {
+    int slow = 0;
+    for(int i = 0; i < s.size(); i++) {
+        if(s[i] != ' ') {
+            if(slow != 0) {
+                s[slow++] = ' ';
+            }
+            while(i < s.size() && s[i] != ' ') {
+                s[slow++] = s[i++];
+            }
+        }
+    }
+    s.resize(slow);
+}
+
+void sinkIsland(vector<vector<int>>& mat, int x, int y, int row, int col) {
+    // deal with border border
+    if(x < 0 || x >= row) {
+        return;
+    }
+    if(y < 0 || y >= col) {
+        return;
+    }
+    if(mat[x][y] == 0) {
+        return; 
+    }
+
+    mat[x][y] = 0;
+    sinkIsland(mat, x + 1, y, row, col);
+    sinkIsland(mat, x - 1, y, row, col);
+    sinkIsland(mat, x, y + 1, row, col);
+    sinkIsland(mat, x, y - 1, row, col);
+}
 
 // count island
+// int countIsland() {
+//     for() {
+//         for() {
+//             if(mat[i][j] == 1) {
+//                 sinkIsland(mat, i, j, row, col);
+//                 count++;
+//             }
+//         }
+//     }
+// }
 
 // dp3
+int dp_3(int n) {
+    vector<int> dp(n + 1, 0);
+    if(n <= 2) {
+        return n;
+    }
+    dp[0] = 0;
+    dp[1] = 1;
+    dp[2] = 2;
+
+    for(int i = 3; i <= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
+}
 
 // dp4
+int dp_4(vector<int> cost) {
+    vector<int> dp(cost.size() + 1, 0);
+    dp[0] = 0;
+    dp[1] = 0;
+
+    for(int i = 2; i <= cost.size(); i++) {
+        dp[i] = min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+    }
+    return dp[cost.size()];
+}
+
+// bt_2: 返回[1, n]中所有可能的k个数的组合
+vector<vector<int>> res;
+vector<int> buf;
+void bt_2(int n, int k, int pos) {
+    if(buf.size() == k) {
+        res.push_back(buf);
+        return;
+    }
+    for(int i = pos; i <= n; i++) {
+        buf.push_back(i);
+        bt_2(n, k, i + 1);
+        buf.pop_back();
+    }
+}
+
+
+// bt_15
+// backTracking: permutation of "abcd"
+void bt_15(string s, int pos) {
+    if(pos == s.size()) {
+        cout << s << endl;
+    }
+    for(int i = pos; i < s.size(); i++) {
+        swap(s[i], s[pos]);
+        bt_15(s, i + 1);
+        swap(s[i], s[pos]);
+    }
+}
+
 
 // 000 123 0 123 456 
 // abc abc x abc abc xy
@@ -344,11 +535,30 @@ int main(void) {
     // pHead = reverseLL(pHead);
     // printLL(pHead);
 
-    treeNode* root = nullptr;
-    root = insertTree(root, 1);
-    root = insertTree(root, 2);
-    root = insertTree(root, 3);
-    travelTree(root);
+    // treeNode* root = nullptr;
+    // insert2(&root, 1);
+    // insert2(&root, 2);
+    // insert2(&root, 3);
+    // travelTree(root);
+
+    // cout << myPow(-2, -1) << endl;
+
+    // string s = "abcd";
+    // reverse(s, 1, 4);
+    // s.resize(2);
+    // cout << s << endl;
+
+    // string s = "abc";
+    // bt_15(s, 0);
+
+    bt_2(4, 2, 0);
+    for(auto x : res) {
+        for(auto y : x) {
+            cout << y << " ";
+        }
+        cout << endl;
+    }
 
     return 0;
 }
+
