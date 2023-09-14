@@ -516,7 +516,79 @@ void tmpNext(int *next, string s, string t) {
     }
 }
 
+// dp 11 0-1 snapsack
+int dp_11(vector<int> weight, vector<int> value, int BAG) {
+    vector<vector<int>> dp(weight.size(), vector<int>(BAG + 1, 0));
+    for(int j = weight[0]; j <= BAG; j++) {
+        dp[0][j] = value[0];
+    }
+    for(int i = 1; i < weight.size(); i++) {
+        for(int j = 0; j <= BAG; j++) {
+            if(j < weight[i]) {
+                dp[i][j] = dp[i - 1][j];
+            } else {
+                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
+            }
+        }
+    }
+    return dp[weight.size() - 1][BAG];
+}
+
+// dp 12 0-1 rolling array
+int dp_12(vector<int> weight, vector<int> value, int BAG) {
+    vector<int> dp(BAG + 1, 0);
+    for(int i = 0; i < weight.size(); i++) {
+        for(int j = BAG; j >= weight[i]; j--) {
+            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+        }
+    }
+    return dp[BAG];
+}
+// dp 13
+
+
+// dp 18 repeatable
+int dp_18(vector<int> weight, vector<int> value, int BAG) {
+    vector<int> dp(BAG + 1, 0);
+    for(int i = 0; i < weight.size(); i++) {
+        for(int j = weight[i]; j <= BAG; j++) {
+            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+        }
+    }
+    return dp[BAG];
+}
+
+// dp 19 coin change
+int dp_19(vector<int> coins, int BAG) {
+    // dp[j]: 凑成j的组合数
+    vector<int> dp(BAG + 1, 0);
+    dp[0] = 1;
+
+    for(int i = 0; i < coins.size(); i++) {
+        for(int j = coins[i]; j <= coins[i]; j++) {
+            dp[j] += dp[j - coins[i]];
+        }
+    }
+
+    return dp[BAG];
+}
+
+// dp 21 组合总数IV
+int dp_21(vector<int> nums, int BAG) {
+    vector<int> dp(BAG + 1, 0);
+    dp[0] = 1;
+    for(int i = 0; i <= BAG; i++) {
+        for(int j = 0; j < nums.size(); j++) {
+            if(i >= nums[j]) {
+                dp[i] += dp[i - nums[j]];
+            }
+        }
+    }
+    return dp[BAG];
+}
+
 int main(void) {
+#if 0
     // string s = "aabaabaaf";
     // string t = "aabaaf";
     // int next[5] = {0};
@@ -551,13 +623,19 @@ int main(void) {
     // string s = "abc";
     // bt_15(s, 0);
 
-    bt_2(4, 2, 0);
-    for(auto x : res) {
-        for(auto y : x) {
-            cout << y << " ";
-        }
-        cout << endl;
-    }
+    // bt_2(4, 2, 0);
+    // for(auto x : res) {
+    //     for(auto y : x) {
+    //         cout << y << " ";
+    //     }
+    //     cout << endl;
+    // }
+#endif
+    vector<int> weight = {1, 3, 5};
+    vector<int> value = {50, 20, 8};
+    int BAG = 3;
+
+    cout << dp_18(weight, value, BAG) << endl;
 
     return 0;
 }
