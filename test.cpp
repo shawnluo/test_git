@@ -587,6 +587,10 @@ int dp_21(vector<int> nums, int BAG) {
     return dp[BAG];
 }
 
+// rotate mat
+// spiral mat
+
+
 int main(void) {
 #if 0
     // string s = "aabaabaaf";
