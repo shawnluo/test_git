@@ -920,17 +920,118 @@ int dp_50(string s1, string s2) {
 // from the last char, back to first one.
 // dp[i][j]: 从[i, j], 多少个回文子串
 int dp_52(string s) {
-    
+    vector<vector<bool>> dp(s.size(), vector<bool>(s.size(), false));
+    for(int i = 0; i < s.size(); i++) {
+        dp[i][i] = true;
+    }
+    int res = 0;
+
+    for(int i = s.size() - 1; i >= 0; i--) {
+        for(int j = i; j < s.size(); j++) {
+            if(s[i] == s[j]) {
+                if(j - i <= 1) {
+                    res++;
+                    dp[i][j] = true;
+                } else if(dp[i + 1][j - 1] == true) {
+                    res++;
+                    dp[i][j] = true;
+                }
+            }
+        }
+    }
+    return dp[0][s.size() - 1];
+}
+
+// dp 53
+// 最长回文子序列
+int dp_53(string s) {
+    vector<vector<int>> dp(s.size(), vector<int>(s.size(), 0));
+    for(int i = 0; i < s.size(); i++) {
+        dp[i][i] = 1;
+    }
+
+    for(int i = s.size() - 1; i >= 0; i--) {
+        for(int j = i + 1; j < s.size(); j++) {
+            if(s[i] == s[j]) {
+                dp[i][j] = dp[i + 1][j - 1] + 2;
+            } else {
+                dp[i][j] = max(dp[i + 1][j], dp[i][j - 1]);
+            }
+        }
+    }
+    return dp[0][s.size() - 1];
 }
 
 // rotate mat
+void rotateMat(vector<vector<int>>& mat) {
+    int row = mat.size();
+    int col = mat[0].size();
+
+    for(int i = 0; i < row / 2; i++) {
+        for(int j = i; j < col - i - 1; j++) {
+            int save = mat[i][j];
+            // [l, R) - top
+            mat[i][j] = mat[j][row - i - 1];
+            // [U, D) - right
+            mat[j][row - i - 1] = mat[row - i - 1][row - j - 1];
+            // [R, L) - bottom
+            mat[row - i - 1][row - j - 1] = mat[row - j - 1][i];
+            // [D, U) - left
+            mat[row - j - 1][i] = save;
+        }
+    }
+}
+
 // spiral mat
+void spiralMat(int n, vector<vector<int>>& mat) {
+    int half = n / 2;
+    int startX = 0;
+    int startY = 0;
+    int count = 1;
+    int offset = 1;
+    
+    while(half--) {
+        int x = startX;
+        int y = startY;
+        
+
+        for( ; y < n - offset; y++) {
+            mat[x][y] = count++;
+        }
+        for( ; x < n - offset; x++) {
+            mat[x][y] = count++;
+        }
+        for( ; y > startY; y--) {
+            mat[x][y] = count++;
+        }
+        for( ; x > startX; x--) {
+            mat[x][y] = count++;
+        }
+        startX++;
+        startY++;
+        offset++;
+    }
+
+    if(n % 2) {
+        mat[half][half] = count;
+    }
+
+    // for(auto x : mat) {
+    //     for(auto y : x) {
+    //         cout << y << " ";
+    //     }
+    //     cout << endl;
+    // }
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            cout << mat[i][j] << "\t";
+        }
+        cout << endl;
+    }
+}
+
 // meeting room
-// dp 49
-// dp 50
-// dp 51
-// dp 52
-// dp 53
 
 /*
     write the body of the is_overlapp function below:
@@ -1018,9 +1119,28 @@ int main(void) {
 
     // cout << dp_18(weight, value, BAG) << endl;
 
-    string s1 = "ab";
-    string s2 = "ac";
-    cout << dp_49(s1, s2) << endl;
+    // string s1 = "ab";
+    // string s2 = "ac";
+    // cout << dp_49(s1, s2) << endl;
+
+    // string s = "abacd";
+    // cout << dp_53(s) << endl;
+
+    // vector<vector<int>> mat = {{1, 2, 3}, 
+    //                             {4, 5, 6},
+    //                             {7, 8, 9}};
+    // rotateMat(mat);
+
+    int n = 5;
+    vector<vector<int>> mat(n + 1, vector<int>(n + 1));
+    spiralMat(n, mat);
+
+    for(auto x : mat) {
+        for(auto y : x) {
+            // cout << y << " ";
+        }
+        // cout << endl;
+    }
 
     return 0;
 }
