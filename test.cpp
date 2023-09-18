@@ -573,23 +573,327 @@ int dp_19(vector<int> coins, int BAG) {
     return dp[BAG];
 }
 
-// dp 21 组合总数IV
-int dp_21(vector<int> nums, int BAG) {
-    vector<int> dp(BAG + 1, 0);
-    dp[0] = 1;
-    for(int i = 0; i <= BAG; i++) {
+// dp 21
+int dp_21(vector<int> nums, int amount) {
+    vector<int> dp(amount + 1, 0);
+    dp[0] = 1;  // make up 0, has 1 way
+    // make up i, has dp[i] ways
+    // dp[i] += dp[i - nums[j]]
+
+    // // dp[j]: makeup j, need minimal dp[j] coins
+    // // dp[j] = min(dp[j], dp[j - nums[i]] + 1);
+
+    for(int i = 1; i <= amount; i++) {
         for(int j = 0; j < nums.size(); j++) {
             if(i >= nums[j]) {
                 dp[i] += dp[i - nums[j]];
             }
         }
     }
-    return dp[BAG];
+    return dp[amount];
 }
+
+// dp 22
+int dp_22(int n, int m) {
+    vector<int> dp(n + 1, 0);
+    dp[0] = 1;
+    // dp[1] = 0;
+
+    for(int i = 1; i <= n; i++) {       //遍历背包
+        for(int j = 1; j <= m; j++) {   //遍历物品
+            if(i >= j) {
+                dp[i] += dp[i - j];
+            }
+        }
+    }
+    return dp[n];
+}
+
+// dp 23
+int dp_23(vector<int> coins, int amount) {
+    vector<int> dp(amount + 1, INT_MAX);
+    dp[0] = 0;
+
+    for(int i = 0; i < coins.size(); i++) {
+        for(int j = coins[i]; j <= amount; j++) {
+            if(j - coins[i] != INT_MAX) {
+                dp[j] = min(dp[j], dp[j - coins[i]] + 1);
+            }
+        }
+    }
+    if(dp[amount] == INT_MAX) {
+        return -1;
+    }
+    return dp[amount];
+}
+
+// dp 24: 给定一个整数n, 返回和为n的完全平方数的最少数量
+int dp_24(int n) {
+    vector<int> dp(n + 1, INT_MAX);
+    dp[0] = 0;
+
+    for(int i = 1; i <= n; i++) {
+        for(int j = i * i; j <= n; j++) {
+            // if(j - i * i != INT_MAX) {
+                dp[j] = min(dp[j], dp[j - i * i] + 1);
+            // }
+        }
+    }
+    if(dp[n] == INT_MAX) {
+        return -1;
+    }
+    return dp[n];
+}
+
+// dp 26
+bool dp_26(string s, vector<string> wordDict) {
+    unordered_set<string> wordSet(wordDict.begin(), wordDict.end());
+    vector<bool> dp(s.size() + 1, false);
+    dp[0] = true;
+
+    for(int i = 1; i <= s.size(); i++) {    // 遍历背包
+        for(int j = 0; j < i; j++) {        // 遍历物品
+            string word = s.substr(j, i - j);
+            if(wordSet.find(word) != wordSet.end() && dp[j]) {
+                dp[i] = true;
+            }
+        }
+    }
+    return dp[s.size()];
+}
+
+// dp 29
+int dp_29(vector<int> nums) {
+    vector<int> dp(nums.size() + 1, 0);
+    dp[0] = nums[0];
+    dp[1] = max(nums[0], nums[1]);
+
+    for(int i = 2; i < nums.size(); i++) {
+        dp[i] = max(dp[i - 1], dp[i - 2] + nums[i]);
+    }
+
+    return dp[nums.size() - 1];
+}
+
+// dp 32
+int dp_32(vector<int> prices) {
+    vector<vector<int>> dp(prices.size(), vector<int> (2, 0));
+    // dp[i][0]: have stock
+    // dp[i][1]: have no stock
+    dp[0][0] = -prices[0];  // 
+    dp[0][1] = 0;
+
+    for(int i = 1; i < prices.size(); i++) {
+        // 昨天已经有股票了: dp[i - 1][0]
+        // 昨天没有股票，今天买股票, : dp[i][1] - prices[i]
+        dp[i][0] = max(dp[i - 1][0], -prices[i]);
+
+        // 昨天没有股票: dp[i - 1][1]
+        // 今天没有股票: dp[i - 1][0] + price[i]
+        dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] + prices[i]);
+    }
+
+    return dp[prices.size() - 1][1];
+}
+
+// dp 34
+int dp_34(vector<int> prices) {
+    vector<vector<int>> dp(prices.size(), vector<int>(2, 0));
+    dp[0][0] = -prices[0];
+    dp[0][1] = 0;
+
+    for(int i = 1; i < prices.size(); i++) {
+        dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+        dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] + prices[i]);
+    }
+    return dp[prices.size() - 1][1];
+}
+
+// dp 39
+int dp_39(vector<int> prices, int fee) {
+    vector<vector<int>> dp(prices.size(), vector<int>(2, 0));
+    dp[0][0] = -prices[0];
+    dp[0][1] = 0;
+
+    for(int i = 1; i < prices.size(); i++) {
+        dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+        dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] + prices[i] - fee);
+    }
+    return max(dp[prices.size() - 1][0], dp[prices.size() - 1][1]);
+}
+
+// dp 41
+/*
+    思路： dp[0] = 1. 不能用一个for循环来判断没有排序过得序列。比如 7, 8, 2, 3.  如果只判断当前数和前一个数，
+    那么结果就会是 8 > 7，dp[1] = 2, 3 > 2, dp[3] = 3。这明显是错误的。
+    正确的思路应该是for循环选定一个数时，从[0, i)比较其之前的所有数。
+*/
+int dp_41(vector<int> nums) {
+    vector<int> dp(nums.size() + 1, 1);
+    dp[0] = 1;
+    int res = 0;
+    for(int i = 1; i < nums.size(); i++) {
+        for(int j = 0; j < i; j++) {
+            if(nums[i] > nums[i - 1]) {
+                dp[i] = max(dp[i], dp[j] + 1);
+            }
+            res = max(res, dp[i]);
+        }
+    }
+    return res;
+}
+
+// dp 41_1
+/*
+    ds
+*/
+
+// dp 42
+/*
+    思路：一个for loop. 如果nums[i] > nums[i - 1], dp[i] = dp[i - 1] + 1; 取最大的dp[i]
+*/
+int dp_42(vector<int> nums) {
+    vector<int> dp(nums.size(), 1);
+    dp[0] = 1;
+    int res = 0;
+    for(int i = 1; i < nums.size(); i++) {
+        if(nums[i] > nums[i - 1]) {
+            dp[i] = dp[i - 1] + 1;
+        }
+        res = max(res, dp[i]);
+    }
+    return res;
+}
+
+// dp 43
+/*
+    连续
+*/
+int dp_43(vector<int> nums1, vector<int> nums2) {
+    vector<vector<int>> dp(nums1.size() + 1, vector<int>(nums2.size() + 1, 0));
+    int res = 0;
+
+    for(int i = 1; i <= nums1.size(); i++) {
+        for(int j = 1; j <= nums2.size(); j++) {
+            if(nums1[i - 1] == nums2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            }
+            res = max(res, dp[i][j]);
+        }
+    }
+    return res;
+}
+
+// dp 44
+/*
+    非连续
+*/
+int dp_44(string s1, string s2) {
+    vector<vector<int>> dp(s1.size() + 1, vector<int>(s2.size() + 1, 0));
+    
+    for(int i = 1; i < s1.size(); i++) {
+        for(int j = 1; j < s2.size(); j++) {
+            if(s1[i - 1] == s2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+    }
+    return dp[s1.size()][s2.size()];
+}
+
+// dp 45
+/*
+    公共子序列
+*/
+int dp_45(vector<int> nums1, vector<int> nums2) {
+    vector<vector<int>> dp(nums1.size(), vector<int>(nums2.size(), 0));
+    for(int i = 1; i < nums1.size(); i++) {
+        for(int j = 1; j < nums2.size(); j++) {
+            if(nums1[i] == nums2[j]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+    }
+    return dp[nums1.size()][nums2.size()];
+}
+
+// dp 46
+/*
+    最大子序和:
+    dp[i]: end with element i, the max sum
+    dp[i] = max(dp[i - 1] + nums[i], nums[i]);
+    res = max(res, dp[i]);
+*/
+int dp_46(vector<int> nums) {
+    vector<int> dp(nums.size(), INT_MIN);
+    dp[0] = nums[0];
+    int res = dp[0];
+    for(int i = 1; i < nums.size(); i++) {
+        dp[i] = max(dp[i - 1] + nums[i], nums[i]);
+        res = max(res, dp[i]);
+    }
+    return res;
+}
+
+// dp 47
+bool dp_47(string s, string t) {
+    vector<vector<int>> dp(s.size() + 1, vector<int>(t.size() + 1, 0));
+    for(int i = 1; i <= s.size(); i++) {
+        for(int j = 1; j <= t.size(); j++) {
+            if(s[i] == t[j]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = dp[i][j - 1];
+            }
+        }
+    }
+    return dp[s.size()][t.size()] == t.size() ? true : false;
+}
+
+// dp 48
+/*
+    string s and string t, 求在s的子序列中，t出现的个数
+    dp[i][j]: 以i - 1为结尾的s子序列中，出现以j - 1为结尾的个数
+    if(s[i - 1] == t[j - 1]) dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]
+*/
+int dp_48(string s, string t) {
+    return 0;
+}
+
+// dp 49
+/*
+    两个字符串的删除操作：找到使得s和t相同，所需的最小步数。每步可以删除任意一个字符串
+    dp[i][j]: 以i - 1为结尾的s，和以j - 1为结尾的t, 想要达到相等，所需要删除元素的最少次数
+*/
+int dp_49(string s1, string s2) {
+    for() {
+        for() {
+            if(s[i - 1] == t[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1];
+            } else {
+                dp[i][j] = min({dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + 2});
+            }
+        }
+    }
+}
+
+// dp 50
+/*
+    编辑距离：将s装换成t，所需要的最少操作数
+*/
 
 // rotate mat
 // spiral mat
-
+// meeting room
+// dp 49
+// dp 50
+// dp 51
+// dp 52
+// dp 53
 
 int main(void) {
 #if 0
