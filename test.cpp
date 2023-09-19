@@ -870,21 +870,58 @@ int dp_48(string s, string t) {
     dp[i][j]: 以i - 1为结尾的s，和以j - 1为结尾的t, 想要达到相等，所需要删除元素的最少次数
 */
 int dp_49(string s1, string s2) {
-    for() {
-        for() {
-            if(s[i - 1] == t[j - 1]) {
+    vector<vector<int>>dp(s1.size() + 1, vector<int>(s2.size() + 1, 0));
+    for(int i = 0; i <= s1.size(); i++) {
+        dp[i][0] = i;
+    }
+    for(int j = 0; j <= s2.size(); j++) {
+        dp[0][j] = j;
+    }
+    for(int i = 1; i <= s1.size(); i++) {
+        for(int j = 1; j <= s2.size(); j++) {
+            if(s1[i - 1] == s2[j - 1]) {
                 dp[i][j] = dp[i - 1][j - 1];
             } else {
-                dp[i][j] = min({dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + 2});
+                dp[i][j] = min(dp[i - 1][j] + 1, dp[i][j - 1] + 1);
             }
         }
     }
+
+    return dp[s1.size()][s2.size()];
 }
 
 // dp 50
 /*
     编辑距离：将s装换成t，所需要的最少操作数
 */
+int dp_50(string s1, string s2) {
+    vector<vector<int>>dp(s1.size() + 1, vector<int>(s2.size() + 1, 0));
+    for(int i = 0; i <= s1.size(); i++) {
+        dp[i][0] = i;
+    }
+    for(int j = 0; j <= s2.size(); j++) {
+        dp[0][j] = j;
+    }
+    for(int i = 1; i <= s1.size(); i++) {
+        for(int j = 1; j <= s2.size(); j++) {
+            if(s1[i - 1] == s2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1];
+            } else {
+                dp[i][j] = min({dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + 1});
+            }
+        }
+    }
+
+    return dp[s1.size()][s2.size()];
+}
+
+// dp 52
+// 回文子串:
+// from the last char, back to first one.
+// dp[i][j]: 从[i, j], 多少个回文子串
+int dp_52(string s) {
+    
+}
 
 // rotate mat
 // spiral mat
@@ -975,11 +1012,15 @@ int main(void) {
     //     cout << endl;
     // }
 #endif
-    vector<int> weight = {1, 3, 5};
-    vector<int> value = {50, 20, 8};
-    int BAG = 3;
+    // vector<int> weight = {1, 3, 5};
+    // vector<int> value = {50, 20, 8};
+    // int BAG = 3;
 
-    cout << dp_18(weight, value, BAG) << endl;
+    // cout << dp_18(weight, value, BAG) << endl;
+
+    string s1 = "ab";
+    string s2 = "ac";
+    cout << dp_49(s1, s2) << endl;
 
     return 0;
 }
