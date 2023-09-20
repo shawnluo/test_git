@@ -989,7 +989,7 @@ void spiralMat(int n, vector<vector<int>>& mat) {
     int startY = 0;
     int count = 1;
     int offset = 1;
-    
+
     while(half--) {
         int x = startX;
         int y = startY;
@@ -1032,6 +1032,49 @@ void spiralMat(int n, vector<vector<int>>& mat) {
 }
 
 // meeting room
+/*
+会议室 II · Meeting Rooms II
+给定一系列的会议时间间隔intervals，包括起始和结束时间[[s1,e1],[s2,e2],...] (si < ei)，找到所需的最小的会议室数量。
+
+---- 样例1 ----
+输入: intervals = [(0,30),(5,10),(15,20)]
+输出: 2
+解释:
+需要两个会议室
+会议室1:(0,30)
+会议室2:(5,10),(15,20)
+
+---- 样例2 ----
+输入: intervals = [(2,7)]
+输出: 1
+解释:
+只需要1个会议室就够了
+*/
+int meettingRoom2(vector<vector<int>> rooms) {
+    int len = rooms.size();
+    vector<int> start;
+    vector<int> end;
+
+    for(auto x : rooms) {
+        start.push_back(x[0]);
+        end.push_back(x[1]);
+    }
+
+    int pStart = 0;
+    int pEnd = 0;
+    int room = 0;
+
+    while(pStart != len) {
+        if(pStart == 0 || start[pStart] < end[pEnd]) {
+            room++;
+        } else {
+            pEnd++;
+        }
+        pStart++;
+    }
+
+    return room;
+}
 
 /*
     write the body of the is_overlapp function below:
@@ -1113,6 +1156,12 @@ int main(void) {
     //     cout << endl;
     // }
 #endif
+    vector<vector<int>> mat = {{1, 2},
+                                {9, 12},  
+                                {4, 6},
+                                {7, 9}};
+    cout << meettingRoom2(mat) << endl;
+
     // vector<int> weight = {1, 3, 5};
     // vector<int> value = {50, 20, 8};
     // int BAG = 3;
@@ -1131,16 +1180,16 @@ int main(void) {
     //                             {7, 8, 9}};
     // rotateMat(mat);
 
-    int n = 5;
-    vector<vector<int>> mat(n + 1, vector<int>(n + 1));
-    spiralMat(n, mat);
+    // int n = 5;
+    // vector<vector<int>> mat(n + 1, vector<int>(n + 1));
+    // spiralMat(n, mat);
 
-    for(auto x : mat) {
-        for(auto y : x) {
-            // cout << y << " ";
-        }
-        // cout << endl;
-    }
+    // for(auto x : mat) {
+    //     for(auto y : x) {
+    //         // cout << y << " ";
+    //     }
+    //     // cout << endl;
+    // }
 
     return 0;
 }

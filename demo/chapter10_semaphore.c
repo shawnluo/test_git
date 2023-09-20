@@ -11,8 +11,7 @@ void *mather(void *);
 void *son(void *);
 void *daughter(void *);
 void print_sem();
-int main()
-{  
+int main() {
     pthread_t fa, ma, so, da;  
     sem_init(&remain, 0, total);//总数初始化为20 
     sem_init(&apple, 0, 0);//盆子中苹果数, 开始为0  

@@ -945,6 +945,12 @@ int min_meeting_rooms(int **intervals) {
     while(pStart != len) {
         //make an example, then it's easy to understand!
         //[1, 3], [4, 5], [6, 7]
+        /*
+            注意！这里，略过了第一个起始点，用第二个起始点与第一个结束点比较
+            如果：
+                1. 第二个起始点 >= 第一个终点，那么不需要增加会议室
+                2. 第二个起始点 < 第一个终点，意味着会议时间重合，需要增加房间
+        */
         if(pStart == 0 || start[pStart] < end[pEnd]) {
             room++;
         } else {
