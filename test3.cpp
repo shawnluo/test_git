@@ -1,38 +1,33 @@
 
+#include "test.hpp"
 
-#include <iostream>
-#include <vector>
-#include <algorithm>
+// abcddef -> abcd 
+// return 4
+int longestUniqSub(string s) {
+    int pos = -1;
+    int len = 0;
+    int res = 0;
 
-// Comparison function for sorting the 2D vector
-bool compare(const std::vector<int>& a, const std::vector<int>& b) {
-    // Compare the first element of each vector
-    if(a[0] == b[0]) {
-        // return a[1] < b[1];
+    int hash[256];
+    for(int i = 0; i < 256; i++) hash[i] = -1;
+
+    for(int i = 0; i < s.size(); i++) {
+        pos = max(pos, hash[s[i]]);
+        len = i - pos;
+        res = max(res, len);
+        hash[s[i]] = i;
     }
-    return a[0] < b[0];
+    return res;
 }
 
-int main() {
-    std::vector<std::vector<int>> vec = {
-        {3, 2},
-        {1, 7},
-        {1, 4},
-        {1, -1},
-        {2, 3}
-    };
 
-    // Sort the 2D vector using sort
-    // std::sort(vec.begin(), vec.end(), compare);
-    std::sort(vec.begin(), vec.end());
 
-    // Print the sorted vector
-    for (const auto& row : vec) {
-        for (int element : row) {
-            std::cout << element << " ";
-        }
-        std::cout << std::endl;
-    }
-
+int main(void) {
+    Solution sol;
+    vector<int> nums1 = {1, 1, 2, 3, 5, 8, 13, 21};
+    vector<int> nums2 = {2, 3, 5, 7, 11, 13, 17, 19};
+    
+    cout << sol.findMedianSortedArrays(nums1, nums2) << endl;
+    
     return 0;
 }

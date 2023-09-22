@@ -1228,6 +1228,7 @@ char *simplify_path(char *path) {
 
 /*************************************************************
     [130] - longest unique sub strings
+    shortest consective nums sum equal or larger than given value
     abca     -> abc 3
 */
 int longest_uniq_sub(char *s) {

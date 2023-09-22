@@ -39,7 +39,7 @@ https://www.pramp.com/dashboard#/
 0       - 08. shortest sum of consective array equal or larger than key
 0       - 09. z transform
 0       - 10. Permutation in String(leetcode 567)
-0       - 11. find andgrams in a string
+0       - 11. find angrams in a string
 0       - 12. strtok
 0       - 13. string char convertion
 0       - 14. hex decimal convertion
@@ -150,7 +150,10 @@ https://www.pramp.com/dashboard#/
 0       - 06. find all the islands
 0       - 07. the maze leetcode 490
 
-/*******************  chapter 10 - others  ********************/
+/*******************  chapter 10 - binary tree  ********************/
+
+
+/*******************  chapter 11 - others  ********************/
 1       - 01. sizeof(int) returns unsigned longest
 0       - 02. long vs double
 1       - 03. mmap example
@@ -161,7 +164,6 @@ https://www.pramp.com/dashboard#/
 1       - 08. implement a i2c test mfg test func
 0       - 100. add binary, return string
 0       - 101. 
-
 
 
 //TODO

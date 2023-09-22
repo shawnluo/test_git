@@ -109,7 +109,7 @@ void removeSpaces(string& s) {
             if (slow != 0) {
                 s[slow++] = ' ';
             }
-            while (i < s.size() && s[i] != ' ') {
+            while (i < s.size() && s[i] != ' ') { // 不等于空格的情况
                 s[slow++] = s[i++];
             }
         }
