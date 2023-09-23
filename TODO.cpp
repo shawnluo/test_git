@@ -124,15 +124,37 @@ done
 // longestUniqSub(s)
 done
 
-// sum of shortest consective array items, which larger than given value 
-    // shortest_consective
+// . 最长连续上升子序列
+done
 
-// create linked list
-// insert ll
-// del ll
-// isPalindrome
-// permutation
-// zerocopy mmap
+// . bit manipulate (cracking the code)
+
+// leetcode 862 凑成k的最少硬币
+
+// 滑动窗口
+
+// . strstr
+    // 1. brute force
+    // 2. kmp
+
+// . sum of shortest consective array items, which larger than given value (连续子集和大于某数，求其中最短的连续子集长度)
+    
+// . print int as binary
+
+// . 最短的大于某数的非连续子集和
+
+// . create linked list
+// . insert ll
+// . del ll
+
+// . 最长palindrome
+    // . isPalindrome
+// . permutation
+// . zerocopy mmap
+// . longest increasing items 最长上升子序列
+
+
+
 
 // ioremap
 

@@ -244,6 +244,7 @@ int LenDelRep(vector<int> nums) {
     return len;
 }
 
+// TODO
 int shortest_consective_arr_dp(int *res, int size, int key) {
     int left = 0, right = 0;
     int len, len_min = INT_MAX;
