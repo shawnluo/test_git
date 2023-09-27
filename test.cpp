@@ -187,7 +187,22 @@ bool isRectangle(int (*nums)[2], int len) {
 
 // read API is given, readFour(), implement a read function to read the whole file
 int read(char *buf, int n) {
+    int copiedChars = 0;
+    int readChars = 4;
+    char buf4[4];
 
+    while(copiedChars < n && readChars == 4) {
+        readChars = read4(buf4);
+
+        for(int i = 0; i < readChars; i++) {
+            if(copiedChars == n) {
+                return copiedChars;
+            }
+            buf[copiedChars] = buf4[i];
+            copiedChars++;
+        }
+    }
+    return copiedChars;
 }
 
 
