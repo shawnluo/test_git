@@ -206,6 +206,32 @@ int read(char *buf, int n) {
 }
 
 
+/*  [003-01]    binary sorting **************************************
+
+*/
+int partition(int *nums, int start, int end) {
+    int left = start - 1;
+    int right;
+    int pivot = nums[end];
+
+    for(right = start; right < end; right++) {
+        if(nums[right] < pivot) {
+            left++;
+            swap(nums + left, nums + right);
+        }
+    }
+    swap(&nums[left + 1], &nums[end]);
+    return left + 1;
+}
+
+
+void quick_sort(int *nums, int start, int end) {
+    if(start < end) {
+        int pivot = partition(nums, start, end);
+        quick_sort(nums, start, pivot - 1);
+        quick_sort(nums, pivot + 1, end);
+    }
+}
 
 
 

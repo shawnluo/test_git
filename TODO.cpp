@@ -121,7 +121,7 @@ done
 // . zerocopy mmap
 // . longest increasing items 最长上升子序列
 
-
+// exception: http://c.biancheng.net/view/2332.html
 
 
 // ioremap

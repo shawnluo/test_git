@@ -53,12 +53,12 @@
 | 8000  | IPC              | [code](demo/chapter10_semaphore.c)                              | semaphore                                                               |           |      |
 |       |                  |                                                              |                                                                         |           |      |
 | 9000  | sorting          | [code](code_lib/sort_qsort.cpp)                                 | sort, qsort                                                             |           |      |
-|       |                  | [code](code_lib/quicksorting.cpp)                               | quick sorting - partition                                               |           |      |
+|       |                  | [code](code_lib/quicksorting.cpp)                               | quick sorting - partition                                               | important |      |
 |       |                  | [code](code_lib/nth_in_array.cpp)                               | nth element in array                                                    |           |      |
 |       |                  |                                                              |                                                                         |           |      |
 | 10000 | embedded         | [code](code_lib/alignedMallloc.cpp)                             | aligned malloc                                                          |           |      |
 |       |                  |                                                              |                                                                         |           |      |
 | 11000 | others           | [code](code_lib/longestStrChain.cpp)                            | longestStrChain.cpp                                                     |           | TODO |
 |       |                  | [code](code_lib/read4.cpp)                                      | using read4 api to implement read N characters                          | important |      |
-|       |                  |                                                              |                                                                         |           |      |
-|       |                  |                                                              |                                                                         |           |      |
+|       |                  | [code](code_lib/likely.cpp)                                     | likely, unlikely, throw exception                                      |           |      |
+|       |                  | [code](code_lib/test_iterator.cpp)                              | c++ iterator                                                            |           |      |
