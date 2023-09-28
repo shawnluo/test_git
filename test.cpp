@@ -61,182 +61,70 @@ void test() {
     cout << endl;
 }
 
-class Solution {
-public:
-    // aabaaf
-    static void getNext(int* next, const string& s) {
-        next[0] = 0;
-        int j = 0;
-        for(int i = 1; i < s.size(); i++) {
-            while(j > 0 && s[i] != s[j]) {
-                j = next[j - 1];    // 
-            }
-            if(s[i] == s[j]) {
-                j++;
-            }
-            next[i] = j;
+int lenOfNorep(vector<int>& nums) {
+    int count = 1;
+
+    for(int i = 1; i < nums.size(); i++) {
+        if(nums[i] != nums[i - 1]) {
+            nums[count] = nums[i];
+            count++;
         }
-        // for(int i = 0; i < s.size(); i++) {
-        //     cout << next[i] << " ";
-        // }
-        // cout << endl;
     }
-
-    static int myStrstr(string s, string t, int *next) {
-        int j = 0;
-        getNext(next, t);
-        for(int i = 0; i < s.size(); i++) {
-            while(j > 0 && s[i] != t[j]) {
-                j = next[j - 1];
-            }
-            if(s[i] == t[j]) {
-                j++;
-            }
-            if(j == t.size()) {
-                return i - t.size() + 1;
-            }
-        }
-        return -1;
-    }
-};
-
-// dp 2
-// fib[i] = fib[i - 1] + fib[i - 2]
-int fib(int n) {
-    if(n <= 1) return n;
-
-    vector<int> dp(n + 1, 0);
-    dp[0] = 0;
-    dp[1] = 1;
-
-    for(int i = 2; i <= n; i++) {
-        dp[i] = dp[i - 1] + dp[i - 2];
-    }
-    return dp[n];
+    return count;
 }
 
-// mat rotate
-void showMe(const vector<vector<int>> mat) {
-    for (auto x : mat) {
-        for (auto y : x) {
+void permutation(string s, int pos) {
+    int size = s.size();
+    if(pos == size){
+        cout << s << endl;
+    }
+    for(int i = pos; i < size; i++) {
+        swap(s[i], s[pos]);
+        permutation(s, pos + 1);
+        swap(s[i], s[pos]);
+    }
+}
+
+/*
+    n = 5, k = 2
+    1, 2
+    1, 3,
+    1, 4
+    1, 5
+    
+    2, 3
+    2, 4
+    2, 5
+
+    3, 4
+    3, 5
+
+    4, 5
+*/
+vector<int> buf;
+vector<vector<int>> res;
+void permutation_2(int n, int k, int pos) {
+     if(buf.size() == k) {
+        res.push_back(buf);
+        return;
+     }
+     for(int i = pos; i <= n; i++) {
+        buf.push_back(i);
+        permutation_2(n, k, i + 1);
+        buf.pop_back();
+     }
+}
+
+int main(void) {
+    // string s = "abc";
+    permutation_2(5, 2, 1);
+
+    for(auto x : res) {
+        for(auto y : x) {
             cout << y << " ";
         }
         cout << endl;
     }
-}
-
-void mat_rotate(vector<vector<int>>& mat) {
-    int size = mat[0].size();
-    // int layers = 0;
-    for(int i = 0; i < size / 2; i++) {
-        for(int j = i; j < size - 1 - i; j++) {
-            int tmp = mat[i][j];
-            mat[i][j] = mat[j][size - i - 1];
-            mat[j][size - i - 1] = mat[size - 1 - i][size - 1 - j];
-            mat[size - 1 - i][size - 1 - j] = mat[size - 1 - j][i];
-            mat[size - 1 - j][i] = tmp;
-        }
-    }
-}
-
-// mat spiral
-void mat_spiral(int n) {
-    int N = n / 2;
-    int startX = 0;
-    int startY = 0;
-    int offset = 0;
-    int count = 0;
-    vector<vector<int>> res(n + 1, vector<int>(n + 1, 0));
-
-    while(N-- > 0) {
-        int x = startX;
-        int y = startY;
-        for(; x < n - offset; x++) {
-            res[x][y] = count++;
-        }
-        for(; y < n - offset; y++) {
-            res[x][y] = count++;
-        }
-        for(; x > startX; x--) {
-            res[x][y] = count++;
-        }
-        for(; y > startY; y--) {
-            res[x][y] = count++;
-        }
-        startX++;
-        startY++;
-        offset++;
-    }
-    showMe(res);
-}
-
-// is rectangle from given points(x, y)
-bool isRectangle(int (*nums)[2], int len) {
-    // calculate the length
-    // point0: nums[0][0], nums[0][1]
-    // ...
-    // point3: nums[3][0], nums[3][1]
-    int len1 = nums[1][0] - nums[1][1];
-    // sorting 
-    // if 2 same longest, 2 mid, 2 short: longest * longest = mid * mid + short * short, then yes, else no
-
-    vector<int> res{1, 7, 9, 0, -1};
-    sort(res.begin(), res.end());
-    return true;
-}
-
-// read API is given, readFour(), implement a read function to read the whole file
-int read(char *buf, int n) {
-    int copiedChars = 0;
-    int readChars = 4;
-    char buf4[4];
-
-    while(copiedChars < n && readChars == 4) {
-        readChars = read4(buf4);
-
-        for(int i = 0; i < readChars; i++) {
-            if(copiedChars == n) {
-                return copiedChars;
-            }
-            buf[copiedChars] = buf4[i];
-            copiedChars++;
-        }
-    }
-    return copiedChars;
-}
-
-
-/*  [003-01]    binary sorting **************************************
-
-*/
-int partition(int *nums, int start, int end) {
-    int left = start - 1;
-    int right;
-    int pivot = nums[end];
-
-    for(right = start; right < end; right++) {
-        if(nums[right] < pivot) {
-            left++;
-            swap(nums + left, nums + right);
-        }
-    }
-    swap(&nums[left + 1], &nums[end]);
-    return left + 1;
-}
-
-
-void quick_sort(int *nums, int start, int end) {
-    if(start < end) {
-        int pivot = partition(nums, start, end);
-        quick_sort(nums, start, pivot - 1);
-        quick_sort(nums, pivot + 1, end);
-    }
-}
-
-
-
-
-int main(void) {
 
     return 0;
 }

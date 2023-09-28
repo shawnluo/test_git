@@ -129,3 +129,38 @@ done
 --------------------- pcie
 // enume
 // BAR
+
+
+
+// ----------------------- Aug 28, 2023 ----------------------- 
+0. place
+    1. basis
+    2. nearby basis with rest
+    3. west branch - sjpl
+    4. central park
+    5. central park library
+    6. Milpitas library
+
+0.1. email
+    TJ Long
+
+1. coding
+✌️    1. kmp                          
+✌️    2. mat rotate
+✌️    3. spiral mat
+✌️    4. quickSort - partition - DONE 
+✌️    5. read4()
+✌️    6. is rectangle?
+    7. permutation
+✌️        1. string print
+        2. 给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合
+        3. bt5. 电话号码的字母组合
+✌️    8. len of norepeat element array
+    9. 
+
+2. System
+    1. IPC
+    2. interrupt - top half - bottom half
+    3. PCI-e enumuration
+    4. network device driver
+    5. design a firmware DoIP system

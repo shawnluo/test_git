@@ -20,7 +20,11 @@ int partition(int *nums, int start, int end) {
     return start;
 }
 
-// 3. 优化 partition函数
+/*
+    3. 优化 partition函数
+        left 总是指向小于pivot的元素
+        right 越过大于pivot的元素，直到找到小于pivot的元素，并且与left + 1元素交换
+*/
 int partition_2(vector<int>& nums, int start, int end) {
     int left = start - 1;
     int right;
