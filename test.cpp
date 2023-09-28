@@ -103,6 +103,32 @@ void removeExtraSpaces(string& s) {
     s.resize(slow);
 }
 
+/*
+    1: 
+    2: a, b, c
+    3: d, e, f
+    4: g, h, i
+    5: j, k, l
+    6: m, n, o
+    7: p, q, r, s
+    8: t, u, v
+    9: w, x, y, z
+
+    "23": abc, def -> ad, ae, af, ...
+*/
+const string letterMap[10] = {...};
+void bt_5(const string& digits, int index) {
+    if(index == digits.size()) {
+        res.push_back(s);
+        return;
+    }
+    for(int i = 0; i < letters.size(); i++) {
+        s.push_back(letters[i]);
+        bt_5(digits, index + 1);
+        s.pop_back();
+    }
+}
+
 
 
 int main(void) {
