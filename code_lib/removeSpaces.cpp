@@ -4,15 +4,18 @@
     remove extra spaces in a sentence
 */
 
-void removeSpaces(string& s) {
-    int slow = 0;
-    for(int i = 0; i < s.size(); i++) {
-        if(s[i] != ' ') {
+void removeExtraSpaces(string& s) {
+    int size = s.size();
+    int fast = 0;   // fast travels along old string
+    int slow = 0;   // slow points to new string
+
+    for(int fast = 0; fast < size; fast++) {
+        if(s[fast] != ' ') {
             if(slow != 0) {
                 s[slow++] = ' ';
             }
-            while(i < s.size() && s[i] != ' ') {
-                s[slow++] = s[i++];
+            while(fast < size && s[fast] != ' ') {
+                s[slow++] = s[fast++];
             }
         }
     }
