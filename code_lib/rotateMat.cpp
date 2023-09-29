@@ -1,7 +1,6 @@
 // rotate mat
 void rotateMat(vector<vector<int>>& mat) {
-    int row = mat.size();
-    int col = mat[0].size();
+    int size = mat.size();
 
     /*
         1  2  3  4  5
@@ -15,17 +14,17 @@ void rotateMat(vector<vector<int>>& mat) {
            7  8  9
               13
     */
-    for(int i = 0; i < row / 2; i++) {
-        for(int j = i; j < col - i - 1; j++) {  //注意起始点和终止点！！！
+    for(int i = 0; i < size / 2; i++) {
+        for(int j = i; j < size - i - 1; j++) {  //注意起始点和终止点！！！
             int save = mat[i][j];
             // [l, R) - top
-            mat[i][j] = mat[j][row - i - 1];
+            mat[i][j] = mat[j][size - i - 1];
             // [U, D) - right
-            mat[j][row - i - 1] = mat[row - i - 1][row - j - 1];
+            mat[j][size - i - 1] = mat[size - i - 1][size - j - 1];
             // [R, L) - bottom
-            mat[row - i - 1][row - j - 1] = mat[row - j - 1][i];
+            mat[size - i - 1][size - j - 1] = mat[size - j - 1][i];
             // [D, U) - left
-            mat[row - j - 1][i] = save;
+            mat[size - j - 1][i] = save;
         }
     }
 }

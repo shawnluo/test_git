@@ -43,65 +43,65 @@
 // 24 完全平方数
 // dp[j] = min(dp[j], dp[j - i * i] + 1)
 
-void test() {
-    vector<int> nums{-1, 1, 1, 2, 2, 2, 3, 3};
+// void test() {
+//     vector<int> nums{-1, 1, 1, 2, 2, 2, 3, 3};
 
-    int low = 0;
-    for(int i = 0; i < nums.size() - 1; i++) {
-        if(nums[i] != nums[i + 1]) {
-            nums[low++] = nums[i];
-        }
-    }
-    nums[low] = nums.back();
-    cout << nums.back() << endl;
+//     int low = 0;
+//     for(int i = 0; i < nums.size() - 1; i++) {
+//         if(nums[i] != nums[i + 1]) {
+//             nums[low++] = nums[i];
+//         }
+//     }
+//     nums[low] = nums.back();
+//     cout << nums.back() << endl;
 
-    for(int i = 0; i <= low; i++) {
-        cout << nums[i] << " ";
-    }
-    cout << endl;
-}
+//     for(int i = 0; i <= low; i++) {
+//         cout << nums[i] << " ";
+//     }
+//     cout << endl;
+// }
 
-int lenOfNorep(vector<int>& nums) {
-    int count = 1;
+// int lenOfNorep(vector<int>& nums) {
+//     int count = 1;
 
-    for(int i = 1; i < nums.size(); i++) {
-        if(nums[i] != nums[i - 1]) {
-            nums[count] = nums[i];
-            count++;
-        }
-    }
-    return count;
-}
+//     for(int i = 1; i < nums.size(); i++) {
+//         if(nums[i] != nums[i - 1]) {
+//             nums[count] = nums[i];
+//             count++;
+//         }
+//     }
+//     return count;
+// }
 
-void permutation(string s, int pos) {
-    int size = s.size();
-    if(pos == size){
-        cout << s << endl;
-    }
-    for(int i = pos; i < size; i++) {
-        swap(s[i], s[pos]);
-        permutation(s, pos + 1);
-        swap(s[i], s[pos]);
-    }
-}
+// void permutation(string s, int pos) {
+//     int size = s.size();
+//     if(pos == size){
+//         cout << s << endl;
+//     }
+//     for(int i = pos; i < size; i++) {
+//         swap(s[i], s[pos]);
+//         permutation(s, pos + 1);
+//         swap(s[i], s[pos]);
+//     }
+// }
 
-void removeExtraSpaces(string& s) {
-    int size = s.size();
-    int fast = 0;   // fast travels along old string
-    int slow = 0;   // slow points to new string
+// void removeExtraSpaces(string& s) {
+//     int size = s.size();
+//     int fast = 0;   // fast travels along old string
+//     int slow = 0;   // slow points to new string
 
-    for(int fast = 0; fast < size; fast++) {
-        if(s[fast] != ' ') {
-            if(slow != 0) {
-                s[slow++] = ' ';
-            }
-            while(fast < size && s[fast] != ' ') {
-                s[slow++] = s[fast++];
-            }
-        }
-    }
-    s.resize(slow);
-}
+//     for(int fast = 0; fast < size; fast++) {
+//         if(s[fast] != ' ') {
+//             if(slow != 0) {
+//                 s[slow++] = ' ';
+//             }
+//             while(fast < size && s[fast] != ' ') {
+//                 s[slow++] = s[fast++];
+//             }
+//         }
+//     }
+//     s.resize(slow);
+// }
 
 /*
     1: 
@@ -116,26 +116,101 @@ void removeExtraSpaces(string& s) {
 
     "23": abc, def -> ad, ae, af, ...
 */
-const string letterMap[10] = {...};
-void bt_5(const string& digits, int index) {
-    if(index == digits.size()) {
-        res.push_back(s);
-        return;
-    }
-    for(int i = 0; i < letters.size(); i++) {
-        s.push_back(letters[i]);
-        bt_5(digits, index + 1);
-        s.pop_back();
+// const string letterMap[10] = {...};
+// void bt_5(const string& digits, int index) {
+//     if(index == digits.size()) {
+//         res.push_back(s);
+//         return;
+//     }
+//     for(int i = 0; i < letters.size(); i++) {
+//         s.push_back(letters[i]);
+//         bt_5(digits, index + 1);
+//         s.pop_back();
+//     }
+// }
+
+
+void getNext(vector<int>& next, string s) {
+    int left = 0;
+    next[0] = 0;
+    int size = s.size();
+
+    for(int right = 1; right < size; right++) {
+        while(left > 0 && s[right] != s[left]) {
+            left = s[left - 1];
+        }
+        if(s[right] == s[left]) {
+            left++;
+        }
+        s[right] = left;
     }
 }
 
+int myStrstr(string s, string t) {
+    int j = 0;  // prefix
+    vector<int> next(t.size(), 0);
+    getNext(next, t);
+    for(int i = 0; i < s.size(); i++) { // i: surfix
+        while(j > 0 && s[i] != t[j]) {
+            j = next[j - 1];
+        }
+        if(s[i] == t[j]) {
+            j++;
+        }
+        if(j == t.size()) {
+            return i - t.size() + 1;
+        }
+    }
+    return - 1;
+}
+
+void matRotate(vector<vector<int>>& mat) {
+    int size = mat.size();
+    for(int i = 0; i < size / 2; i++) {
+        for(int j = i; j < size - i - 1; j++) {
+            int save = mat[i][j];
+            mat[i][j] = mat[j][size - i - 1];
+            mat[j][size - i - 1] = mat[size - i - 1][size - j - 1];
+            mat[size - i - 1][size - j - 1] = mat[size - j - 1][i];
+            mat[size - j - 1][i] = save;
+        }
+    }
+}
+
+int partition(int* nums, int start, int end) {
+    int j = start - 1;
+
+    for(int i = start; i < end; i++) {
+        if(nums[i] > nums[end]) {
+            j++;
+            swap(nums[i], nums[j]);
+        }
+    }
+    swap(nums[j], nums[end]);
+    return j;
+}
+
+void quickSort() {
+
+}
+
+
+//TODO nth biggest number
 
 
 int main(void) {
-    string s = "  abc  d  e ";
-    removeExtraSpaces(s);
-    cout << s << endl;
-    cout << s.size() << endl;
+    // string s = "  abc  d  e ";
+    // removeExtraSpaces(s);
+    // cout << s << endl;
+    // cout << s.size() << endl;
+
+    // string s = "show me";
+    // string t = "mpe";
+
+    // cout << myStrstr(s, t) << endl;
+
+    int nums[] = {2, 8, 9, 12, 22, 3, 10};
+
 
     return 0;
 }
