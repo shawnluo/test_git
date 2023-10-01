@@ -38,7 +38,7 @@
 |       |              |                                                              | longest palindrome                                                      |           |      |
 |       |              | [code](code_lib/removeSpaces.cpp)                               | remove spaces                                                           |           |      |
 |       |              |                                                              | reverse words in a sentence                                             |           |      |
-|       |              |                                                              |                                                                         |           |      |
+|       |              | [code](code_lib/longestUniqSubstr.cpp)                          | longest uniq sbustring                                                  |           |      |
 |       |              |                                                              |                                                                         |           |      |
 | 5000  | binary tree  | [code](code_lib/chapter_10_binaryTree/InsBinTree.cpp)           | insert node                                                             |           |      |
 |       |              |                                                              | delete node                                                             |           | todo |

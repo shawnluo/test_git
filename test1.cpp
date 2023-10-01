@@ -89,9 +89,107 @@ void* memCpy(void* dest, const void* src, size_t count) {
     return dest;
 }
 
+int meetingRoom(vector<vector<int>> nums) {
+    int room = 0;
+    vector<int> start;
+    vector<int> end;
+    for(auto x : nums) {
+        start.push_back(x[0]);
+        end.push_back(x[1]);
+    }
+    sort(start.begin(), start.end());
+    sort(end.begin(), end.end());
+
+    int size = nums.size();
+    int pEnd = 0;
+    for(int pStart = 0; pStart < size; pStart++) {
+        if(pStart == 0 || start[pStart] < end[pEnd]) {
+            room++;
+        } else {
+            pEnd++;
+        }
+    }
+    return room;
+}
+
+int longest_u(string s) {
+    int hash[256];
+    int len = 0;
+    int pos = -1;
+    int res = 0;
+    for(int i = 0; i < 256; i++) {
+        hash[i] = -1;
+    }
+
+    for(int i = 0; i < 256; i++) {
+        // cout << hash[i] << " ";
+    }
+    
+    for(int i = 0; i < s.size(); i++) {
+        pos = max(pos, hash[s[i]]);
+        len = i - pos;
+        res = max(res, len);
+        hash[s[i]] = i;
+    }
+    return res;
+}
+
+int myRead(char* buf, int n) {
+    int readChar = 4;
+    char buf4[4];
+    int count = 0;
+    
+    while(readChar == 4 && cout < n) {
+        readChar = read4(buf4);
+        for(int i = 0; i < readChar; i++) {
+            if(count == n) {
+                return count;
+            }
+            buf[count++] = buf4[i];
+        }
+    }
+
+    return count;
+}
+
+bool isRect(vector<vector<int>> nums) {
+    // 6 lines len
+    // sort
+    // if long * long == short * short + shorter * shorter; return true;
+    // else return false;
+}
+
+void permu(string s, int pos) {
+    if(pos == s.size()) {
+        cout << s << endl;
+        return;
+    }
+    for(int i = pos; i < s.size(); i++) {
+        swap(s[i], s[pos]);
+        permu(s, pos + 1);
+        swap(s[i], s[pos]);
+    }
+}
+
+void bt(int n, int k, int pos) {
+    if(buf.size() == k) {
+        res.push_back(buf);
+        return;
+    }
+    for(int i = 1; i <= n; i++) {
+        buf.push_back(i);
+        bt(n, k, i + 1);
+        buf.pop();
+    }
+}
+
 int main(void) {
-    uint32_t n = 4;
-    cout << getOnes(n) << endl;
+    string s = "abcada";
+    cout << longest_u(s) << endl;
+    // vector<vector<int>> nums = {{1, 3}, {2, 6}, {7, 9}};
+    // cout << meetingRoom(nums) << endl;
+    // uint32_t n = 4;
+    // cout << getOnes(n) << endl;
 
     // vector<int> nums = {2, 1, 3, 16, 51, 14};
     // test_revers_iterator(nums);
