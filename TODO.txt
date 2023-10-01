@@ -122,7 +122,7 @@ done
 
 
 
------------------------ Aug 28, 2023 ----------------------- 
+----------------------- Sep 28, 2023 ----------------------- 
 0. place
     1. basis
     2. nearby basis with rest
@@ -161,7 +161,7 @@ done
     4. network device driver
     5. design a firmware DoIP system
 
------------------------ Aug 29, 2023 -----------------------
+----------------------- Sep 29, 2023 -----------------------
 1. coding
 ✌️    kmp                          
 ✌️    mat rotate
@@ -170,6 +170,27 @@ done
     delete extra sapces
     reverse string
     find the nth elemnt in a array
+    meeting room
+    read4()
+    is rectangle?
+    permutation string print
+    给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合
+    bt5. 电话号码的字母组合
+    len of norepeat element array
+    双指针
+    字符串
+    哈希表
+    数组
+
+----------------------- Sep 30, 2023 -----------------------
+1. coding
+✌️    kmp                          
+✌️    mat rotate
+✌️    spiral mat
+✌️    quickSort - partition
+    delete extra sapces
+    reverse string
+✌️    find the nth elemnt in a array
     meeting room
     read4()
     is rectangle?

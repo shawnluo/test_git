@@ -214,3 +214,113 @@ int main(void) {
 
     return 0;
 }
+
+void getNext(int *next, string s) {
+    next[0] = 0;
+    int j = 0;
+
+    for(int i = 1; i < s.size(); i++) {
+        while(j > 0 && s[i] != s[j]) {
+            j = next[j - 1];
+        }
+        if(s[i] == s[j]) {
+            j++;
+        }
+        s[i] = j;
+    }
+
+}
+
+int myStrstr(string s, string t) {
+    int next[t.size()];
+    getNext(next, t);
+
+    int j = 0;
+    for(int i = 0; i < s.size(); i++) {
+        while(j > 0 && s[i] != t[j]) {
+            j = next[j - 1];
+        }
+        if(s[i] == t[j]) {
+            j++;
+        }
+        if(j == t.size()) {
+            return i - t.size() + 1;
+        }
+    }
+    return -1;
+}
+
+void mat(vector<vector<int>>& mat) {
+    int n = mat.size();
+    for(int i = 0; i < n / 2; i++) {
+        for(int j = i; j < n - i - 1; j++) {
+            int save = mat[i][j];
+            mat[i][j] = mat[j][n - i - 1];
+            mat[j][n - i - 1] = mat[n - i - 1][n - j - 1];
+            mat[n - i - 1][n - j - 1] = mat[n - j - 1][i];
+            mat[n - j - 1][i] = save;
+        }
+    }
+}
+
+void spiral(int n) {
+    int half = n / 2;
+
+    int startX = 0;
+    int startY = 0;
+    int offset = 1;
+    vector<vector<int>> mat(n, vector<int>(n));
+    while(half-- > 0) {
+        int x = startX;
+        int y = startY;
+
+        for(; y > n - offset; y++) {
+            mat[x][y] = count++;
+        }
+        for(; x > n - offset; x++) {
+            mat[x][y] = count++;
+        }
+        for(; y > startY; y--) {
+            mat[x][y] = count++;
+        }
+        for(; x > startX; x--) {
+            mat[x][y] = count++;
+        }
+    }
+    if(n % 2) mat[x][y] = count;
+}
+
+int partition(int* arr, int start, int end) {
+    int j = start - 1;
+
+    for(int i = start; i < end; i++) {
+        if(arr[i] < arr[end]) {
+            swap(arr[++j], arr[i]);
+        }
+    }
+    swap(arr[j], arr[end]);
+    return j;
+}
+
+void myQsort(int *arr, int start, int end) {
+    if(start < end) {
+        int pivot = partition(arr, start, end);
+        myQsort(arr, start, pivot - 1);
+        myQsort(arr, pivot + 1, end);
+    }
+}
+
+int do_getNth(int* arr, int start, int end, int k) {
+    if(start < end) {
+        int pivot = partition(arr, start, end);
+        if(k == pivot) return arr[pivot];
+        
+        if(k < pivot)   return do_getNth(arr, start, pivot - 1);
+        else            return do_getNth(arr, pivot + 1, end);
+    }
+}
+
+int getNth(int *arr, int len, int k) {
+    return do_getNth(arr, 0, len - 1, k);
+}
+
