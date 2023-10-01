@@ -22,8 +22,8 @@ int partition(int *nums, int start, int end) {
 
 /*
     3. 优化 partition函数
-        left 总是指向于pivot的元素，其下一个元素就是大于pivot的元素
-        right 越过大于pivot的元素，直到找到小于pivot的元素，并且与left + 1元素交换
+        left总是指向目前已知的, 比nums[end]小的最后一个元素。
+        那么如果left指向了一个比nums[end]小的元素，nums[++left]就跟nums[right]交换(可能跟自己交换)
 */
 int partition_2(vector<int>& nums, int start, int end) {
     int left = start - 1;
@@ -31,7 +31,8 @@ int partition_2(vector<int>& nums, int start, int end) {
     int pivot = nums[end];
 
     for(right = start; right < end; right++) {
-        if(nums[right] < pivot) {
+        if(nums[right] < pivot) {   // 升序
+        // if(nums[right] > pivot) {   // 降序
             left++;
             std::swap(nums[left], nums[right]);
         }

@@ -31,7 +31,13 @@ void removeExtraSpaces(string& s) {
 
 
 void reverse(string& s, int start, int end) {
+    if(s.size() <= 1) return;
 
+    int left = start;
+    int right = end;
+    while(left < right) {
+        swap(s[left], s[right]);
+    }
 }
 
 void reverseWords(string& s) {
@@ -46,5 +52,14 @@ void reverseWords(string& s) {
         }
     }
 
-    reverse(s, 0, s.size() - 1);
+    reverse(s, 0, s.size() - 1);    // don't forget the last word, not end with space
+}
+
+int main(void) {
+    string s = "  show   me the    money  ";
+
+    reverseWords(s);
+    cout << s << endl;
+
+    return 0;
 }

@@ -33,7 +33,7 @@
 |       |              | [code](code_lib/removeRepeatArray.cpp)                          | len of sorted element, remove repeat elements                           |           |      |
 |       |              |                                                              |                                                                         |           |      |
 |       |              |                                                              |                                                                         |           |      |
-| 4000  | string       | [code](code_lib/chapter_1/reverseWords.cpp)                     | reverse words                                                           |           |      |
+| 4000  | string       | [code](code_lib/reverseWords.cpp)                               | reverse words                                                           |           |      |
 |       |              |                                                              | palindrome                                                              |           |      |
 |       |              |                                                              | longest palindrome                                                      |           |      |
 |       |              | [code](code_lib/removeSpaces.cpp)                               | remove spaces                                                           |           |      |

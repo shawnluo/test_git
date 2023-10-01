@@ -202,3 +202,32 @@ done
     字符串
     哈希表
     数组
+
+----------------------- Oct 1, 2023 -----------------------
+1. coding
+✌️    kmp
+✌️    kth max in a array - priority_queue
+✌️    quickSort - partition
+✌️    kth max in a array - partition
+✌️    quickSort(descent) - partition
+✌️    mat rotate
+✌️    spiral mat
+✌️    delete extra sapces
+✌️    reverse string
+✌️    reverse words in a sentence
+✌️    calculate the array len, after remove the duplicated elements, in a sorted array
+✌️    calc how many ones in a integer
+    static_cast<> vs dynamic_cast<>
+    memory copy vs string sopy - 注意类型转换和const的使用
+    meeting room
+    read4()
+    is rectangle?
+    permutation string print
+    给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合
+    bt5. 电话号码的字母组合
+    len of norepeat element array
+
+    双指针
+    字符串
+    哈希表
+    数组

@@ -13,18 +13,22 @@ int lenOfNorep(vector<int>& nums) {
             count++;
         }
     }
+    nums.resize(count);
     return count;
 }
 
 int main(void) {
     vector<int> nums = {1, 2, 2, 3, 4};
-    // cout << lenOfNorep(nums) << endl;
-    // lenOfNorep(nums);
+
+    cout << lenOfNorep(nums) << endl;
+
+    // using iterator to travel
     for(vector<int>::iterator it = nums.begin(); it != nums.end(); it++) {
-        // cout << *it << endl;
+        cout << *it << endl;
     }
-    for(int i = 0; i < lenOfNorep(nums); i++) {
-        cout << nums[i] << endl;
+
+    for(auto x : nums) {
+        cout << x << endl;
     }
 
     return 0;

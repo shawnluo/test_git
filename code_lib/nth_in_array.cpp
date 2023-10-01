@@ -45,7 +45,7 @@ int do_getNth(int* arr, int start, int end, int k) {
         if(k < pivot)   return do_getNth(arr, start, pivot - 1, k);
         else            return do_getNth(arr, pivot + 1, end, k);
     }
-    return -1;
+    // return -1;   // this is wrong. the fun will always return -1.
 }
 
 int getNth(int *arr, int len, int k) {
@@ -56,14 +56,14 @@ int getNth(int *arr, int len, int k) {
 int main(void) {
     int arr[] = {2, 1, 3, 6, 5, 4, 7};
     int size = sizeof(arr) / sizeof(arr[0]);
-    cout << size << endl;
-    myQsort(arr, 0, size);
+
+    cout << getNth(arr, size, 4) << endl;
+
+    myQsort(arr, 0, size - 1);  // size - 1, NOT size
     for(auto x : arr) {
         cout << x << " ";
     }
     cout << endl;
-
-    cout << getNth(arr, size, 4) << endl;
 
     return 0;
 }
