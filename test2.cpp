@@ -23,6 +23,58 @@
 //     return copiedChars;
 // }
 
+int read(char* buf, int n) {
+	int readChars = 4;
+	int buf4[4];
+	int count = 0;
+	while(count < n && readChars == 4) {
+		readChars = read4(buf4);
+
+		for(int i = 0; i < readChars; i++) {
+			if(count == n) {
+				return count;
+			}
+			buf[count++] = buf4[i];
+		}
+	}
+	return count;
+}
+
+vector<int> interSection(vector<int>& nums1, vector<int>& nums2) {
+	unordered_set<int> res;
+	unordered_set<int> set(nums1.begin(), nums1.end());
+	for(int num : nums2) {
+		if(set.find(num) != set.end()) {
+			res.insert(num);
+		}
+	}
+	return vector<int>(res.begin(), res.end());
+}
+
+vector<int> interSection2(vector<int>& nums1, vector<int>& nums2) {
+	unordered_set<int> res;
+	unordered_set<int> set(nums1.begin(), nums1.end());
+
+	for(int num : nums2) {
+		if(set.find(num) != set.end()) {
+			res.insert(num);
+		}
+	}
+	return vector<int>(res.begin(), res.end());
+}
+
+vector<int> interSection3(vector<int> nums1, vector<int> nums2) {
+	unordered_set<int> res;
+	unordered_set<int> set(nums1.begin(), nums2.end());
+
+	for(auto x : nums2) {
+		if(set.find(x) != set.end()) {
+			res.insert(num);
+		}
+	}
+	return vector<int>(res.begin(), res.end());
+}
+
 void swap(int arr[] , int pos1, int pos2){
 	int temp;
 	temp = arr[pos1];

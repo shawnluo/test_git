@@ -1,6 +1,3 @@
-
-#include "test.hpp"
-
 int calcSum(int n) {
     int sum = 0;
     while(n) {
@@ -28,10 +25,6 @@ bool isHappy(int n) {
     }
 
     // return true;
-}
-
-int FourAdding() {
-
 }
 
 int main(void) {
