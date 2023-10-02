@@ -225,9 +225,37 @@ done
 ✌️    is rectangle?
 ✌️    permutation string print
 ✌️    给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合
+    binary insert
+    binary search
     bt5. 电话号码的字母组合
+    最长连续上升子序列
+    1. 长度
+    2. 打印出上升子序列
+
+    最长上升子序列
+    1. 长度
+    2. 打印出上升子序列
+
+    排序后的单元的序列长度
+    1. 双指针去重
+    2. 判断与前一个数不相等
+    3. 除重后的长度 - dp解
+    4. 打印除重后的序列 - unordered_set
+
+    未排序后的单元的序列长度
+    1. 除重后的长度
+        1) dp
+        2) while loop delete
+    2. 打印除重后的序列
+
+    leetcode 1091 - the shortest path in binary matrix
+    BFS - breadth-first search
+
+    完全平方数
 
     双指针
     字符串
     哈希表
     数组
+    dp
+    bt
