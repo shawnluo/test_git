@@ -27,7 +27,7 @@
 | 2000  | bt           |                                                              | permutation                                                             |           |      |
 |       |              |                                                              |                                                                         |           |      |
 | 3000  | array        | [code](code_lib/chapter_2/findMedianSortedArrays.cpp)           | findMedianSortedArrays.cpp                                              |           |      |
-|       |              | [code](code_lib/chapter_2_array/strstr.cpp)                     | strstr                                                                  |           |      |
+|       |              | [code](code_lib/chapter_2_array/strstr.cpp)                     | strstr - kmp                                                            |           |      |
 |       |              | [code](code_lib/meetingRoom.cpp)                                | meeting room                                                            |           |      |
 |       |              | [code](code_lib/meetingRoom2.cpp)                               | meeting room 2                                                          |           |      |
 |       |              | [code](code_lib/spiral_mat.cpp)                                 | spiral mat                                                              |           |      |
@@ -49,7 +49,7 @@
 |       |              | [code](code_lib/isHappy.cpp)                                    | isHappy                                                                 |           |      |
 |       |              | [code](code_lib/FourAddingEqualZero.cpp)                        | FourAddingEqualZero.cpp                                                 |           |      |
 |       |              | [code](code_lib/ransomLetter.cpp)                               | ransomLetter.cpp                                                        |           |      |
-|       |              |                                                              |                                                                         |           |      |
+|       |              | [code](code_lib/threeSum.cpp)                                   | threeSum                                                                |           |      |
 |       |              |                                                              |                                                                         |           |      |
 | 5000  | binary tree  | [code](code_lib/chapter_10_binaryTree/InsBinTree.cpp)           | insert node                                                             |           |      |
 |       |              |                                                              | delete node                                                             |           | todo |

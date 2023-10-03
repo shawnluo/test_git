@@ -260,7 +260,74 @@ done
 ✌️  两个数组的交集
 ✌️    两数和
 ✌️    四个数组中，四数之和
-✌️    三数之和
+    三数之和
+
+    数组
+    dp
+    bt
+
+----------------------- Oct 3, 2023 -----------------------
+0. mmap
+1. system design - firmware upgrade
+
+1. coding
+✌️    kmp
+✌️    kth max in a array - priority_queue
+✌️    quickSort - partition
+✌️    kth max in a array - partition
+✌️    quickSort(descent) - partition
+✌️    mat rotate
+✌️    spiral mat
+✌️    delete extra sapces
+    reverse string
+    reverse words in a sentence
+    calculate the array len, after remove the duplicated elements, in a sorted array
+    calc how many ones in a integer
+    static_cast<> vs dynamic_cast<>
+    memory copy vs string sopy - 注意类型转换和const的使用
+    meeting room
+    longest uniq string
+    read4()
+    is rectangle?
+    permutation string print
+    给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合
+    binary insert
+    binary search
+    bt5. 电话号码的字母组合
+    最长连续上升子序列
+    1. 长度
+    2. 打印出上升子序列
+
+    最长上升子序列
+    1. 长度
+    2. 打印出上升子序列
+
+    排序后的单元的序列长度
+    1. 双指针去重
+    2. 判断与前一个数不相等
+    3. 除重后的长度 - dp解
+    4. 打印除重后的序列 - unordered_set
+
+    未排序后的单元的序列长度
+    1. 除重后的长度
+        1) dp
+        2) while loop delete
+    2. 打印除重后的序列
+
+    leetcode 1091 - the shortest path in binary matrix
+    BFS - breadth-first search
+
+    完全平方数
+
+    双指针
+    字符串
+    
+    哈希表
+✌️    两个数组的交集
+✌️    赎金
+✌️    两数和
+✌️    求组合：四个数组中分别选取一个数，其四数之和等于0
+✌️    一个数组中，三数之和等于0，无重
 
     数组
     dp

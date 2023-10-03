@@ -28,12 +28,11 @@ bool isSubstr_dp(string s, string sub) {
         for(int j = 1; j <= sub.size(); j++) {
             if(s[i - 1] == sub[j - 1]) {
                 dp[i][j] = dp[i - 1][j - 1] + 1;
-            } else {
-                dp[i][j] = dp[i - 1][j];
             }
+            res = max(res, dp[i][j]);
         }
     }
-    return dp[s.size()][sub.size()] == sub.size() ? true : false;
+    return res == sub.size() ? true : false;
 }
 
 // 3. kmp
@@ -52,7 +51,9 @@ void getNext(int *next, string s) {
     }
 }
 
-bool isSubstr_kmp(string s, string sub) {
+
+// return the start position of sub in s
+int isSubstr_kmp(string s, string sub) {
     int next[sub.size()];
     getNext(next, sub);
     int j = 0;
@@ -70,5 +71,5 @@ bool isSubstr_kmp(string s, string sub) {
             return i - sub.size() + 1;
         }
     }
-    return false;
+    return -1;
 }
