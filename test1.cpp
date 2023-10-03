@@ -1,41 +1,15 @@
 
 #include "test.hpp"
 
-int calcSum(int n) {
-    int sum = 0;
-    while(n) {
-        sum += pow(n % 10, 2);
-        n /= 10;
-    }
-    return sum;
-}
 
-bool isHappy(int n) {
-    // save the cal result to set, if find repeated data, then return false
-    unordered_set<int> set;
-
-    // int sum = 0;
-    while(n != 1) {
-        n = calcSum(n);
-        if(n == 1) {
-            return true;
-        }
-        if(set.find(n) != set.end()) {
-            return false;
-        } else {
-            set.insert(n);
-        }
-    }
-
-    // return true;
-}
-
-int FourAdding() {
-
-}
-
-int main(void) {
-
-    cout << isHappy(11) << endl;
+int main() {
+    int x = 10;
+    
+    // lambda表达式无法修改通过复制形式捕捉的变量, 因为函数调用运算符的重载方法是const属性的。
+    // 有时候，你想改动传值方式捕获的值，那么就要使用mutable, 将函数调用运算符变成非const属性的：
+    auto add_x = [&x](int a) mutable { x *= 2; return a + x; };  // 复制捕捉x
+    
+    cout << add_x(10) << endl; // 输出 30
+    cout << x << endl;
     return 0;
 }

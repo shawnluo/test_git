@@ -36,12 +36,43 @@ bool ransom2(string s, string t) {
     return true;
 }
 
+bool ransom3(string s, string t) {
+    unordered_set<char> set(t.begin(), t.end());
+
+    for(auto x : s) {
+        if(set.find(x) == set.end()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool ransom4(string s, string t) {
+    unordered_map<char, int> unmap;
+    for(auto x : t) {
+        unmap[x]++;
+    }
+
+    unordered_map<char, int>::iterator it;
+    for(it = unmap.begin(); it != unmap.end(); it++) {
+        cout << it->first << " " << it->second << endl;
+    }
+
+    std::for_each (
+        unmap.begin(), 
+        unmap.end(), 
+        [](std::pair<char, int> p) {
+            cout << p.first << " :: " << p.second << endl;
+        }
+    );
+    return true;
+}
 
 int main(void) {
     string s = "abxx";
-    string t = "abcx";
+    string t = "abcxa";
 
-    cout << ransom(s, t) << endl;
+    cout << ransom4(s, t) << endl;
 
     return 0;
 }
