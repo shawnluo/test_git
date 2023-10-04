@@ -584,6 +584,256 @@ int dp_46(vector<int> nums) {
     return res;
 }
 
+int dp_02(int n) {
+    vector<int> dp(n + 1, 0);
+    dp[0] = 0;
+    dp[1] = 1;
+    dp[2] = 1;
+
+    for(int i = 3; i <= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
+}
+
+int dp_03(int n) {
+    vector<int> dp(n + 1, 0);
+    dp[1] = 1;
+    dp[2] = 2;
+
+    for(int i = 3; i <= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
+}
+
+int dp_04(vector<int> cost) {
+    int size = cost.size();
+    vector<int> dp(size + 1, 0);
+    dp[0] = 0;
+    dp[1] = 0;
+
+    for(int i = 2; i <= size; i++) {
+        dp[i] = min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+    }
+    return dp[size];
+}
+
+int dp_06(vector<vector<int>>mat) {
+    int m = mat.size();
+    int n = mat[0].size();
+
+    vector<vector<int>> dp(m, vector<int> (n, 0));
+    // dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+
+    for(int i = 0; i < m; i++) dp[i][0] = 1;
+    for(int j = 0; j < n; j++) dp[0][j] = 1;
+
+    for(int i = 1; i < m; i++) {
+        for(int j = 1; j < n; j++) {
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+        }
+    }
+    return dp[m - 1][n - 1];
+}
+
+int dp_07(vector<vector<int>>mat, vector<vector<int>> ob) {
+    int m = mat.size();
+    int n = mat[0].size();
+
+    vector<vector<int>> dp(m, vector<int> (n, 0));
+    // dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+
+    for(int i = 0; i < m; i++) dp[i][0] = 1;
+    for(int j = 0; j < n; j++) dp[0][j] = 1;
+
+    for(int i = 1; i < m; i++) {
+        for(int j = 1; j < n; j++) {
+            if(ob[i][j] == 1) {
+                continue;
+            }
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+        }
+    }
+    return dp[m - 1][n - 1];
+}
+
+int dp_08(int n) {
+    // dp[i] = max(dp[i - j] * j, i * j);
+    vector<int> dp(n + 1);
+    dp[2] = 1;
+    for(int i = 3; i <= n; i++) {
+        for(int j = 1; j <= i / 2; j++) {
+            dp[i] = max(dp[i], max(dp[i - j] * j, i * j));
+        }
+    }
+    return dp[n];
+}
+
+int dp_11(vector<int> weight, vector<int> value, int BAG) {
+    int size = weight.size();
+    vector<vector<int>> dp(size, vector<int>(BAG + 1));
+    for(int j = weight[0]; j <= BAG; j++) {
+        dp[0][j] = value[0];
+    }
+    for(int i = 1; i < size; i++) {
+        for(j = 0; j <= BAG; j++) {
+            if(j >= weight[i]) {
+                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
+            } else {
+                dp[i][j] = dp[i - 1][j];
+            }
+        }
+    }
+    return dp[size - 1][BAG];
+}
+
+int dp_12(vector<int> weight, vector<int> value, int BAG) {
+    int size = weight.size();
+    vector<int> dp(BAG + 1, 0);
+
+    for(int i = 0; i < size; i++) {
+        for(int j = BAG; j >= weight[i]; j--) {
+            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+        }
+    }
+    return dp[BAG];
+}
+
+bool dp_13(vector<int> nums) {
+    vector<int> dp(10001, 0);
+    int BAG = 0;
+    for(auto x : nums) BAG += x;
+
+    if(BAG % 2) return false;
+
+    int half = BAG / 2;
+
+    for(int i = 0; i < nums.size(); i++) {
+        for(int j = half; j>= nums[i]; j--) {
+            dp[j] = max(dp[j], dp[j - nums[i]] + nums[i]);
+        }
+    }
+
+    if(dp[half] == half) return true;
+
+    return false;
+}
+
+int dp_14(vector<int> nums) {
+    vector<int> dp(10001, 0);
+    int BAG = 0;
+    for(auto x : nums) BAG += x;
+
+    int half = BAG / 2;
+
+    for(int i = 0; i < nums.size(); i++) {
+        for(int j = half; j>= nums[i]; j--) {
+            dp[j] = max(dp[j], dp[j - nums[i]] + nums[i]);
+        }
+    }
+
+    return BAG - dp[half] * 2;
+}
+
+int dp_16(vector<int> nums, int target) {
+    int left, right;
+    left + right = s;
+    left - right = target;
+    left = (s + target) / 2;
+
+    vector<int> dp(left + 1, 0);
+    // dp[j] += dp[j - nums[i]]
+    dp[0] = 1;
+
+    for(int i = 0; i < nums.size(); i++) {
+        for(int j = left; j >= nums[i]; j--) {
+            dp[j] += dp[j - nums[i]];
+        }
+    }
+
+    return dp[left];
+}
+
+// TODO
+int dp_17(string s, int m, int n) {
+
+    return 0;
+}
+
+int dp_18(vector<int> weight, vector<int> value, int BAG) {
+    vector<int> dp(BAG + 1, 0);
+
+    for(int i = 0; i < weight.size(); i++) {
+        for(int j = 0; j <= BAG; j++) {
+            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+        }
+    }
+    return dp[BAG];
+}
+
+int dp_19(vector<int> coins, int target) {
+    vector<int> dp(target + 1, 0);
+    dp[0] = 1;
+
+    for(int i = 1; i < coins.size(); i++) {
+        for(int j = coins[i]; j <= target; j++) {
+            dp[j] += dp[j - coins[i]];
+        }
+    }
+    return dp[target];
+}
+
+int dp_21(vector<int> nums, int BAG) {
+    vector<int> dp(BAG + 1, 0);
+    dp[0] = 1;
+    for(int i = 0; i <= BAG; i++) {
+        for(int j = 0; j < nums.size(); j++) {
+            if(i >= nums[j]) {
+                dp[i] += dp[i - nums[j]];
+            }
+        }
+    }
+    return dp[BAG];
+}
+
+int dp_22(int n) {
+    vector<int> dp(n + 1, 0);
+    dp[0] = 1;
+    dp[1] = 1;
+    dp[2] = 2;
+
+    for(int i = 3; i <= n; i++) {
+        for(int j = 0; j < n; j++) {
+            if(i >= j) {
+                dp[i] += dp[i - j];
+            }
+        }
+    }
+
+    return dp[n];
+}
+
+int dp_23(vector<int> coins, int amount) {
+    vector<int> dp(amount + 1, INT_MAX);
+    dp[0] = 0;
+
+    for(int i = 0; i < coins.size(); i++) {
+        for(int j = coins[i]; j <= amount; j++) {
+            if(j -coins[i] != INT_MAX) {
+                dp[j] = min(dp[j], dp[j - coins[i]] + 1);
+            }
+        }
+    }
+    if(dp[amount] == INT_MAX) return -1;
+
+    return dp[amount];
+}
+
+int dp_24(int n) {
+    
+}
+
 int main(void) {
     vector<int> nums = {-1, 1, 2, 4, 3, 2};
     cout << longestIncreasingSecSubstring(nums) << endl;
