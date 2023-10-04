@@ -846,12 +846,207 @@ int dp_26() {
     return 0;
 }
 
-int dp_28() {
+int dp_29(vector<int> nums, int start, int end) {
+    vector<int> dp(nums.size(), 0);
+    // dp[i]: 考虑下标i以内的房屋，最多可以偷窃的金额为dp[i]
+    dp[start] = nums[start];
+    dp[start + 1] = max(nums[start], nums[start + 1]);
 
-    
+    for(int i = start + 2; i < end; i++) {
+        dp[i] = max(dp[i - 1], dp[i - 2] + nums[i]);
+    }
+
+    return dp[end - 1];
+}
+
+int dp_30(vector<int> nums) {
+    // vector<int> dp(nums.size(), 0);
+
+    return max(dp_29(nums. 0, nums.size() - 1), dp_29(nums. 1, nums.size()));
+}
+
+int dp_32(vector<int> prices) {
+    dp[i][0]: have stock
+    dp[i][1]: NO stock
+
+    dp[0][0] = -prices[0];
+    dp[0][1] = 0;
+
+    for(int i = 1; i < prices.size(); i++) {
+        dp[i][0] = max(-prices[i], dp[i - 1][0]);
+        dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] + price[i]);
+    }
+
+    return dp[prices.size() - 1][1];
+}
+
+int dp_34(vector<int> prices) {
+    vector<vector<int>> dp(prices.size(), vector<int>(2, 0));
+    dp[0][0] = -prices[0];
+    dp[0][1] = 0;
+
+    for(int i = 1; i < prices.size(); i++) {
+        dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] - prices[i]);
+        dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] + prices[i]);
+    }
+}
+
+int dp_41(vector<int> nums) {
+    dp[0] = 1;
+    for(int i = 1; i < nums.size(); i++) {
+        for(int j = 0; j < i; j++) {
+            if(nums[i] > nums[i - 1]) {
+                dp[i] = dp[i - 1] + 1;
+            }
+            res = max(res, dp[i]);
+        }
+    }
+    return res;
+}
+
+int dp_42(vector<int> nums) {
+    dp[0] = 1;
+    for(int i = 1; i < nums.size(); i++) {
+        if(nums[i] > nums) {
+            dp[i] = dp[i - 1] + 1;
+        }
+        res = max(res, dp[i]);
+    }
+    return res;
+}
+
+int dp_43(vector<int> a, vector<int> b) {
+    vector<vector<int>> dp(a.size() + 1, vector<int>(b.size() + 1, 0));
+
+    for(int i = 1; i <= a.size(); i++) {
+        for(int j = 1; j <= b.size(); j++) {
+            if(a[i - 1] == b[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            }
+            res = max(res, dp[i][j]);
+        }
+    }
+    return res;
+}
+
+int dp_44(vector<int> a, vector<int> b) {
+    vector<vector<int>> dp(a.size() + 1, vector<int> (b.size() + 1, 0));
+    for(int i = 1; i < a.size(); i++) {
+        for(int j = 1; j < b.size(); j++) {
+            if(a[i] == b[j]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+    }
+    return dp[a.size()][b.size()];
+}
+
+int dp_45(){
+    // same as dp_44();
+}
+
+int dp_46() {
+    // dp[i]: 包括i的最大子序和
+    dp[0] = nums[0];
+    for(int i = 1; i < nums.size(); i++) {
+        dp[i] = max(dp[i - 1] + nums[i], nums[i]);
+        res = max(res, dp[i]);
+    }
+    return res;
+}
+
+int dp_47(string s, string sub) {
+    for(int i = 1; i <= s.size(); i++) {
+        for(int j = 1; j <= sub.size(); j++) {
+            if(s[i] == sub[j]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = dp[i - 1][j];
+            }
+        }
+    }
+    if(dp[s.size()][sub.size()] == sub.size()) return true;
+
+    return false;
+}
+
+int dp_48(string s, string sub) {
+    // dp[i][j]: 以i - 1为结尾的s自学列中，出现以j - 1为结尾的sub的个数
+    for(int i = 1; i <= s.size(); i++) {
+        for(int j = 1; j <= sub.size(); j++) {
+            if(s[i] == sub[j]) {
+                dp[i][j] = dp[i - 1][j - 1]  + dp[i - 1][j];
+            } else {
+                dp[i][j] = dp[i - 1][j];
+            }
+        }
+    }
+    return dp[s.size()][sub.size()];
+}
+
+int dp_49(string s, string sub) {
+    // dp[i][j]: 以i - 1为结尾的s，和以j - 1为结尾的sub，想要达到相等，所需要删除元素的最少次数
+    for(int i = 1; i <= s.size(); i++) {
+        for(int j = 1; j <= sub.size(); j++) {
+            if(s[i] == sub[j]) {
+                dp[i][j] = dp[i - 1][j - 1];
+            } else {
+                dp[i][j] = min({dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + 2});
+            }
+        }
+    }
+    return dp[s.size()][sub.size()];
+}
+
+int dp_50() {
+    // dp[i][j]: 以i - 1为结尾的s，和以j - 1为结尾的sub，最近编辑距离为dp[i][j]
+    for(int i = 1; i <= s.size(); i++) {
+        for(int j = 1; j <= sub.size(); j++) {
+            if(s[i] == sub[j]) {
+                dp[i][j] = dp[i - 1][j - 1];
+            } else {
+                dp[i][j] = min({dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1]}) + 1;
+            }
+        }
+    }
+    return dp[s.size()][sub.size()];
+
+}
+
+int dp_52(string s) {
+    for(int i = s.size() - 1; i >= 0; i++) {
+        for(int j = i; j < s.size(); j++) {
+            if(s[i] == s[j]) {
+                if(j - i <= 1) {
+                    res++;
+                    dp[i][j] = true;
+                } lese if(dp[i + 1][j - 1] == true) {
+                    res++;
+                    dp[i][j] = true;
+                }
+            }
+        }
+    }
+    return res;
+}
+
+int dp_53(string s) {
+    for(int i = s.size() - 1; i >= 0; i++) {
+        for(int j = i + 1; j < s.size(); j++) {
+            if(s[i] == s[j]) {
+                dp[i][j] = dp[i + 1][j - 1] + 2;
+            } else {
+                dp[i][j] = max(dp[i + 1][j], dp[i][j - 1]);
+            }
+        }
+    }
+    return dp[0][s.size()] - 1;
 }
 
 int main(void) {
+
     vector<int> nums = {-1, 1, 2, 4, 3, 2};
     cout << longestIncreasingSecSubstring(nums) << endl;
 
