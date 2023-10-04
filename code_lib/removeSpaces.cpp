@@ -2,6 +2,8 @@
 
 /*
     remove extra spaces in a sentence
+    略过空格，
+    直到遇到非空格，则添加一个空格。然后拷贝，直到遇到空格
 */
 
 void removeExtraSpaces(string& s) {
@@ -10,7 +12,7 @@ void removeExtraSpaces(string& s) {
     int slow = 0;   // slow points to new string
 
     for(int fast = 0; fast < size; fast++) {
-        if(s[fast] != ' ') {
+        if(s[fast] != ' ') { // 巧妙！if[fast] == ' '，则对slow无任何操作。其实就是略过空格
             if(slow != 0) {
                 s[slow++] = ' ';
             }

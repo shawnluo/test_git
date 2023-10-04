@@ -163,6 +163,7 @@ void getNext(int *next, string s) {
 }
 
 int kmp(string s, string t) {
+    int next[t.size()];
     int j = 0;
     for(int i = 0; i < s.size(); i++) {
         while(j > 0 && s[i] != t[j]) {
@@ -193,9 +194,9 @@ int binSearch(vector<int>& nums, int start, int end, int k) {
     if(start < end) {
         int pivot = partition(nums, start, end);
         if(k < pivot) {
-            binSearch(start, pivot - 1);
+            binSearch(nums, start, pivot - 1, k);
         } else if(k > pivot) {
-            binSearch(pivot + 1, end);
+            binSearch(nums, pivot + 1, end, k);
         } else {
             return nums[k];
         }
@@ -203,11 +204,11 @@ int binSearch(vector<int>& nums, int start, int end, int k) {
 }
 
 int kth(vector<int> nums, int k) {
-    return binSearch(nums, 0, nums.size() - 1);
+    return binSearch(nums, 0, nums.size() - 1, k);
 }
 
 int kth_heap(vector<int> nums, int k) {
-    priority_que<int> heap;
+    std::priority_queue<int> heap;
     for(auto x : nums) {
         heap.push(-x);
         if(heap.size() > k) {
@@ -249,7 +250,7 @@ void spiral(int n) {
         for(; y > startY; y--) mat[x][y] = count++;
         for(; x > startX; x--) mat[x][y] = count++;
 
-        startX++, statY++, offset++;
+        startX++, startY++, offset++;
     }
 }
 
@@ -268,17 +269,349 @@ void delExtraSpaces(string& s) {
     s.resize(j);
 }
 
-int main(void) {
-    vector<int> num{-2, 1, 1, 5, -6};
-    vector<vector<int>> res = threeSum(num);
+void reverseStr(string& s, int start, int end) {
+    int left = start;
+    int right = end;
 
-    for(auto x : res) {
-        for(auto y : x) {
-            cout << y << " ";
-        }
-        cout << endl;
+    while(left < right) {
+        swap(s[left++], s[right--]);
     }
+}
+
+void removeExtraSpaces(string& s) {
+    int j = 0;
+    for(int i = 0; i < s.size(); i++) {
+        if(s[i] != ' ') {
+            if(j != 0) {
+                s[j++] = ' ';
+            }
+            while(i < s.size() && s[i] != ' ') {
+                s[j++] = s[i++];
+            }
+        }
+    }
+    s.resize(j);
+}
+
+void reverseWords(string& s) {
+    removeExtraSpaces(s);
+    int start = 0;
+    int end = 0;
+    for(int i = 0; i < s.size(); i++) {
+        if(s[i] == ' ') {
+            end = i - 1;
+            reverseStr(s, start, end);
+            start = i + 1;
+        }
+    }
+}
+
+int lenOfRemoveRep(vector<int> nums) {
+    int count = 1;
+    int left = 1;
+    for(int i = 1; i < nums.size(); i++) {
+        if(nums[i] != nums[i - 1]) {
+            nums[left++] = nums[i];
+            count++;
+        }
+    }
+    return count;
+}
+
+size_t calOnes(size_t num) {
+    size_t count = 0;
+
+    while(num) {
+        num &= (num - 1);
+        count++;
+    }
+
+    return count;
+}
+
+void test_cast() {
+    int i = 10, j = 2;
+    double x = static_cast<double>(j) / i;
+    cout << x << endl;
+
+    cout << j / i << endl;
+}
+
+void* memory_copy(void* dst, const void* src, size_t size) {
+    if(dst == nullptr || src == nullptr) {
+        return dst;
+    }
+
+    if(src > dst) {
+        char* lastcdst = (char*)dst + size - 1;
+        const char* lastcsrc = (const char*)src + size - 1;
+        while(size--) {
+            *lastcdst-- = *lastcsrc--;
+        }
+    } else {
+        char* cdst = (char*)dst;
+        const char* csrc = (const char*)src;
+        while(size--) {
+            *cdst++ = *csrc++;
+        }
+    }
+    return dst;
+}
+
+int meetingRoom(vector<vector<int>> nums) {
+    int size = nums.size();
+    vector<int> start;
+    vector<int> end;
+    for(auto x : nums) {
+        start.push_back(x[0]);
+        end.push_back(x[1]);
+    }
+
+    // for(int i = 0; i < size; i++) {
+    //     start[i] = nums[i][0];
+    // }
+
+    sort(start.begin(), start.end());
+    sort(end.begin(), end.end());
+
+    // for(int x : start) {
+    //     cout << x << endl;
+    // }
+
+    int pStart = 0;
+    int pEnd = 0;
+    int room = 0;
+
+    for(pStart = 0; pStart < nums.size(); pStart++) {
+        if(pStart == 0) {
+            room++;
+        } else {
+            if(start[pStart] < end[pEnd]) {
+                room++;
+            } else {
+                pEnd++;
+            }
+        }
+    }
+    return room;
+}
+
+int longestUniqString(string s) {
+    int pos = -1;
+    int len = 0;
+    int res = 0;
+    int hash[256];
+
+    for(int i = 0; i < 256; i++) hash[i] = -1;
+
+    for(int i = 0; i < s.size(); i++) {
+        pos = max(pos, hash[s[i]]);
+        len = i - pos;
+        res = max(res, len);
+        hash[i] = i;
+    }
+
+    return res;
+}
+
+int read4(char* buf4) {
+    return 0;
+}
+
+int read4(char* buf, int n) {
+    int readedChar = 4;
+    int copiedChar = 0;
+    char buf4[4];
+    int count = 0;
+
+    while(copiedChar < n && readedChar == 4) {
+        readedChar = read4(buf4);
+        for(int i = 0; i < readedChar; i++) {
+            if(copiedChar == n) {
+                return copiedChar;
+            }
+            buf[copiedChar++] = buf4[i];
+        }
+    }
+    return copiedChar;
+}
+
+void permu(string s, int pos) {
+    int size = s.size();
+    if(pos == size) {
+        cout << s << endl;
+    }
+    for(int i = pos; i < size; i++) {
+        swap(s[i], s[pos]);
+        permu(s, i + 1);
+        swap(s[i], s[pos]);
+    }
+}
+
+vector<int> buf;
+vector<vector<int>> res;
+void combin(int n, int k, int pos) {
+    if(buf.size() == k) {
+        res.push_back(buf);
+        return;
+    }
+    for(int i = pos; i < n; i++) {
+        buf.push_back(i);
+        combin(n, k, pos + 1);
+        buf.pop_back();
+    }
+}
+
+typedef struct treeNODE {
+    int val;
+    struct treeNODE* left;
+    struct treeNODE* right;
+
+    treeNODE(int x) : val(x), left(nullptr), right(nullptr) {}
+} treeNode;
+
+treeNode* treeInsert(treeNode* root, int val) {
+    if(root == nullptr) {
+        return new treeNode(val);
+    }
+    if(val < root->val) {
+        root->left = treeInsert(root->left, val);
+    } else if(val > root->val) {
+        root->right = treeInsert(root->right, val);
+    }
+    return root;
+}
+
+bool search(treeNode* root, int val) {
+    if(root == nullptr) return false;
+
+    if(val == root->val) return true;
+    else if(val < root->val) return search(root->left, val);
+    else return search(root->right, val);
+}
+
+treeNode* treeReverse(treeNode* root) {
+    if(root == nullptr) return root;
+
+    swap(root->left, root->right);
+    treeReverse(root->left);
+    treeReverse(root->right);
+
+    return root;
+}
+
+int longestIncreasingSecSubstring(vector<int> nums) {
+    vector<int> dp(nums.size(), 1);
+    int res = 0;
+    int resIndex = 0;
+
+    for(int i = 1; i < nums.size(); i++) {
+        if(nums[i] > nums[i - 1]) {
+            dp[i] = dp[i - 1] + 1;
+        }
+        // res = max(res, dp[i]);
+        if(dp[i] > res) {
+            resIndex = i;
+            res = dp[i];
+        }
+    }
+    for(int i = resIndex - res + 1; i <= resIndex; i++) {
+        cout << nums[i] << " ";
+    }
+    cout << endl;
+    return res;
+}
+
+int longestIncreasingSubstring(vector<int> nums) {
+    vector<int> dp(nums.size(), 1);
+    int res = 0;
+
+    for(int i = 1; i < nums.size(); i++) {
+        for(int j = 0; j < i; j++) {
+            if(nums[i] > nums[j]) {
+                dp[i] = max(dp[i], dp[j] + 1);
+            }
+            res = max(res, dp[i]);
+        }
+    }
+    return res;
+}
+
+int getLen(vector<int>& nums) {
+    int count = 1;
+    int j = 1;
+
+    for(int i = 1; i < nums.size(); i++) {
+        if(nums[i] != nums[i - 1]) {
+            nums[j++] = nums[i];
+            count++;
+        }
+    }
+    nums.resize(count);
+
+    return count;
+}
+
+int getLen_2(vector<int>& nums) {
+    vector<int> dp(nums.size(), 1);
+    for(int i = 1; i < nums.size(); i++) {
+        if(nums[i] > nums[i - 1]) {
+            dp[i] = dp[i - 1] + 1;
+        }
+        res = max(res, dp[i]);
+    }
+    return res;
+}
+
+int shortestPath(vector<vector<int>> mat) {
+    vector<vector<int>> dp(mat.size(), vector<int>(mat.size(), 0));
+    if(mat[0][0] == 1) return -1;
+    dp[0][0] = 1;
+
+    // dp[i][j]: point[i][j] has min path dp[i][j]
+    // dp[i][j] = 
+}
+
+int dp_46(vector<int> nums) {
+    vector<int> dp(nums.size(), 0);
+    dp[0] = nums[0];
+    // dp[i]: 尾数包括nums[i]时, 最大的连续数组和
+    // dp[i] = max(dp[i - 1] + nums[i], nums[i])
+    for(int i = 1; i < nums.size(); i++) {
+        dp[i] = max(dp[i - 1] + nums[i], nums[i]);
+        res = max(res, dp[i]);
+    }
+    return res;
+}
+
+int main(void) {
+    vector<int> nums = {-1, 1, 2, 4, 3, 2};
+    cout << longestIncreasingSecSubstring(nums) << endl;
+
+    // int n = 5; 
+    // int k = 2;
+    // combin(n, k, 1);
+    // for(auto x : res) {
+    //     for(auto y : x) {
+    //         cout << y << " ";
+    //     }
+    //     cout << endl;
+    // }
+    // vector<vector<int>> nums = {{13, 33}, {2, 4}, {100, 200}};
+    // cout << meetingRoom(nums) << endl;
+    // test_cast();
+    // vector<int> num{-2, 1, 1, 5, -6};
+    // vector<vector<int>> res = threeSum(num);
+
+    // for(auto x : res) {
+    //     for(auto y : x) {
+    //         cout << y << " ";
+    //     }
+    //     cout << endl;
+    // }
     
+    // calOnes(4);
+
     // vector<int> nums1{1, 2, 4, 3, 5};
     // vector<int> nums2{1, 2, 3, 5};
 

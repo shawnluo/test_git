@@ -13,8 +13,17 @@ int longest_increasing_nums(vector<int> nums) {
             if(nums[i] > nums[j]) {
                 dp[i] = max(dp[i], dp[j] + 1);
             }
-            res = max(res, dp[i]);
+            if(dp[i] > res) {
+                res = dp[i];
+                resIndex = i;
+            }
         }
     }
+
+    for(int i = resIndex - res + 1; i <= resIndex; i++) {
+        cout << nums[i] << " ";
+    }
+    cout << endl;
+
     return res;
 }

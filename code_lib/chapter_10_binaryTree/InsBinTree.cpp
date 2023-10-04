@@ -1,17 +1,17 @@
 
 // 3. Write functions to insert and search for an element in a binary search tree
-struct TreeNode {
+struct treeNode {
     int value;
-    TreeNode* left;
-    TreeNode* right;
+    treeNode* left;
+    treeNode* right;
 
-    TreeNode(int val) : value(val), left(nullptr), right(nullptr) {}
+    treeNode(int val) : value(val), left(nullptr), right(nullptr) {}
 };
 
 // Function to insert a value into the BST
-TreeNode* insert(TreeNode* root, int value) {
+treeNode* insert(treeNode* root, int value) {
     if (root == nullptr) {
-        return new TreeNode(value);
+        return new treeNode(value);
     }
 
     if (value < root->value) {
@@ -24,7 +24,7 @@ TreeNode* insert(TreeNode* root, int value) {
 }
 
 // Function to search for a value in the BST
-bool search(TreeNode* root, int value) {
+bool search(treeNode* root, int value) {
     if (root == nullptr) {
         return false;
     }
@@ -39,7 +39,7 @@ bool search(TreeNode* root, int value) {
 }
 
 int main() {
-    TreeNode* root = nullptr;
+    treeNode* root = nullptr;
 
     // case 1: Insert values into the BST
     root = insert(root, 5);

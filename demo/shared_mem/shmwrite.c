@@ -5,8 +5,7 @@
 #include <sys/shm.h>
 #include "shmdata.h"
 
-int main()
-{
+int main() {
 	int running = 1;
 	void *shm = NULL;
 	struct shared_use_st *shared = NULL;
@@ -14,26 +13,24 @@ int main()
 	int shmid;
 	//创建共享内存
 	shmid = shmget((key_t)1234, sizeof(struct shared_use_st), 0666|IPC_CREAT);
-	if(shmid == -1)
-	{
+	if(shmid == -1) {
 		fprintf(stderr, "shmget failed\n");
 		exit(EXIT_FAILURE);
 	}
 	//将共享内存连接到当前进程的地址空间
 	shm = shmat(shmid, (void*)0, 0);
-	if(shm == (void*)-1)
-	{
+	if(shm == (void*)-1) {
 		fprintf(stderr, "shmat failed\n");
 		exit(EXIT_FAILURE);
 	}
 	printf("Memory attached at %X\n", (int)shm);
 	//设置共享内存
 	shared = (struct shared_use_st*)shm;
-	while(running)//向共享内存中写数据
-	{
+	
+	//向共享内存中写数据
+	while(running) {
 		//数据还没有被读取，则等待数据被读取,不能向共享内存中写入文本
-		while(shared->written == 1)
-		{
+		while(shared->written == 1) {
 			sleep(1);
 			printf("Waiting...\n");
 		}
@@ -48,8 +45,7 @@ int main()
 			running = 0;
 	}
 	//把共享内存从当前进程中分离
-	if(shmdt(shm) == -1)
-	{
+	if(shmdt(shm) == -1) {
 		fprintf(stderr, "shmdt failed\n");
 		exit(EXIT_FAILURE);
 	}
