@@ -831,6 +831,23 @@ int dp_23(vector<int> coins, int amount) {
 }
 
 int dp_24(int n) {
+    vector<int> dp(n + 1, INT_MAX);
+    dp[0] = 0;
+    for(int i = 1; i * i <= n; i++) {
+        for(int j = i * i; j <= n; j++) {
+            dp[j] = min(dp[j], dp[j - i * i] + 1);
+        }
+    }
+    return dp[n];
+}
+
+// TODO
+int dp_26() {
+    return 0;
+}
+
+int dp_28() {
+
     
 }
 
