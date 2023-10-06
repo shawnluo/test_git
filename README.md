@@ -1,9 +1,11 @@
 |       | NO.          |                                                              | code                                                                    | important      | TODO |
 | ----- | ------------ | ------------------------------------------------------------ | ----------------------------------------------------------------------- | -------------- | ---- |
+|       |              | [code](code_lib/demo_vector.cpp)                                | vector                                                                  |                |      |
 |       | c++          | [code](code_lib/lambda.cpp)                                     | lambda                                                                  |                |      |
 |       |              | [code](code_lib/unordered_map.cpp)                              | unordered_map                                                           |                |      |
 |       |              |                                                              | unordered_set                                                           |                |      |
 |       |              | [code](code_lib/cpp_cast.cpp)                                   | static_cast/dynamic_cast                                                |                |      |
+|       |              |                                                              |                                                                         |                |      |
 | 1     | dp           | code                                                         | 0-1 knapsack                                                            |                |      |
 |       |              |                                                              | complete knapsack                                                       |                |      |
 |       |              | [code](code_lib/longest_Increasing_nums.cpp)                    | longest_increasing_nums 非连续                                          |                |      |
@@ -35,7 +37,7 @@
 |       |              | [code](code_lib/findIsland.cpp)                                 | find island                                                             |                |      |
 |       |              | [code](code_lib/isRectangle.cpp)                                | is rectangle                                                            |                | todo |
 |       |              | [code](code_lib/removeRepeatArray.cpp)                          | len of sorted element, remove repeat elements                           |                |      |
-|       |              |                                                              |                                                                         |                |      |
+|       |              | [code](code_lib/minSubArrLen.cpp)                               | min sub array Len 长度最小的子数组                                      |                |      |
 |       |              |                                                              |                                                                         |                |      |
 | 4000  | string       | [code](code_lib/reverseWords.cpp)                               | reverse words                                                           |                |      |
 |       |              |                                                              | palindrome                                                              |                |      |

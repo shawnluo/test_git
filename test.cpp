@@ -1045,6 +1045,31 @@ int dp_53(string s) {
     return dp[0][s.size()] - 1;
 }
 
+vector<int> interSection(vector<int> a, vector<int> b) {
+    unordered_set<int> set(a.begin(), a.end());
+    unordered_set<int> res;
+
+    for(auto x : b) {
+        auto val = set.find(x);
+        if(val != set.end()) {
+            res.insert(val);
+        }
+    }
+    return vector<int>(res.begin(), res.end());
+}
+
+vector<int> twoSum(vector<int> nums, int target) {
+    unordered_map<int, int> map;
+    for(int i = 0; i < nums.size(); i++) {
+        auto x = map.find(target - nums[i]);
+        if(x != map.end()) {
+            res.push_back(pair(i, x.second()));
+        }
+        map.insert(pair<int, int>(nums[i], i));
+    }
+    return {};
+}
+
 int main(void) {
 
     vector<int> nums = {-1, 1, 2, 4, 3, 2};
