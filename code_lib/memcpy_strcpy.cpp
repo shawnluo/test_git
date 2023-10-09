@@ -32,7 +32,7 @@ void* memcpy(void* dst, const void* src, size_t size) { // 注意const, void*
 
 // 考虑了拷贝速度，按照cpu的位宽来拷贝。比如32bitcpu, 就按照4个字节一次来拷贝。因为cpu一次能读4个字节
 void *Memcpy_ext(void *dest, const void *src, size_t count) {  
-    int bytelen = count/sizeof(dest); /*按CPU位宽拷贝*/
+    int bytelen = count / sizeof(dest); /*按CPU位宽拷贝*/
     int slice = count % sizeof(dest); /*剩余的按字节拷贝*/
     unsigned int* d = (unsigned int*)dest;  
     unsigned int* s = (unsigned int*)src;  
