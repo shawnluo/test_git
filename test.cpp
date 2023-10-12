@@ -386,6 +386,243 @@ int dp_53() {
     }
 }
 
+int arr_02(vector<int> nums, int target) {
+    int mid;
+    int left = 0; 
+    int right = nums.size() - 1;
+    while(left <= right) {
+        mid = (left + right) / 2;
+        if (nums[mid] == target) {
+            return mid;
+        } else if(target < nums[mid]) {
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+    return -1;
+}
+
+int arr_03(vector<int> nums, int val) {
+    int k = 0;
+    for(int i = 0; i < nums.size(); i++) {
+        if(nums[i] != val) {
+            nums[k++] = nums[i];
+        }
+    }
+    nums.resize(k);
+    return k;
+}
+
+void sinkIsland(vector<vector<int>> grid, int i, int j, int row, int col) {
+    if(i < 0|| i >= row) return;
+    if(j < 0|| i >= col) return;
+
+    if(grid[i][j] == 0) return;
+
+    grid[i][j] = '0';
+    sinkIsland(grid, i + 1, j, row, col);
+    sinkIsland(grid, i - 1, j, row, col);
+    sinkIsland(grid, i, j + 1, row, col);
+    sinkIsland(grid, i, j - 1, row, col);
+}
+
+int findIslands(vector<vector<int>> grid) {
+    int row = grid.size();
+    int col = grid[0].size();
+
+    int count = 0;
+    for(int i = 0; i < row; i++) {
+        for(int j = 0; j < col; j++) {
+            if(gird[i][j] == '1') {
+                sinkIsland(gird, i, j, row, col);
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
+long long myAtoi(string s) {
+    int i = 0;
+    long long res = 0, val = 0;
+
+    while(s[i] == ' ') {
+        i++;
+    }
+    if(s[i] == '+' || s[i] == '-') {
+        if(s[i] == '-') {
+            isNegative = ' ';
+            i++;
+        }
+    }
+    while(i < s.size()) {
+        val = s[i] - '0';
+        if(val < 0 || code > 9) {
+            continue;
+        }
+        res *= 10;
+        res += val;
+        i++;
+    }
+    if(isNegative) {
+        res = -res;
+    }
+    return max(min(res, INT_MAX), INT_MIN);
+}
+
+int arr_04(vector<int> nums) {
+    int left = 0;
+    int right = nums.size() - 1;
+    int pos = right;
+    vector<int> newNums(nums.size());
+
+    while(left <= right) {
+        int powL = pow(nums[left], 2);
+        int powR = pow(nums[right], 2);
+        if(powL > powR) {
+            newNums[pos--] = powL;
+            left++;
+        } else {
+            newNums[pos--] = powR;
+            right--;
+        }
+    }
+    return newNums;
+}
+
+int arr_05(vector<int> nums, int s) {
+    int i = 0; // left
+    for(int j = 0; j < nums.size(); j++) {
+        sum += nums[j];
+        while(sum >= s) {
+            len = j - i + 1;
+            res = max(res, len);
+            sum -= nums[i++];
+        }
+    }
+    return res == INT_MAX ? 0 : res;
+}
+
+int arr_06(int n) {
+    int startX = 0;
+    int startY = 0;
+    int offset = 0;
+    int half = n / 2;
+    int count = 1;
+
+    while(half--) {
+        int x = startX;
+        int y = startY;
+        for(; y < n - offset; y++) {
+            res[x][y] = count++;
+        }
+        for(; x < n - offset; x++) {
+            res[x][y] = count++;
+        }
+        for(; y > startY; y--) {
+            res[x][y] = count++;
+        }
+        for(; x > startX; x--) {
+            res[x][y] = count++;
+        }
+        startX++;
+        startY++;
+        offset++;
+    }
+    if(n % 2) {
+        res[half][half] = count++;
+    }
+}
+
+// stack_02
+stack<int> stIn;
+stack<int> stOut;
+
+void push (int val) {
+    stIn.push(val);
+}
+
+int pop() {
+    if(stOut.empty()) {
+        while(!stIn.empty()) {
+            stOut.push(stIn.top());
+            stIn.pop();
+        }
+    }
+}
+
+// stack_03
+queue<int> que1;
+queue<int> que1;
+
+void push(int x) {
+    que1.push(x);
+}
+
+int pop() {
+    int size = que1.size();
+    size--;
+    while(size--) {
+        que2.push(que1.front());
+        que1.pop();
+    }
+    int res = que1.front();
+    que1.pop();
+    que1 = que2;
+    while(!que1.empty()) {
+        que2.pop();
+    }
+    return res;
+}
+
+string rmD(string s) {
+    string res;
+    for(auto it : s) {
+        if(res.empty() || res.back() != it) {
+            res.push_back(it);
+        } else {
+            res.pop_back();
+        }
+    }
+    return res;
+}
+
+void removeExtraSpaces(string s) {
+    int j = 0;
+    for(int i = 0; i < s.size(); i++) {
+        if(s[i] != ' ') {
+            if(j != 0) {
+                s[j++] = ' ';
+            }
+        }
+        while(i < s.size() && s[i] != ' ') {
+            s[j++] = s[i++];
+        }
+    }
+    s.resize(j);
+}
+
+void move(char x, char y) {
+    cout << x << " -> " << y << endl;
+}
+
+void hanoi(int n, char a, char b, char c) {
+    if(n == 1) {
+        move(a, c);
+    } else {
+        hanoi(n - 1, a, c, b);
+        move(a, c);
+        hanoid(n - 1, b, a, c);
+    }
+}
+
+//TODO
+// 1. 字符串转成整数 myAtoi
+// 2. 用栈来实现队列
+// 3. 去掉string中的多余空格
+// 4. hanoi
+
 int main(void) {
     vector<int> nums = {-1, 1, 2, 4, 3, 2};
     cout << longestIncreasingSecSubstring(nums) << endl;
