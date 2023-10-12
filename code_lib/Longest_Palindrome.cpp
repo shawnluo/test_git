@@ -4,6 +4,9 @@
 
 /*
     409. Longest Palindrome
+    组合数组中的字符，求构成回文字符的最长长度。
+    abadb -> abdba     5
+    abxadb -> abxba 或者 abdba  5
 
     我们先来看一看回文子串的规律，如果回文子串的长度为偶数，那么其中所有的每个元素都出现了偶数次；
     如果回文子串的长度为奇数，那么有一个元素出现了奇数次而其余每个元素都出现了偶数次。
@@ -22,9 +25,10 @@ int longestPalindrome(string s) {
     int even = 0;
     int odd = 0;
 
+    // 并不是真正求奇数的个数 + 偶数的个数。而是把每个数拆开，看其奇数的个数和偶数的个数。
     for(int i = 0; i < 256; i++) {
-        even += hash[i] / 2 * 2;
-        odd += hash[i] % 2;
+        even += hash[i] / 2 * 2;    // 把一个数分成奇数部分+偶数部分。这里是求偶数部分
+        odd += hash[i] % 2;         // 求奇数元素的个数
     }
     odd = odd > 0 ? 1 : 0;
     return even + odd;

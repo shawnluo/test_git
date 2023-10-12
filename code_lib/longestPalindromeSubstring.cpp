@@ -1,7 +1,6 @@
-
 #include "test.hpp"
 
-int longestPalindromSubstring(string s) {
+int longestPalindromeSubstring(string s) {
     vector<vector<bool>> dp(s.size(), vector<bool>(s.size(), false));
     for(int i = 0; i < s.size(); i++) {
         // dp[i][i] = true;

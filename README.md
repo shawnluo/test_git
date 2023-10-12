@@ -11,6 +11,7 @@
 |       |              | [code](code_lib/longest_Increasing_nums.cpp)                    | longest_increasing_nums 非连续                                          |                |      |
 |       |              | [code](code_lib/longest_consectively_Increasing_nums.cpp)       | longest_Increasing_nums consectively 连续                               |                |      |
 |       |              | [code](code_lib/dp53.cpp)                                       | 最长回文子序列 dp53                                                     |                |      |
+|       |              | [code](code_lib/longestPalindromeSubstring.cpp)                 | 最长回文子串                                                            |                |      |
 |       |              | [code](code_lib/dp52.cpp)                                       | 多少个子串 dp52                                                         |                |      |
 |       |              | [code](code_lib/dp50.cpp)                                       | 将string s换成string t，所需要的最少操作数 dp50                         |                |      |
 |       |              | [code](code_lib/dp49.cpp)                                       | dp49 两个字符串的删除操作：找到使得s和t相同，所需要的最少步数           |                |      |
@@ -38,10 +39,10 @@
 |       |              | [code](code_lib/isRectangle.cpp)                                | is rectangle                                                            |                | todo |
 |       |              | [code](code_lib/removeRepeatArray.cpp)                          | len of sorted element, remove repeat elements                           |                |      |
 |       |              | [code](code_lib/minSubArrLen.cpp)                               | min sub array Len 长度最小的子数组                                      |                |      |
-|       |              |                                                              |                                                                         |                |      |
+|       |              | [code](code_lib/myPow.cpp)                                      | implement pow                                                           |                |      |
 | 4000  | string       | [code](code_lib/reverseWords.cpp)                               | reverse words                                                           |                |      |
 |       |              |                                                              | palindrome                                                              |                |      |
-|       |              |                                                              | longest palindrome                                                      |                |      |
+|       |              | [code](code_lib/Longest_Palindrome.cpp)                         | longest palindrome                                                      |                |      |
 |       |              | [code](code_lib/removeSpaces.cpp)                               | remove extra spaces                                                     |                |      |
 |       |              |                                                              | reverse words in a sentence                                             |                |      |
 |       |              | [code](code_lib/longestUniqSubstr.cpp)                          | longest uniq sbustring                                                  |                |      |
@@ -72,7 +73,7 @@
 |       |              |                                                              |                                                                         |                |      |
 | 9000  | sorting      | [code](code_lib/sort_qsort.cpp)                                 | sort, qsort                                                             |                |      |
 |       |              | [code](code_lib/quicksorting.cpp)                               | quick sorting - partition                                               | important      |      |
-|       |              | [code](code_lib/nth_in_array.cpp)                               | nth element in array                                                    |                |      |
+|       |              | [code](code_lib/nth_in_array.cpp)                               | find nth element in array                                               |                |      |
 |       |              |                                                              |                                                                         |                |      |
 | 10000 | embedded     | [code](code_lib/alignedMallloc.cpp)                             | aligned malloc                                                          |                |      |
 |       |              | [code](code_lib/memcpy_strcpy.cpp)                              | memory copy / string copy                                               | very important |      |
