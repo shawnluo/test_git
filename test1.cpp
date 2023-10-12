@@ -1,32 +1,24 @@
 
 #include "test.hpp"
 
-int longestPalindromSubstring(string s) {
-    vector<vector<bool>> dp(s.size(), vector<bool>(s.size(), false));
-    for(int i = 0; i < s.size(); i++) {
-        // dp[i][i] = true;
-    }
-    int res = 0;
-
-    for(int i = s.size() - 1; i >= 0; i--) {
-        for(int j = i; j < s.size(); j++) {
-            if(s[i] == s[j]) {
-                if (j - i <= 1) {
-                    res = max(res, j - i + 1);
-                    dp[i][j] = true;
-                } else if (dp[i + 1][j - 1] == true) {
-                    res = max(res, j - i + 1);
-                    dp[i][j] = true;
-                }
-            }
+void test_CompletePack() {
+    vector<int>weight = {1, 3, 4};
+    vector<int>value = {15, 59, 25};
+    int bagWeight = 4;
+    vector<int>dp(bagWeight + 1, 0);
+    for(int i = 0; i < weight.size(); i++) {
+         // 遍历物品
+        // for(int j = weight[i]; j <= bagWeight; j++) {
+        for(int j = 0; j <= bagWeight; j++) {
+            // 遍历背包容量
+            if(j >= weight[i])
+                dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
         }
     }
-    return res;
+    cout<<dp[bagWeight] <<endl;
 }
 
 int main() {
-    string s = "abcxbac";
-    cout << dp_52(s) << endl;
-
+    test_CompletePack();
     return 0;
 }
