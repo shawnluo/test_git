@@ -1,24 +1,59 @@
 
 #include "test.hpp"
 
-void test_CompletePack() {
-    vector<int>weight = {1, 3, 4};
-    vector<int>value = {15, 59, 25};
-    int bagWeight = 4;
-    vector<int>dp(bagWeight + 1, 0);
-    for(int i = 0; i < weight.size(); i++) {
-         // 遍历物品
-        // for(int j = weight[i]; j <= bagWeight; j++) {
-        for(int j = 0; j <= bagWeight; j++) {
-            // 遍历背包容量
-            if(j >= weight[i])
-                dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+int hash_07(string ransom, string mag) {
+    unordered_map<char, int> map;
+    for(int i = 0; i < mag.size(); i++) {
+        map[mag[i]]++;
+    }
+    for(int i = 0; i < ransom.size(); i++) {
+        if(--map[ransom[i]] < 0) {
+            return false;
         }
     }
-    cout<<dp[bagWeight] <<endl;
+    return true;
 }
 
+void demo_multiset() {
+    std::unordered_multiset<string> set;
+    set.insert("Shawn");
+    set.insert("Julie");
+    set.insert("Shawn");
+
+    for(auto it : set) {
+        cout << it << " ";
+    }
+    cout << endl;
+}
+
+void printQue(std::deque<int> que) {
+    for(auto it : que) {
+        cout << it << " ";
+    }
+    cout << endl;
+}
+
+int test() {
+    std::deque<int> que;
+
+    que.push_back(10);
+    que.push_back(100);
+    printQue(que);
+
+    // que.pop_front();
+    que.pop_back();
+    printQue(que);
+
+    return 0;
+}
+
+
 int main() {
-    test_CompletePack();
+    // string a = "axabx";
+    // string b = "abax";
+    // cout << hash_07(a, b) << endl;
+
+    test();
+
     return 0;
 }

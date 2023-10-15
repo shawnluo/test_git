@@ -3,9 +3,9 @@
 |       |              | [code](code_lib/demo_vector.cpp)                                | vector                                                                  |                |      |
 |       | c++          | [code](code_lib/lambda.cpp)                                     | lambda                                                                  |                |      |
 |       |              | [code](code_lib/unordered_map.cpp)                              | unordered_map                                                           |                |      |
-|       |              |                                                              | unordered_set                                                           |                |      |
+|       |              | [code](code_lib/set.cpp)                                        | unordered_set                                                           |                |      |
 |       |              | [code](code_lib/cpp_cast.cpp)                                   | static_cast/dynamic_cast                                                |                |      |
-|       |              |                                                              |                                                                         |                |      |
+|       |              | [code](code_lib/deque.cpp)                                      | std::deque                                                              |                |      |
 | 1     | dp           | code                                                         | 0-1 knapsack                                                            |                |      |
 |       |              |                                                              | complete knapsack                                                       |                |      |
 |       |              | [code](code_lib/longest_Increasing_nums.cpp)                    | longest_increasing_nums 非连续                                          |                |      |
@@ -28,7 +28,7 @@
 |       |              |                                                              |                                                                         |                |      |
 |       |              |                                                              |                                                                         |                |      |
 | 2000  | bt           |                                                              | permutation                                                             |                |      |
-|       |              |                                                              |                                                                         |                |      |
+|       |              |                                                              | string combination                                                      |                |      |
 | 3000  | array        | [code](code_lib/chapter_2/findMedianSortedArrays.cpp)           | findMedianSortedArrays.cpp                                              |                |      |
 |       |              | [code](code_lib/chapter_2_array/strstr.cpp)                     | strstr - kmp                                                            |                |      |
 |       |              | [code](code_lib/meetingRoom.cpp)                                | meeting room                                                            |                |      |
