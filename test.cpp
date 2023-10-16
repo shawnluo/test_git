@@ -1,63 +1,50 @@
 #include "test.hpp"
 
+void getNext(int* next, string s) {
+    next[0] = 0;
+    int j = 0;
 
-
-//TODO
-// 1. 字符串转成整数 myAtoi
-// 2. 用栈来实现队列
-// 3. 去掉string中的多余空格
-// 4. hanoi
-
-vector<int> hash_03(vector<int> a, vector<int> b) {
-    unordered_set<int> set(b.begin(), b.end());
-    unordered_set<int> res;
-    for(auto it : a) {
-        auto x = set.find(it);
-        if(x != set.end()) {
-            res.insert(it);
+    for(int i = 1; i < s.size(); i++) {
+        while(j > 0 && s[i] != s[j]) {
+            j = s[j - 1];
         }
-    }
-    return vector<int>(res.begin(), res.end());
-}
-
-int getSum(int n) {
-    int sum = 0;
-    
-    while(n) {
-        sum += pow(n % 10, 2);
-        n /= 10;
-    }
-    return sum;
-}
-
-bool isHappyNum(int n) {
-    unordered_set<int> set;
-
-    while(1) {
-        int sum = getSum(n);
-        if(sum == 1) {
-            return true;
+        if(s[i] == s[j]) {
+            j++;
         }
-        if(set.find(sum) != set.end()) {
-            return false;
-        }
-        set.insert(sum);
-        n = sum;
+        s[i] = j;
     }
 }
 
-vector<int> hash_05(vector<int> nums, int target) {
-    unordered_map<int, int> map;
+// return the sub start pos in s, if it's existed, then return -1
+int kmp(string s, string sub) {
+    int next[sub.size()];
 
-    for(int i = 0; i < nums.size(); i++) {
-        auto it = map.find(target - nums[i]);
-        if(it != map.end()) {
-            return {it->second, i};
+    int j = 0;
+    for(int i = 0; i < s.size(); i++) {
+        while(j > 0 && s[i] != sub[j]) {
+            j = next[j - 1];
         }
-        map.insert(pair<int, int>(nums[i], i));
+        if(s[i] == sub[j]) {
+            j++;
+        }
+        if(j == sub.size()) {
+            return i - sub.size() + 1;
+        }
     }
-    return {};
+    return -1;
 }
+
+void* alignedMalloc(size_t size, size_t alignment) {
+    size_t offset = alignment - 1;
+    size_t newSize = size + offset + sizeof(size_t);
+    void* addr = (void*)malloc(newSize);
+    void* alignedAddr = (size_t *)addr & ~(offset);
+    *((size_t *)alignedAddr - 1) = (size_t *)alignedAddr - (size_t*)addr;
+
+    return alignedAddr;
+}
+
+
 
 vector<int> hash(vector<int> nums, int target) {
     unordered_map<int, int> map;
@@ -157,24 +144,13 @@ bool isValid(string s) {
 }
 
 int main(void) {
-    string s = "showme";
-    string sub = "meshwow";
-    vector<int> a = {1, 2, 3};
-    vector<int> b = {3, 2, 4};
-
-    vector<int> res = hash_03(a, b);
-    for(auto it : res) {
-        cout << it << " ";
-    }
-    cout << endl;
-    // bt_02(4, 2, 1);
-
-    // for(auto it : res) {
-    //     for(auto it_ : it) {
-    //         cout << it_ << " ";
-    //     }
-    //     cout << endl;
+    test();
+    // vector<int> arr = {1, 6, 4, 2, 3, 5, 7};
+    // quickSort(arr, 0, arr.size() - 1);
+    // for(auto x : arr) {
+    //     cout << x << " ";
     // }
+    // cout << endl;
 
     return 0;
 }
