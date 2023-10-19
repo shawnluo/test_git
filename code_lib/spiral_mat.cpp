@@ -28,7 +28,7 @@ void spiralMat(int n, vector<vector<int>>& mat) {
     }
 
     if(n % 2) {
-        mat[half][half] = count;
+        mat[n / 2][n / 2] = count;  // 注意不要用half，之前已经自减过了！
     }
 
     // for(auto x : mat) {
