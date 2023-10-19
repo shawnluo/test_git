@@ -1,156 +1,128 @@
 #include "test.hpp"
 
-void getNext(int* next, string s) {
-    next[0] = 0;
-    int j = 0;
 
-    for(int i = 1; i < s.size(); i++) {
-        while(j > 0 && s[i] != s[j]) {
-            j = s[j - 1];
-        }
-        if(s[i] == s[j]) {
-            j++;
-        }
-        s[i] = j;
-    }
-}
+void removeExtraSpaces(string& s) {
+    int slow = 0;
 
-// return the sub start pos in s, if it's existed, then return -1
-int kmp(string s, string sub) {
-    int next[sub.size()];
-
-    int j = 0;
-    for(int i = 0; i < s.size(); i++) {
-        while(j > 0 && s[i] != sub[j]) {
-            j = next[j - 1];
-        }
-        if(s[i] == sub[j]) {
-            j++;
-        }
-        if(j == sub.size()) {
-            return i - sub.size() + 1;
-        }
-    }
-    return -1;
-}
-
-void* alignedMalloc(size_t size, size_t alignment) {
-    size_t offset = alignment - 1;
-    size_t newSize = size + offset + sizeof(size_t);
-    void* addr = (void*)malloc(newSize);
-    void* alignedAddr = (size_t *)addr & ~(offset);
-    *((size_t *)alignedAddr - 1) = (size_t *)alignedAddr - (size_t*)addr;
-
-    return alignedAddr;
-}
-
-
-
-vector<int> hash(vector<int> nums, int target) {
-    unordered_map<int, int> map;
-
-    for(int i = 0; i < nums.size(); i++) {
-        auto it = map.find(target);
-        if(it != map.end()) {
-            return {it->second, i};
-        }
-        map.insert(pair<int, int>(nums[i], i));
-    }
-    return {};
-}
-
-int hash_06(vector<int> a, vector<int> b, vector<int> c, vector<int> d) {
-    unordered_map<int, int> map;
-    int count = 0;
-
-    for(auto i : a) {
-        for(auto j : b) {
-            map[i + j]++;
-        }
-    }
-
-    for(auto i : c) {
-        for(auto j : d) {
-            if(map.find(0 - i - j) != map.end()) {
-                count += map[0 - i - j];
+    for(int fast = 0; fast < s.size(); fast++) {
+        if(s[fast] != ' ') {
+            if(slow > 0) {
+                s[slow++] = ' ';
+            }
+            while(fast < s.size() && s[fast] != ' ') {
+                s[slow++] = s[fast++];
             }
         }
     }
-    return count;
+    s.resize(slow);
 }
 
-int hash_07(string ransom, string mag) {
-    unordered_map<char, int> map;
-    for(int i = 0; i < mag.size(); i++) {
-        map[mag[i]]++;
+void reverseStr(string& s, int start, int end) {
+    while(start < end) {
+        swap(s[start++], s[end--]);
     }
-    for(int i = 0; i < ransom.size(); i++) {
-        if(--map[ransom[i]] < 0) {
-            return false;
-        }
-    }
-    return true;
 }
 
-// -4, -1, -1, -1, 2
-int sumOfThree(vector<int> nums) {
-    vector<vector<int>> res;
+void reverseWords(string& s) {
+    int start = 0;
+    int end = 0;
+    removeExtraSpaces(s);
+    // cout << s << endl;
 
-    sort(nums.begin(), nums.end());
-
-    for(int i = 0; i < nums.size(); i++) {
-        if(nums[i] > 0) return res;
-
-        if(i > 0 && nums[i] == nums[i - 1]) {
-            continue;
-        }
-        int left = i + 1;
-        int right = nums.size() - 1;
-        while(left < right) {
-            res.push_back(vector<int>{nums[i], nums[left], nums[right]});
-            if(nums[i] + nums[left] + nums[right] > 0) {
-                right--;
-            } else if(nums[i] + nums[left] + nums[right] < 0) {
-                left++;
-            } else {
-                while(left < right && nums[right] == nums[right - 1]) right--;
-                while(left < right && nums[left] == nums[left + 1]) left++;
-                right--;
-                left++;
-            }
-        }
-    }
-    return res;
-}
-
-bool isValid(string s) {
-    if(s.size() % 2) return false;
-
-    stack<char> st;
     for(int i = 0; i < s.size(); i++) {
-        if(s[i] == '(') {
-            st.push(')');
-        } else if(s[i] == '{') {
-            st.push('}');
-        } else if(s[i] == '[') {
-            st.push(']');
-        } else if(st.emplty() || st.top() != s[i]) {
-            return false;
-        } else {
-            st.pop();
+        if(s[i] == ' ') {
+            end = i - 1;
+            reverseStr(s, start, end);
+            start = i + 1;
         }
     }
-    return st.empty();
+    reverseStr(s, 0, s.size() - 1);
+
+    // return s;
 }
 
-int main(void) {
-    test();
-    // vector<int> arr = {1, 6, 4, 2, 3, 5, 7};
-    // quickSort(arr, 0, arr.size() - 1);
-    // for(auto x : arr) {
-    //     cout << x << " ";
-    // }
-    // cout << endl;
+
+void context_grep(int argc, char** argv, int context, char* expr) {
+    if(argc <= 0 || argv == nullptr || expr == nullptr || context < 0) {
+        return;
+    }
+
+    int firstTime = -1;
+    int lastTime = -1;
+    for(int i = 0; i < argc; i++) {
+        if(strstr(argv[i], expr) != nullptr) {
+            if(firstTime == -1) {
+                firstTime = i;
+            }
+            lastTime = i;
+        }
+    }
+    if(firstTime == -1) return;
+
+    vector<string> res;
+    for(int i = context; i > 0 && lastTime-- > 0; i--) {
+        res.insert(res.begin(), argv[firstTime]);
+    }
+
+    for(int i = 0; i < context && lastTime++ < argc; i--) {
+        res.push_back(argv[lastTime]);
+    }
+
+    for(auto x : res) {
+        cout << x << endl;
+    }
+}
+
+char *argv[] = {
+    "Hello world",
+    "Welcome to California",
+    "Goodbye",
+    "Big sky",
+    "Nice job",
+    "Blue sky",
+    "Hey Joe",
+    "great hill",
+};
+
+int main() {
+    // case 1
+    context_grep(6, argv, 2, "sky");
+    
+    // case 2: no print
+    // context_grep(6, argv, -1, "sky");
+
+    // // case 3: 
+    // context_grep(6, argv, 1, "sky");
+
+    // // case 4: 
+    // context_grep(6, argv, 1, "sy");
+
+    // // case 5: 
+    // context_grep(0, argv, 1, "sy");
+
+    // // case 6: 
+    // context_grep(-1, argv, 1, "sy");
+
+    // // case 7: 
+    // context_grep(6, nullptr, 1, "sy");
+
+    // // case 8: 
+    // context_grep(6, argv, 1, nullptr);
+
+    // // case 9: 
+    // context_grep(6, argv, 11, "sky");
+
+    // // case 10: 
+    // context_grep(6, argv, 0, "sky");
 
     return 0;
 }
+
+// int main(void) {
+//     string s = "   show me   the   !   ";
+//     reverseWords(s);
+
+//     cout << s << endl;
+
+//     return 0;
+// }
