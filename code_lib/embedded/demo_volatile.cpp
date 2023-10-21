@@ -14,8 +14,7 @@
 #define ENABLE_BIT 0x07
 #define VOLUME_START_BIT 0x0
 #define VOLUME_END_BIT 0x7
-bool ControlSound(int Volume, bool Enable)
-{
+bool ControlSound(int Volume, bool Enable) {
     int i;
     int data = 0;
     int max = ~0;
@@ -24,25 +23,20 @@ bool ControlSound(int Volume, bool Enable)
     int right = 0;
     int mask = 0;
        
-    if(Enable == TRUE)
-    {
+    if(Enable == TRUE) {
        SOUND_CTL |= (1 << ENABLE_BIT);
-    } 
-    else
-    {
+    } else {
         SOUND_CTL &= ~(1 << ENABLE_BIT);
     }
     
     //set the volume
-    if((Volume >= 0) && (Volume <= 255))
-    {
+    if((Volume >= 0) && (Volume <= 255)) {
         // there're 2 ways to set the register
         /*
             ------------ way1: set the bits one by one
         */
         #ifdef way1     
-        for(i = VOLUME_START_BIT;i <= VOLUME_END_BIT;i++)
-        {
+        for(i = VOLUME_START_BIT;i <= VOLUME_END_BIT;i++) {
             data |= (Volume >> i);
             data <<= 1; 
         }
@@ -69,25 +63,17 @@ bool ControlSound(int Volume, bool Enable)
         SOUND_CTL |= data;
 
         return TRUE;
- 
-    }
-    else
-    {
+    } else {
         return FALSE;
     }
 }
 
-int CountBits(int num)
-{
-    int i;
+int CountBits(int num) {
     int count = 0;
-    
-    for(i = 0;i < 32;i++)
-    {
-        if((num >> i) & 0x01)
-        {
-            count++;
-        }    
+
+    while(num) {
+        num &= (num - 1);
+        count++;
     }
     return count;
 }
@@ -110,8 +96,7 @@ The queue should have <12321> <56765> <66666>
 
 #define YES 1
 #define NO 0
-int checkPalindrome(unsigned int number)
-{
+int checkPalindrome(unsigned int number) {
     int ret = 0, sign = number >> 31;
     int save = number;
       

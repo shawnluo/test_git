@@ -42,7 +42,7 @@ void getNext(int *next, string s) {
 
     for(int i = 1; i < s.size(); i++) {
         while(j > 0 && s[i] != s[j]) {
-            j = s[j - 1];   // j 找上一个匹配过得段落的下一个元素
+            j = next[j - 1];   // j 找上一个匹配过得段落的下一个元素
         }
         if(s[i] == s[j]) {
             j++;

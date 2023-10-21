@@ -20,7 +20,8 @@ uint32_t setMask_AllOne(uint32_t start, uint32_t end) {
     uint32_t left = (1 << start) - 1;
     uint32_t right = (1 << end) - 1;
 
-    return left ^ right;
+    // return left ^ right; // also works
+    return left - right;
 }
 
 /*
@@ -32,9 +33,8 @@ uint32_t setMask_AllOne(uint32_t start, uint32_t end) {
         直接将setMask取反。
 */
 uint32_t setMask_AllZero(uint32_t start, uint32_t end) {
-    return ~setMask(start, end);
+    return ~setMask_ALLOne(start, end);
 }
-
 
 // ----------------- solution 2: 使用~0这个max来对left和right 来进行操作---------------------------
 uint32_t setMask_AllZero(uint32_t start, uint32_t end) {

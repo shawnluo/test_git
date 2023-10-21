@@ -7,12 +7,12 @@
 #include <limits.h>
 #include <math.h>
 
-#define REG *(volitile unsigned long *)0x00008000
+#define REG *(volatile unsigned long *)0x00008000
 
-//set bits
-void setBits(int startBit, int num) {
+//set n bits from startBit for REG
+void setBits(int startBit, int n) {
     int i;
-    for(i = 0; i < num; i++) {
+    for(i = 0; i < n; i++) {
         REG |= 1 << (startBit + i);
     }
 }

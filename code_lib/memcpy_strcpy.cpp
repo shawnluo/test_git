@@ -33,20 +33,19 @@ void* memcpy(void* dst, const void* src, size_t size) { // 注意const, void*
 // 考虑了拷贝速度，按照cpu的位宽来拷贝。比如32bitcpu, 就按照4个字节一次来拷贝。因为cpu一次能读4个字节
 void *Memcpy_ext(void *dest, const void *src, size_t count) {  
     int bytelen = count / sizeof(dest); /*按CPU位宽拷贝*/
-    int slice = count % sizeof(dest); /*剩余的按字节拷贝*/
+    int remain = count % sizeof(dest); /*剩余的按字节拷贝*/
     unsigned int* d = (unsigned int*)dest;  
     unsigned int* s = (unsigned int*)src;  
 
     if (((int)dest > ((int)src+count)) || (dest < src)) {  
         while (bytelen--)  
             *d++ = *s++;  
-        while (slice--)  
+        while (remain--)  
             *(char *)d++ = *(char *)s++; 
-    }  
-    else {   /* overlap重叠 */ 
+    } else {   /* overlap重叠 */ 
         d = (unsigned int*)((unsigned int)dest + count - 4); /*指针位置从末端开始，注意偏置 */  
         s = (unsigned int*)((unsigned int)src + count -4);  
-        while (bytelen --)  
+        while (bytelen--)  
             *d-- = *s--;
         d++;
         s++;
@@ -55,7 +54,7 @@ void *Memcpy_ext(void *dest, const void *src, size_t count) {
         char * s1=(char *)s;
         d1--;
         s1--;
-        while (slice --)  
+        while (remain--)  
             *(char *)d1-- = *(char *)s1--; 
     }  
     return dest;  
