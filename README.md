@@ -79,7 +79,7 @@
 |       |              |                                                              |                                                                         |                |      |
 | 10000 | embedded     | [code](code_lib/alignedMallloc.cpp)                             | aligned malloc                                                          |                |      |
 |       |              | [code](code_lib/memcpy_strcpy.cpp)                              | memory copy / string copy                                               | very important |      |
-|       |              |                                                              |                                                                         |                |      |
+|       |              | [code](code_lib/isLittle.cpp)                                   | little ending                                                           |                |      |
 | 11000 | others       | [code](code_lib/longestStrChain.cpp)                            | longestStrChain.cpp                                                     |                | TODO |
 |       |              | [code](code_lib/read4.cpp)                                      | using read4 api to implement read N characters                          | important      |      |
 |       |              | [code](code_lib/likely.cpp)                                     | likely, unlikely, throw exception                                      |                |      |

@@ -13,7 +13,9 @@ vector<int> demo_unordered_map() {
         {"money", 2}
     };
     
+    // 1. insert pair
     unmap.insert(pair<string, int>("tree", 5));
+    unmap["tree"] = 5;
 
     for(int i = 0; i < unmap.size(); i++) {
         auto iter = unmap.find(i);

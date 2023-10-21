@@ -23,7 +23,8 @@ bool ransom(string s, string t) { // s: ransom  t: magazine
     return true;
 }
 
-// 求s是否由t中的字符构成？ t中的字符可以重复被使用  
+// 此非正确解法。- unordered_set会去重。
+// 这里是求s是否由t中的字符构成 - t中的字符可以重复被使用  
 // example:   s - abca  t - abcdx  -> true
 bool ransom2(string s, string t) {
     unordered_set<char> set(t.begin(), t.end());

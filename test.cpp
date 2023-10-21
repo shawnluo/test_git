@@ -100,3 +100,12 @@ int main(void) {
 
     return 0;
 }
+
+// int main(void) {
+//     string s = "   show me   the   !   ";
+//     reverseWords(s);
+
+//     cout << s << endl;
+
+//     return 0;
+// }
