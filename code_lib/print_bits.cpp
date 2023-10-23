@@ -11,6 +11,48 @@
 using namespace std;
 
 
+#include "test.hpp"
+
+string printBin_IntPart(int n) {
+    string s;
+    while(n) {
+        int r = n % 2;
+        n >>= 1;
+        s = std::to_string(r) + s;
+    }
+
+    return s;
+}
+
+string printBin_DecPart(double n) {
+    string s;
+    while(n) {
+        if(s.size() > 32)
+            return "ErRROR";
+
+        if(n == 1) {
+            s = s + std::to_string(n);
+            break;
+        }
+        
+        if(n * 2 >= 1) {
+            s = s + std::to_string(1);
+            n = n * 2 - 1;
+        } else {
+            s = s + std::to_string(0);
+            n = n * 2;
+        }
+    }
+    return s;
+}
+
+int main(void) {
+    string s = printBin_IntPart(8);
+    cout << s << endl;
+
+    return 0;
+}
+
 // 方法一：
 // bitset<32>(x): 将x转化为32位二进制数
 

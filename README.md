@@ -70,12 +70,13 @@
 | 7000  | bits         | [code](code_lib/bitManipulate.cpp)                              | set all 1 or 0 mask from start to end                                   |                |      |
 |       |              | [code](code_lib/bit_convert.cpp)                                | determine the number of bits required to convert integer A to integer B |                |      |
 |       |              | [code](code_lib/swapOddEven.cpp)                                | swap odd and even bits in an integer                                    |                |      |
-|       |              |                                                              |                                                                         |                |      |
+|       |              | [code](code_lib/print_bits.cpp)                                 | print bits binary                                                       |                |      |
 | 8000  | IPC          | [code](demo/chapter10_semaphore.c)                              | semaphore                                                               |                |      |
 |       |              | [code](code_lib/pthread_cond_wait.c)                            | pthread_cond_wait                                                       |                |      |
 | 9000  | sorting      | [code](code_lib/sort_qsort.cpp)                                 | sort, qsort                                                             |                |      |
 |       |              | [code](code_lib/quicksorting.cpp)                               | quick sorting - partition                                               | important      |      |
 |       |              | [code](code_lib/nth_in_array.cpp)                               | find nth element in array                                               |                |      |
+|       |              | [code](code_lib/UsingStacksorting.cpp)                          | using stack to sort array                                               |                |      |
 |       |              |                                                              |                                                                         |                |      |
 | 10000 | embedded     | [code](code_lib/alignedMallloc.cpp)                             | aligned malloc                                                          |                |      |
 |       |              | [code](code_lib/memcpy_strcpy.cpp)                              | memory copy / string copy                                               | very important |      |
