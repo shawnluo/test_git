@@ -13,7 +13,7 @@
 void setBits(int startBit, int n) {
     int i;
     for(i = 0; i < n; i++) {
-        REG |= 1 << (startBit + i);
+        REG |= (1 << (startBit + i));
     }
 }
 

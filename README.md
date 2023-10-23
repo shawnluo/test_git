@@ -72,7 +72,7 @@
 |       |              | [code](code_lib/swapOddEven.cpp)                                | swap odd and even bits in an integer                                    |                |      |
 |       |              |                                                              |                                                                         |                |      |
 | 8000  | IPC          | [code](demo/chapter10_semaphore.c)                              | semaphore                                                               |                |      |
-|       |              |                                                              |                                                                         |                |      |
+|       |              | [code](code_lib/pthread_cond_wait.c)                            | pthread_cond_wait                                                       |                |      |
 | 9000  | sorting      | [code](code_lib/sort_qsort.cpp)                                 | sort, qsort                                                             |                |      |
 |       |              | [code](code_lib/quicksorting.cpp)                               | quick sorting - partition                                               | important      |      |
 |       |              | [code](code_lib/nth_in_array.cpp)                               | find nth element in array                                               |                |      |

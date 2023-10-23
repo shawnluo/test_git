@@ -38,6 +38,36 @@ bool search(treeNode* root, int value) {
     }
 }
 
+// leetcode 144 前序 中左右
+void travel_dfs(treeNode* root, vector<int>& result) {
+    if(root == NULL) {
+        return;
+    }
+    result.push_back(root->val);
+    travel_dfs(root->left, result);
+    travel_dfs(root->right, result);
+}
+
+// leetcode 94 中序 左中右
+void travel_LCR(treeNode* root, vector<int>& result) {
+    if(root == NULL) {
+        return;
+    }
+    travel_LCR(root->left, result);
+    travel_LCR(root->right, result);
+    result.push_back(root->val);
+}
+
+// leetcode 145 后序 左右中
+void travel_LRC(treeNode* root, vector<int>& result) {
+    if(root == NULL) {
+        return;
+    }
+    travel_LRC(root->left, result);
+    result.push_back(root->val);
+    travel_LRC(root->right, result);
+}
+
 int main() {
     treeNode* root = nullptr;
 
