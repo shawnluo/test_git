@@ -16,7 +16,7 @@ int meetingRoom(vector<vector<int>> nums) {
 
     int pEnd = 0;
     for(int pStart = 0; pStart < nums.size(); pStart++) {
-        if(pStart == 0 && start[pStart] < end[pEnd]) {
+        if(pStart == 0 || start[pStart] < end[pEnd]) {
             room++;
         } else {
             pEnd++;
