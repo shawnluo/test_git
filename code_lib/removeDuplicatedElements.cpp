@@ -1,6 +1,3 @@
-
-#include "test.hpp"
-
 void removeDuplicatedElements() {
     vector<int> nums = {1, 1, 2, 1, 3, 4, 2};
     int k = 1;;

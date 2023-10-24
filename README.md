@@ -40,6 +40,7 @@
 |       |              | [code](code_lib/removeRepeatArray.cpp)                          | len of sorted element, remove repeat elements                           |                |      |
 |       |              | [code](code_lib/minSubArrLen.cpp)                               | min sub array Len 长度最小的子数组                                      |                |      |
 |       |              | [code](code_lib/myPow.cpp)                                      | implement pow                                                           |                |      |
+|       |              | [code](code_lib/removeDuplicatedElements.cpp)                   | remove the duplicated elements in an array                              |                |      |
 | 4000  | string       | [code](code_lib/reverseWords.cpp)                               | reverse words                                                           |                |      |
 |       |              |                                                              | palindrome                                                              |                |      |
 |       |              | [code](code_lib/Longest_Palindrome.cpp)                         | longest palindrome                                                      |                |      |
