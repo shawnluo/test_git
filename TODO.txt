@@ -271,6 +271,11 @@ done
 1. system design - firmware upgrade
 
 1. coding
+    cracking_1_3. remove the duplicated characters
+    dp_24. 给定正整数n, 找到若干个完全平方数, 使得它们的和等于n. 需要让组成和的完全平方数的个数最少
+    dp_48. 给定一个字符串s和一个字符串t, 计算在s的子序列中t出现的个数
+    dp_52. 给定一个字符串，计算这个字符串中有多少个回文子串
+    求最长回文子序列的长度
 ✌️    kmp
 ✌️    kth max in a array - priority_queue
 ✌️    quickSort - partition
