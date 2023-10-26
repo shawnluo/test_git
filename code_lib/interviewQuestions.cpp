@@ -44,15 +44,16 @@ float voltageEstimate(const float a, const float *a_data, float *v_data, size_t 
   // TODO
 
     float ratio;
-    float c = 0;
+    // float c = 0;
     for(int i = 0; i < size - 1; i++) {
         if(a >= a_data[i] && a <= a_data[i + 1]) {
             ratio = (v_data[i + 1] - v_data[i]) / (a_data[i + 1] - a_data[i]);
-            c = v_data[i]; 
+            // c = v_data[i]; 
             break;
         }
     }
-    return a * ratio + c;
+    // return a * ratio + c;
+    return a * ratio;
 }
 
 
