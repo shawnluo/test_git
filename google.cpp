@@ -217,3 +217,76 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+
+/*
+Implement a blurring effect on an image that is represented as a MxN matrix of Pixels.
+Blurring a single pixel is done by averaging values in surrounding area. Neighborhood area AxB
+
+Example:
+Neighborhood area: 3X5
+
+Input:
+ ___ ___ ___ ___ ___ ___ ___ _...
+|_1_|_5_|_2_|_3_|_5_|_6_|_1_|_...
+|_2_|_1_|_1_|_9_|_4_|_8_|_3_|_...
+|_1_|_1_|_2_|_3_|_5_|_2_|_9_|_...
+|___|___|___|___|___|___|___|_...
+|...|...|...|...|...|...|...|_...
+
+Output (only few pixels are blurred)
+0_|_ ___ ___ ___ ___ ___ ___ _
+0 |_x_|___|___|___|___|___|___|_...
+0 |_ _|___|_3_|_4_|___|___|___|_...
+0 |___|___|___|___|___|___|___|_...
+  |___|___|___|___|___|___|___|_...
+0 |...|...|...|...|...|...|...|_...
+*/
+
+
+int sum(int **arr, int row, int col, int posX, int posY, int a, int b) {
+    int i, j, sum = 0;
+    int coutX = 0;
+    int coutY = 0;
+    a = a >> 1;
+    b = b >> 1;
+    for(i = posX - a; i <= posX + a; i++) {
+      coutX = 0;
+      coutY = 0;
+      for(j = posY - b; j <= posY + b; j++) {
+        if(i < 0 || i >= row || j < 0 || j >= col) {
+          continue;
+          // arr[i][j] = 0; // arr[-1][-2] = 0;
+        }
+        coutX++;
+        sum += arr[i][j];
+      }
+      coutY++;
+    }
+    sum /= (coutX * coutY);
+    return sum;
+}
+
+// 0x00   0x01
+// 0x 
+int blurring(void *arr, void *res, int row, int col, int a, int b) {
+    if(!arr) {
+      return -1;
+    }
+    // int res[row][col] = {0};
+
+    int (*arr_)[col] = arr;
+    int (*res_)[col] = res;
+
+    // 3 X 5
+    for(int i = 0; i < row; i++) {
+      for(int j = 0; j < col; j++) {
+          res_[i][j] = sum(arr_, row, col, i, j, a, b);
+      }
+    }
+    return 0;
+}

@@ -1,6 +1,7 @@
 #include "test.hpp"
 
 
+<<<<<<< Updated upstream
 int dp_41(vector<int> nums) {
     vector<int> dp(nums.size(), 1);
     int res = 0;
@@ -37,3 +38,12 @@ for(int i = 1; i < nums.size(); i++) {
     }
 }
 
+=======
+void test() {
+    for() {
+        for() {
+            arr[i][j] = sum(arr, i, j, x, y);
+        }
+    }
+}
+>>>>>>> Stashed changes

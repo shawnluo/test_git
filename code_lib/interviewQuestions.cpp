@@ -89,3 +89,202 @@ TEST_CASE( "Steering Problem Test" ) {
   
   // TODO: Add any new test sections here
 }
+
+
+
+
+
+
+
+
+
+
+S
+Convert Temperature Sensor Data
+
+
+
+Shawn Luo
+
+
+Convert Temperature Sensor Data
+Description
+We have a temperature sensor connected to an MCU via an I2C bus. The temperature sensor provides data in one of two measurement modes - standard mode or extended mode. In standard mode, the sensor can measure temperature in the range from 0°C to 127°C, and in the extended mode, it can measure temperature in the range from -64°C to 191°C.
+
+In any mode, the MCU receives 24-bits of data.  A description of the data is given below:
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+The high byte, bits 15 to 8, contains the integer portion of the temperature in °C, and the low byte, bits 7 to 0, contains the decimal fraction of the temperature in °C.
+
+In standard mode, temperatures lower than 0°C are reported as 0°C by the sensor; similarly, temperatures higher than 127°C are reported as 127°C. In extended mode, the sensor reports temperatures from -64°C to 191°C.
+
+ 
+
+ 
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Function Description
+
+The goal of this question is to populate the function convert_to_temp. This function takes in one argument input_val and returns the converted temperature value in degrees centigrade.
+
+ 
+
+Constraints
+
+The input decimal value will be within the conversion range of the sensor.
+ 
+
+Input Format For Custom Testing
+Sample Case 0
+Sample Case 1
+C
+119202122232425262728333435363738394041424344454647484950515253545556575859606162636465666768697071727374293031327576
+        res = input_val >> 8;
+        res &= (~((1 << 16) - 1));
+        FracPart = calFract(input_val);
+    } else {
+        res = input_val >> 8;
+        res &= (~((1 << 15) - 1));
+        uint32_t low = (1 << 8) - 1;
+        uint32_t high = (1 << 16) - 1;
+        uint32_t mask = high - low;
+        int intPart = (input_val & mask) >> 15;
+
+Line: 65 Col: 26
+
+Run Code
+
+Run Tests
+
+Input / Output
+
+Test Cases
+
+
+Input
+29552
+Run Code to see your output here.
+
+double __y, hint
