@@ -1,3 +1,9 @@
+
+
+// map加heap就自动排序了，
+// 虽然发小了heap自动排序了，
+// 但面试官说还有时间就写了下custom conditions，然后就没问题了
+
 #include "test.hpp"
 
 /*
@@ -9,7 +15,8 @@
 
 class mycomparison {
 public:
-    bool operator()(const pair<int, int>& lhs, const pair<int, int>& rhs) { // lhs: left-hand sides   rhs: right-hand side
+    // 对操作符“()”进行重载
+    bool operator()(const pair<int, int>& lhs, const pair<int, int>& rhs) {
         return lhs.second > rhs.second;
     }
 };
