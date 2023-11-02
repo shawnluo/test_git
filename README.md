@@ -24,7 +24,7 @@
 |       |                     |                                                                 |                                                                         |                |      |
 | 2000  | linked list         | [code](code_lib/LinkedList-reverse.cpp)                            | reverse                                                                 |                |      |
 |       |                     | [code](code_lib/createLL.cpp)                                      | create LL                                                               |                |      |
-|       |                     |                                                                 |                                                                         |                |      |
+|       |                     | [code](code_lib/chapter_5_LinkedList/05_18_partitionList.cpp)      | partition list 链表局部排序                                             |                |      |
 |       |                     |                                                                 |                                                                         |                |      |
 |       |                     |                                                                 |                                                                         |                |      |
 |       |                     |                                                                 |                                                                         |                |      |
@@ -38,7 +38,7 @@
 |       |                     | [code](code_lib/rotateMat.cpp)                                     | rotate mat                                                              |                |      |
 |       |                     | [code](code_lib/findIsland.cpp)                                    | find island                                                             |                |      |
 |       |                     | [code](code_lib/isRectangle.cpp)                                   | is rectangle                                                            |                | todo |
-|       |                     |                                                                 |                                                                         |                |      |
+|       |                     | [code](code_lib/deleteDuplicated.cpp)                              | delete duplicated elements in an array                                  |                |      |
 |       |                     |                                                                 |                                                                         |                |      |
 |       |                     |                                                                 |                                                                         |                |      |
 |       |                     | [code](code_lib/removeRepeatArray.cpp)                             | len of sorted element, remove repeat elements                           |                |      |

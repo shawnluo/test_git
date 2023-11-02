@@ -1,39 +1,77 @@
 #include "test.hpp"
 
-/*
-    如果是int型的数据，优先队列内部已经帮我们写好了
-    priority_queue<int, vector<int>, less<int>> pq;  // 最大堆
-    priority_queue<int, vector<int>, greater<int>> pq;  // 最小堆
-*/
+typedef struct node {
+    int data;
+    struct node* left;
+    struct node* right;
 
+    node(int val) : data(val), left(nullptr), right(nullptr) {}
+} Node;
 
-void rmDup(pNode pHead) {
-    pNode cur = pHead->next;
-    pNode pRunner = pHead;
-    pNode pPre = pHead;
+void appendLL(pNode& pHead, int data) {
+    if(pHead == nullptr) {
+        pHead = (pNOde)malloc(SIZE);
+        pHead->data = data;
+        return;
+    }
+    while(pHead->next) {
+        pHead = pHead->next;
+    }
+    pNew = (pNode)malloc(SIZE);
+    pNew->data = data;
+    pHead->next = pNew;
+}
 
-    while(cur) {
-        for(pRunner = pHead; pRunner != cur; ) {
-            if(pRunner->data == cur->data) {
-                pre->next = cur->next;
-                cur = cur->next;
-                break;
-            }
-        }
-        // if dup, then skip. pPre = pPre->next;
-        if(pRunner == cur) {
-            pPre = cur;
-            cur = cur->next;
-        } else {
-            pNode tmp = cur;
-            cur = cur->next;
-            free(tmp);
-        }
+void createLL(pNode& pHead, void* data, int size) {
+    if(!pHead) {
+        pHead = (pNode)malloc(SIZE);
+        pHead=>data = data[0];
+    }
+
+    pNode pCur = pHead;
+    pNode pNext = nullptr;
+    int *arr = (int*)data;
+    
+    for(int i = 1; i < size; i++) {
+        pNext = (pNode)malloc(SIZE);
+        pNext->data = data[i];
+        pNext->next = nullptr;
+
+        pCur->next = pNext;
+        pCur = pNext;
     }
 }
 
+void createLLExt(pNode& pHead, int* data, int size) {
+    
+}
+
+pNode AddLL(pNode a, pNode b) {
+    int carry = 0;
+    pNode p = nullptr;
+
+    while(a || b) {
+        int data = carry;
+        if(a) {
+            data += a->data;
+        }
+        if(b) {
+            data += b->data;
+        }
+        carry = (data >= 10 ? 1 : 0);
+        data = data % 10;
+        appendLL(p, data);
+
+        if(a) a = a->next;
+        if(b) b = b->next;
+    }
+    if(carry) appendLL(p, carry);
+
+    return p;
+}
+
 int main(void) {
-    rotate();
+    rmDump();
 
     return 0;
 }
