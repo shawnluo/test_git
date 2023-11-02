@@ -6,11 +6,43 @@
 #include <cstring>
 #include <unordered_set>
 
-using namespace std;
+class myComparison {
+public:
+	bool operator()(const pair<int, int>& lhs, const pair<int, int>& rhs) {
+		return lhs.second < rhs.second;
+	}
+};
 
-int main() {
-	unordered_set<string> myset = {"Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune", "Mercury"};
-	for (auto it = myset.begin(); it != myset.end(); ++it)
-		cout << *it << endl;
+vector<int> sortByFre(vector<int> nums) {
+	int size = nums.size();
+	unordered_map<int, int> map;
+
+	for(int i = 0; i < size; i++) {
+		map[nums[i]]++;
+	}
+
+	priority_queue<pair<int, int>, vector<pair<int, int>>, myComparison> pq;
+	
+	for(auto it = map.begin(); it != map.end(); it++) {
+		pq.push(*it);
+	}
+
+	vector<int> res;
+	while(!pq.empty()) {
+		res.push_back(pq.top().first);
+		pq.pop();
+	}
+
+	return res;
+}
+
+int main(void) {
+	vector<int> nums = {0, 1, 1, 2, 2, 2};
+	vector<int> res = sortByFre(nums);
+	for(auto it : res) {
+		cout << it << " ";
+	}
+	cout << endl;
+
 	return 0;
 }

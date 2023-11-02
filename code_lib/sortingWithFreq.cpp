@@ -30,21 +30,26 @@ vector<int> topKFrequent(vector<int>& nums, int k) {
 
     // 对频率排序
     // 定义一个小顶堆，大小为k
-    priority_queue<pair<int, int>, vector<pair<int, int>>, mycomparison> pri_que;
+    priority_queue<pair<int, int>, vector<pair<int, int>>, mycomparison> pq;
 
     // 用固定大小为k的小顶堆，扫面所有频率的数值
     for (unordered_map<int, int>::iterator it = map.begin(); it != map.end(); it++) {
-        pri_que.push(*it);
-        if (pri_que.size() > k) { // 如果堆的大小大于了K，则队列弹出，保证堆的大小一直为k
-            pri_que.pop();
+        pq.push(*it);
+        if (pq.size() > k) { // 如果堆的大小大于了K，则队列弹出，保证堆的大小一直为k
+            pq.pop();
         }
     }
+
+    // while(pq.size() != 0) {
+    //     res.push_back(pq.top().first);
+    //     pq.pop();
+    // }
 
     // 找出前K个高频元素，因为小顶堆先弹出的是最小的，所以倒序来输出到数组
     vector<int> result(k);
     for (int i = k - 1; i >= 0; i--) {
-        result[i] = pri_que.top().first;
-        pri_que.pop();
+        result[i] = pq.top().first;
+        pq.pop();
     }
     return result;
 }

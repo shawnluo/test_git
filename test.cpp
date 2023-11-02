@@ -7,53 +7,33 @@
 */
 
 
-class mycomparison {
-public:
-    bool operator()(const pair<int, int>& lhs, const pair<int, int>& rhs) { // lhs: left-hand sides   rhs: right-hand side
-        return lhs.second > rhs.second;
-    }
-};
+void rmDup(pNode pHead) {
+    pNode cur = pHead->next;
+    pNode pRunner = pHead;
+    pNode pPre = pHead;
 
-vector<int> topKFrequent(vector<int>& nums, int k) {
-    // 要统计元素出现频率
-    unordered_map<int, int> map; // map<nums[i],对应出现的次数>
-    for (int i = 0; i < nums.size(); i++) {
-        map[nums[i]]++;
-    }
-
-    // 对频率排序
-    // 定义一个小顶堆，大小为k
-    priority_queue<pair<int, int>, vector<pair<int, int>>, mycomparison> pri_que;
-
-    // 用固定大小为k的小顶堆，扫面所有频率的数值
-    for (unordered_map<int, int>::iterator it = map.begin(); it != map.end(); it++) {
-        pri_que.push(*it);
-        if (pri_que.size() > k) { // 如果堆的大小大于了K，则队列弹出，保证堆的大小一直为k
-            pri_que.pop();
+    while(cur) {
+        for(pRunner = pHead; pRunner != cur; ) {
+            if(pRunner->data == cur->data) {
+                pre->next = cur->next;
+                cur = cur->next;
+                break;
+            }
+        }
+        // if dup, then skip. pPre = pPre->next;
+        if(pRunner == cur) {
+            pPre = cur;
+            cur = cur->next;
+        } else {
+            pNode tmp = cur;
+            cur = cur->next;
+            free(tmp);
         }
     }
-
-    // 找出前K个高频元素，因为小顶堆先弹出的是最小的，所以倒序来输出到数组
-    vector<int> result(k);
-    for (int i = k - 1; i >= 0; i--) {
-        result[i] = pri_que.top().first;
-        pri_que.pop();
-    }
-    return result;
-}
-
-void showMe(vector<int> res) {
-    for(auto it : res) {
-        cout << it << " ";
-    }
-    cout << endl;
 }
 
 int main(void) {
-    vector<int> nums = {2, 4, 5, 7, 0, 2, 7, 7, 0};
-    vector<int> res = topKFrequent(nums, 3);
-
-    showMe(res);
+    rotate();
 
     return 0;
 }

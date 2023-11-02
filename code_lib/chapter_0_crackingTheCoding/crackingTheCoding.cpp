@@ -287,7 +287,9 @@ void delD(pNode pHead) {
         while(runner != cur) {
             if(runner->data == cur->data) {
                 pre->next = cur->next;
+                pNode tmp = cur;
                 cur = cur->next;
+                free(tmp);
                 break;
             }
             runner = runner->next;
