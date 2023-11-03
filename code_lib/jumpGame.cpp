@@ -46,3 +46,27 @@ public:
         return count == 0;
     }
 };
+
+/*
+其实这题最好的解法不是 DP，而是贪婪算法 Greedy Algorithm，
+因为这里并不是很关心每一个位置上的剩余步数，而只希望知道能否到达末尾，
+也就是说我们只对最远能到达的位置感兴趣，所以维护一个变量 reach，表示最远能到达的位置，初始化为0。
+而所有小于等于 reach 的位置都可以通过连续跳跃到达的，则只要 reach 大于等于最后一位置，
+就说明可以跳到最后一个位置。所以问题的核心就变成了尽可能的更新 reach 为最大值，
+这样就可以一次遍历数组中的每个位置，若这个位置小于等于 reach，说明是在可以到达的范围内，
+而从该位置可以到达的最大范围就是 i + nums[i]，用这个最大范围来更新 reach。
+若某个时刻 reach 已经大于等于 n-1 了，说明可以到达最后的位置了，不需要进一步更新了，可以直接 break 掉循环。
+循环退出了之后，比较 reach 和 n-1 的只，若大于等于则返回 true，否则返回 false，参见代码如下：
+*/
+
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int n = nums.size(), reach = 0;
+        for (int i = 0; i < n; ++i) {
+            if (i > reach || reach >= n - 1) break;
+            reach = max(reach, i + nums[i]);
+        }
+        return reach >= n - 1;
+    }
+};
