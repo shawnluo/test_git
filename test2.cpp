@@ -6,35 +6,29 @@
 #include <cstring>
 #include <unordered_set>
 
-class myComparison {
+class Solution {
 public:
-	bool operator()(const pair<int, int>& lhs, const pair<int, int>& rhs) {
-		return lhs.second < rhs.second;
-	}
+    string removeDuplicates(string s) {
+        stack<char> st;
+        for(int i = 0; i < s.size(); i++) {
+            if(st.empty() || s[i] != st.top()) {
+                st.push(s[i]);
+            } else {
+                st.pop();
+            }
+        }
+
+        string res;
+        while(!st.empty()) {
+            res.push_back(st.top());
+            st.pop();
+        }
+
+        reverse(res.begin(), res.end());
+
+        return res;
+    }
 };
-
-vector<int> sortByFre(vector<int> nums) {
-	int size = nums.size();
-	unordered_map<int, int> map;
-
-	for(int i = 0; i < size; i++) {
-		map[nums[i]]++;
-	}
-
-	priority_queue<pair<int, int>, vector<pair<int, int>>, myComparison> pq;
-	
-	for(auto it = map.begin(); it != map.end(); it++) {
-		pq.push(*it);
-	}
-
-	vector<int> res;
-	while(!pq.empty()) {
-		res.push_back(pq.top().first);
-		pq.pop();
-	}
-
-	return res;
-}
 
 int main(void) {
 	vector<int> nums = {0, 1, 1, 2, 2, 2};

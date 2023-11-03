@@ -12,6 +12,14 @@ void test_strtok() {
     }
 }
 
+void test_strok2() {
+    char s[100] = "show me the money";
+    char* needle = " ";
+    
+    for(char* token = strtok(s, needle); token; token = strtok(nullptr, needle)) {
+        cout << token << endl;
+    }
+}
 
 char *myStrtok(char *hay, const char needle) {
     static char *input = NULL; // 用来指向hay

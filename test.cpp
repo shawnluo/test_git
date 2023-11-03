@@ -1,77 +1,78 @@
 #include "test.hpp"
 
-typedef struct node {
-    int data;
-    struct node* left;
-    struct node* right;
-
-    node(int val) : data(val), left(nullptr), right(nullptr) {}
-} Node;
-
-void appendLL(pNode& pHead, int data) {
-    if(pHead == nullptr) {
-        pHead = (pNOde)malloc(SIZE);
-        pHead->data = data;
-        return;
+class myComp {
+public:
+    bool operator()(const pair<char, int> lhs, const pair<char, int> rhs) {
+        return lhs.second < rhs.second;
     }
-    while(pHead->next) {
-        pHead = pHead->next;
-    }
-    pNew = (pNode)malloc(SIZE);
-    pNew->data = data;
-    pHead->next = pNew;
-}
+};
 
-void createLL(pNode& pHead, void* data, int size) {
-    if(!pHead) {
-        pHead = (pNode)malloc(SIZE);
-        pHead=>data = data[0];
-    }
-
-    pNode pCur = pHead;
-    pNode pNext = nullptr;
-    int *arr = (int*)data;
+string sortByFre(string s) {
+    string res;
+    int size = s.size();
     
-    for(int i = 1; i < size; i++) {
-        pNext = (pNode)malloc(SIZE);
-        pNext->data = data[i];
-        pNext->next = nullptr;
+    unordered_map<char, int> map;
+    for(int i = 0; i < size; i++) {
+        map[s[i]]++;
+    }
 
-        pCur->next = pNext;
-        pCur = pNext;
+    priority_queue<pair<char, int>, vector<pair<char, int>>, myComp> pq;
+    for(auto it = map.begin(); it != map.end(); it++) {
+        pq.push(*it);
+    }
+
+    while(pq.size()) {
+        res.push_back(pq.top().first);
+        pq.pop();
+    }
+    return res;
+}
+
+// int maxRec(void* mat, int row, int col) {
+int maxRec(vector<vector<int>> mat) {
+    // vector<vector<int>> dp(weight.size(), vector<int>(BAG + 1, 0));
+    int maxRow = 0;
+    int maxCol = 0;
+    for(int i = 0; i < row; i++) {
+        for(int j = 0; j < col; j++) {
+
+        }
     }
 }
 
-void createLLExt(pNode& pHead, int* data, int size) {
-    
+string s;
+for(char* token = strtok(s, needle); token; token = strtok(nullptr, needle)) {
+    cout << token << endl;
+    s.push_back(token);
+    for(auto it : s) {
+        if(isdigit(it)) {
+
+        }
+    }
 }
 
-pNode AddLL(pNode a, pNode b) {
-    int carry = 0;
-    pNode p = nullptr;
-
-    while(a || b) {
-        int data = carry;
-        if(a) {
-            data += a->data;
+string removeDuplicates(string s) {
+    stack<char> st;
+    for(int i = 0; i < s.size(); i++) {
+        if(st.empty() || s[i] != st.top()) {
+            st.push(s[i]);
+        } else {
+            st.pop();
         }
-        if(b) {
-            data += b->data;
-        }
-        carry = (data >= 10 ? 1 : 0);
-        data = data % 10;
-        appendLL(p, data);
-
-        if(a) a = a->next;
-        if(b) b = b->next;
     }
-    if(carry) appendLL(p, carry);
+    string res;
+    while(!st.empty()) {
+        res.push_back(st.top());
+        st.pop();
+    }
+    reverse(res.begin(), res.end());
 
-    return p;
+    return res;
 }
 
 int main(void) {
-    rmDump();
+    string s = "1211234444";
+    cout << sortByFre(s) << endl;
 
     return 0;
 }

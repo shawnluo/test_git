@@ -7,6 +7,7 @@
 |       |                     | [code](code_lib/cpp_cast.cpp)                                      | static_cast/dynamic_cast                                                |                |      |
 |       |                     | [code](code_lib/deque.cpp)                                         | std::deque                                                              |                |      |
 |       |                     | [code](code_lib/priority_que.cpp)                                  | priority_queue                                                          |                |      |
+|       |                     | [code](code_lib/isdigit_isalpha.cpp)                               | API - isdigit/isalphy                                                   |                |      |
 | 1     | dp                  | code                                                            | 0-1 knapsack                                                            |                |      |
 |       |                     |                                                                 | complete knapsack                                                       |                |      |
 |       |                     | [code](code_lib/longest_Increasing_nums.cpp)                       | longest_increasing_nums 非连续                                          |                |      |
@@ -39,7 +40,7 @@
 |       |                     | [code](code_lib/findIsland.cpp)                                    | find island                                                             |                |      |
 |       |                     | [code](code_lib/isRectangle.cpp)                                   | is rectangle                                                            |                | todo |
 |       |                     | [code](code_lib/deleteDuplicated.cpp)                              | delete duplicated elements in an array                                  |                |      |
-|       |                     |                                                                 |                                                                         |                |      |
+|       |                     | [code](code_lib/jumpGame.cpp)                                      | jump game                                                               |                |      |
 |       |                     |                                                                 |                                                                         |                |      |
 |       |                     | [code](code_lib/removeRepeatArray.cpp)                             | len of sorted element, remove repeat elements                           |                |      |
 |       |                     | [code](code_lib/minSubArrLen.cpp)                                  | min sub array Len 长度最小的子数组                                      |                |      |
@@ -54,7 +55,7 @@
 |       |                     | [code](code_lib/Longest_Palindrome.cpp)                            | leet 409 最长可组成的回文                                               |                |      |
 |       |                     | [code](code_lib/myAtoi.cpp)                                        | atoi 字符串转整数                                                       |                |      |
 |       |                     | [code](code_lib/strtok.cpp)                                        | strtok                                                                  |                |      |
-|       |                     | [code](code_lib/sortingWithFreq.cpp)                               | 一串string，按频率输出，相同频率按string字母顺序                        |                |      |
+|       |                     | [code](code_lib/sortingByFreq.cpp)                                 | sort by frequncy 一串string，按频率输出，相同频率按string字母顺序      |                |      |
 |       | hash                | [code](code_lib/twoSum.cpp)                                        | twosum                                                                  |                |      |
 |       |                     | [code](code_lib/interSection.cpp)                                  | intersection                                                            |                |      |
 |       |                     | [code](code_lib/isHappy.cpp)                                       | isHappy                                                                 |                |      |
