@@ -9,24 +9,58 @@
 
 
  
-int main(){
-    int a[4][3] = {{1,2,3},
-                   {4,5,6},
-                   {7,8,9},
-                   {10,11,12}};
-    int b[3][4];
-    int m = 4, n = 3;
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
-           b[i][j] = a[j][n - 1 - i];
-        }
-    }
-    for(int i = 0; i < 3; i++){
-        for(int j = 0; j < 4; j++){
-            printf("%d ", b[i][j]);
-        }
-        printf("\n");
-    }
- 
-  return 0;
+#define BUF_SIZE 1024
+
+char buf[BUF_SIZE];
+
+int main(void)
+
+{
+
+FILE * p_file = NULL;
+
+p_file = popen("ifconfig eth0", "r");
+
+if (!p_file) {
+
+fprintf(stderr, "Erro to popen");
+
+}
+
+while (fgets(buf, BUF_SIZE, p_file) != NULL) {
+
+fprintf(stdout, "%s", buf);
+
+}
+
+pclose(p_file);
+
+p_file = popen("touch test.tmp", "w");
+
+if (!p_file) {
+
+fprintf(stderr, "Erro to popen");
+
+}
+
+while (fgets(buf, BUF_SIZE, p_file) != NULL) {
+
+fprintf(stdout, "%s", buf);
+
+}
+
+pclose(p_file);
+
+p_file = popen("touch test.tmp", "w");
+
+if (!p_file) {
+
+fprintf(stderr, "Erro to popen");
+
+}
+
+pclose(p_file);
+
+return 0;
+
 }
