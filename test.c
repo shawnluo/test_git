@@ -1,60 +1,49 @@
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <signal.h>
 
-#include<stdio.h>
-#include<pthread.h>
-#include<unistd.h>
-
-#include <pthread.h>
-#include <unistd.h>
-
-#include <pthread.h> 
-#include <stdio.h> 
-#include <unistd.h> 
-
-// Declaration of thread condition variable 
-pthread_cond_t cond = PTHREAD_COND_INITIALIZER; 
-
-// declaring mutex 
-pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER; 
-
-// Thread function 
-void releaseFun() { 
-    // Let's signal condition variable cond
-    printf("Signaling condition variable cond\n"); 
-    pthread_cond_signal(&cond); 
+// Signal handler function
+void sigint_handler(int signum) {
+    if(signo == SIGTERM) {
+        printf("Caught signal %d (SIGINT)\n", signum);
+        pthread_exit(NULL);
+    }
 }
 
-// Thread function 
-void* blockedThread() {
-    // acquire a lock 
-    pthread_mutex_lock(&lock); 
-    printf("Waiting on condition variable cond\n");
-    pthread_cond_wait(&cond, &lock); 
-    // release lock 
-    pthread_mutex_unlock(&lock); 
+void* fun1(void *arg) {
+    signal(SIGINT, sigint_handler);
+    while(1) {
+        printf(" - f1 - Press Ctrl+C to trigger the SIGINT signal...\n");
+        sleep(1);
+    }
+}
 
-    printf("Returning thread\n"); 
+void runAPI(void* fun) {
+    pthread_t t1;
+    pthread_create(&t1, NULL, fun1, NULL);
+    // set to detached
 
-    return NULL; 
-}    
+    // pthread_join(t1, NULL);
+}
 
-// Driver code 
+void stopAPI() {
+
+}
+
+void api1(void) {
+    printf(" - api 1 - \n");
+}
+
+
+
 int main() {
-    pthread_t tid;
+    // Registering the signal handler for SIGINT (Ctrl+C)
 
-    // Create thread 1 
-    pthread_create(&tid, NULL, blockedThread, NULL); 
 
-    // sleep for 1 sec so that thread 1
-    // would get a chance to run first
-    sleep(1);
+    pthread_t t1 = runAPI(api1);
+    stopAPI(api1);
 
-    releaseFun();
-    // wait for the completion of thread 2
-    pthread_join(tid, NULL);
+    
 
     return 0;
 }

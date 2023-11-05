@@ -1,40 +1,34 @@
+// fifo_r.c
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include<stdio.h>  
-#include<stdlib.h>  
-#include <sys/ipc.h>
-#include <sys/sem.h>
-       #include <stdio.h>
-       #include <stdlib.h>
-       #include <sys/ipc.h>
-       #include <sys/sem.h>
-       #include <unistd.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <errno.h>
+#include <fcntl.h>
 
-int main(int argc, char **argv) {
-	int sem_id = semget(12);
+// FIFO 文件名
+#define FIFO_PATH "fifo_file"
 
-	// 第一次调用多加一个参数，第二次调用不加参数，仅在第一次调用时创建信号量
-	if (argc > 1 && (!set_sem(sem_id))) {
-		printf("set sem failed.\n");
+int main() {
+	// 创建 FIFO 文件，如果存在就不再创建
+	if (mkfifo(FIFO_PATH, 0666) < 0 && errno != EEXIST) {
+		perror("create fifo failed");
 		return -1;
+	} else {
+		char cont_r[255];
+		// 以只读的方式打开
+		int fd = open(FIFO_PATH, O_CREAT | O_RDONLY, 0666);
+		if (fd > 0) {
+			while (1) {
+				// 读取 FIFO 中的内容
+				read(fd, cont_r, 255);
+				printf("read: %s\n", cont_r);
+			}
+			close(fd);
+		}
 	}
-
-	// P 操作
-	sem_down(sem_id);
-	printf("sem lock...\n");
-
-	printf("do something...\n");
-	sleep(10);
-
-	// V 操作
-	sem_up(sem_id);
-	printf("sem unlock...\n");
-
-	// 第二次调用后删除信号量
-	if (argc == 1)
-		del_sem(sem_id);
 
 	return 0;
 }

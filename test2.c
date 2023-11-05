@@ -1,66 +1,36 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
 #include <assert.h>
 #include <limits.h>
 #include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
+// 1. basic
 
+int main(void) {
+    int size = 5;
+    FILE* output;
+    char buf[size];
+    memset(buf, 0, size);
 
- 
-#define BUF_SIZE 1024
+    // "r": 将命令得到的结果存在output
+    // "w": 将命令结果直接输出，output不会得到结果
+    output = popen("sleep 5", "r");
+    // output = popen("ls -l", "w");
+    if (output == NULL) {
+        perror("Error opening file");
+        return (-1);
+    }
 
-char buf[BUF_SIZE];
+    printf("-----\n");
+    int status = pclose(output);
 
-int main(void)
+    printf("---3--\n");
 
-{
+    // while (fgets(buf, size, output) != NULL) { // 每次读取size大小的字节数据(自动加上结尾的'\0')，直到遇到文件结尾符号，返回NULL
+    //     printf("%s\n", buf);
+    // }
 
-FILE * p_file = NULL;
-
-p_file = popen("ifconfig eth0", "r");
-
-if (!p_file) {
-
-fprintf(stderr, "Erro to popen");
-
-}
-
-while (fgets(buf, BUF_SIZE, p_file) != NULL) {
-
-fprintf(stdout, "%s", buf);
-
-}
-
-pclose(p_file);
-
-p_file = popen("touch test.tmp", "w");
-
-if (!p_file) {
-
-fprintf(stderr, "Erro to popen");
-
-}
-
-while (fgets(buf, BUF_SIZE, p_file) != NULL) {
-
-fprintf(stdout, "%s", buf);
-
-}
-
-pclose(p_file);
-
-p_file = popen("touch test.tmp", "w");
-
-if (!p_file) {
-
-fprintf(stderr, "Erro to popen");
-
-}
-
-pclose(p_file);
-
-return 0;
-
+    return 0;
 }

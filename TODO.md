@@ -15,6 +15,14 @@
 4. sort by frequency
 5. [1047. Remove All Adjacent Duplicates In String](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/)
 6. [55. Jump Game](https://leetcode.com/problems/jump-game/)
+7. multithread programming
+   1. pthread_cancel
+   2. sigaddset, pthread_sigmask
+   3. pthread_cond_signal, pthread_cond_wait
+8. multiprocess programming
+9. popen vs system
+10. 
+11. 
 
 # snakpack
 
