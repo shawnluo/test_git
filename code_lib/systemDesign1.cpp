@@ -56,9 +56,6 @@ int main() {
     std::string tname1 = keyword + "1";
     std::string tname2 = keyword + "2";
 
-    // tname1 = typeid(fun1).name();    // 试图获取函数名，TODO
-    // cout << tname1 << endl << endl;
-
     foo.start_thread(tname1, fun1, 1);
     
     sleep(1);

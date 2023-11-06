@@ -1,78 +1,45 @@
 #include "test.hpp"
 
-class myComp {
-public:
-    bool operator()(const pair<char, int> lhs, const pair<char, int> rhs) {
-        return lhs.second < rhs.second;
-    }
-};
+typedef void (*fun)(void);
 
-string sortByFre(string s) {
-    string res;
-    int size = s.size();
-    
-    unordered_map<char, int> map;
-    for(int i = 0; i < size; i++) {
-        map[s[i]]++;
-    }
 
-    priority_queue<pair<char, int>, vector<pair<char, int>>, myComp> pq;
-    for(auto it = map.begin(); it != map.end(); it++) {
-        pq.push(*it);
+void fun1() {
+    for(int i = 0; i < 10; i++) {
+        cout << " - fun1 - " << " ";
     }
-
-    while(pq.size()) {
-        res.push_back(pq.top().first);
-        pq.pop();
-    }
-    return res;
+    cout << endl;
 }
 
-// int maxRec(void* mat, int row, int col) {
-int maxRec(vector<vector<int>> mat) {
-    // vector<vector<int>> dp(weight.size(), vector<int>(BAG + 1, 0));
-    int maxRow = 0;
-    int maxCol = 0;
-    for(int i = 0; i < row; i++) {
-        for(int j = 0; j < col; j++) {
+void fun2() {
+    for(int i = 0; i < 10; i++) {
+        cout << " - fun2 - " << " ";
+    }
+    cout << endl;
+}
 
-        }
+void threadTask(fun f, int sec) {
+    while(1) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(sec * 1000));
+        f();
     }
 }
 
-string s;
-for(char* token = strtok(s, needle); token; token = strtok(nullptr, needle)) {
-    cout << token << endl;
-    s.push_back(token);
-    for(auto it : s) {
-        if(isdigit(it)) {
-
-        }
-    }
+void runTask(fun f) {
+    std::thread t1(threadTask, f, 1);
+    t1.detach();
+    // cout << " - t1 detached - " << endl;
+    // t1.join();
 }
 
-string removeDuplicates(string s) {
-    stack<char> st;
-    for(int i = 0; i < s.size(); i++) {
-        if(st.empty() || s[i] != st.top()) {
-            st.push(s[i]);
-        } else {
-            st.pop();
-        }
-    }
-    string res;
-    while(!st.empty()) {
-        res.push_back(st.top());
-        st.pop();
-    }
-    reverse(res.begin(), res.end());
 
-    return res;
-}
 
 int main(void) {
-    string s = "1211234444";
-    cout << sortByFre(s) << endl;
+    runTask(fun1);
+    runTask(fun2);
+
+    while(1) {
+        sleep(1);
+    }
 
     return 0;
 }

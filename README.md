@@ -1,13 +1,39 @@
-### 1 c and Linux system基础
+### 1. c & Linux system基础
 
-|                                 |                     |        |
-| ------------------------------- | ------------------- | ------ |
-| [code](code_lib/fgets.cpp)         | fgets())            |        |
-| [code](code_lib/pipe_demo.c)       | pipe())             |        |
-| [code](code_lib/fifo_demo.c)       | fifo())             | mkfifo |
-| [code](code_lib/popen_demo.c)      | popen())            |        |
-| [code](code_lib/stopThread_demo.c) | terminate a thread |        |
-| [code](code_lib/signals_demo.c)    | signals             |        |
+|                                |                    |        |
+| ------------------------------ | ------------------ | ------ |
+| [code](code_lib/fgets.cpp)        | fgets())           |        |
+| [code](code_lib/pipe_demo.c)      | pipe())            |        |
+| [code](code_lib/fifo_demo.c)      | fifo())            | mkfifo |
+| [code](code_lib/popen_demo.c)     | popen())           |        |
+| [code](code_lib/funAsParameter.c) | 函数作为参数被传递 |        |
+
+#### 1.1 terminate a thread
+
+|                                   |                                          |                            |
+| :-------------------------------- | ---------------------------------------- | -------------------------- |
+| [code](code_lib/stopThread_demo.c)   | pthread_exit 用来终结自己所在线程        |                            |
+| [code](code_lib/stopThread_demo2.c)  | pthread_cancel                           |                            |
+| [code](code_lib/stopThread_demo3.c)  | pthread_kill                             |                            |
+| [code](code_lib/terminateThread.cpp) | 根据线程名，使用pthread_cancel来中断线程 | prctl, pthread_cancel, c++ |
+|                                   |                                          |                            |
+
+#### 1.2 signals
+
+|                              |                            |                                |
+| ---------------------------- | -------------------------- | ------------------------------ |
+| [code](code_lib/signals_demo.c) | 1. basic - ctrl+c发送信号  | signal(SIGINT, sigint_handler) |
+| [code](code_lib/signal2.c)      | 2. 向特定thread 发送signal | pthread_kill(tid1, SIGQUIT))   |
+|                              |                            |                                |
+|                              |                            |                                |
+
+#### 1.3 system design
+
+
+| col1                            | col2                                                                                                                                                    | col3 |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
+| [code](code_lib/systemDesign1.cpp) | c++写一个类，实现startCaller和stopCaller两个API，<br />startCaller(), 要求输入待执行函数的函数名和执行频率<br />stopCaller(), 停止指定函数的循环执行。 |      |
+|                                 |                                                                                                                                                         |      |
 
 ### 2 c++
 

@@ -1,4 +1,6 @@
 
+// --------------------------- 向特定thread 发送signal -------------
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -47,7 +49,6 @@ void* thread_fun1(void* arg) {
     // pthread_sigmask(SIG_BLOCK, &act.sa_mask, NULL);
     sleep(2);
 }
-
 
 void* thread_fun2(void* arg) {
     printf("new thread 2\n");

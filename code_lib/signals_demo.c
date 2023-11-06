@@ -20,6 +20,9 @@ wallace@CaptainUPants:~/workSPACE/test_git$ kill -l
 wallace@CaptainUPants:~/workSPACE/test_git$ 
 */
 
+
+// 1. -------- basic --------------------
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -44,3 +47,4 @@ int main() {
 
     return 0;
 }
+

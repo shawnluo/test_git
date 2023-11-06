@@ -14,6 +14,7 @@
 #include <set>
 #include <stack>
 #include <queue>
+#include <thread>
 #include "common.h"
 
 using std::cout;
