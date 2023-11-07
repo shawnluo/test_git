@@ -1,3 +1,5 @@
+
+// sort a array by using stacks
 void sortSt(vector<int>& nums) {
     st.push(nums[0]);
     for(int i = 1; i < nums.size(); i++) {

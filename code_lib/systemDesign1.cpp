@@ -20,15 +20,6 @@ void fun2() {
 
 class Foo {
 public:
-    void caller(const std::string& tname, fP f, int hz) {
-        // prctl(PR_SET_NAME, tname.c_str(), 0, 0, 0); // 给线程设置名字，不要可以
-        while(1) {
-            f();
-            sleep(hz);
-            // cout << " caller " << endl;
-        }
-    }
-
     void start_thread(const std::string& tname, fP f, int hz) {
         std::thread thrd = std::thread(&Foo::caller, this, tname, f, hz);
         tm_[tname]       = thrd.native_handle();
@@ -48,6 +39,15 @@ public:
 private:
     typedef std::unordered_map<std::string, pthread_t> ThreadMap;
     ThreadMap tm_;
+
+    void caller(const std::string& tname, fP f, int hz) {
+        // prctl(PR_SET_NAME, tname.c_str(), 0, 0, 0); // 给线程设置名字，不要可以
+        while(1) {
+            f();
+            sleep(hz);
+            // cout << " caller " << endl;
+        }
+    }
 };
 
 int main() {
