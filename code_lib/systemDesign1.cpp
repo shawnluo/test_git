@@ -8,7 +8,7 @@
 using namespace std;
 
 
-typedef void (*fP)();
+typedef void (*pF)();
 
 void fun1() {
     cout << " - fun1 - " << endl;
@@ -20,8 +20,8 @@ void fun2() {
 
 class Foo {
 public:
-    void start_thread(const std::string& tname, fP f, int hz) {
-        std::thread thrd = std::thread(&Foo::caller, this, tname, f, hz);
+    void start_thread(const std::string& tname, pF f, int hz) {
+        std::thread thrd = std::thread(&Foo::caller, this, tname, f, hz);   // 注意这里需要用 this 来显性地表示调用的是本class的函数
         tm_[tname]       = thrd.native_handle();
         thrd.detach();
         std::cout << "Thread " << tname << " created!" << std::endl;
@@ -40,7 +40,7 @@ private:
     typedef std::unordered_map<std::string, pthread_t> ThreadMap;
     ThreadMap tm_;
 
-    void caller(const std::string& tname, fP f, int hz) {
+    void caller(const std::string& tname, pF f, int hz) {
         // prctl(PR_SET_NAME, tname.c_str(), 0, 0, 0); // 给线程设置名字，不要可以
         while(1) {
             f();
