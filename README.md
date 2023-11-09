@@ -10,13 +10,14 @@
 
 #### 1.1 terminate a thread
 
-|                                   |                                          |                            |
-| :-------------------------------- | ---------------------------------------- | -------------------------- |
-| [code](code_lib/stopThread_demo.c)   | pthread_exit 用来终结自己所在线程        |                            |
-| [code](code_lib/stopThread_demo2.c)  | pthread_cancel                           |                            |
-| [code](code_lib/stopThread_demo3.c)  | pthread_kill                             |                            |
-| [code](code_lib/terminateThread.cpp) | 根据线程名，使用pthread_cancel来中断线程 | prctl, pthread_cancel, c++ |
-|                                   |                                          |                            |
+|                                   |                                             |                            |
+| :-------------------------------- | ------------------------------------------- | -------------------------- |
+| [code](code_lib/stopThread_demo.c)   | pthread_exit 用来终结自己所在线程           |                            |
+| [code](code_lib/stopThread_demo2.c)  | pthread_cancel                              |                            |
+| [code](code_lib/stopThread_demo3.c)  | pthread_kill                                |                            |
+| [code](code_lib/terminateThread.cpp) | 根据线程名，使用pthread_cancel来中断线程    | prctl, pthread_cancel, c++ |
+|                                   | sem_init(), sem_wait(), sem_post()          |                            |
+|                                   | pthread_mutex_lock(), pthread_mutex_unlock |                            |
 
 #### 1.2 signals
 

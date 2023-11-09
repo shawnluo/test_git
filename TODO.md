@@ -1,4 +1,4 @@
-# 0. place
+### place
 
 1. basis
 2. nearby basis with rest
@@ -7,10 +7,10 @@
 5. central park library
 6. Milpitas library
 
-# new
+### new
 
 1. [strtok/myStrtok](code_lib/chapter_1_String/1_12_strtok.cpp)
-2. [227. Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/)
+2. [227. Basic Calculator II](code_lib/basicCal.c)
 3. [71. Simplify Path](https://leetcode.com/problems/simplify-path/)
 4. sort by frequency
 5. [1047. Remove All Adjacent Duplicates In String](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/)
@@ -21,14 +21,11 @@
    3. pthread_cond_signal, pthread_cond_wait
 8. multiprocess programming
 9. popen vs system
-10. 
-11. 
 
-# snakpack
+### snakpack
 
 1. 二维数组
-2. 一维滚动数组 - 也就是把二维数组数据压缩到只有一行。重复使用这一行数据(就是carl所说的拷贝)：
-
+2. 一维滚动数组 - 也就是把二维数组数据压缩到只有一行。重复使用这一行数据(就是carl所说的拷贝)
    1. 从上次的数据取值，将本次计算后的值，覆盖掉本行。因为二维数组的行列矩阵数据只被斜下部的单元使用。
    2. j需要倒序。因为根据dp[j] = dp[j - weight[i]] + value，dp[j]是一维的，其取值是根据左边的数据来获取的。
    3. 如果从左边开始循环，那么左边的取值会被不断重复计入。从而影响结果。
@@ -39,339 +36,127 @@
 5. 装满背包有多少种方法？求排列  - 组合总和4
 6. 装满背包最少用多少个物品？    - 322零钱兑换
 
-# subsequence/substring
+### array
+
+1. spiral mat
+2. mat rotate
+3. 返回不重复元素
+4. 删除多余的空格
+5. find the nth element in an array
+6. meeting room
+
+### string
+
+1. reverse word
+2. kmp strstr
+3. longest increasing substring
+4. context grep - google
+5. longestUniqSub(s)
+6. 赎金信
+
+### sorting
+
+1. quick sorting, partition
+2. is rectangle?
+
+### subsequence/substring
 
 1. 最长连续上升子序列
-   1). 长度
-   2). 打印出上升子序列
-2. 排序后的单元的序列长度
-3. 双指针去重
-4. 判断与前一个数不相等
-5. 除重后的长度 - dp解
-6. 打印除重后的序列 - unordered_set
-7. 未排序后的单元的序列长度
-8. 除重后的长度
+   1. 长度
+   2. 打印出上升子序列
+2. isPalindrome - 是否回文
+3. 排序后的单元的序列长度
+4. 双指针去重
+5. 判断与前一个数不相等
+6. 除重后的长度 - dp解
+7. 打印除重后的序列 - unordered_set
+8. 未排序后的单元的序列长度
+9.  除重后的长度
+    1.  dp
+    2.  while loop delete
+    3.  打印除重后的序列
+10. leetcode 1091 - the shortest path in binary matrix
+11. 最短的大于某数的非连续子集和
 
-   1. dp
-   2. while loop delete
-   3. 打印除重后的序列
-
-leetcode 1091 - the shortest path in binary matrix
+### dp
 
 1) BFS - breadth-first search
-   24 完全平方数
-   dp[j] = min(dp[j], dp[j - i * i] + 1)
-   find the sum, if sum % 2 == 1, return false
-   find half, if
-   sink island
+2) 完全平方数
+3) 最长连续上升子序列
+4) longest increasing items 最长上升子序列
+5) leetcode 862 凑成k的最少硬币
+6) 最长palindrome - 最长回文
 
-- binary tree travel
-- binray tree reverse
+### backTracking/recusion
 
- binary tree insert
+1) sink island
+2) permutation
+3) cellphone, combination
+4) 给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合
 
- linked list reverse
+### binary tree
 
- merge 2 sorted arrays
+1. binary tree travel
+2. binray tree reverse
+3. binary tree insert
 
------------- bits manipulate
-// calculat 1s in a int
-done
+### linkedlist
 
------------- LL
-// sort LL
-done
-// 2 linked lists merge
-done
-// remove duplicated node from LL
-done
-// 2 linked lists add
-done
+1. create linked list
+2. insert ll
+3. del ll
+4. sort LL
+5. linked list reverse
+6. merge 2 sorted arrays
+7. remove duplicated node from LL
+8. add 2 linked lists
 
------------- string
-// reverse word
-done
-// kmp strstr
-done
-// longest increasing substring
-done
-// volatile register bit operation
-done
-// small ending?
-done
+### bits manipulate
 
-// context grep
-done
+1. calculat 1s in a int
+2. volatile register bit operation
+3. print int as binary
 
-// longestUniqSub(s)
-done
+### embedded
 
-// . 最长连续上升子序列
-done
+1. code - small ending?
+2. pcie
+   1. enumoration
+   2. BAR
 
-// . bit manipulate (cracking the code)
+### double pointers
 
-// leetcode 862 凑成k的最少硬币
+1. 环形链表
+2. sum of shortest consective array items, which larger than given value (连续子集和大于某数，求其中最短的连续子集长度)
 
-// 滑动窗口
+### others
 
-// . strstr
-    // 1. brute force
-    // 2. kmp
+1. read4()
 
-// . sum of shortest consective array items, which larger than given value (连续子集和大于某数，求其中最短的连续子集长度)
+### c++
 
-// . print int as binary
+1. exception: http://c.biancheng.net/view/2332.html
 
-// . 最短的大于某数的非连续子集和
+### hash
 
-// . create linked list
-// . insert ll
-// . del ll
+1. 两个数组的交集
+2. 赎金
+3. 两数和
+4. 求组合：四个数组中分别选取一个数，其四数之和等于0
+5. 一个数组中，三数之和等于0，无重
 
-// . 最长palindrome
-    // . isPalindrome
-// . permutation
-// . zerocopy mmap
-// . longest increasing items 最长上升子序列
+### c++
 
-// exception: http://c.biancheng.net/view/2332.html
+1. friend
+2. unordered_heap 最大堆/最小堆
 
-// ioremap
+### system design
 
---------------------- pcie
-// enume
-// BAR
-
------------------------ Sep 28, 2023 -----------------------
-
-0.1. email
-    vw
-    TJ Long
-    Deepak K
-
-1. coding
-   ✌️    1. kmp✌️    2. mat rotate
-   ✌️    3. spiral mat
-   ✌️    4. quickSort - partition - DONE
-   ✌️    5. read4()
-   ✌️    6. is rectangle?
-   7. permutation
-   ✌️        1. string print
-   2. 给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合
-   3. bt5. 电话号码的字母组合
-   ✌️    8. len of norepeat element array
-   9. 双指针
-   10. 字符串
-   11. 哈希表
-   12. 数组
-2. System
-
-   1. IPC
-   2. interrupt - top half - bottom half
-   3. PCI-e enumuration
-   4. network device driver
-   5. design a firmware DoIP system
-
------------------------ Sep 29, 2023 -----------------------
-
-1. coding
-   ✌️    kmp
-   ✌️    mat rotate
-   ✌️    spiral mat
-   quickSort - partition - DONE
-   delete extra sapces
-   reverse string
-   find the nth elemnt in a array
-   meeting room
-   read4()
-   is rectangle?
-   permutation string print
-   给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合
-   bt5. 电话号码的字母组合
-   len of norepeat element array
-   双指针
-   字符串
-   哈希表
-   数组
-
------------------------ Sep 30, 2023 -----------------------
-
-1. coding
-   ✌️    kmp
-   ✌️    mat rotate
-   ✌️    spiral mat
-   ✌️    quickSort - partition
-   delete extra sapces
-   reverse string
-   ✌️    find the nth elemnt in a array
-   meeting room
-   read4()
-   is rectangle?
-   permutation string print
-   给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合
-   bt5. 电话号码的字母组合
-   len of norepeat element array
-   双指针
-   字符串
-   哈希表
-   数组
-
------------------------ Oct 1, 2023 -----------------------
-
-1. coding
-   ✌️    kmp
-   ✌️    kth max in a array - priority_queue
-   ✌️    quickSort - partition
-   ✌️    kth max in a array - partition
-   ✌️    quickSort(descent) - partition
-   ✌️    mat rotate
-   ✌️    spiral mat
-   ✌️    delete extra sapces
-   ✌️    reverse string
-   ✌️    reverse words in a sentence
-   ✌️    calculate the array len, after remove the duplicated elements, in a sorted array
-   ✌️    calc how many ones in a integer
-   ✌️    static_cast<> vs dynamic_cast<>
-   ✌️    memory copy vs string sopy - 注意类型转换和const的使用
-   ✌️    meeting room
-   ✌️    longest uniq string
-   ✌️    read4()
-   ✌️    is rectangle?
-   ✌️    permutation string print
-   ✌️    给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合
-   binary insert
-   binary search
-   bt5. 电话号码的字母组合
-   最长连续上升子序列
-
-   1. 长度
-   2. 打印出上升子序列
-
-   最长上升子序列
-
-   1. 长度
-   2. 打印出上升子序列
-
-   排序后的单元的序列长度
-
-   1. 双指针去重
-   2. 判断与前一个数不相等
-   3. 除重后的长度 - dp解
-   4. 打印除重后的序列 - unordered_set
-
-   未排序后的单元的序列长度
-
-   1. 除重后的长度
-      1) dp
-      2) while loop delete
-   2. 打印除重后的序列
-
-   leetcode 1091 - the shortest path in binary matrix
-   BFS - breadth-first search
-
-   完全平方数
-
-   双指针
-   字符串
-
-   哈希表
-   ✌️  两个数组的交集
-   ✌️    两数和
-   ✌️    四个数组中，四数之和
-   三数之和
-
-   数组
-   dp
-   bt
-
------------------------ Oct 4, 2023 -----------------------
-
-### 0. mmap
-
-system design - firmware upgrade
-
-1. coding
-   cracking_1_3. remove the duplicated characters
-   dp_24. 给定正整数n, 找到若干个完全平方数, 使得它们的和等于n. 需要让组成和的完全平方数的个数最少
-   dp_48. 给定一个字符串s和一个字符串t, 计算在s的子序列中t出现的个数
-   dp_52. 给定一个字符串，计算这个字符串中有多少个回文子串
-   求最长回文子序列的长度
-   kmp
-   kth max in a array - priority_queue
-   quickSort - partition
-   kth max in a array - partition
-   quickSort(descent) - partition
-   mat rotate
-   spiral mat
-   delete extra sapces
-   reverse string
-   reverse words in a sentence
-   calculate the array len, after remove the duplicated elements, in a sorted array
-   calc how many ones in a integer
-   static_cast<> vs dynamic_cast<>
-   memory copy vs string sopy - 注意类型转换和const的使用
-   meeting room
-   longest uniq string
-   read4()
-   is rectangle?
-   permutation string print
-   给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合
-   binary treeNode insert
-   binary treeNode search
-   binary treeNode reverse
-   bt5. 电话号码的字母组合
-   数组中最长连续上升子序列
-   1. 长度
-   2. 打印出上升子序列
-
-最长上升子序列
-✌️    1. 长度
-2. 打印出上升子序列
-
-排序后的单元的序列长度
-✌️    1. 双指针去重
-✌️    2. 判断与前一个数不相等
-✌️    3. 除重后的长度 - dp解
-4. 打印除重后的序列 - unordered_set
-
-未排序后的单元的序列长度
-
-1. 除重后的长度
-   ✌️        1) dp
-   ✌️        2) while loop delete
-   ✌️    2. 打印除重后的序列
-
-leetcode 1091 - the shortest path in binary matrix
-BFS - breadth-first search
-
-完全平方数
-
-双指针
-字符串
-
-### ----------- 哈希表 -----------
-
-两个数组的交集
-赎金
-两数和
-求组合：四个数组中分别选取一个数，其四数之和等于0
-一个数组中，三数之和等于0，无重
-
-dp
-dp_24
-
------------ bt -----------
-数组
-
------------ c++ -----------
-friend
-unordered_heap 最大堆/最小堆
-
------------ system design -----------
-DoIP
-Parking
-Hash collision最长上升子序列
-
-1). 长度
-2) 打印出上升子序列
+1. IPC
+2. interrupt - top half - bottom half
+3. PCI-e enumuration
+4. network device driver
+5. design a firmware DoIP system
+6. DoIP
+7. Parking
+8. Hash collision
