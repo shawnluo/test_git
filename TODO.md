@@ -38,12 +38,13 @@
 
 ### array
 
-1. spiral mat
-2. mat rotate
-3. 返回不重复元素
-4. 删除多余的空格
-5. find the nth element in an array
-6. meeting room
+1. photo blur
+2. spiral mat
+3. mat rotate
+4. 返回不重复元素
+5. 删除多余的空格
+6. find the nth element in an array
+7. meeting room
 
 ### string
 
