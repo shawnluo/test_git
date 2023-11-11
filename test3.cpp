@@ -1,88 +1,56 @@
 #include "test.hpp"
 
-#include <iostream>
 #include <algorithm>
 #include <cstdio>
 #include <cstring>
+#include <iostream>
 #include <unordered_set>
+#include <unistd.h>
 
-class myComp {
-public:
-	bool operator()(const pair<int, int> lhs, const pair<int, int> rhs) {
-		return lhs.second > rhs.second;
-	}
-};
+/* strtol example */
+#include <stdio.h>  /* printf */
+#include <stdlib.h> /* strtol */
 
-vector<int> sortByFre(vector<int> nums) {
-	vector<int> res(100, 0), res1;
-	unordered_map<int, int> map;
-	for(auto it : nums) {
-		map[it]++;
-		// cout << map[it] << endl;
-	}
 
-	priority_queue<pair<int, int>, vector<pair<int, int>>, myComp> pq;
-	for(auto it = map.begin(); it != map.end(); it++) {
-		pq.push(*it);
+int myRead(const char* f, const int size) {
+	FILE* fp;
+	char buf[size];
+	memset(buf, 0, size);
+	int res = 0;
+
+	fp = fopen(f, "r");
+	if(fp == nullptr) {
+		perror("Error opening file");
+		return -1;
 	}
 
-	while(pq.size() != 0) {
-		int i = 0;
-		res[i++] = pq.top().first;
-		res1.push_back(pq.top().first);
-		pq.pop();
-	}
-
-	for(int i = 0; i < res1.size(); i++) {
-		cout << res[i] << " - " << res1[i] << endl;
-	}
-
-	return res;
-}
-
-vector<int> sortByFre(string s) {
-	vector<int> res;
-	unordered_map<char, int> map;
-
-	for(auto it : s) {
-		map[it]++;
-	}
-
-	priority_queue<pair<char, int>, vector<pair<char, int>>, myComp> pq;
-	for(auto it = map.begin(); it != map.end(); it++) {
-		pq.push(*it);
-	}
-
-	while(pq.size() != 0) {
-		res.push_back(pq.top().first);
-		pq.pop();
+	char* s;
+	while((s = fgets(buf, size, fp)) != nullptr) {
+		// cout << s << " : ";
+		// cout << buf << endl;
+		// cout << strlen(buf) << endl;
+		// cout << strlen(s) << endl;
+		res += strlen(buf);
 	}
 	return res;
 }
+
+FILE* fp;
+char buf[size];
+memset(buf, 0, size);
+fp = open(f, "r");
+if(!fp)	{
+	perror("Error opening file");
+	return -1;
+}
+
+while(fgets(buf, size, fp) != nullptr) {
+	res += strlen(buf);
+}
+return res;
 
 int main(void) {
-	vector<int> nums = {0, 1, 1, 2, 2, 2};
-	vector<int> res = sortByFre(nums);
+	cout << myRead("test.tmp", 5) << endl;
 
-	return 0;
-}
-
-size_t myRead(char* buf, size_t n) {
-	int copiedChars = 0;
-	int readChars = 4;
-	char buf4[4];
-
-	while(copiedChars < n && readChars == 4) {
-		readChars = read4(buf4);
-
-		for(int i = 0; i < readChars; i++) {
-			if(copiedChars == n) {
-				return copiedChars;
-			}
-			buf[copiedChars] = buf4[i];
-			copiedChars++;
-		}
-	}
-
-	return copiedChars;
+    return 0;
 }

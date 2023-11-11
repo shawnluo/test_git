@@ -7,6 +7,7 @@
 | [code](code_lib/fifo_demo.c)      | fifo())            | mkfifo |
 | [code](code_lib/popen_demo.c)     | popen())           |        |
 | [code](code_lib/funAsParameter.c) | 函数作为参数被传递 |        |
+| [code](code_lib/strtol_demo.cpp)  | strtol             |        |
 
 #### 1.1 terminate a thread
 
