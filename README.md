@@ -1,13 +1,13 @@
 ### 1. c & Linux system基础
 
-|                                |                    |        |
-| ------------------------------ | ------------------ | ------ |
-| [code](code_lib/fgets.cpp)        | fgets())           |        |
-| [code](code_lib/pipe_demo.c)      | pipe())            |        |
-| [code](code_lib/fifo_demo.c)      | fifo())            | mkfifo |
-| [code](code_lib/popen_demo.c)     | popen())           |        |
-| [code](code_lib/funAsParameter.c) | 函数作为参数被传递 |        |
-| [code](code_lib/strtol_demo.cpp)  | strtol             |        |
+|   |                                |                    |        |
+| - | ------------------------------ | ------------------ | ------ |
+| 1 | [code](code_lib/fgets.cpp)        | fgets())           |        |
+| 2 | [code](code_lib/pipe_demo.c)      | pipe())            |        |
+| 3 | [code](code_lib/fifo_demo.c)      | fifo())            | mkfifo |
+| 4 | [code](code_lib/popen_demo.c)     | popen())           |        |
+| 5 | [code](code_lib/funAsParameter.c) | 函数作为参数被传递 |        |
+| 6 | [code](code_lib/strtol_demo.cpp)  | strtol             |        |
 
 #### 1.1 terminate a thread
 
@@ -188,6 +188,8 @@
 | [code](code_lib/alignedMallloc.cpp) | aligned malloc            |                |  |
 | [code](code_lib/memcpy_strcpy.cpp)  | memory copy / string copy | very important |  |
 | [code](code_lib/isLittle.cpp)       | little ending             |                |  |
+| [code](code_lib/decToBinary.cpp)    | decimal <-> binary        |                |  |
+|                                  |                           |                |  |
 
 ### 15 cracking the code
 

@@ -334,6 +334,28 @@ int dp_46() {
 
 }
 
+// nums1 - string     nums2 - substring
+bool dp_47(vector<int> nums1, vector<int> nums2) {
+    int size1 = nums1.size();
+    int size2 = nums2.size();
+    vector<vector<int>> dp(size1 + 1, vector<int>(size2 + 1));
+
+    for(int i = 1; i < size1; i++) {
+        for(int j = 1; j < size2; j++) {
+            if(nums1[i - 1] == nums2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = dp[i - 1][j];
+            }
+        }
+    }
+    dp[size1][size2]
+}
+
+int dp_32() {
+    
+}
+
 int main(void) {
     string s = "abacadex";
     cout << longestUniqString(s) << endl;

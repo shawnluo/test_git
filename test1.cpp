@@ -7,34 +7,38 @@
 using namespace std;
 
 
-void test_strtok() {
-    char s[] = "show me the money";
-    char* needle = " ";
+#include <iostream>
+#include <string>
 
-    for(char* token = strtok(s, needle); token; token = strtok(nullptr, needle)) {
-        cout << token << endl;
-    }
-}
 
-char* myStrtok(char* hay, const char needle) {
-    static char* input = nullptr;
-    if(hay != nullptr) {
-        input = hay;
-    }
-    
-    if(input == nullptr) return nullptr;
+double binaryFractionToDecimal(const string& binaryFraction) {
+    size_t dotPosition = binaryFraction.find('.');
+    string integerPart = binaryFraction.substr(0, dotPosition);
+    string fractionalPart = binaryFraction.substr(dotPosition + 1);
 
-    char* res = (char*)malloc(sizeof(char) * 20);
-    int i = 0;
-    for( ; input[i] != '\0'; i++) {
-        if(input[i] != needle) {
-            res[i] = input[i];
-        } 
+    double decimalInteger = 0.0;
+    for(int i = 0; i < integerPart.size(); i++) {
+        if(integerPart[i] = '1') {
+            decimalInteger += pow(2.0, integerPart.size() - i - 1);
+        }
     }
+
+    double decimalFraction = 0.0;
+    for(int i = 0; i < fractionalPart.size(); i++) {
+        if(fractionalPart[i] == '1') {
+            decimalFraction += pow(2.0, -(i + 1));
+        }
+    }
+
+    return decimalInteger + decimalFraction;
 }
 
 int main() {
-    test_strtok();
+    std::string binaryFraction = "110.01101";
+    double decimalFraction = binaryFractionToDecimal(binaryFraction);
+
+    std::cout << "Binary Fraction: " << binaryFraction << std::endl;
+    std::cout << "Decimal Fraction: " << decimalFraction << std::endl;
 
     return 0;
 }

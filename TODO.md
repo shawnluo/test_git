@@ -1,3 +1,5 @@
+# systematically break it down
+
 ### place
 
 1. basis
@@ -22,7 +24,6 @@
 8. multiprocess programming
 9. popen vs system
 10. 152. Maximum Product Subarray
-
 
 ### snakpack
 
@@ -168,3 +169,18 @@
 6. DoIP
 7. Parking
 8. Hash collision
+
+
+### 计划
+1. 把programmercarl.com过完
+   1. dp   <span style="color:green">- *ing* -</span>
+   2. backtracking  <span style="color:red">- *todo* -</span>
+   3. array <span style="color:red">- *todo* -</span>
+   4. binary tree <span style="color:red">- *todo* -</span>
+   5. linkedlist <span style="color:red">- *todo* -</span>
+   6. hash table <span style="color:red">- *todo* -</span>
+   7. double pointer <span style="color:red">- *todo* -</span>
+   8. string <span style="color:red">- *todo* -</span>
+   9. stack/heap <span style="color:red">- *todo* -</span>
+2.  cracking code
+3.  additional questions
