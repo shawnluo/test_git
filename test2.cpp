@@ -8,6 +8,7 @@
 
 class Solution1 {
 public:
+    // 递归删除两个相邻相同的元素  eg.  abbax -> x
     string removeDuplicates(string s) {
         stack<char> st;
         for(int i = 0; i < s.size(); i++) {

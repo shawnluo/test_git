@@ -76,7 +76,7 @@
 | [code](code_lib/reversLL_II.c)                                | reverse II                  |  |  |
 | [code](code_lib/createLL.cpp)                                 | create LL                   |  |  |
 | [code](code_lib/chapter_5_LinkedList/05_18_partitionList.cpp) | partition list 链表局部排序 |  |  |
-|                                                            |                             |  |  |
+| [code](code_lib/delDupLL.cpp)                                 | delete duplicated elements  |  |  |
 |                                                            |                             |  |  |
 
 ### 6 array
@@ -174,7 +174,14 @@
 | [code](code_lib/UsingStacksorting.cpp)  | using stack to sort array |           |  |
 | [code](code_lib/findInRotatedArray.cpp) |                           |           |  |
 
-### 14 embedded
+### 14 stack
+
+|                                     |                                       |  |
+| ----------------------------------- | ------------------------------------- | - |
+| [code](code_lib/RecuDelAjacentDup.cpp) | recursivly del 2 adjacent dup element |  |
+|                                     |                                       |  |
+
+### 15 embedded
 
 |                                  |                           |                |  |
 | -------------------------------- | ------------------------- | -------------- | - |

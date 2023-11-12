@@ -21,6 +21,8 @@
    3. pthread_cond_signal, pthread_cond_wait
 8. multiprocess programming
 9. popen vs system
+10. 152. Maximum Product Subarray
+
 
 ### snakpack
 
@@ -54,6 +56,7 @@
 4. context grep - google
 5. longestUniqSub(s)
 6. 赎金信
+7. [返回被needle分割的字符列表](code_lib/splitNeedle.cpp)
 
 ### sorting
 
@@ -72,10 +75,10 @@
 6. 除重后的长度 - dp解
 7. 打印除重后的序列 - unordered_set
 8. 未排序后的单元的序列长度
-9.  除重后的长度
-    1.  dp
-    2.  while loop delete
-    3.  打印除重后的序列
+9. 除重后的长度
+   1. dp
+   2. while loop delete
+   3. 打印除重后的序列
 10. leetcode 1091 - the shortest path in binary matrix
 11. 最短的大于某数的非连续子集和
 
@@ -117,6 +120,10 @@
 1. calculat 1s in a int
 2. volatile register bit operation
 3. print int as binary
+
+### stack
+
+1. [cursively remove two adjacent duplicated element](code_lib/RecuDelAjacentDup.cpp)
 
 ### embedded
 
