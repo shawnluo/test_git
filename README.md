@@ -26,8 +26,6 @@
 | ---------------------------- | -------------------------- | ------------------------------ |
 | [code](code_lib/signals_demo.c) | 1. basic - ctrl+c发送信号  | signal(SIGINT, sigint_handler) |
 | [code](code_lib/signal2.c)      | 2. 向特定thread 发送signal | pthread_kill(tid1, SIGQUIT))   |
-|                              |                            |                                |
-|                              |                            |                                |
 
 #### 1.3 system design
 
@@ -77,7 +75,6 @@
 | [code](code_lib/createLL.cpp)                                 | create LL                   |  |  |
 | [code](code_lib/chapter_5_LinkedList/05_18_partitionList.cpp) | partition list 链表局部排序 |  |  |
 | [code](code_lib/delDupLL.cpp)                                 | delete duplicated elements  |  |  |
-|                                                            |                             |  |  |
 
 ### 6 array
 
@@ -125,7 +122,6 @@
 | [code](code_lib/FourAddingEqualZero.cpp) | FourAddingEqualZero.cpp |  |  |
 | [code](code_lib/ransomLetter.cpp)        | ransomLetter.cpp        |  |  |
 | [code](code_lib/threeSum.cpp)            | threeSum                |  |  |
-|                                       |                         |  |  |
 
 ### 9 binary tree
 
@@ -134,9 +130,6 @@
 | [code](code_lib/chapter_10_binaryTree/InsBinTree.cpp) | insert node |  |      |
 |                                                    | delete node |  | todo |
 | [code](code_lib/reverse_binaryTree.cpp)               | reverse     |  |      |
-|                                                    |             |  |      |
-|                                                    |             |  |      |
-|                                                    |             |  |      |
 
 ### 10 backTracking
 
@@ -145,8 +138,6 @@
 | [code](code_lib/chapter_9_recursion/backtrack/rotten_fruit.cpp) | rotten fruit                                    |  | TODO |
 | [code](code_lib/backTracking_0.cpp)                             | permutation of string s                         |  |      |
 | [code](code_lib/backtracking_1.cpp)                             | n and k, return combination from 1 to n, size k |  |      |
-|                                                              |                                                 |  |      |
-|                                                              |                                                 |  |      |
 
 ### 11 bits manipute
 

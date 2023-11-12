@@ -6,71 +6,37 @@
 #include <cstring>
 #include <unordered_set>
 
-class Solution1 {
-public:
-    // 递归删除两个相邻相同的元素  eg.  abbax -> x
-    string removeDuplicates(string s) {
-        stack<char> st;
-        for(int i = 0; i < s.size(); i++) {
-            if(st.empty() || s[i] != st.top()) {
-                st.push(s[i]);
-            } else {
-                st.pop();
-            }
+#include <iostream>
+#include <string>
+
+double binaryFractionToDecimal(const std::string& binaryFraction) {
+    size_t dotPosition = binaryFraction.find('.');
+    std::string integerPart = binaryFraction.substr(0, dotPosition);
+    std::string fractionalPart = binaryFraction.substr(dotPosition + 1);
+
+    double decimalInteger = 0.0;
+    for (int i = 0; i < integerPart.length(); i++) {
+        if (integerPart[i] == '1') {
+            decimalInteger += pow(2.0, integerPart.length() - i - 1);
         }
-
-        string res;
-        while(!st.empty()) {
-            res.push_back(st.top());
-            st.pop();
-        }
-
-        reverse(res.begin(), res.end());
-
-        return res;
     }
-};
 
-class comp {
-    public:
-        bool operator()(pair<int, int>lhs, pair<int, int>rhs) {
-            return lhs.second < rhs.second;
+    double decimalFraction = 0.0;
+    for (int i = 0; i < fractionalPart.length(); i++) {
+        if (fractionalPart[i] == '1') {
+            decimalFraction += pow(2.0, -(i + 1));
         }
-    };
-
-class solution {
-public:
-    static vector<int> sortByFre(vector<int> nums) {
-        unordered_map<int, int> map;
-        for(auto it : nums) {
-            map[it]++;
-        }
-
-        priority_queue<pair<int, int>, vector<pair<int, int>>, comp> que;
-        for(auto it = map.begin(); it != map.end(); it++) {
-            que.push(*it);
-        }
-        vector<int> res;
-        for( ; que.size() != 0; ) {
-            res.push_back(que.top().first);
-            que.pop();
-        }
-        return res;
     }
-};
 
-
-vector<int> sortByF(string s) {
-    
+    return decimalInteger + decimalFraction;
 }
 
-int main(void) {
-	vector<int> nums = {0, 1, 1, 2, 2, 2};
-	vector<int> res = solution::sortByFre(nums);
-	for(auto it : res) {
-		cout << it << " ";
-	}
-	cout << endl;
+int main() {
+    std::string binaryFraction = "110.01101";
+    double decimalFraction = binaryFractionToDecimal(binaryFraction);
 
-	return 0;
+    std::cout << "Binary Fraction: " << binaryFraction << std::endl;
+    std::cout << "Decimal Fraction: " << decimalFraction << std::endl;
+
+    return 0;
 }

@@ -10,21 +10,28 @@ using namespace std;
 #include <iostream>
 #include <string>
 
-double binaryFractionToDecimal(const std::string& binaryFraction) {
+double binaryFractionToDecimal(const string& binaryFraction) {
     size_t dotPosition = binaryFraction.find('.');
-    std::string integerPart = binaryFraction.substr(0, dotPosition);
-    std::string fractionalPart = binaryFraction.substr(dotPosition + 1);
+    string integerPart;
+    string fractionalPart;
+    if(dotPosition == string::npos) {   // 找到 "." 号
+        integerPart = binaryFraction;
+        fractionalPart = "";
+    } else {
+        integerPart = binaryFraction.substr(0, dotPosition);
+        fractionalPart = binaryFraction.substr(dotPosition + 1);
+    }
 
     double decimalInteger = 0.0;
-    for (int i = 0; i < integerPart.size(); i++) {
-        if (integerPart[i] == '1') {
+    for(int i = 0; i < integerPart.size(); i++) {
+        if(integerPart[i] == '1') {
             decimalInteger += pow(2.0, integerPart.size() - i - 1);
         }
     }
 
     double decimalFraction = 0.0;
-    for (int i = 0; i < fractionalPart.size(); i++) {
-        if (fractionalPart[i] == '1') {
+    for(int i = 0; i < fractionalPart.size(); i++) {
+        if(fractionalPart[i] == '1') {
             decimalFraction += pow(2.0, -(i + 1));
         }
     }
