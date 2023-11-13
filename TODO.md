@@ -23,7 +23,7 @@
    3. pthread_cond_signal, pthread_cond_wait
 8. multiprocess programming
 9. popen vs system
-10. 152. Maximum Product Subarray
+10. [leetcode 152. Maximum Product Subarray](code_lib/maxProduct.cpp)
 
 ### snakpack
 

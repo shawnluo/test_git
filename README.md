@@ -8,6 +8,7 @@
 | 4 | [code](code_lib/popen_demo.c)     | popen())           |        |
 | 5 | [code](code_lib/funAsParameter.c) | 函数作为参数被传递 |        |
 | 6 | [code](code_lib/strtol_demo.cpp)  | strtol             |        |
+| 7 | [code](code_lib/max_element.cpp)  | max_element(nums.begin(), nums.end()) |        |
 
 #### 1.1 terminate a thread
 
@@ -122,6 +123,7 @@
 | [code](code_lib/FourAddingEqualZero.cpp) | FourAddingEqualZero.cpp |  |  |
 | [code](code_lib/ransomLetter.cpp)        | ransomLetter.cpp        |  |  |
 | [code](code_lib/threeSum.cpp)            | threeSum                |  |  |
+| [code](code_lib/LongestHarmoniousSubsequence.cpp) | LongestHarmoniousSubsequence - 成员差别小于等于1的最长子数列 |  |  |
 
 ### 9 binary tree
 

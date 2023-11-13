@@ -326,12 +326,15 @@ return res;
 
 int dp_46() {
     for(int i = 1; i < size; i++) {
-        for(int j = 0; j < i; j++) {
-            if(i - nums[i] != INT_MIN)
-            dp[i] = max(dp[i], dp[i - nums[j] + nums[j]]);
-        }
+        dp[i] = max(dp[i], dp[i - 1] + nums[i]);
+        res = max(res, dp[i]);
     }
+    return re;
+}
 
+// max sum of subsequence
+int dp_46_1(vector<int> nums) {
+    
 }
 
 // nums1 - string     nums2 - substring

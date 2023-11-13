@@ -1,56 +1,48 @@
 #include "test.hpp"
 
-#include <algorithm>
 #include <cstdio>
 #include <cstring>
 #include <iostream>
-#include <unordered_set>
 #include <unistd.h>
+#include <unordered_set>
 
-/* strtol example */
-#include <stdio.h>  /* printf */
-#include <stdlib.h> /* strtol */
+class Solution {
+public:
+	static int findLHS(vector<int> nums) {
+		// 哈希表法
 
+		// 定义集合map，保存数组中每个数字出现的次数
+		unordered_map<int, int> map;
 
-int myRead(const char* f, const int size) {
-	FILE* fp;
-	char buf[size];
-	memset(buf, 0, size);
-	int res = 0;
+		// 遍历数组，统计数组中每个数字出现的次数
+		for (int num : nums) {
+			map[num]++;
+		}
 
-	fp = fopen(f, "r");
-	if(fp == nullptr) {
-		perror("Error opening file");
-		return -1;
+		// 定义最长的和谐子序列的长度
+		int maxLength = 0;
+
+		// 遍历集合map中的key
+		for(int i = 0; i < map.size(); i++) {
+			
+		}
+
+		for (auto key : map) {
+			// 寻找是否存在比当前key大1的key，因为和谐子序列是最大值和最小值的差正好是1
+			if (map.containsKey(key + 1)) {
+				// 当前和谐子序列的长度是key的次数和key+1的次数之和，因为子序列不一定连续，所以任意两个最大值和最小值都可以去构造出和谐子序列
+				maxLength = Math.max(maxLength, map.get(key) + map.get(key + 1));
+			}
+		}
+
+		// 返回最长的和谐子序列的长度
+		return maxLength;
 	}
-
-	char* s;
-	while((s = fgets(buf, size, fp)) != nullptr) {
-		// cout << s << " : ";
-		// cout << buf << endl;
-		// cout << strlen(buf) << endl;
-		// cout << strlen(s) << endl;
-		res += strlen(buf);
-	}
-	return res;
-}
-
-FILE* fp;
-char buf[size];
-memset(buf, 0, size);
-fp = open(f, "r");
-if(!fp)	{
-	perror("Error opening file");
-	return -1;
-}
-
-while(fgets(buf, size, fp) != nullptr) {
-	res += strlen(buf);
-}
-return res;
+};
 
 int main(void) {
-	cout << myRead("test.tmp", 5) << endl;
+    vector<int> nums{ 2, 3, -2, 4 };
+    cout << Solution::findLHS(nums) << endl;
 
     return 0;
 }
