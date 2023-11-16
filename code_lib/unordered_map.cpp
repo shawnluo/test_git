@@ -32,5 +32,11 @@ vector<int> demo_unordered_map() {
         }
     );    
 
+    for (unordered_map<int, int>::iterator it = map.begin(); it != map.end(); it++) {
+    pq.push(*it);
+    if (pq.size() > k) { // 如果堆的大小大于了K，则队列弹出，保证堆的大小一直为k
+        pq.pop();
+    }
+
     return {};  // return empty vector
 }

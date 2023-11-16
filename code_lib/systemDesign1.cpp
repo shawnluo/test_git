@@ -21,6 +21,8 @@ void fun2() {
 class Foo {
 public:
     void start_thread(const std::string& tname, pF f, int hz) {
+        /*
+        The  `this`  pointer is used to refer to the current object. In this case, the  `this`  pointer is used to pass the  `runAPI`  object to the  `caller`  function. This allows the  `caller`  function to access the  `tName`  and  `f`  members of the  `runAPI`  object.*/
         std::thread thrd = std::thread(&Foo::caller, this, tname, f, hz);   // 注意这里需要用 this 来显性地表示调用的是本class的函数
         tm_[tname]       = thrd.native_handle();
         thrd.detach();

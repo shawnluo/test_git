@@ -73,6 +73,7 @@
 
 |                                                            |                             |  |  |
 | ---------------------------------------------------------- | --------------------------- | - | - |
+| [code](code_lib/LinkedListDesign.cpp)                       | linked list class design with template                     |  |  |
 | [code](code_lib/LinkedList-reverse.cpp)                       | reverse                     |  |  |
 | [code](code_lib/reversLL_II.c)                                | reverse II                  |  |  |
 | [code](code_lib/createLL.cpp)                                 | create LL                   |  |  |
