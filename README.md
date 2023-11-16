@@ -1,14 +1,15 @@
 ### 1. c & Linux system基础
 
-|   |                                |                    |        |
-| - | ------------------------------ | ------------------ | ------ |
-| 1 | [code](code_lib/fgets.cpp)        | fgets())           |        |
-| 2 | [code](code_lib/pipe_demo.c)      | pipe())            |        |
-| 3 | [code](code_lib/fifo_demo.c)      | fifo())            | mkfifo |
-| 4 | [code](code_lib/popen_demo.c)     | popen())           |        |
-| 5 | [code](code_lib/funAsParameter.c) | 函数作为参数被传递 |        |
-| 6 | [code](code_lib/strtol_demo.cpp)  | strtol             |        |
-| 7 | [code](code_lib/max_element.cpp)  | max_element(nums.begin(), nums.end()) |        |
+|   |                                |                                                    |        |
+| - | ------------------------------ | -------------------------------------------------- | ------ |
+| 1 | [code](code_lib/fgets.cpp)        | fgets())                                           |        |
+| 2 | [code](code_lib/pipe_demo.c)      | pipe())                                            |        |
+| 3 | [code](code_lib/fifo_demo.c)      | fifo())                                            | mkfifo |
+| 4 | [code](code_lib/popen_demo.c)     | popen())                                           |        |
+| 5 | [code](code_lib/funAsParameter.c) | 函数作为参数被传递                                 |        |
+| 6 | [code](code_lib/strtol_demo.cpp)  | strtol                                             |        |
+| 7 | [code](code_lib/max_element.cpp)  | max_element(nums.begin(), nums.end())              |        |
+|   |                                | float 4个字节，要加f, eg. 1.2f<br />double 8个字节 |        |
 
 #### 1.1 terminate a thread
 
@@ -115,14 +116,14 @@
 
 ### 8 hash
 
-|                                       |                         |  |  |
-| ------------------------------------- | ----------------------- | - | - |
-| [code](code_lib/twoSum.cpp)              | twosum                  |  |  |
-| [code](code_lib/interSection.cpp)        | intersection            |  |  |
-| [code](code_lib/isHappy.cpp)             | isHappy                 |  |  |
-| [code](code_lib/FourAddingEqualZero.cpp) | FourAddingEqualZero.cpp |  |  |
-| [code](code_lib/ransomLetter.cpp)        | ransomLetter.cpp        |  |  |
-| [code](code_lib/threeSum.cpp)            | threeSum                |  |  |
+|                                                |                                                              |  |  |
+| ---------------------------------------------- | ------------------------------------------------------------ | - | - |
+| [code](code_lib/twoSum.cpp)                       | twosum                                                       |  |  |
+| [code](code_lib/interSection.cpp)                 | intersection                                                 |  |  |
+| [code](code_lib/isHappy.cpp)                      | isHappy                                                      |  |  |
+| [code](code_lib/FourAddingEqualZero.cpp)          | FourAddingEqualZero.cpp                                      |  |  |
+| [code](code_lib/ransomLetter.cpp)                 | ransomLetter.cpp                                             |  |  |
+| [code](code_lib/threeSum.cpp)                     | threeSum                                                     |  |  |
 | [code](code_lib/LongestHarmoniousSubsequence.cpp) | LongestHarmoniousSubsequence - 成员差别小于等于1的最长子数列 |  |  |
 
 ### 9 binary tree

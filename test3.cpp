@@ -6,43 +6,49 @@
 #include <unistd.h>
 #include <unordered_set>
 
-class Solution {
-public:
-	static int findLHS(vector<int> nums) {
-		// 哈希表法
+#include <errno.h>
+#include <stdio.h>
+#include <termios.h>
+#include <unistd.h>
 
-		// 定义集合map，保存数组中每个数字出现的次数
-		unordered_map<int, int> map;
+/* CELEBT06
 
-		// 遍历数组，统计数组中每个数字出现的次数
-		for (int num : nums) {
-			map[num]++;
-		}
+   This example provides information about the attributes.
 
-		// 定义最长的和谐子序列的长度
-		int maxLength = 0;
+ */
+#include <termios.h>
+#include <unistd.h>
 
-		// 遍历集合map中的key
-		for(int i = 0; i < map.size(); i++) {
-			
-		}
-
-		for (auto key : map) {
-			// 寻找是否存在比当前key大1的key，因为和谐子序列是最大值和最小值的差正好是1
-			if (map.containsKey(key + 1)) {
-				// 当前和谐子序列的长度是key的次数和key+1的次数之和，因为子序列不一定连续，所以任意两个最大值和最小值都可以去构造出和谐子序列
-				maxLength = Math.max(maxLength, map.get(key) + map.get(key + 1));
-			}
-		}
-
-		// 返回最长的和谐子序列的长度
-		return maxLength;
-	}
-};
-
-int main(void) {
-    vector<int> nums{ 2, 3, -2, 4 };
-    cout << Solution::findLHS(nums) << endl;
-
+int main()
+{
+    struct termios attr;
+    tcgetattr(STDIN_FILENO, &attr); // 获取当前终端属性
+    attr.c_lflag &= ~(ECHO); // 禁用回显
+    attr.c_lflag &= ~(ICANON); // 非标准模式读取输入数据
+    tcsetattr(STDIN_FILENO, TCSANOW, &attr); // 设置终端属性
     return 0;
+}
+
+
+
+int main() {
+    struct termios term;
+
+    if (tcgetattr(STDIN_FILENO, &term) != 0)
+        perror("tcgetatt() error");
+    else {
+        if (term.c_iflag & BRKINT)
+            puts("BRKINT is set");
+        else
+            puts("BRKINT is not set");
+        if (term.c_cflag & PARODD)
+            puts("Odd parity is used");
+        else
+            puts("Even parity is used");
+        if (term.c_lflag & ECHO)
+            puts("ECHO is set");
+        else
+            puts("ECHO is not set");
+        printf("The end-of-file character is x'%02x'\n", term.c_cc[VEOF]);
+    }
 }
