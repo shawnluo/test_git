@@ -508,7 +508,10 @@ void quePush(int value) {
 
 int quePop() {
     if(isEmpty(stack_1)) {
-        push(stack_1, pop(stack_2));
+        while(!isEmpty(stack_2)) {
+            push(stack_1, pop(stack_2));
+        }
+        
     }
     return pop(stack_1);
 }

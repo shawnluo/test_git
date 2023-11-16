@@ -45,7 +45,6 @@ public:
             Rates[i] = original.Rates[i];
         }
     }
-    static Book * GetInstances() { return m_pA;}
 };
 
 void printBook(Book book) {

@@ -356,7 +356,167 @@ bool dp_47(vector<int> nums1, vector<int> nums2) {
 }
 
 int dp_32() {
-    
+
+}
+
+int array_2(vector<int> nums, int target) {
+    int size = nums.size();
+    int lhs = 0;
+    int rhs = size - 1;
+
+    while(lhs <= rhs) {
+        int mid = (lhs + rhs) / 2;
+        if(nums[mid] == target) {
+            return mid;
+        } else if(target < nums[mid]) {
+            lhs = mid + 1;
+        } 
+    }
+}
+
+int array_3() {
+    int pos = 0;
+    for(int i = 0; i < size; i++) {
+        if(nums[i] != val) {
+            nums[pos++] = nums[i];
+        }
+    }
+    nums.resize(pos );
+}
+
+int array_4() {
+    int lhs = 0;
+    int rhs = size - 1;
+    int pos = rhs;
+    while(lhs < rhs) {
+        if(pow(nums[lhs], 2) > pow(nums[rhs], 2)) {
+            lhs++;
+            numsNew[pos--] = pow(nums[lhs], 2);
+        } else {
+
+        }
+        numsNew[pos] = max(pow(nums[lhs], 2), pow(nums[rhs], 2));
+    }
+}
+
+int array_5() {
+    int lhs = 0;
+    int res = INT_MAX;
+    int sum = 0;
+    for(int rhs = 0; rhs < size; rhs++) {
+        sum += nums[rhs];
+        while(sum >= val && lhs < size) {
+            len = rhs - lhs + 1;
+            res = max(res, lhs);
+            sum -= nums[lhs++];
+        }
+    }
+    return res == INT_MAX ? 0 : res;
+}
+
+int array_6(int n) {
+    int offset = 1;
+    int N = n / 2;
+    int startX = 0;
+    int startY = 0;
+    int offset = 1;
+    while(N--) {
+        int x = startX;
+        int y = startY;
+        for(; y < n - offset; y++) {
+            mat[x][y] = cout++;
+        }
+        for(; x < n - offset; x++) {
+            mat[x][y] = cout++;
+        }
+        for(; y > startY; y--) {
+            mat[x][y] = cout++;
+        }
+        for(; x > startX; x--) {
+            mat[x][y] = cout++;
+        }
+        startX++, startY++, offset++;
+    }
+    if()//odd
+    ...
+}
+
+void rmLL(pNode* ppHead, int val){
+    pNode* pp = ppHead;
+    while((*pp)->val != val) {
+        pp = &((*pp)->next);
+    }
+    if(*pp == nullptr) return;
+
+    pNode tmp = *pp;
+    *pp = (*pp)->next;
+    free(tmp);
+}
+
+pPre = nullptr;
+pCur = pHead;
+pNext = nullptr;
+
+while(pCur) {
+    pNext = pCur->next;
+    pCur->next = pPre;
+    pPre = pCur;
+    pCur = pNext;
+}
+return pPre;
+
+
+pNode dummy;
+dummy->next = pHead;
+
+while(pCur && pCur->next) {
+    pNode a = pCur->next;
+    pNode b = pCur->next->next;
+    pNode c = pCur->next->next->next;
+    cur->next = b;
+    c->next = a;
+    a->next = b;
+}
+
+void* memAlign(size_t size, size_t alignment) {
+    // 1. new len
+    int offset = alignment - 1;
+    int saveValSize = sizeof(size_t);
+    int newSize = size + offset + saveValSize;
+
+    // 2. malloc
+    size_t* addr = (size_t*)malloc(newSize);
+
+    // 3. the newAddr
+    void* newAddr = (void*)((size_t)(addr + offset) & ~(offset));
+
+    // 4. save the diff
+    *(newAddr - 1) = newAddr - addr;
+
+    return newAddr;
+}
+
+void align_free(void* alignedAddr) {
+    void* addr = alignedAddr - *(alignAddr - 1);
+    free(addr);
+}
+
+unordered_map<int, int> map;
+for(i = 0; i < size; i++) {
+    it = map.find(target - nums[i]);
+    if(it != map.end()) {
+        return {iter->second, i};
+    }
+    map.insert(pair<int, int>(nums[i], i));
+}
+return {};
+
+void* memcpy(void* dst, const void* src, size_t size) {
+    if(dst == nullptr || src == nullptr) return dst;
+
+    if(src + size > dst) {
+        
+    }
 }
 
 int main(void) {

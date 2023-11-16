@@ -1,13 +1,13 @@
 ### 1. c & Linux system基础
 
-|   |                                |                    |        |
-| - | ------------------------------ | ------------------ | ------ |
-| 1 | [code](code_lib/fgets.cpp)        | fgets())           |        |
-| 2 | [code](code_lib/pipe_demo.c)      | pipe())            |        |
-| 3 | [code](code_lib/fifo_demo.c)      | fifo())            | mkfifo |
-| 4 | [code](code_lib/popen_demo.c)     | popen())           |        |
-| 5 | [code](code_lib/funAsParameter.c) | 函数作为参数被传递 |        |
-| 6 | [code](code_lib/strtol_demo.cpp)  | strtol             |        |
+|   |                                |                                       |        |
+| - | ------------------------------ | ------------------------------------- | ------ |
+| 1 | [code](code_lib/fgets.cpp)        | fgets())                              |        |
+| 2 | [code](code_lib/pipe_demo.c)      | pipe())                               |        |
+| 3 | [code](code_lib/fifo_demo.c)      | fifo())                               | mkfifo |
+| 4 | [code](code_lib/popen_demo.c)     | popen())                              |        |
+| 5 | [code](code_lib/funAsParameter.c) | 函数作为参数被传递                    |        |
+| 6 | [code](code_lib/strtol_demo.cpp)  | strtol                                |        |
 | 7 | [code](code_lib/max_element.cpp)  | max_element(nums.begin(), nums.end()) |        |
 
 #### 1.1 terminate a thread
@@ -48,6 +48,7 @@
 | [code](code_lib/deque.cpp)           | std::deque               |           |      |
 | [code](code_lib/priority_que.cpp)    | priority_queue           |           |      |
 | [code](code_lib/isdigit_isalpha.cpp) | API - isdigit/isalphy    |           |      |
+| [code](code_lib/copyConstructor.cpp) | copy constructor         |           |      |
 
 ### 3 dp
 
@@ -76,6 +77,7 @@
 | [code](code_lib/createLL.cpp)                                 | create LL                   |  |  |
 | [code](code_lib/chapter_5_LinkedList/05_18_partitionList.cpp) | partition list 链表局部排序 |  |  |
 | [code](code_lib/delDupLL.cpp)                                 | delete duplicated elements  |  |  |
+| [code]                                                     | swap adjacent element       |  |  |
 
 ### 6 array
 
@@ -115,14 +117,14 @@
 
 ### 8 hash
 
-|                                       |                         |  |  |
-| ------------------------------------- | ----------------------- | - | - |
-| [code](code_lib/twoSum.cpp)              | twosum                  |  |  |
-| [code](code_lib/interSection.cpp)        | intersection            |  |  |
-| [code](code_lib/isHappy.cpp)             | isHappy                 |  |  |
-| [code](code_lib/FourAddingEqualZero.cpp) | FourAddingEqualZero.cpp |  |  |
-| [code](code_lib/ransomLetter.cpp)        | ransomLetter.cpp        |  |  |
-| [code](code_lib/threeSum.cpp)            | threeSum                |  |  |
+|                                                |                                                              |  |  |
+| ---------------------------------------------- | ------------------------------------------------------------ | - | - |
+| [code](code_lib/twoSum.cpp)                       | twosum                                                       |  |  |
+| [code](code_lib/interSection.cpp)                 | intersection                                                 |  |  |
+| [code](code_lib/isHappy.cpp)                      | isHappy                                                      |  |  |
+| [code](code_lib/FourAddingEqualZero.cpp)          | FourAddingEqualZero.cpp                                      |  |  |
+| [code](code_lib/ransomLetter.cpp)                 | ransomLetter.cpp                                             |  |  |
+| [code](code_lib/threeSum.cpp)                     | threeSum                                                     |  |  |
 | [code](code_lib/LongestHarmoniousSubsequence.cpp) | LongestHarmoniousSubsequence - 成员差别小于等于1的最长子数列 |  |  |
 
 ### 9 binary tree
@@ -182,6 +184,7 @@
 | [code](code_lib/memcpy_strcpy.cpp)  | memory copy / string copy | very important |  |
 | [code](code_lib/isLittle.cpp)       | little ending             |                |  |
 | [code](code_lib/decToBinary.cpp)    | decimal <-> binary        |                |  |
+| [code](code_lib/chapter_6_bitManipulate/09_countOnes.cpp)    | count ones - bit count        |                |  |
 |                                  |                           |                |  |
 
 ### 15 cracking the code
