@@ -71,15 +71,15 @@
 
 ### 4 linked list
 
-|                                                            |                             |  |  |
-| ---------------------------------------------------------- | --------------------------- | - | - |
-| [code](code_lib/LinkedListDesign.cpp)                       | linked list class design with template                     |  |  |
-| [code](code_lib/LinkedList-reverse.cpp)                       | reverse                     |  |  |
-| [code](code_lib/reversLL_II.c)                                | reverse II                  |  |  |
-| [code](code_lib/createLL.cpp)                                 | create LL                   |  |  |
-| [code](code_lib/chapter_5_LinkedList/05_18_partitionList.cpp) | partition list 链表局部排序 |  |  |
-| [code](code_lib/delDupLL.cpp)                                 | delete duplicated elements  |  |  |
-| [code]                                                     | swap adjacent element       |  |  |
+|                                                            |                                        |  |  |
+| ---------------------------------------------------------- | -------------------------------------- | - | - |
+| [code](code_lib/LinkedListDesign.cpp)                         | linked list class design with template |  |  |
+| [code](code_lib/LinkedList-reverse.cpp)                       | reverse                                |  |  |
+| [code](code_lib/reversLL_II.c)                                | reverse II                             |  |  |
+| [code](code_lib/createLL.cpp)                                 | create LL                              |  |  |
+| [code](code_lib/chapter_5_LinkedList/05_18_partitionList.cpp) | partition list 链表局部排序            |  |  |
+| [code](code_lib/delDupLL.cpp)                                 | delete duplicated elements             |  |  |
+| [code]                                                     | swap adjacent element                  |  |  |
 
 ### 6 array
 
@@ -153,6 +153,7 @@
 | [code](code_lib/bit_convert.cpp)   | determine the number of bits required to convert integer A to integer B |  |  |
 | [code](code_lib/swapOddEven.cpp)   | swap odd and even bits in an integer                                    |  |  |
 | [code](code_lib/print_bits.cpp)    | print bits binary                                                       |  |  |
+| [code](code_lib/BitwiseAnd.cpp)    | Bitwise AND of Numbers Range                                            |  |  |
 
 ### 12 IPC
 
@@ -180,14 +181,14 @@
 
 ### 15 embedded
 
-|                                  |                           |                |  |
-| -------------------------------- | ------------------------- | -------------- | - |
-| [code](code_lib/alignedMallloc.cpp) | aligned malloc            |                |  |
-| [code](code_lib/memcpy_strcpy.cpp)  | memory copy / string copy | very important |  |
-| [code](code_lib/isLittle.cpp)       | little ending             |                |  |
-| [code](code_lib/decToBinary.cpp)    | decimal <-> binary        |                |  |
-| [code](code_lib/chapter_6_bitManipulate/09_countOnes.cpp)    | count ones - bit count        |                |  |
-|                                  |                           |                |  |
+|                                                        |                           |                |  |
+| ------------------------------------------------------ | ------------------------- | -------------- | - |
+| [code](code_lib/alignedMallloc.cpp)                       | aligned malloc            |                |  |
+| [code](code_lib/memcpy_strcpy.cpp)                        | memory copy / string copy | very important |  |
+| [code](code_lib/isLittle.cpp)                             | little ending             |                |  |
+| [code](code_lib/decToBinary.cpp)                          | decimal <-> binary        |                |  |
+| [code](code_lib/chapter_6_bitManipulate/09_countOnes.cpp) | count ones - bit count    |                |  |
+|                                                        |                           |                |  |
 
 ### 15 cracking the code
 

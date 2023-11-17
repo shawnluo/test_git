@@ -24,6 +24,7 @@
 8. multiprocess programming
 9. popen vs system
 10. [leetcode 152. Maximum Product Subarray](code_lib/maxProduct.cpp)
+11. https://www.jb51.net/article/219039.htm
 
 ### snakpack
 
