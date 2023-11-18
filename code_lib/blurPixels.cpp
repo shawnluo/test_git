@@ -1,20 +1,6 @@
 
-
-
 #include "test.hpp"
 
-/*
-    如果是int型的数据，优先队列内部已经帮我们写好了
-    priority_queue<int, vector<int>, less<int>> pq;  // 最大堆
-    priority_queue<int, vector<int>, greater<int>> pq;  // 最小堆
-*/
-
-/* TODO 
-    1. blur
-    2. 
-        1). priority_queue<int, vector<int>, less<int>>     pq;
-        2). priority_queue<int, vector<int>, greater<int>>  pq;
-*/
 
 int getSum(const vector<vector<int>>& mat, int newX, int newY, const int m, const int n) {
     int sum = 0;
@@ -27,15 +13,14 @@ int getSum(const vector<vector<int>>& mat, int newX, int newY, const int m, cons
     return sum / (m * n);
 }
 
-vector<vector<int>> blur(const vector<vector<int>>& mat, const int m, const int n) {
+vector<vector<int>> blur_odd(const vector<vector<int>>& mat, const int m, const int n) {
     int row = mat.size();
     int col = mat[0].size();
-    
+
+    // calculate the new mat size
     if(m > row || n > col) {
         return {};
     }
-
-    // calculate the new mat size
     int newRow = row - m + 1;
     int newCol = col - n + 1;
 
@@ -52,7 +37,6 @@ vector<vector<int>> blur(const vector<vector<int>>& mat, const int m, const int 
     return newMat;
 }
 
-
 int main(void) {
     vector<vector<int>> mat = {{1, 5, 2, 3, 5, 6, 1},
                                 {2, 1, 1, 9, 4, 8, 3},
@@ -60,7 +44,7 @@ int main(void) {
                                 {1, 1, 2, 3, 5, 2, 9}};
                                 // {1, 1, 2, 3, 5, 2, 9}};
 
-    vector<vector<int>> res = blur(mat, 20, 2);
+    vector<vector<int>> res = blur_odd(mat, 2, 5);
     for(auto x : res) {
         for(auto y : x) {
             cout << y << "\t";
