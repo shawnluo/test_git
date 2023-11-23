@@ -11,21 +11,23 @@
 
 ### new
 
-1. 奇偶跳 https://leetcode.cn/problems/odd-even-jump/
-2. [strtok/myStrtok](code_lib/chapter_1_String/1_12_strtok.cpp)
-3. [227. Basic Calculator II](code_lib/basicCal.c)
-4. [71. Simplify Path](https://leetcode.com/problems/simplify-path/)
-5. sort by frequency
-6. [1047. Remove All Adjacent Duplicates In String](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/)
-7. [55. Jump Game](https://leetcode.com/problems/jump-game/)
-8. multithread programming
-   1. pthread_cancel
-   2. sigaddset, pthread_sigmask
-   3. pthread_cond_signal, pthread_cond_wait
-9. multiprocess programming
-10. popen vs system
-11. [leetcode 152. Maximum Product Subarray](code_lib/maxProduct.cpp)
-12. https://www.jb51.net/article/219039.htm
+1. [奇偶跳](code_lib/oddEvenJumps.cpp)
+2. [find sum of quare in array](code_lib/findSumOfSquare.cpp)
+3. [find the shortest path](code_lib/findShortestPath.cpp)
+4. [strtok/myStrtok](code_lib/chapter_1_String/1_12_strtok.cpp)
+5. [227. Basic Calculator II](code_lib/basicCal.c)
+6. [71. Simplify Path](https://leetcode.com/problems/simplify-path/)
+7. sort by frequency
+8. [1047. Remove All Adjacent Duplicates In String](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/)
+9. [55. Jump Game](https://leetcode.com/problems/jump-game/)
+10. multithread programming
+    1. pthread_cancel
+    2. sigaddset, pthread_sigmask
+    3. pthread_cond_signal, pthread_cond_wait
+11. multiprocess programming
+12. popen vs system
+13. [leetcode 152. Maximum Product Subarray](code_lib/maxProduct.cpp)
+14. https://www.jb51.net/article/219039.htm
 
 ### snakpack
 

@@ -62,6 +62,61 @@ void* thread_fun2(void* arg) {
     sleep(2);
 }
 
+#define TTY_PATH            "/dev/tty"
+#define STTY_US             "stty raw -echo -F "
+#define STTY_DEF            "stty -raw echo -F "
+  
+int get_char();
+  
+int get_char()
+{
+    fd_set rfds;
+    struct timeval tv;
+    int ch = 0;
+  
+    FD_ZERO(&rfds);
+    FD_SET(0, &rfds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 10; //设置等待超时时间
+  
+    //检测键盘是否有输入
+    if (select(1, &rfds, NULL, NULL, &tv) > 0){
+        ch = getchar();
+    }
+    return ch;
+}
+
+void listeningKey() {
+    char ch = 0;
+    while(1) {
+        ch = get_char();
+        if(ch != 0) {
+            printf("%d\n", ch);
+        }
+        if(ch == 3) {
+            system(STTY_DEF TTY_PATH);
+            return 0;
+        }
+    }
+}
+
+void listeningKey2(char* s) {
+    // char c;
+    // char s[100];
+    int i = 0, c;
+    printf("input: ");
+    // while((c = getchar()) != '\n' && c != EOF) {
+    for(; (c = getchar()) != '\n' && c != EOF; ) {
+        // printf("%c", c);
+        s[i++] = c;
+    }
+    // printf("\n");
+    s[i] = '\0';
+    // printf("%s\n", s);
+
+    // return s;
+}
+
 int main() {
     pthread_t tid1, tid2;
     int err;
@@ -78,19 +133,28 @@ int main() {
         return;
     }
 
-    sleep(1);
-
-    s = pthread_kill(tid1, SIGQUIT);
-    if (s != 0) {
-        printf("send signal to thread1 failed\n");
+    // listeningKey();
+    while(1){        
+        char* s = (char*)malloc(100);
+        listeningKey2(s);
+        printf("%s\n", s);
     }
-    s = pthread_kill(tid2, SIGQUIT);
-    if (s != 0) {
-        printf("send signal to thread2 failed\n");
-    }
-
-    pthread_join(tid1, NULL);
-    pthread_join(tid2, NULL);
 
     return 0;
+
+    // sleep(1);
+
+    // s = pthread_kill(tid1, SIGQUIT);
+    // if (s != 0) {
+    //     printf("send signal to thread1 failed\n");
+    // }
+    // s = pthread_kill(tid2, SIGQUIT);
+    // if (s != 0) {
+    //     printf("send signal to thread2 failed\n");
+    // }
+
+    // pthread_join(tid1, NULL);
+    // pthread_join(tid2, NULL);
+
+    // return 0;
 }

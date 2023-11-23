@@ -1,15 +1,16 @@
 ### 1. c & Linux system基础
 
-|   |                                |                                                    |        |
-| - | ------------------------------ | -------------------------------------------------- | ------ |
-| 1 | [code](code_lib/fgets.cpp)        | fgets())                                           |        |
-| 2 | [code](code_lib/pipe_demo.c)      | pipe())                                            |        |
-| 3 | [code](code_lib/fifo_demo.c)      | fifo())                                            | mkfifo |
-| 4 | [code](code_lib/popen_demo.c)     | popen())                                           |        |
-| 5 | [code](code_lib/funAsParameter.c) | 函数作为参数被传递                                 |        |
-| 6 | [code](code_lib/strtol_demo.cpp)  | strtol                                             |        |
-| 7 | [code](code_lib/max_element.cpp)  | max_element(nums.begin(), nums.end())              |        |
-| 8 |                                | float 4个字节，要加f, eg. 1.2f<br />double 8个字节 |        |
+|   |                                   |                                                                            |        |
+| - | --------------------------------- | -------------------------------------------------------------------------- | ------ |
+| 1 | [code](code_lib/fgets.cpp)           | fgets())                                                                   |        |
+| 2 | [code](code_lib/pipe_demo.c)         | pipe())                                                                    |        |
+| 3 | [code](code_lib/fifo_demo.c)         | fifo())                                                                    | mkfifo |
+| 4 | [code](code_lib/popen_demo.c)        | popen())                                                                   |        |
+| 5 | [code](code_lib/funAsParameter.c)    | 函数作为参数被传递                                                         |        |
+| 6 | [code](code_lib/strtol_demo.cpp)     | strtol                                                                     |        |
+| 7 | [code](code_lib/max_element.cpp)     | max_element(nums.begin(), nums.end())                                      |        |
+| 8 |                                   | float     占4个字节，要加f, eg. 1.2f<br />double 占8个字节              |        |
+|   | [code](code_lib/lowerUpperBound.cpp) | lower_bound(x): 大于或等于x的数的指针<br />upper_bound(x): 大于x的数的指针 |        |
 
 #### 1.1 terminate a thread
 
@@ -51,11 +52,14 @@
 | [code](code_lib/isdigit_isalpha.cpp) | API - isdigit/isalphy    |           |      |
 | [code](code_lib/copyConstructor.cpp) | copy constructor         |           |      |
 
-### 3 dp
+### 3 二分法
+
+[code	](code_lib/searchInsert.cpp)[Search Insert Position](https://leetcode.com/problems/search-insert-position/)
+
+### 4 dp
 
 |                                                        |                                                               |  |      |
 | ------------------------------------------------------ | ------------------------------------------------------------- | - | ---- |
-|                                                        |                                                               |  |      |
 | code                                                   | 0-1 knapsack                                                  |  |      |
 |                                                        | complete knapsack                                             |  |      |
 | [code](code_lib/longest_Increasing_nums.cpp)              | longest_increasing_nums 非连续                                |  |      |

@@ -6,31 +6,60 @@
 #include <string.h>
 #include <unistd.h>
 
-// 1. basic
 
-int main(void) {
-    int size = 5;
-    FILE* output;
-    char buf[size];
-    memset(buf, 0, size);
+/*
+ * ThreadCancel.c
+ *
+ *  Created on: Aug 17, 2013
+ *      Author: root
+ */
+#include <errno.h>
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
 
-    // "r": 将命令得到的结果存在output
-    // "w": 将命令结果直接输出，output不会得到结果
-    output = popen("sleep 5", "r");
-    // output = popen("ls -l", "w");
-    if (output == NULL) {
-        perror("Error opening file");
-        return (-1);
+#include <stdio.h>
+#include <pthread.h>
+#include <unistd.h>
+
+void *thread_function(void *arg) {
+    int n = 0;
+    while(1) {
+        printf("Thread is running\n");
+        sleep(1);   // sleep是退出点。pthread_cancel发出后，会在这退出。
+        // printf("Thread xx is running\n");   // pthread_cancel发出后，这不会不执行
+        // int i = 0;
+        for(int i = 0; i < 100000000; i++) {
+            for(int j = 0; j < 10000000; j++) {
+                for(int k = 0; k < 100000; k++) {
+                    printf("n = %d, ", n);
+                    // pthread_testcancel();
+                }
+            }
+            n++;
+            // printf("n = %d, ", n);
+        }
+        // pthread_testcancel();
+        // printf("n = %d, ", n);
     }
+    pthread_exit(NULL);
+}
 
-    printf("-----\n");
-    int status = pclose(output);
-
-    printf("---3--\n");
-
-    // while (fgets(buf, size, output) != NULL) { // 每次读取size大小的字节数据(自动加上结尾的'\0')，直到遇到文件结尾符号，返回NULL
-    //     printf("%s\n", buf);
-    // }
-
+int main() {
+    pthread_t thread;
+    pthread_create(&thread, NULL, thread_function, NULL);
+    
+    // Let the thread run for 3 seconds
+    sleep(3);
+    
+    // Request cancellation of the thread
+    pthread_cancel(thread);
+    
+    // Wait for the thread to exit
+    pthread_join(thread, NULL);
+    
+    printf("Thread is canceled\n");
     return 0;
 }

@@ -8,9 +8,10 @@
 
 void *thread_function(void *arg) {
     while(1) {
-        printf("Thread is running\n");
-        sleep(1);   // sleep是退出点。pthread_cancel发出后，会在这退出。
-        printf("Thread xx is running\n");   // pthread_cancel发出后，这不会不执行
+        printf("Thread is running\n");      // 1. printf 是退出点
+        sleep(1);                           // 2. sleep是退出点。pthread_cancel发出后，会在这退出。
+        pthread_testcancel();               // 3. 这也是退出点
+        printf("Thread xx is running\n");   // pthread_cancel发出后，这不会被执行
     }
     pthread_exit(NULL);
 }
