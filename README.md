@@ -16,6 +16,7 @@
 
 |                                   |                                             |                            |
 | :-------------------------------- | ------------------------------------------- | -------------------------- |
+| code                              | c++ multithreading                          |                            |
 | [code](code_lib/stopThread_demo.c)   | pthread_exit 用来终结自己所在线程           |                            |
 | [code](code_lib/stopThread_demo2.c)  | pthread_cancel                              |                            |
 | [code](code_lib/stopThread_demo3.c)  | pthread_kill                                |                            |
