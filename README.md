@@ -16,7 +16,7 @@
 
 |                                   |                                             |                            |
 | :-------------------------------- | ------------------------------------------- | -------------------------- |
-| code                              | c++ multithreading                          |                            |
+| [code](code_lib/multthreading.cpp)   | c++ multithreading                          |                            |
 | [code](code_lib/stopThread_demo.c)   | pthread_exit 用来终结自己所在线程           |                            |
 | [code](code_lib/stopThread_demo2.c)  | pthread_cancel                              |                            |
 | [code](code_lib/stopThread_demo3.c)  | pthread_kill                                |                            |
@@ -149,6 +149,7 @@
 | [code](code_lib/chapter_9_recursion/backtrack/rotten_fruit.cpp) | rotten fruit                                    |  | TODO |
 | [code](code_lib/backTracking_0.cpp)                             | permutation of string s                         |  |      |
 | [code](code_lib/backtracking_1.cpp)                             | n and k, return combination from 1 to n, size k |  |      |
+| [code](code_lib/cleanRobot.png)                                 | clean robot                                     |  |      |
 
 ### 11 bits manipute
 

@@ -32,4 +32,6 @@ using std::unordered_set;
 using std::unordered_map;
 using std::swap;
 
+using namespace std;
+
 #endif
