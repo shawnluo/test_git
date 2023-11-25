@@ -17,7 +17,7 @@ class mycomparison {
 public:
     // 对操作符“()”进行重载
     bool operator()(const pair<int, int>& lhs, const pair<int, int>& rhs) {
-        return lhs.second > rhs.second;
+        return lhs.second > rhs.second;     // 从小到大排序
     }
 };
 

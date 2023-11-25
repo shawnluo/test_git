@@ -7,10 +7,30 @@
 #include <unistd.h>
 
 void *thread_function(void *arg) {
+    int rs;
+
+    // PTHREAD_CANCEL_DISABLE: 关闭cancel点。默认是使能
+    // rs = pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
+    rs = pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+    if (rs != 0) {
+        perror("Thread pthread_setcancelstate failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // PTHREAD_CANCEL_DEFERRED means that it will wait the pthread_join, 
+    // pthread_cond_wait, pthread_cond_timewait.. to be call when the 
+    // thread receive cancel message.
+    rs = pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
+    if (rs != 0) {
+        perror("Thread pthread_setcanceltype failed\n");
+        exit(EXIT_FAILURE);
+    }
+
     while(1) {
-        printf("Thread is running\n");
-        sleep(1);   // sleep是退出点。pthread_cancel发出后，会在这退出。
-        printf("Thread xx is running\n");   // pthread_cancel发出后，这不会不执行
+        printf("Thread is running\n");      // 1. printf 是退出点
+        sleep(1);                           // 2. sleep是退出点。pthread_cancel发出后，会在这退出。
+        pthread_testcancel();               // 3. 这也是退出点
+        printf("Thread xx is running\n");   // pthread_cancel发出后，这不会被执行
     }
     pthread_exit(NULL);
 }

@@ -81,3 +81,49 @@ int main() {
 
     return 0;
 }
+
+
+// TODO
+
+using namespace std;
+
+class background_task {
+public:
+    void operator()(int val) const {
+        while(1) {
+            cout << "111 - " << val << endl;
+            sleep(1);
+            // pthread_testcancel();
+        }
+    }
+
+    static void foo(int i) {
+        cout << "foo" << endl;
+    }
+};
+
+class taskManager {
+    void startThread() {
+
+    }
+
+    void stopThread() {
+
+    }
+};
+
+int main(void) {
+    vector<int> arr = {10, 1, 7, 2, 3, 4, 5, 9, 6, 8, 0};
+
+    // background_task f;
+    thread th1(background_task(), 100);
+    sleep(3);
+    if(pthread_cancel(th1.native_handle()) != 0) {
+        cerr << "Failed to cancel thread" << endl;
+        return 1;
+    }
+
+    th1.join();
+
+    return 0;
+}

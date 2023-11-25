@@ -1,20 +1,22 @@
 ### 1. c & Linux system基础
 
-|   |                                |                                                    |        |
-| - | ------------------------------ | -------------------------------------------------- | ------ |
-| 1 | [code](code_lib/fgets.cpp)        | fgets())                                           |        |
-| 2 | [code](code_lib/pipe_demo.c)      | pipe())                                            |        |
-| 3 | [code](code_lib/fifo_demo.c)      | fifo())                                            | mkfifo |
-| 4 | [code](code_lib/popen_demo.c)     | popen())                                           |        |
-| 5 | [code](code_lib/funAsParameter.c) | 函数作为参数被传递                                 |        |
-| 6 | [code](code_lib/strtol_demo.cpp)  | strtol                                             |        |
-| 7 | [code](code_lib/max_element.cpp)  | max_element(nums.begin(), nums.end())              |        |
-|   |                                | float 4个字节，要加f, eg. 1.2f<br />double 8个字节 |        |
+|   |                                   |                                                                            |        |
+| - | --------------------------------- | -------------------------------------------------------------------------- | ------ |
+| 1 | [code](code_lib/fgets.cpp)           | fgets())                                                                   |        |
+| 2 | [code](code_lib/pipe_demo.c)         | pipe())                                                                    |        |
+| 3 | [code](code_lib/fifo_demo.c)         | fifo())                                                                    | mkfifo |
+| 4 | [code](code_lib/popen_demo.c)        | popen())                                                                   |        |
+| 5 | [code](code_lib/funAsParameter.c)    | 函数作为参数被传递                                                         |        |
+| 6 | [code](code_lib/strtol_demo.cpp)     | strtol                                                                     |        |
+| 7 | [code](code_lib/max_element.cpp)     | max_element(nums.begin(), nums.end())                                      |        |
+| 8 |                                   | float     占4个字节，要加f, eg. 1.2f<br />double 占8个字节              |        |
+|   | [code](code_lib/lowerUpperBound.cpp) | lower_bound(x): 大于或等于x的数的指针<br />upper_bound(x): 大于x的数的指针 |        |
 
 #### 1.1 terminate a thread
 
 |                                   |                                             |                            |
 | :-------------------------------- | ------------------------------------------- | -------------------------- |
+| [code](code_lib/multthreading.cpp)   | c++ multithreading                          |                            |
 | [code](code_lib/stopThread_demo.c)   | pthread_exit 用来终结自己所在线程           |                            |
 | [code](code_lib/stopThread_demo2.c)  | pthread_cancel                              |                            |
 | [code](code_lib/stopThread_demo3.c)  | pthread_kill                                |                            |
@@ -31,10 +33,10 @@
 
 #### 1.3 system design
 
-| col1                            | col2                                                                                                                                                    | col3 |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| [code](code_lib/systemDesign1.cpp) | c++写一个类，实现startCaller和stopCaller两个API，<br />startCaller(), 要求输入待执行函数的函数名和执行频率<br />stopCaller(), 停止指定函数的循环执行。 |      |
-|                                 |                                                                                                                                                         |      |
+|                                 |                                                                                                                                                         |  |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | - |
+| [code](code_lib/systemDesign1.cpp) | c++写一个类，实现startCaller和stopCaller两个API，<br />startCaller(), 要求输入待执行函数的函数名和执行频率<br />stopCaller(), 停止指定函数的循环执行。 |  |
+|                                 |                                                                                                                                                         |  |
 
 ### 2 c++
 
@@ -52,11 +54,14 @@
 | [code](code_lib/copyConstructor.cpp) | copy constructor         |           |      |
 |                                   | string to char           |           |      |
 
-### 3 dp
+### 3 二分法
+
+[code	](code_lib/searchInsert.cpp)[Search Insert Position](https://leetcode.com/problems/search-insert-position/)
+
+### 4 dp
 
 |                                                        |                                                               |  |      |
 | ------------------------------------------------------ | ------------------------------------------------------------- | - | ---- |
-|                                                        |                                                               |  |      |
 | code                                                   | 0-1 knapsack                                                  |  |      |
 |                                                        | complete knapsack                                             |  |      |
 | [code](code_lib/longest_Increasing_nums.cpp)              | longest_increasing_nums 非连续                                |  |      |
@@ -97,7 +102,7 @@
 | [code](code_lib/isRectangle.cpp)                      | is rectangle                                  |  | todo |
 | [code](code_lib/deleteDuplicated.cpp)                 | delete duplicated elements in an array        |  |      |
 | [code](code_lib/jumpGame.cpp)                         | jump game                                     |  |      |
-|                                                    |                                               |  |      |
+| [code](code_lib/blurPixels.cpp)                       | blur pixels                                   |  |      |
 | [code](code_lib/removeRepeatArray.cpp)                | len of sorted element, remove repeat elements |  |      |
 | [code](code_lib/minSubArrLen.cpp)                     | min sub array Len 长度最小的子数组            |  |      |
 | [code](code_lib/myPow.cpp)                            | implement pow                                 |  |      |
@@ -145,6 +150,7 @@
 | [code](code_lib/chapter_9_recursion/backtrack/rotten_fruit.cpp) | rotten fruit                                    |  | TODO |
 | [code](code_lib/backTracking_0.cpp)                             | permutation of string s                         |  |      |
 | [code](code_lib/backtracking_1.cpp)                             | n and k, return combination from 1 to n, size k |  |      |
+| [code](code_lib/cleanRobot.png)                                 | clean robot                                     |  |      |
 
 ### 11 bits manipute
 
@@ -154,6 +160,7 @@
 | [code](code_lib/bit_convert.cpp)   | determine the number of bits required to convert integer A to integer B |  |  |
 | [code](code_lib/swapOddEven.cpp)   | swap odd and even bits in an integer                                    |  |  |
 | [code](code_lib/print_bits.cpp)    | print bits binary                                                       |  |  |
+| [code](code_lib/BitwiseAnd.cpp)    | Bitwise AND of Numbers Range                                            |  |  |
 
 ### 12 IPC
 

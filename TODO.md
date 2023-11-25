@@ -11,19 +11,23 @@
 
 ### new
 
-1. [strtok/myStrtok](code_lib/chapter_1_String/1_12_strtok.cpp)
-2. [227. Basic Calculator II](code_lib/basicCal.c)
-3. [71. Simplify Path](https://leetcode.com/problems/simplify-path/)
-4. sort by frequency
-5. [1047. Remove All Adjacent Duplicates In String](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/)
-6. [55. Jump Game](https://leetcode.com/problems/jump-game/)
-7. multithread programming
-   1. pthread_cancel
-   2. sigaddset, pthread_sigmask
-   3. pthread_cond_signal, pthread_cond_wait
-8. multiprocess programming
-9. popen vs system
-10. [leetcode 152. Maximum Product Subarray](code_lib/maxProduct.cpp)
+1. [奇偶跳](code_lib/oddEvenJumps.cpp)
+2. [find sum of quare in array](code_lib/findSumOfSquare.cpp)
+3. [find the shortest path](code_lib/findShortestPath.cpp)
+4. [strtok/myStrtok](code_lib/chapter_1_String/1_12_strtok.cpp)
+5. [227. Basic Calculator II](code_lib/basicCal.c)
+6. [71. Simplify Path](https://leetcode.com/problems/simplify-path/)
+7. sort by frequency
+8. [1047. Remove All Adjacent Duplicates In String](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/)
+9. [55. Jump Game](https://leetcode.com/problems/jump-game/)
+10. multithread programming
+    1. pthread_cancel
+    2. sigaddset, pthread_sigmask
+    3. pthread_cond_signal, pthread_cond_wait
+11. multiprocess programming
+12. popen vs system
+13. [leetcode 152. Maximum Product Subarray](code_lib/maxProduct.cpp)
+14. https://www.jb51.net/article/219039.htm
 
 ### snakpack
 
@@ -170,17 +174,17 @@
 7. Parking
 8. Hash collision
 
-
 ### 计划
+
 1. 把programmercarl.com过完
-   1. dp   <span style="color:green">- *ing* -</span>
-   2. backtracking  <span style="color:red">- *todo* -</span>
-   3. array <span style="color:red">- *todo* -</span>
-   4. binary tree <span style="color:red">- *todo* -</span>
-   5. linkedlist <span style="color:red">- *todo* -</span>
-   6. hash table <span style="color:red">- *todo* -</span>
-   7. double pointer <span style="color:red">- *todo* -</span>
-   8. string <span style="color:red">- *todo* -</span>
-   9. stack/heap <span style="color:red">- *todo* -</span>
-2.  cracking code
-3.  additional questions
+   1. dp   `<span style="color:green">`- *ing* -
+   2. backtracking  `<span style="color:red">`- *todo* -
+   3. array `<span style="color:red">`- *todo* -
+   4. binary tree `<span style="color:red">`- *todo* -
+   5. linkedlist `<span style="color:red">`- *todo* -
+   6. hash table `<span style="color:red">`- *todo* -
+   7. double pointer `<span style="color:red">`- *todo* -
+   8. string `<span style="color:red">`- *todo* -
+   9. stack/heap `<span style="color:red">`- *todo* -
+2. cracking code
+3. additional questions

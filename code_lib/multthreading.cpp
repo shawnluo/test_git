@@ -1,12 +1,3 @@
-#include "test.hpp"
-
-#include <iostream>
-#include <algorithm>
-#include <cstdio>
-#include <cstring>
-#include <unordered_set>
-
-
 // C++ program to demonstrate
 // multithreading using three
 // different callables.

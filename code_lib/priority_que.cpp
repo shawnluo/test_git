@@ -27,6 +27,8 @@ int main() {
     big_heap.push(5);
     big_heap.push(0);
 
+    // 使用 small_heap的时候，showMe函数中的参数也需要声明为greater<int>，否则会编译出错
+
     showMe(heap);
 
     return 0;

@@ -1,313 +1,96 @@
 #include "test.hpp"
 
 
-
-
-
 #include <iostream>
 
 using namespace std;
 
-// implementation of linked list w/ templates
-// example w/ list<int>
-// fns stored at end of pgm as individual templates
+/*
+ * ThreadCancel.c
+ *
+ *  Created on: Aug 17, 2013
+ *      Author: root
+ */
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <pthread.h>
+#include <errno.h>
 
-// multiple forward declarations needed
+#define NUM_THREADS 5
+void* search(void *);
+void print_it(void*);
 
-template <class T>
-class node;
-
-template <class T>
-class list;
-
-template <class T>
-   ostream& operator<< (ostream &, const list<T> &);  
-                                              // overloaded print op.
-
-template <class T>
-class list
-  {
-  public:
-    node<T>* head;                           // ptr to head of list
-    list<T>();                                  // default constructor
-    list<T>(const T[]);                         // another constructor
-    ~list<T>();                                 // destructor
-    list<T>(const list<T>& in_list);               // copy constructor
-    list<T>& operator=(const list<T>& in_list);    // overloaded asgt op
-    int count_e_iter() const;                // iterative traversal
-    int count_e_recr() const;                // recursive traversal
-  private:
-    friend ostream& operator<< <>(ostream &, const list<T> &);  // overloaded print op.
-    void reset();                            // reset to null
-  };
-  
-template <class T>
-class node
-  {
-  public:
-    T item;                                  // content
-    node<T>* link;                              // ptr to next node
-    node<T>();                                  // default constructor
-    node<T>(T, node<T>*);                          // another constructor
-  private:
-    friend class list<T>;                       // 'list' fns can see all of node
-    int count_e_private();                   // rec. trav. helper fn
-    friend ostream& operator<< <>(ostream &, const node<T> &);  
-                                             // overloaded print op.
-
-  };
-  
-// ***********************************
-
-
-int main() 
-
-{
-
-  char my_string[80] = "i love peeps";
-  int e_count;
-
-  // constructor creates dynamic memory
-  list<char> list1(my_string);
-
-  cout << "list1 is at " << list1 << endl;
-
-  // iterative traversal
-  e_count = list1.count_e_iter();
-  cout << "Counting iteratively, there are " << e_count << " e's" << endl;
-
-  // recursive traversal
-  e_count = list1.count_e_recr();
-  cout << "Counting recursively, there are " << e_count << " e's" << endl << endl;
-
-  // testing copy constructor
-  list<char> list2(list1);
-  cout << "list2 is at " << list2 << endl;
-
-  // testing overloaded asgt op
-  list2 = list1;
-  cout << "list2 is at " << list2 << endl;
-
-  return 0;
-}
-
-  
-// ***********************************
-
-template <class T>
-list<T>::list()                        // default constructor
-  {
-    head = 0;
-    cout << "Called default constructor for list " << *this << endl;
-  }
-
-template <class T>
-list<T>::list(const T* in_str)          // another constructor
-  {
-    int sub;
-    node<T>* p = 0;
-    node<T>* prev_p;
-
-    head = 0;
-    for (sub = 0; sub < strlen(in_str); sub++)
-      {
-	prev_p = p;
-	p = new node<T>(in_str[sub], 0);
-	if (sub == 0)
-	  head = p;
-        else
-          prev_p -> link = p;
-      }
-
-    cout << "Called constructor for list at " << *this << endl;
-  }
-
-template <class T>
-list<T>::~list()                       // destructor
-  {
-
-    cout << "Called destructor for list at " << this << endl;
-
-    if (head != 0)                        // reset list to null
-      reset();
-
-  }
-
-template <class T>
-void list<T>::reset()                       // reset list to null
-  {
-    node<T>* p;
-    node<T>* p_next;
-
-    if (head != 0)
-      {
-        p = head;
-        while (p != 0)
-          {
-            p_next = p -> link;     // get next link while it's still available
-            cout << "Freeing memory at " << p << endl;
-            delete p;
-            p = p_next;
-          }
-        cout << endl;
-        head = 0;
-      }
-  }
-
-template <class T>
-list<T>::list(const list<T>& in_list)            // copy constructor
-  {
-    node<T>* p;
-    node<T>* q;
-    node<T>* prev_q;
-
-    cout << "Called copy constructor to copy list at " << &in_list << endl;
-    head = 0;
-    if (in_list.head != 0)
-      {
-	p = in_list.head;
-	while (p != 0)
-	  {
-	    q = new node<T>(*p);        // get new node, copy data members
-	    q -> link = 0;           // ... zero out new link,
-            if (head == 0)           // ... and make someone point to it
-	      head = q;
-            else
-	      prev_q -> link = q;
-	    p = p -> link;
-	    prev_q = q;
-	  }
-      }
-    cout << "New list is at " << *this << endl;
-  }
-
-template <class T>
-list<T>& list<T>::operator=(const list<T>& in_list)    // overloaded asgt op
-  {
-    node<T>* p;
-    node<T>* q;
-    node<T>* prev_q;
-
-    cout << "Called overloaded asgt op from list at " << &in_list << endl;
-    if (this != &in_list)                        // Make sure not same object
-     {
-
-       if (head != 0)                            // free old result
-         reset();
-
-       if (in_list.head != 0)
-	 {
-	   p = in_list.head;                     // create & fill new list
-	   while (p != 0)
-	     {
-	       q = new node<T>(*p);        // get new node, copy data members
-	       q -> link = 0;           // ... zero out new link,
-               if (head == 0)           // ... and make someone point to it
-	         head = q;
-               else
-	         prev_q -> link = q;
-	       p = p -> link;
-	       prev_q = q;
-	     }
-	 }
-     }
-    cout << "Result is at " << *this << endl << endl;
-    return *this;                          // return ref for chained asgt
-  }
-
-template <class T>
-ostream& operator<< (ostream& ostr, const list<T>& in_list)
-{
-  node<T>* p;
-
-  ostr << &in_list << endl;                    // address of object
-  ostr << "head is " << in_list.head << endl;
-
-  p = in_list.head;
-  while (p != 0)
-    {
-      ostr << *p << endl;
-      p = p -> link;
+pthread_t threads[NUM_THREADS];
+pthread_mutex_t lock;
+int tries;
+int started;
+int main(){
+    int i, pid;
+    pid = getpid();
+    printf("Search for the number=%d...\n", pid);
+    pthread_mutex_init(&lock,NULL);
+    for(started=0;started<NUM_THREADS; started++){
+        pthread_create(&threads[started], NULL, search, (void*)pid);
     }
- 
-  return ostr;
-}
-
-
-template <class T>
-int list<T>::count_e_iter() const
-{
-  node<T>* p;
-  int count;
-
-  p = head;
-  count = 0;
-
-  while (p != 0)
-    {
-      if (p -> item == 'e')
-	count++;
-      p = p -> link;
+    for(i=0; i<NUM_THREADS; i++){
+        pthread_join(threads[i], NULL);
     }
-  return count;
+    printf("It took %d tries to find the number.\n", tries);
+    return 0;
 }
 
-template <class T>
-int list<T>::count_e_recr() const
-{
-  int count = -99;
-  cout << "beginning recursive traversal " << endl;
-  if (head == 0)
-    count = 0;
-  else
-    count = head -> count_e_private();
-  cout << "ending recursive traversal " << endl << endl;
-  return count;
+void print_it(void * arg){
+    int *try = (int *)arg;
+    pthread_t tid;
+    tid = pthread_self();
+    printf("Thread %lx was canceled on its %d try.\n", tid, *try);
 }
 
+void * search(void * arg){
+    int num = (int)arg;
+    int i,j,ntries;
+    pthread_t tid;
+    tid = pthread_self();
+    while(pthread_mutex_trylock(&lock) == EBUSY){
+        pthread_testcancel();                            //thread may be canceled and call cancel function handler !
+    }
+    printf("current thread tid:%lx.\n", tid);
+    srand((int)tid);
+    printf("current thread tid:%lx, after srand method.\n", tid);
+    i = rand() & 0xFFFFFF;
+    pthread_mutex_unlock(&lock);
+    ntries = 0;
+    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+    pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
+    while(started < NUM_THREADS){
+        sched_yield();
+    }
+    pthread_cleanup_push(print_it, (void*)&ntries);
+    while(1){
+        i = (i+1) & 0xffffff;
+        ntries++;
+        if(num == i){
+            while(pthread_mutex_trylock(&lock) == EBUSY){
+                printf("Thread %lx found the number! But not get lock!\n", tid);
+                pthread_testcancel();
+            }
+            tries = ntries;
+            printf("Thread %lx found the number!\n", tid);
+            for(j=0;j<NUM_THREADS;j++){
+                if(threads[j] != tid){
+                    pthread_cancel(threads[j]);
+                }
+            }
+            break;
+        }
 
-template <class T>
-node<T>::node()                        // default constructor
-  {
-    link = 0;
-    cout << "Called default constructor for node " << *this << endl;
-  }
+        if(ntries %100 ==0){
+            pthread_testcancel();
+        }
+    }
 
-template <class T>
-node<T>::node(T in_item, node<T>* in_link)          // another constructor
-  {
-    item = in_item;
-    link = in_link;
-
-    cout << "Called constructor for node " << *this << endl;
-  }
-
-template <class T>
-ostream& operator<< (ostream& ostr, const node<T>& in_node)
-{
-  ostr << &in_node                             // address of object
-       << ": "
-       << in_node.item
-       << " "
-       << in_node.link;
-
-  return ostr;
+    pthread_cleanup_pop(0);
+    return ((void*)0);
 }
-
-template <class T>
-int node<T>::count_e_private()
-{
-  int count = -99;
-  cout << "entering count_e_private: item = " << item 
-       << " count = " << count << endl;
-  if (link == 0)
-    count = 0;
-  else
-    count = link -> count_e_private(); 
-  if (item == 'e')
-    count++;
-  cout << "leaving count_e_private:  item = " << item 
-       << " count = " << count << endl;
-  return count;      
-}
-
