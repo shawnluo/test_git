@@ -23,6 +23,7 @@
 | [code](code_lib/terminateThread.cpp) | 根据线程名，使用pthread_cancel来中断线程    | prctl, pthread_cancel, c++ |
 |                                   | sem_init(), sem_wait(), sem_post()          |                            |
 |                                   | pthread_mutex_lock(), pthread_mutex_unlock |                            |
+| [code](code_lib/detach_demo.cpp)     | detach                                      |                            |
 
 #### 1.2 signals
 

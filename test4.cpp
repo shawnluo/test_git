@@ -5,92 +5,56 @@
 
 using namespace std;
 
-/*
- * ThreadCancel.c
- *
- *  Created on: Aug 17, 2013
- *      Author: root
- */
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <pthread.h>
-#include <errno.h>
+#include <iostream>
+#include <limits>
 
-#define NUM_THREADS 5
-void* search(void *);
-void print_it(void*);
+using namespace std;
+class MyPID {
+public:
+    MyPID() {}
 
-pthread_t threads[NUM_THREADS];
-pthread_mutex_t lock;
-int tries;
-int started;
-int main(){
-    int i, pid;
-    pid = getpid();
-    printf("Search for the number=%d...\n", pid);
-    pthread_mutex_init(&lock,NULL);
-    for(started=0;started<NUM_THREADS; started++){
-        pthread_create(&threads[started], NULL, search, (void*)pid);
+    void Init(double init_v, double goal_v, double p, double i, double d) {
+        initval = init_v;
+        goal    = goal_v;
+        p_coe   = p;
+        i_coe   = i;
+        d_coe   = d;
+        err     = goal - initval;
     }
-    for(i=0; i<NUM_THREADS; i++){
-        pthread_join(threads[i], NULL);
-    }
-    printf("It took %d tries to find the number.\n", tries);
-    return 0;
-}
 
-void print_it(void * arg){
-    int *try = (int *)arg;
-    pthread_t tid;
-    tid = pthread_self();
-    printf("Thread %lx was canceled on its %d try.\n", tid, *try);
-}
-
-void * search(void * arg){
-    int num = (int)arg;
-    int i,j,ntries;
-    pthread_t tid;
-    tid = pthread_self();
-    while(pthread_mutex_trylock(&lock) == EBUSY){
-        pthread_testcancel();                            //thread may be canceled and call cancel function handler !
-    }
-    printf("current thread tid:%lx.\n", tid);
-    srand((int)tid);
-    printf("current thread tid:%lx, after srand method.\n", tid);
-    i = rand() & 0xFFFFFF;
-    pthread_mutex_unlock(&lock);
-    ntries = 0;
-    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
-    pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
-    while(started < NUM_THREADS){
-        sched_yield();
-    }
-    pthread_cleanup_push(print_it, (void*)&ntries);
-    while(1){
-        i = (i+1) & 0xffffff;
-        ntries++;
-        if(num == i){
-            while(pthread_mutex_trylock(&lock) == EBUSY){
-                printf("Thread %lx found the number! But not get lock!\n", tid);
-                pthread_testcancel();
-            }
-            tries = ntries;
-            printf("Thread %lx found the number!\n", tid);
-            for(j=0;j<NUM_THREADS;j++){
-                if(threads[j] != tid){
-                    pthread_cancel(threads[j]);
-                }
-            }
-            break;
+    void UpdateErr(double cte) {
+        if (step == 1) {
+            p_err = cte;
         }
+        i_err += cte;
+        d_err = cte - p_err;
+        p_err = cte;
 
-        if(ntries %100 ==0){
-            pthread_testcancel();
-        }
+        ++step;
     }
 
-    pthread_cleanup_pop(0);
-    return ((void*)0);
+    double TotalErr() { return p_coe * p_err + i_coe * i_err + d_coe * d_err; }
+    ~MyPID() {}
+
+public:
+    double initval = 1;
+    double goal    = 1;
+    double err     = 0;
+    int step       = 1;
+    double p_coe = 1, i_coe = 1, d_coe = 1;
+    double p_err = 0, i_err = 0, d_err = 0;
+};
+int main() {
+    MyPID Pid;
+    double ini = 7, goal = 8, p = 0.3345, i = 0.0011011, d = 0.662;
+
+    Pid.Init(ini, goal, p, i, d);
+
+    for (int i = 0; i < 20; ++i) {
+        double cte = goal - ini;
+        Pid.UpdateErr(cte);
+        cte = Pid.TotalErr();
+        ini += cte;
+        cout << cte << endl;
+    }
 }
