@@ -5,7 +5,15 @@
 #include <thread>
 using namespace std;
 
-// A dummy function
+/**
+  * 1. 调用普通函数
+  * 2. 调用类符号重载函数
+  * 3. 调用类成员函数
+  * 4. 调用类静态成员函数
+  * 5. 调用lambda
+  */
+
+// 1. A dummy function
 void foo(int Z) {
     for (int i = 0; i < Z; i++) {
         cout << "Thread using function"
@@ -13,7 +21,7 @@ void foo(int Z) {
     }
 }
 
-// A callable object
+// 2. A callable object
 class thread_obj {
 public:
     void operator()(int x) {
@@ -26,19 +34,24 @@ public:
 // class definition
 class Base {
 public:
-    // non-static member function
-    void foo() {
-        cout << "Thread using non-static member function "
-                "as callable"
-             << endl;
-    }
-    // static member function
-    static void foo1() {
-        cout << "Thread using static member function as "
-                "callable"
-             << endl;
-    }
+    // 3. non-static member function
+    void foo();
+
+    // 4. static member function
+    static void foo1();
 };
+
+void Base::foo() {
+    cout << "Thread using non-static member function "
+            "as callable"
+            << endl;
+}
+
+void Base::foo1() { // static类成员函数，在类外定义的时候，不能加static
+    cout << "Thread using static member function as "
+            "callable"
+            << endl;
+}
 
 // Driver code
 int main() {
@@ -54,7 +67,7 @@ int main() {
     // function object as callable
     thread th2(thread_obj(), 3);
 
-    // Define a Lambda Expression
+    // 5. Define a Lambda Expression
     auto f = [](int x) {
         for (int i = 0; i < x; i++)
             cout << "Thread using lambda"
