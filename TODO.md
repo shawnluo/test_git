@@ -177,14 +177,15 @@
 ### 计划
 
 1. 把programmercarl.com过完
-   1. dp   `<span style="color:green">`- *ing* -
-   2. backtracking  `<span style="color:red">`- *todo* -
-   3. array `<span style="color:red">`- *todo* -
-   4. binary tree `<span style="color:red">`- *todo* -
-   5. linkedlist `<span style="color:red">`- *todo* -
-   6. hash table `<span style="color:red">`- *todo* -
-   7. double pointer `<span style="color:red">`- *todo* -
-   8. string `<span style="color:red">`- *todo* -
-   9. stack/heap `<span style="color:red">`- *todo* -
+   1. aligned memcpy - ing
+   2. dp   <span style="color:green">- *ing* -
+   3. backtracking  <span style="color:red">- *todo* -
+   4. array <span style="color:red"> - *todo* -
+   5. binary tree <span style="color:red"> - *todo* -
+   6. linkedlist <span style="color:red"> - *todo* -
+   7. hash table <span style="color:red"> - *todo* -
+   8. double pointer <span style="color:red"> - *todo* -
+   9. string <span style="color:red"> - *todo* -
+   10. stack/heap <span style="color:red"> - *todo* -
 2. cracking code
 3. additional questions

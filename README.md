@@ -87,6 +87,7 @@
 | [code](code_lib/chapter_5_LinkedList/05_18_partitionList.cpp) | partition list 链表局部排序            |  |  |
 | [code](code_lib/delDupLL.cpp)                                 | delete duplicated elements             |  |  |
 | [code]                                                     | swap adjacent element                  |  |  |
+|                                                            | linked list adding                     |  |  |
 
 ### 6 array
 
