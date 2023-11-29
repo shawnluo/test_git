@@ -78,32 +78,26 @@ void *Memcpy_ext(void *dest, const void *src, size_t count) {
 
 
 // 4. memocpy alignment
-
+//      not optimized for copy speed
 void* memcpyAlign(size_t alignment, void* dst, void* src, size_t dstLen, size_t srcLen) {
-    // 1. get the newAddress
-    //     1. offset = alignment - 1
-    //     2. newAddr = dst + offset & ~(offset)
-    // 2. memcpy
-    // 4. return newAddr
-
     size_t offset = alignment - 1;
     // size_t newLen = srcLen + offset;
     // size_t* addr = (size_t)malloc(newLen);
     // if(!addr) return nullptr;
 
-    size_t* newAddr = ((size_t*)dst + offset) & ~(offset);
+    size_t* newDst = ((size_t*)dst + offset) & ~(offset);
     size_t cpuSize = sizeof(size_t);
     size_t t1 = srcLen / cpuSize;   // cpu size count
     size_t t2 = srcLen % cpuSize;   // remain byte count
     
-    size_t* d = (size_t*)dst;
+    size_t* d = (size_t*)newDst;
     size_t* s = (size_t*)src;
 
     for(int i = 0; i < t1; i++) {
         *d++ = *s++;
     }
 
-    d = (size_t*)((size_t)dst + t1 - cpuSize);
+    d = (size_t*)((size_t)newDst + t1 - cpuSize);
     s = (size_t*)((size_t)src + t1 - cpuSize);
     char* d1 = (char*)d;
     char* s1 = (char*)s;
@@ -111,5 +105,5 @@ void* memcpyAlign(size_t alignment, void* dst, void* src, size_t dstLen, size_t 
         *d1++ = *s1++;
     }
 
-    return (void*)newAddr;
+    return (void*)newDst;
 }

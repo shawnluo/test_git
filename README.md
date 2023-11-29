@@ -152,7 +152,7 @@
 | [code](code_lib/chapter_9_recursion/backtrack/rotten_fruit.cpp) | rotten fruit                                    |  | TODO |
 | [code](code_lib/backTracking_0.cpp)                             | permutation of string s                         |  |      |
 | [code](code_lib/backtracking_1.cpp)                             | n and k, return combination from 1 to n, size k |  |      |
-| [code](code_lib/cleanRobot.png)                                 | clean robot                                     |  |      |
+| [code](code_lib/cleanRobot.cpp)                                 | clean robot                                     |  |      |
 
 ### 11 bits manipute
 

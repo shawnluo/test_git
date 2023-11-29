@@ -1,5 +1,5 @@
 
-// leetcode 9.2
+// leetcode 33
 /*
 Given  a sorted  array  of  n  integers  that  has  been  rotated  an  unknown  number  of times,
 give an O(log n) algorithm that finds an element in the array
@@ -8,30 +8,38 @@ You may assume that the array was originally sorted in increasing order
 EXAMPLE:Input: find 5 in array (15 16 19 20 25 1 3 4 5 7 10 14)Output: 8 (the index of 5 in the a
 */
 
-int search(int a[], int l, int u, int x) {
-    while (l <= u) {
-        int m = (l + u) / 2;
-        if (x == a[m]) {
-            return m;
-
-        } else if (a[l] <= a[m]) {
-            if (x > a[m]) {
-                l = m + 1;
-            } else if (x >= a[l]) {
-                u = m - 1;
-
+int search(vector<int>& nums, int val) {
+    int left = 0;
+    int right = nums.size() - 1;
+    for (; left <= right;) {
+        int mid = (left + right) / 2;
+        if (nums[mid] == val) {
+            return mid;
+        }
+        // 如果 中数小于最右边的数，那么 - 右半段是有序的！ - 看看是不是在右边
+        if (nums[mid] < nums[right]) {
+            if (val > nums[mid] && val <= nums[right]) {
+                left = mid + 1;
             } else {
-                l = m + 1;
+                right = mid - 1;
             }
-
-        } else if (x < a[m])
-            u = m - 1;
-        else if (x <= a[u])
-            l = m + 1;
-        else
-            u = m - 1;
+        }
+        // 如果 中数大于最右边的数，那么 - 左半段是有序的！ - 看看是不是在左边
+        else {
+            if (val < nums[mid] && val >= nums[left]) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
     }
     return -1;
 }
 
-static int search(int a[], int x) { return search(a, 0, a.length - 1, x); }
+int main(void) {
+    vector<int> nums = { 4, 5, 6, 7, 0, 1, 2 };
+    cout << test(nums, 0);
+    // cout << s << endl;
+
+    return 0;
+}
