@@ -14,88 +14,74 @@
 #include <thread>
 using namespace std;
 
-// A dummy function
-void foo(int Z) {
-    for (int i = 0; i < Z; i++) {
-        cout << "Thread using function"
-                " pointer as callable\n";
-    }
+class Robot {
+public:
+    Robot(int i, int j);
+
+    void turnRight();
+    bool move();
+    void clean();
+    int getX();
+
+private:
+    // 0: obstacle
+    // 1: accasble
+    int x, y;
+    int dir;
+    int row = map.size();
+    int col = map[0].size();
+    vector<vector<int>> map = { {1, 1, 0},
+                                {0, 0, 1}, 
+                                {1, 1, 1}, 
+                                {1, 0, 1}};
+};
+
+Robot::Robot(int i, int j) : x(i), y(j) {
+    cout << "constructor: x: " << x << " - y: " << y << endl;
 }
 
-// A callable object
-class thread_obj {
-public:
-    void operator()(int x) {
-        for (int i = 0; i < x; i++)
-            cout << "Thread using function"
-                    " object as callable\n";
+void Robot::clean() {
+    cout << "clean\n";
+}
+
+int Robot::getX() {
+    return x;
+}
+
+void Robot::turnRight() {
+    cout << "turnRight\n";
+}
+
+bool Robot::move() {
+    switch(dir) {
+        case 0:
+            y--;
+            if(map[x][y] == 0 || y < 0 || y >= col) {
+                return false;
+            }
+            break;
+
+        case 1:
+            x++;
+            if(map[x][y] == 0 || x < 0 || x >= row) {
+                return false;
+            }
+            break;
     }
-};
 
-// class definition
-class Base {
-public:
-    // non-static member function
-    void foo() {
-        cout << "Thread using non-static member function "
-                "as callable"
-             << endl;
-    }
-    // static member function
-    static void foo1() {
-        cout << "Thread using static member function as "
-                "callable"
-             << endl;
-    }
-};
+    return true;
+}
 
-// Driver code
-int main() {
-    cout << "Threads 1 and 2 and 3 "
-            "operating independently"
-         << endl;
 
-    // This thread is launched by using
-    // function pointer as callable
-    thread th1(foo, 3);
+int main(void) {
+    Robot robot(113, 4);
+    // cout << robot.getX() << endl;
 
-    // This thread is launched by using
-    // function object as callable
-    thread th2(thread_obj(), 3);
 
-    // Define a Lambda Expression
-    auto f = [](int x) {
-        for (int i = 0; i < x; i++)
-            cout << "Thread using lambda"
-                    " expression as callable\n";
-    };
+    // unordered_set<int> Set;
+    // Set.insert(5);
 
-    // This thread is launched by using
-    // lambda expression as callable
-    thread th3(f, 3);
-
-    // object of Base Class
-    Base b;
-
-    thread th4(&Base::foo, &b);
-
-    thread th5(&Base::foo1);
-
-    // Wait for the threads to finish
-    // Wait for thread t1 to finish
-    th1.join();
-
-    // Wait for thread t2 to finish
-    th2.join();
-
-    // Wait for thread t3 to finish
-    th3.join();
-
-    // Wait for thread t4 to finish
-    th4.join();
-
-    // Wait for thread t5 to finish
-    th5.join();
+    // cout << Set.count(5);
 
     return 0;
 }

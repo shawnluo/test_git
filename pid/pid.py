@@ -73,7 +73,7 @@ def PID_Controller_Direct_Mem(standard_out, t):
         # Version:  1.4.1.15 0.000% ( 0/181) total events:  73
 
         # format 3
-        format_string = "[p] %8.3f%%   [i] %8.3f%%    [d] %8.3f%%".format(
+        format_string = "[p] %8.3f   [i] %8.3f    [d] %8.3f".format(
                  error_now, integrate_res, Diffirent_res)
         print(format_string % (error_now, integrate_res, Diffirent_res))
         
