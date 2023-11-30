@@ -8,6 +8,10 @@ You may assume that the array was originally sorted in increasing order
 EXAMPLE:Input: find 5 in array (15 16 19 20 25 1 3 4 5 7 10 14)Output: 8 (the index of 5 in the a
 */
 
+#include <iostream>
+#include <vector>
+
+using namespace std;
 int search(vector<int>& nums, int val) {
     int left = 0;
     int right = nums.size() - 1;
@@ -38,7 +42,7 @@ int search(vector<int>& nums, int val) {
 
 int main(void) {
     vector<int> nums = { 4, 5, 6, 7, 0, 1, 2 };
-    cout << test(nums, 0);
+    cout << search(nums, 0);
     // cout << s << endl;
 
     return 0;

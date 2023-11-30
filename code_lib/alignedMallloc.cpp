@@ -23,12 +23,14 @@ void align_free(void * aligned_addr) {
 
 
 
-// 2. memocpy alignment
+// 2. memcpy alignment
 //      not optimized for copy speed
 void* memcpyAlign(size_t alignment, void* dst, void* src, size_t dstLen, size_t srcLen) {
     // 1. get the alignedAddr newAddr
     size_t offset = alignment - 1;
     size_t* newDst = ((size_t*)dst + offset) & ~(offset);
+
+    // need malloc new address? if yes, then insert alignedMalloc()
 
     // 2. get the cpu size, then split the copied data into 2 parts. 
     size_t cpuSize = sizeof(size_t);
@@ -49,6 +51,8 @@ void* memcpyAlign(size_t alignment, void* dst, void* src, size_t dstLen, size_t 
     for(int i = 0; i < t2; i++) {
         *d1++ = *s1++;
     }
+
+    *(dst - 1) = newDst - (size_t*)dst;
 
     return (void*)newDst;
 }
