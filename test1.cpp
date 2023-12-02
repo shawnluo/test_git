@@ -79,14 +79,20 @@ int dp_16(vector<int>& nums, int s) {
 vector<vector<int>> res;
 vector<int> path;
 int sum = 0;
-void bt(vector<int>& nums, int s) {
+void bt(vector<int>& nums, int s, int pos) {
+    if(sum > s) return;
     if(sum == s) {
         res.push_back(path);
         return;
     }
-    for() {
-        
+    for(int i = pos; i < nums.size(); i++) {
+        sum += nums[i];
+        path.push_back(nums[i]);
+        bt(nums, s, pos);
+        sum -= nums[i];
+        path.pop_back();
     }
+    
 }
 
 int main() {
