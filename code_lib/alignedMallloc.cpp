@@ -30,6 +30,11 @@ void* memcpyAlign(size_t alignment, void* dst, void* src, size_t dstLen, size_t 
     size_t offset = alignment - 1;
     size_t* newDst = ((size_t*)dst + offset) & ~(offset);
 
+    // 如果偏移后的剩余长度不足以放下src，那么就返回
+    if(dstLen - (newDst - dst) < src) {
+        return nullptr;
+    }
+
     // need malloc new address? if yes, then insert alignedMalloc()
 
     // 2. get the cpu size, then split the copied data into 2 parts. 

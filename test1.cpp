@@ -6,203 +6,96 @@
 #include <stdio.h>
 using namespace std;
 
-
 #include <iostream>
 #include <string>
 
-
-int main() {
-    cout << sizeof(size_t) << endl;
-
-    return 0;
-}
-
-void sinkIsland(char** s, int i, int j, int gridSize, int gridColSize) {
-
-}
-
-int exploreIslands1(char** s, int i, int j, int gridSize, int gridColSize) {
-    if(i < 0 || i >= gridSize)      return;
-    if(j < 0 || j >= gridColSize)   return; 
-    if(s[i][j] == 0)                return;
-
-    s[i][j] = '0';
-    sinkIsland(s, i + 1, j,     gridSize, gridColSize);
-    sinkIsland(s, i - 1, j,     gridSize, gridColSize);
-    sinkIsland(s, i,     j + 1, gridSize, gridColSize);
-    sinkIsland(s, i,     j - 1, gridSize, gridColSize);
-}
-
-void exploreIslands(vector<int, int>& s, int i, int j) {
-    int row = s.size();
-    int col = s[0].size();
-    if((i < 0 || i > row) || (j < 0 || j > col)) {
-        return;
-    }
-    
-    if(s[i][j] == 1) {
-        s[i][j] = 0;
-    }
-
-    vector<pair<int, int>> direction = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-
-    for(int i = 0; i < 4; i++) {
-        exploreIslands(s, i + direction[i].first, j + direction[i].second);
-    }
-}
-
-/*
-    robot.move()()      : robot move forward, return true if success, return false if abstacle is there or out of border
-    robot.turnRight()   : robot turn right
-*/
-void dfs(Robot& robot, set<pair<int, int>>& visited, int i, int j, int dir) {
-    robot.clean();
-    visited.insert({i, j});
-    pair<int, int> direction[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-    for(int k = 0; k < 4; k++) {
-        int new_i = i + directions[dir].first;
-        int new_j = j + directions[dir].second;
-        if(visited.count({new_i, new_j}) == 0 && robot.move()) {
-            dfs(robot, visited, new_i, new_j, dir);
-
-            // 如果
-            robot.turnRight();
-            robot.turnRight();
-            robot.move();
-            robot.turnRight()
-            robot.turnRight();
-        }
-        dir = (dir + 1) % 4;
-        robot.turnRight();
-    }
-}
-
-void cleanRoom(Robot& robot) {
-    set<pair<int, int>> visited;
-    dfs(robot, visited, 0, 0, 0);
-}
-
-
-void dfs(Robot& robot, set<int, int>& visited, int i, int j, int dir) {
-    robot.clean();
-    visited.insert(i, j);
-    vector<pair<int, int>> direction = {
-        {-1, 0},
-        {0, 1},
-        {1, 0},
-        {0, -1}
-    };
-    for(int i = 0; i < 4; i++) {
-        /*  if next step is legal
-                call dfs
-
-            turn right
-        */ 
-        int iNew = i + direction[dir].first;
-        int jNew = j + direction[dir].second;
-        if(robot.forward() && visited.find([iNew], [jNew]) == visited.end) {
-            dfs(robot, visited, iNew, jNew, dir);
-            robot.turnRight();
-            robot.turnRight();
-            robot.forward();
-            robot.turnRight();
-            robot.turnRight();
-        }
-        dir = (dir + 1) % 4;
-        robot.turnRight();
-    }
-}
-
-void cleanRoom(Robot& robot) {
-    set<int, int> visited;
-    dfs(robot, visited, 0, 0, 0);
-}
-
-// (1, 2) (2, 4) (3, 5)
-int meetingRoom(vector<vector<int, int>> rooms) {
-    int n = rooms.size();
-    vector<int> start, end;
-    for(int i = 0; i < n; i++) {
-        start.push_back(rooms[i][0]);
-        end.push_back(rooms[i][1]);
-    }
-    int res = 1;
-    int j = 0;
-    for(int i = 1; i < n; i++) {
-        if(start[i] < end[j]) {
-            res++;
-        } else {
-            j++;
-        }
-    }
-    return res;
-}
-
-void* alignedMalloc(size_t len, size_t alignment) {
-    // 1. the newLen
-    // 2. the address
-    // 3. the newAddress
-    // 4. for free
-    // 5. return newAddress
-
-    size_t offset = alignment - 1;
-    size_t newLen = len + offset + sizeof(size_t);
-    size_t* addr = (size_t*)malloc(newLen);
-    size_t* newAddr = addr & (~offset);
-    *(newAddr - 1) = newAddr - addr;
-
-    return newAddr;
-}
-
-void* alignedMemcpy(void* src, void* dst, size_t srcLen, size_t dstLen, size_t alignment) {
-    // 1. the newDst
-    //  1). need malloc new address?
-    //  2). if no, then just offset to start of alignment
-    // 2. memcpy
-    size_t* newDst = (size_t*)dst;
-    size_t* src_ = (size_t*)src;
-
-    size_t offset = alignment - 1;
-    newDst = newDst + offset;
-
-    char* dstChar = (char*)newDst;
-    char* srcChar = (char*)src;
-    for(int i = 0; i < srcLen; i++) {
-        *dstChar++ = *srcChar++;
-    }
-
-    *(dst - 1) = newDst - (size_t*)dst;;
-
-    return NewDst;
-}
-
-// 从n个物品中，选取装满背包BAG，不得重复选取。求最大价值
-int dp_11(vector<int>& weight, vector<int>& value, int BAG) {
-    int size = weight.size();
-    vector<vector<int>> dp(size, vector<int> (BAG + 1, 0 ));
-
-    for(int j = weight[0]; j <= BAG; j++) {
-        dp[0][j] = value[0];
-    }
-
-    for(int i = 1; i < size; i++) {
-        for(int j = 0; j <= BAG; j++) {
-            if(j >= weight[i]) {
-                dp[i][j] = max(dp[i - 1][j], dp[i - weight[i]][j] + value[i]);
-            }
-        }
-    }
-    return dp[size - 1][BAG];
-}
 
 int dp_12(vector<int>& weight, vector<int>& value, int BAG) {
     int size = weight.size();
     vector<int> dp(BAG + 1, 0);
 
+    for(int i = BAG; i >= 0; i--) {
+        cout << i << "\t";
+    }
+    cout << endl;
+    cout << endl;
+
     for(int i = 0; i < size; i++) {
-        for(int j = BAG; j >= weight[i]; j--) {
-            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+        // for(int j = BAG; j >= weight[i]; j--) {
+        for(int j = BAG; j >= 0; j--) {
+            if(j < weight[i]) {
+                cout << 0 << "\t";    
+            } else {
+                // j = 1    dp[1] = dp[1 - 1] + 15 = 15
+                // j = 2    dp[2] = dp[2 - 1] + 15 = 30
+
+                // j = 2    dp[2] = dp[2 - 1] + 15 = 15     dp[1] = 0
+                // j = 1    dp[1] = dp[1 - 1] + 15 = 15     dp[0] = 0
+                dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+                cout << dp[j] << "\t";
+            }
+        }
+        cout << endl;
+    }
+    return dp[BAG];
+}
+
+bool dp_13(vector<int>& nums) {
+    int n = nums.size();
+    int BAG = accumulate(nums.begin(), nums.end(), 0);
+    
+    if (BAG % 2) return 0;
+
+    vector<int> dp(BAG + 1, 0);
+    for(int i = 0; i < n; i++) {
+        for(int j = BAG; j >= nums[i]; j--) {
+            dp[j] = max(dp[j], dp[j - nums[i]] + nums[i]);
+        }
+    }
+
+    return dp[BAG] == (BAG % 2) ? true : false;
+}
+
+int dp_16(vector<int>& nums, int s) {
+    /* 
+        pos + neg = sum
+        pos - neg = s
+        pos = (sum + s) / 2
+     */
+    int sum = accumulate(nums.begin(), nums.end(), 0);
+    int BAG = (sum + s) / 2;
+
+    vector<int> dp(BAG + 1, 0);
+    int n = nums.size();
+
+    for(int i = 0; i < n; i++) {
+        for(int j = BAG; j >= nums[i]; j--) {
+            dp[j] += dp[j - nums[i]];
         }
     }
     return dp[BAG];
+}
+
+vector<vector<int>> res;
+vector<int> path;
+int sum = 0;
+void bt(vector<int>& nums, int s) {
+    if(sum == s) {
+        res.push_back(path);
+        return;
+    }
+    for() {
+        
+    }
+}
+
+int main() {
+    vector<int> weight = {1, 3, 4};
+    // vector<int> value = {15, 20, 30};
+    // int BAG = 15;
+    // dp_12(weight, value, BAG);
+
+    cout << dp_13(weight) << endl;
+
+    return 0;
 }

@@ -16,6 +16,7 @@
 #include <queue>
 #include <thread>
 #include "common.h"
+#include <numeric>
 
 using std::cout;
 using std::endl;
