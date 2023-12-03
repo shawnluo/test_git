@@ -76,6 +76,7 @@
 | [code](code_lib/dp48.cpp)                                 | dp48 求在s的子序列中，t出现的次数                             |  | todo |
 |                                                        | dp48.1 求在s的连续子序列中，t出现的次数 - KMP                 |  | todo |
 | [code](code_lib/dp47.cpp)                                 | dp47 判断子序列                                               |  |      |
+| [code](code_lib/findNumberOfLIS.cpp)                      | leetcode 673 find Number Of LIS 最长递增子序列的个数         |  |      |
 
 ### 4 linked list
 

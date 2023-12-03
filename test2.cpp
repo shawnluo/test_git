@@ -14,74 +14,45 @@
 #include <thread>
 using namespace std;
 
-class Robot {
-public:
-    Robot(int i, int j);
 
-    void turnRight();
-    bool move();
-    void clean();
-    int getX();
+/* int main(void) {
+    string s = "1234567890";
+    set<string> Set;
+    Set.insert(s.substr(0, 3));
+    Set.insert(s.substr(3, 3));
+    Set.insert(s.substr(6, 3));
 
-private:
-    // 0: obstacle
-    // 1: accasble
-    int x, y;
-    int dir;
-    int row = map.size();
-    int col = map[0].size();
-    vector<vector<int>> map = { {1, 1, 0},
-                                {0, 0, 1}, 
-                                {1, 1, 1}, 
-                                {1, 0, 1}};
-};
+    // for(auto it : Set) {
+    //     cout << it << endl;
+    // }
 
-Robot::Robot(int i, int j) : x(i), y(j) {
-    cout << "constructor: x: " << x << " - y: " << y << endl;
-}
-
-void Robot::clean() {
-    cout << "clean\n";
-}
-
-int Robot::getX() {
-    return x;
-}
-
-void Robot::turnRight() {
-    cout << "turnRight\n";
-}
-
-bool Robot::move() {
-    switch(dir) {
-        case 0:
-            y--;
-            if(map[x][y] == 0 || y < 0 || y >= col) {
-                return false;
-            }
-            break;
-
-        case 1:
-            x++;
-            if(map[x][y] == 0 || x < 0 || x >= row) {
-                return false;
-            }
-            break;
-    }
-
-    return true;
-}
-
-
-int main(void) {
-    Robot robot(113, 4);
-    // cout << robot.getX() << endl;
-
-
-    // unordered_set<int> Set;
-    // Set.insert(5);
-
-    // cout << Set.count(5);
+    cout << Set.front() << endl;
 
     return 0;
+} */
+
+string largestGoodInteger(string num) {
+    int n = num.size();
+    if(n < 3) return {};
+
+    set<string> mySet;
+    string res;
+    for(int i = 2; i < n; i++) {
+        if(num[i] == num[i - 1] && num[i] == num[i - 2]) {
+            // cout << num.substr(i - 2, 3) << endl;
+            mySet.insert(num.substr(i - 2, 3));
+        }
+    }
+    if(mySet.size() != 0) {
+        return *mySet.rbegin();
+    }
+    return {};
+}
+
+int main() {
+    string s = "6777133339";
+
+    cout << largestGoodInteger(s) << endl;
+
+  return 0;
 }

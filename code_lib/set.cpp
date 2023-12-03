@@ -4,6 +4,24 @@
 
 using namespace std;
 
+
+    string s = "1234567890";
+    set<string> Set;
+
+// string truncate, and inset to Set
+    Set.insert(s.substr(0, 3));
+    Set.insert(s.substr(3, 3));
+    Set.insert(s.substr(6, 3));
+
+// 1. the first element:
+    cout << *Set.begin() << endl;
+
+// 1. the last element:
+    cout << *Set.rbegin() << endl;
+
+
+
+
 // multiset: allow repeat elements in set
 void demo_multiset() {
     std::unordered_multiset<string> set;

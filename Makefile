@@ -8,7 +8,7 @@ test1: test1.cpp
 	@g++ $< -o test ${flags}
 
 test2: test2.cpp
-	@g++ test2.cpp -o test ${flags}
+	@g++ test2.cpp -o test ${flags} -std=c++11
 
 test3: test3.cpp
 	@g++ test3.cpp -o test ${flags}
