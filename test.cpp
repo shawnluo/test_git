@@ -6,144 +6,65 @@
 
 using namespace std;
 
-<<<<<<< HEAD
-/*
-// TODO
-ok - meeting room
-# - aligned memory
-- bitwise
-ok - blur
-- dp --------
+string intToRoman(int num) {
+    // 1. divide by M, untile mode == 1
+    // 2. divide by D, untile mod == 1
+    // ...
 
-ok - delete adjacent dup
-ok - remove dup for array
+    string res;
+    vector<pair<string, int>> v = {{"I", 1}, {"IV", 4}, {"V", 5}, {"IX", 9}, {"X", 10}, {"XL", 40}, {"L", 50}, \
+                                    {"XC", 90}, {"C", 100}, {"CD", 400}, {"D", 500}, {"CM", 900}, {"M", 1000}};
 
-ok - remove dup for linkdelist
-ok - remove additional spaces
-
-- sink island
-ok - spiral mat
-ok - reverse ll
-- kmp
-*/
-
-
-int test(vector<int>& nums, int val) {
-    int left = 0;
-    int right = nums.size() - 1;
-    for (; left <= right;) {
-        int mid = (left + right) / 2;
-        if (nums[mid] == val) {
-            return mid;
-        }
-        // 如果 中数小于最右边的数，那么 - 右半段是有序的！ - 看看是不是在右边
-        if (nums[mid] < nums[right]) {
-            if (val > nums[mid] && val <= nums[right]) {
-                left = mid + 1;
-            } else {
-                right = mid - 1;
-            }
-        }
-        // 如果 中数大于最右边的数，那么 - 左半段是有序的！ - 看看是不是在左边
-        else {
-            if (val < nums[mid] && val >= nums[left]) {
-                right = mid - 1;
-            } else {
-                left = mid + 1;
-            }
+    for(int i = 12; i >= 0; i--) {
+        for(; num >= v[i].second; ) {
+            cout << "i = " << i << "\t" << num << endl;
+            res.append(v[i].first);
+            num -= v[i].second;
         }
     }
-    return -1;
+
+    // cout << res << endl;
+    return res;
+}
+
+public int romanToInt(String s) {
+    int res=0;
+    for(int i=0;i<s.length();i++){
+        char c = s.charAt(i);
+        if(c=='I'){
+            if(i+1<s.length()&&s.charAt(i+1)=='V'){
+                res+=4;
+                i++;
+            }else if(i+1<s.length()&&s.charAt(i+1)=='X'){
+                res+=9;
+                i++;
+            }else res+=1;
+        }else if(c=='X'){
+            if(i+1<s.length()&&s.charAt(i+1)=='L'){
+                res+=40;
+                i++;
+            }else if(i+1<s.length()&&s.charAt(i+1)=='C'){
+                res+=90;
+                i++;
+            }else res+=10;
+        }else if(c=='C'){
+            if(i+1<s.length()&&s.charAt(i+1)=='D'){
+                res+=400;
+                i++;
+            }else if(i+1<s.length()&&s.charAt(i+1)=='M'){
+                res+=900;
+                i++;
+            }else res+=100;
+        }else if(c=='V') res+=5;
+        else if(c=='L') res+=50;
+        else if(c=='D') res+=500;
+        else if(c=='M') res+=1000;
+    }
+    return res;
 }
 
 int main(void) {
-    vector<int> nums = { 4, 5, 6, 7, 0, 1, 2 };
-    cout << test(nums, 0);
-    // cout << s << endl;
-=======
-class Robot {
-public:
-    Robot() {}
-
-    void turnRight() {
-        cout << "turnRight\n";
-    }
-    bool move() {
-        if()
-        cout << "move\n";
-    }
-    void clean() {
-        cout << "clean\n";
-    }
-
-private:
-    // 0: obstacle
-    // 1: accasble
-    int x, y;
-    int dir;
-    vector<vector<int>> map = { {1, 1, 0},
-                                {0, 0, 1}, 
-                                {1, 1, 1}, 
-                                {1, 0, 1}};
-};
-
-
-
-// void dfs(vector<int>& nums, int pos) {
-//     int n = nums.size();
-//     // if(pos >= n) {
-//     //     return;
-//     // }
-//     for(int i = 0; i < n; i++) {
-//         if(nums[i] != 0) {
-//             dfs(nums, pos + 1);
-//             cout << i << endl;
-//         }
-//     }
-// }
-
-void dfs(Robot& robot, set<pair<int, int>>& visited, int i, int j, int dir) {
-    robot.clean();
-    visited.insert(pair{i, j});
-    int n = visited.size();
-
-    // vector<pair<int, int>> v;
-    // std::copy(visited.begin(), visited.end(), back_inserter(v));
-
-    // for(auto pair : v) {
-    //     cout << pair.first << " " << pair.second << endl;
-    // }
-
-    // for_each(visited.begin(), visited.end(), [](pair<int, int> pair) {
-    //     cout << pair.first << " " << pair.second << endl;
-    // });
-
-    pair<int, int> direction[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-    for(int k = 0; k < 4; k++) {
-        int new_i = i + direction[dir].first;
-        int new_j = j + direction[dir].second;
-
-        // the new coordinate were NOT visited and robot can move in
-        if(visited.count({new_i, new_j}) == 0 && robot.move()) {
-            dfs(robot, visited, new_i, new_j, dir);
-
-            robot.turnRight();
-            robot.turnRight();
-            robot.move();
-            robot.turnRight();
-            robot.turnRight();
-        }
-        dir = (dir + 1) % 4;
-        robot.turnRight();
-    }
-}
-
-int main(void) {
-    // vector<int> nums = {1, 2, 3, 0, 5};
-    Robot robot;
-    set<pair<int, int>> visited;
-    dfs(robot, visited, 10, 20, 0);
->>>>>>> 4783818 (read2)
+    cout << intToRoman(1994) << endl;
 
     return 0;
 }

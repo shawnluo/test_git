@@ -159,6 +159,8 @@
 
 |                                 |                                                                         |  |  |
 | ------------------------------- | ----------------------------------------------------------------------- | - | - |
+|                                 | 将二进制数某一位变为1  int res = num\| (1 << n)                        |  |  |
+|                                 | 将二进制数某一位变为0  int res = num & ~(1 << n))                      |  |  |
 | [code](code_lib/bitManipulate.cpp) | set all 1 or 0 mask from start to end                                   |  |  |
 | [code](code_lib/bit_convert.cpp)   | determine the number of bits required to convert integer A to integer B |  |  |
 | [code](code_lib/swapOddEven.cpp)   | swap odd and even bits in an integer                                    |  |  |

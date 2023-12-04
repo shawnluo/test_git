@@ -28,6 +28,10 @@
 12. popen vs system
 13. [leetcode 152. Maximum Product Subarray](code_lib/maxProduct.cpp)
 14. https://www.jb51.net/article/219039.htm
+15. 求最大公约数
+16. 求最小公倍数
+17. 求字符串的Hash值
+18. 
 
 ### snakpack
 
@@ -179,14 +183,14 @@
 1. aligned memcpy - ing
 2. aligned malloc - ing
 3. 把programmercarl.com过完
-   1. dp   <span style="color:green">- *ing* -
-   2. backtracking  <span style="color:red">- *todo* -
-   3. array <span style="color:red"> - *todo* -
-   4. binary tree <span style="color:red"> - *todo* -
-   5. linkedlist <span style="color:red"> - *todo* -
-   6. hash table <span style="color:red"> - *todo* -
-   7. double pointer <span style="color:red"> - *todo* -
-   8. string <span style="color:red"> - *todo* -
-   9.  stack/heap <span style="color:red"> - *todo* -
+   1. dp   `<span style="color:green">`- *ing* -
+   2. backtracking  `<span style="color:red">`- *todo* -
+   3. array `<span style="color:red">` - *todo* -
+   4. binary tree `<span style="color:red">` - *todo* -
+   5. linkedlist `<span style="color:red">` - *todo* -
+   6. hash table `<span style="color:red">` - *todo* -
+   7. double pointer `<span style="color:red">` - *todo* -
+   8. string `<span style="color:red">` - *todo* -
+   9. stack/heap `<span style="color:red">` - *todo* -
 4. cracking code
 5. additional questions
