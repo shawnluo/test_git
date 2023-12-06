@@ -9,37 +9,111 @@ using namespace std;
 #include <iostream>
 #include <string>
 
-vector<pair<string, int>> v = {{"I", 1}, {"IV", 4}, {"V", 5}, {"IX", 9}, {"X", 10}, {"XL", 40}, {"L", 50}, \
-                {"XC", 90}, {"C", 100}, {"CD", 400}, {"D", 500}, {"CM", 900}, {"M", 1000}};
+#include <iostream>
+#include <pthread.h>
+#include <queue>
+#include <semaphore.h>
+#include <unistd.h>
+using namespace std;
 
 
-// IV - 4
-// CI - 101
-int romanToInt(string s) {
-    int pair[256];
-    pair['I'] = 1;
-    pair['V'] = 5;
-    pair['X'] = 10;
-    pair['L'] = 50;
-    pair['C'] = 100;
-    pair['D'] = 500;
-    pair['M'] = 1000;
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <semaphore.h>
 
-    int n = s.size();
-    int res = 0;
-    // for(auto it = s.begin(); it != s.end(); it++) {
-    for(int i = 0; i < n; i++) {
-        if(s[i] < s[i + 1]) {
-            res -= pair[s[i]];
-        } else {
-            res += pair[s[i]];
-        }
+/*
+    10 producers, 1 consumer
+*/
+
+#define BUFFER_SIZE 10
+
+int buffer[BUFFER_SIZE];
+sem_t empty, full;
+pthread_mutex_t mutex;
+
+void *producer(void *arg) {
+    int item = 0;
+    
+    while (1) {
+        // Produce item
+        item++;
+        
+        // Wait for an empty slot
+        sem_wait(&empty);
+        
+        // Enter critical section
+        pthread_mutex_lock(&mutex);
+        
+        // Add item to the buffer
+        buffer[item % BUFFER_SIZE] = item;
+        printf("Produced by thread %ld: %d\n", *(long*)arg, item);
+        
+        // Exit critical section
+        pthread_mutex_unlock(&mutex);
+        
+        // Signal that a slot is full
+        sem_post(&full);
+        
+        // Simulate some delay
+        sleep(1);
     }
-    return res;
+}
+
+void *consumer(void *arg) {
+    while (1) {
+        // Wait for a full slot
+        sem_wait(&full);
+        
+        // Enter critical section
+        pthread_mutex_lock(&mutex);
+        
+        // Consume item from the buffer
+        int item = buffer[*(int*)arg % BUFFER_SIZE];
+        printf("Consumed by thread %ld: %d\n", *(long*)arg, item);
+        
+        // Exit critical section
+        pthread_mutex_unlock(&mutex);
+        
+        // Signal that a slot is empty
+        sem_post(&empty);
+        
+        // Simulate some delay
+        sleep(2);
+    }
 }
 
 int main() {
-    cout << romanToInt("IV") << endl;
+    pthread_t producer_thread, consumer_threads[3];
+    
+    // Initialize semaphores and mutex
+    sem_init(&empty, 0, BUFFER_SIZE);
+    sem_init(&full, 0, 0);
+    pthread_mutex_init(&mutex, NULL);
+    
+    // Create producer thread
+    for (long i = 0; i < 3; i++) {
+        pthread_create(&producer_thread, NULL, producer, (void*)&i);
+    }
+    
+    // Create consumer threads
+    for (long i = 0; i < 3; i++) {
+        pthread_create(&consumer_threads[i], NULL, consumer, (void *)&i);
+    }
+    
+    // Join threads
+    for (int i = 0; i < 3; i++) {
+        pthread_join(producer_thread, NULL);
+    }
 
+    for (int i = 0; i < 3; i++) {
+        pthread_join(consumer_threads[i], NULL);
+    }
+    
+    // Cleanup
+    sem_destroy(&empty);
+    sem_destroy(&full);
+    pthread_mutex_destroy(&mutex);
+    
     return 0;
 }

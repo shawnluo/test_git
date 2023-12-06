@@ -1,23 +1,20 @@
-#include <assert.h>
-#include <limits.h>
-#include <math.h>
+
+#include "test.hpp"
+
+#include <iostream>
+#include <queue>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+using namespace std;
 
+#include <iostream>
+#include <string>
 
+#include <iostream>
 #include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-
-
-#include <pthread.h>
-
+#include <queue>
 #include <semaphore.h>
 #include <unistd.h>
-
+using namespace std;
 
 sem_t emptyBuffer;
 sem_t fullBuffer;

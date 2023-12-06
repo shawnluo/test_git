@@ -176,7 +176,8 @@ Rank
 
    1. [pthread_cond_wait(&amp;cond, &amp;lock) usage](code_lib/pthread_cond_wait_demo.c)
    2. 开启3个线程，这3个线程的ID分别为A、B、C，每个线程将自己的ID在屏幕上打印10遍，要求输出结果必须按ABC的顺序显示；如：ABCABC….依次递推. [code](code_lib/pthread_cond_wait_print_inturn.c)
-   3. xx
+   3. [producer_consumer](code_lib/producer_consumer.cpp) sem/mutex
+   4. [multiple producer/consumer](code_lib/procuder_consumer_multiple.c) pthread_cond_wait
 2. IPC
 
    1. [signal demo](code_lib/signal.c)

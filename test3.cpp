@@ -9,47 +9,36 @@
 #include <iostream>
 #include <string>
 
-class Solution {
-public:
-	int oddEvenJumps(const vector<int>& A) {
-		int size = A.size();
 
-		set<int> Set;
-		Set.insert(A.back());
-		unordered_map<int, int> Map;
-		Map[A.back()] = size - 1;
+#include <iostream>
+#include <mutex>
+#include <thread>
+using namespace std;
 
-		vector<bool> dp_odd(size);
-		vector<bool> dp_even(size);
+atomic_flag flag;
+int a = 0;
 
-		dp_odd[size - 1] = true;
-		dp_even[size - 1] = true;
+void foo() {
+    for (int i = 0; i < 10000000; ++i) {
+        while (flag.test_and_set()) {
 
-		for(int i = size - 2; i >= 0; i--) {
-			auto it1 = Set.lower_bound(A[i]);
-			if(it1 != Set.end()) {
-				int num = *it1;
-				int j = Map[num];
-				dp_odd[i] = dp_even[j];
-			}
+        } //加锁
+        a += 1;
+        flag.clear(); //解锁
+    }
+}
 
-			auto it2 = Set.upper_bound(A[i]);
-			if(it2 != Set.begin()) {
-				it2 = prev(it2, 1);
-				int num = *it2;
-				int j = Map[num];
-				dp_even[i] = dp_odd[j];
-			}
-		}
+int main() {
+    flag.clear(); //初始化为clear状态
 
-		int res = 0;
-		for(auto x : dp_odd) {
-			res += (x == true ? 1 : 0);
-		}
-		for(auto x : dp_even) {
-			res += (x == true ? 1 : 0);
-		}
-
-		return res;
-	}
-};
+    clock_t start, end;
+    start = clock();
+    thread t1(foo);
+    thread t2(foo);
+    t1.join();
+    t2.join();
+    end = clock();
+    cout << a << endl;
+    cout << end - start << endl;
+    return 0;
+}
