@@ -14,45 +14,27 @@
 #include <thread>
 using namespace std;
 
+/* 四、编写一个程序，开启3个线程，
+    这3个线程的ID分别为A、B、C，
+    每个线程将自己的ID在屏幕上打印10遍，
+    要求输出结果必须按ABC的顺序显示；如：ABCABC….依次递推。 */
 
-/* int main(void) {
-    string s = "1234567890";
-    set<string> Set;
-    Set.insert(s.substr(0, 3));
-    Set.insert(s.substr(3, 3));
-    Set.insert(s.substr(6, 3));
+#define NUM 3
+int n = 0;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER; //互斥量
+pthread_mutex_t qready = PTHREAD_COND_INITIALIZER; // 条件互斥量
 
-    // for(auto it : Set) {
-    //     cout << it << endl;
-    // }
 
-    cout << Set.front() << endl;
-
-    return 0;
-} */
-
-string largestGoodInteger(string num) {
-    int n = num.size();
-    if(n < 3) return {};
-
-    set<string> mySet;
-    string res;
-    for(int i = 2; i < n; i++) {
-        if(num[i] == num[i - 1] && num[i] == num[i - 2]) {
-            // cout << num.substr(i - 2, 3) << endl;
-            mySet.insert(num.substr(i - 2, 3));
-        }
+void *thread_func(void *arg) {
+    int i;
+    for (i = 0; i < 10; i++) {
+        pthread_mutex_lock(&mutex);
+        cout << "A" << endl;
+        pthread_mutex_unlock(&mutex);
     }
-    if(mySet.size() != 0) {
-        return *mySet.rbegin();
-    }
-    return {};
 }
 
 int main() {
-    string s = "6777133339";
-
-    cout << largestGoodInteger(s) << endl;
-
+    int i;
   return 0;
 }

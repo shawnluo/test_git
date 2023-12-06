@@ -172,20 +172,29 @@ Rank
 
 ### system design
 
-1. IPC
-2. interrupt - top half - bottom half
-3. PCI-e enumuration
-4. network device driver
-5. design a firmware DoIP system
-6. DoIP
-7. Parking
-8. Hash collision
+1. threading
+
+   1. [pthread_cond_wait(&amp;cond, &amp;lock) usage](code_lib/pthread_cond_wait_demo.c)
+   2. 开启3个线程，这3个线程的ID分别为A、B、C，每个线程将自己的ID在屏幕上打印10遍，要求输出结果必须按ABC的顺序显示；如：ABCABC….依次递推. [code](code_lib/pthread_cond_wait_print_inturn.c)
+   3. xx
+2. IPC
+
+   1. [signal demo](code_lib/signal.c)
+   2. 
+3. interrupt - top half - bottom half
+4. PCI-e enumuration
+5. network device driver
+6. design a firmware DoIP system
+7. DoIP
+8. Parking
+9. Hash collision
 
 ### 计划
 
-1. aligned memcpy - ing
-2. aligned malloc - ing
-3. 把programmercarl.com过完
+1. odd even jump - ing
+2. aligned memcpy - ing
+3. aligned malloc - ing
+4. 把programmercarl.com过完
    1. dp   `<span style="color:green">`- *ing* -
    2. backtracking  `<span style="color:red">`- *todo* -
    3. array `<span style="color:red">` - *todo* -
@@ -195,5 +204,5 @@ Rank
    7. double pointer `<span style="color:red">` - *todo* -
    8. string `<span style="color:red">` - *todo* -
    9. stack/heap `<span style="color:red">` - *todo* -
-4. cracking code
-5. additional questions
+5. cracking code
+6. additional questions

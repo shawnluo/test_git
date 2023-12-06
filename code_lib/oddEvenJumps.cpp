@@ -78,7 +78,7 @@ public:
 		set<int> Set;
 		Set.insert(A.back());
 		unordered_map<int, int> Map;
-		Map[A.back()] = size - 1;
+		Map[A.back()] = size - 1;   // 一开始，字典内放入最后一个数据。以供i = size - 2单元查询
 
 		vector<bool> dp_odd(size);
 		vector<bool> dp_even(size);
@@ -90,7 +90,7 @@ public:
 			auto it1 = Set.lower_bound(A[i]);
 			if(it1 != Set.end()) {
 				int num = *it1;
-				int j = Map[num];
+				int j = Map[num];   // 因为需要的是位置的编号，所以获取该数据的位置
 				dp_odd[i] = dp_even[j];
 			}
 
@@ -103,7 +103,7 @@ public:
 			}
 
             Set.insert(A[i]);
-            Map[A[i]] = i;
+            Map[A[i]] = i;      // 因为是反向遍历，遍历过的数据加入字典。供之后查询
 		}
 
 		int res = 0;
