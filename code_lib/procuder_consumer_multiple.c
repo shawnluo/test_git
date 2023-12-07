@@ -85,5 +85,9 @@ int main() {
         pthread_join(consumer_threads[i], NULL);
     }
 
+    pthread_cond_destroy(&warehouse_not_full);
+    pthread_cond_destroy(&warehouse_not_empty);
+    pthread_mutex_destroy(&mutex);
+    
     return 0;
 }
