@@ -460,3 +460,16 @@ int blurring(void *arr, void *res, int row, int col, int a, int b) {
     }
     return 0;
 }
+
+// ----------------
+typedef struct data {
+    char x;
+    int y;
+} Data;
+
+Data a, b;
+assert(a.x == b.x); // pass
+assert(a.y == b.y); // pass
+assert(a == b);     // failed.  why?
+
+

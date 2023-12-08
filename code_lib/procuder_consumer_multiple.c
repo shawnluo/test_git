@@ -11,6 +11,18 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t warehouse_not_full = PTHREAD_COND_INITIALIZER;
 pthread_cond_t warehouse_not_empty = PTHREAD_COND_INITIALIZER;
 
+
+typedef void (*pF)();
+
+void fun1() {
+    cout << " - fun1 - " << endl;
+}
+
+void fun2() {
+    cout << " - fun2 - " << endl;
+}
+
+
 void *producer(void *arg) {
     int item = 0;
 
@@ -43,6 +55,8 @@ void *producer(void *arg) {
 
 void *consumer(void *arg) {
     while (1) {
+        pthread_test_cancel();
+        
         pthread_mutex_lock(&mutex);
 
         // Check if the warehouse is empty
@@ -78,6 +92,14 @@ int main() {
     for (long i = 0; i < 3; i++) {
         pthread_create(&consumer_threads[i], NULL, consumer, (void *)i);
     }
+
+    sleep(6);
+
+	pthread_cancel(consumer_threads[0]);//终止线程,但需要一个执行的CPU分片
+	if(ret != 0){
+		fprintf(stderr, "pthread_cancel failed:%s\n", strerror(ret));
+		exit(1);
+	}
 
     // Join threads
     for (int i = 0; i < 3; i++) {

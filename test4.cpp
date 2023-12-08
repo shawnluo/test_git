@@ -1,60 +1,45 @@
 #include "test.hpp"
 
 
-#include <iostream>
+// C++ Program to initialize
+// vector of struct
+// Individual insertion
+#include <bits/stdc++.h>
 
 using namespace std;
 
-#include <iostream>
-#include <limits>
-
-using namespace std;
-class MyPID {
-public:
-    MyPID() {}
-
-    void Init(double init_v, double goal_v, double p, double i, double d) {
-        initval = init_v;
-        goal    = goal_v;
-        p_coe   = p;
-        i_coe   = i;
-        d_coe   = d;
-        err     = goal - initval;
-    }
-
-    void UpdateErr(double cte) {
-        if (step == 1) {
-            p_err = cte;
-        }
-        i_err += cte;
-        d_err = cte - p_err;
-        p_err = cte;
-
-        ++step;
-    }
-
-    double TotalErr() { return p_coe * p_err + i_coe * i_err + d_coe * d_err; }
-    ~MyPID() {}
-
-public:
-    double initval = 1;
-    double goal    = 1;
-    double err     = 0;
-    int step       = 1;
-    double p_coe = 1, i_coe = 1, d_coe = 1;
-    double p_err = 0, i_err = 0, d_err = 0;
+// Declaring a structure
+struct Author {
+	string author_name;
+	int article_count;
+	int article_views;
 };
-int main() {
-    MyPID Pid;
-    double ini = 7, goal = 8, p = 0.3345, i = 0.0011011, d = 0.662;
 
-    Pid.Init(ini, goal, p, i, d);
+int main()
+{
+	// Declaring the vector of structs
+	struct Author a1 = { "Geek1", 124, 65000 };
+	struct Author a2 = { "Geek2", 156, 100000 };
+	struct Author a3 = { "Geek3", 10, 200 };
 
-    for (int i = 0; i < 20; ++i) {
-        double cte = goal - ini;
-        Pid.UpdateErr(cte);
-        cte = Pid.TotalErr();
-        ini += cte;
-        cout << cte << endl;
-    }
+	vector<Author> v;
+
+	// Insertion of elements using push_back()
+	v.push_back(a1);
+	v.push_back(a2);
+	v.push_back(a3);
+
+	cout << "author_name"
+		<< " "
+		<< "article_count"
+		<< " "
+		<< "article_views" << endl;
+
+	for (auto& a : v) {
+		cout << a.author_name << "			 "
+			<< a.article_count << "		 "
+			<< a.article_views << endl;
+	}
+
+	return 0;
 }
