@@ -1,79 +1,167 @@
-#include "test.hpp"
-/* 三个(多个)文件描述符监控 */
-#include <errno.h>
-#include <fcntl.h>
+/* 
+the program is supposed to find the shortest path from S to E from a grid from 
+my Input where the size is also my input, using the BFS method, the supposed 
+Output is the reprinted grid with a traced path where the shortest path is
+here is the test case and expected output
+input:
+15 15
+###############
+##E.....#######
+#######......##
+#######......##
+##......#######
+##......#######
+#######......##
+#######......##
+##......#######
+##......#######
+#######......##
+#######......##
+##......#######
+##..........S##
+###############
+
+expected output:
+###############
+##Exxxxx#######
+#######x.....##
+#######x.....##
+##.....x#######
+##.....x#######
+#######x.....##
+#######x.....##
+##.....x#######
+##.....x#######
+#######x.....##
+#######x.....##
+##.....x#######
+##.....xxxxxS##
+###############
+ */
+
 #include <stdio.h>
-#include <sys/stat.h>
-#include <sys/time.h>
-#include <sys/types.h>
-#include <unistd.h>
+#include <stdbool.h>
 
-#define PATH1 "./tmp/test_file1"
-#define PATH2 "./tmp/test_file2"
-#define PATH3 "./tmp/test_file3"
+#define MAX_SIZE 100
 
-typedef struct device_file {
-    char* file_name;
-    int fd;
-} device_file_t;
-
-static device_file_t g_device_file[] = {
-    { PATH1, 0 },
-    { PATH2, 0 },
-    { PATH3, 0 },
+struct Cell {
+    int x, y;
 };
 
-int main(void) {
-    int fd     = 0;
-    int fd_max = 0;
-    fd_set fd_sets;
-    fd_set handle_sets;
-    int rs         = 0;
-    int i          = 0;
-    int index      = 0;
-    char buff[128] = { 0 };
+struct Queue {
+    int front, rear, size;
+    struct Cell array[MAX_SIZE * MAX_SIZE];
+};
 
-    FD_ZERO(&fd_sets);
-    for (index = 0; index < sizeof(g_device_file) / sizeof(device_file_t); index++) {
-        fd = 0;
-        fd = open(g_device_file[index].file_name, O_RDWR | O_CREAT, 0664);
-        if (fd <= 0) perror("open:");
+struct Grid {
+    int maxX, maxY;
+    char grid[MAX_SIZE][MAX_SIZE];
+    struct Queue queue;
+};
 
-        g_device_file[index].fd = fd;
-        FD_SET(fd, &handle_sets);
-        if (fd > fd_max) {
-            fd_max = fd;
+struct Cell newCell(int x, int y) {
+    struct Cell cell = {x, y};
+    return cell;
+}
+
+void createQueue(struct Queue* queue, int capacity) {
+    queue->front = queue->size = 0;
+    queue->rear = capacity - 1;
+}
+
+bool isValid(int x, int y, struct Grid* grid) {
+    return (x >= 0) && (y >= 0) && (x < grid->maxX) && (y < grid->maxY);
+}
+
+bool isWalkable(int x, int y, struct Grid* grid) {
+    return (grid->grid[x][y] == '.' || grid->grid[x][y] == 'E');
+}
+
+bool isFinish(int x, int y, struct Grid* grid) {
+    return grid->grid[x][y] == 'E';
+}
+
+void shortestPath(struct Grid* grid, int startX, int startY) {
+    int dx[] = {-1, 0, 0, 1};
+    int dy[] = {0, -1, 1, 0};
+
+    bool visited[MAX_SIZE][MAX_SIZE];
+    struct Cell parent[MAX_SIZE][MAX_SIZE];
+
+    for (int i = 0; i < grid->maxX; ++i) {
+        for (int j = 0; j < grid->maxY; ++j) {
+            visited[i][j] = false;
+            parent[i][j] = newCell(-1, -1);
         }
     }
 
-    while (1) {
-        // if (i >= 1) break;
-        fd_sets = handle_sets;
-        rs      = select(fd_max + 1, &fd_sets, NULL, NULL, NULL);
-        if (rs < 0) {
-            if (errno == EINTR) {
-                continue;
-            } else {
-                cout << " exit " << endl;
-                break;
+    visited[startX][startY] = true;
+    grid->queue.front = 0;
+    grid->queue.rear = 0;
+    grid->queue.size = 1;
+    grid->queue.array[grid->queue.rear] = newCell(startX, startY);
+
+    while (grid->queue.size != 0) {
+        struct Cell current = grid->queue.array[grid->queue.front];
+        grid->queue.front = (grid->queue.front + 1) % (MAX_SIZE * MAX_SIZE);
+        grid->queue.size--;
+
+        if (isFinish(current.x, current.y, grid)) {
+            // Trace the path and mark it with 'X'
+            int x = current.x, y = current.y;
+            while (parent[x][y].x != -1 && parent[x][y].y != -1) {
+                grid->grid[x][y] = 'X';
+                int tempX = parent[x][y].x;
+                int tempY = parent[x][y].y;
+                x = tempX;
+                y = tempY;
             }
-        } else if (rs == 0) {
-            continue;
-        } else {
-            for (index = 0; index < sizeof(g_device_file) / sizeof(device_file_t); index++) {
-                fd = g_device_file[index].fd;
-                if (FD_ISSET(fd, &fd_sets)) {
-                    rs = read(fd, buff, sizeof(buff));
-                    if (rs <= 0) {
-                        continue;
-                    }
-                    printf("buff = %s\n", buff);
-                    lseek(fd, 0, SEEK_SET);
-                    i++;
-                }
+            return;
+        }
+
+        for (int i = 0; i < 4; ++i) {
+            int newX = current.x + dx[i];
+            int newY = current.y + dy[i];
+
+            if (isValid(newX, newY, grid) && !visited[newX][newY] && isWalkable(newX, newY, grid)) {
+                visited[newX][newY] = true;
+                parent[newX][newY] = current;
+                grid->queue.rear = (grid->queue.rear + 1) % (MAX_SIZE * MAX_SIZE);
+                grid->queue.size++;
+                grid->queue.array[grid->queue.rear] = newCell(newX, newY);
             }
         }
     }
+}
+
+
+void printGrid(struct Grid* grid) {
+    for (int i = 0; i < grid->maxX; ++i) {
+        for (int j = 0; j < grid->maxY; ++j) {
+            printf("%c ", grid->grid[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int maxX, maxY;
+    scanf("%d %d", &maxX, &maxY);
+    struct Grid grid;
+    grid.maxX = maxX;
+    grid.maxY = maxY;
+
+    for (int i = 0; i < maxX; i++) {
+        for (int j = 0; j < maxY; j++) {
+            char ch;
+            scanf(" %c", &ch);
+            grid.grid[i][j] = ch;
+        }
+    }
+
+    shortestPath(&grid, 0, 0);
+
+    printGrid(&grid);
 
     return 0;
 }

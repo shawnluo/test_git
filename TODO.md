@@ -110,6 +110,7 @@ Rank
 2) permutation
 3) cellphone, combination
 4) 给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合
+5) shortest path from a to b [c++](code_lib/shortestPath.cpp)    [python](code_lib/shortestPath.py)
 
 ### binary tree
 

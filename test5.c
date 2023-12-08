@@ -1,116 +1,166 @@
-
-#include <stdio.h> 
-#include <pthread.h> 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
-#include <unistd.h>
 
-void quickSort(int* nums, int first, int end) {     //快速排序 
-	int temp, l, r;
-	if (first >= end) {
-		return;
-	}
-	temp = nums[first];
-	l = first;
-	r = end;
-	while (l < r) {
-		while (l < r && nums[r] >= temp) {
-			r--;
-		}
-		if (l < r) {
-			nums[l] = nums[r];
-		}
-		while (l < r && nums[l] <= temp) {
-			l++;
-		}
-		if (l < r) {
-			nums[r] = nums[l];
-		}
-	}
-	nums[l] = temp;
-	quickSort(nums, first, l - 1);
-	quickSort(nums, l + 1, end);
+#define MAX_ROWS 15
+#define MAX_COLS 15
+
+typedef struct {
+    int x, y;
+} Point;
+
+typedef struct {
+    Point point;
+    char direction;
+} QueueNode;
+
+typedef struct {
+    QueueNode data[MAX_ROWS * MAX_COLS];
+    int front, rear;
+} Queue;
+
+void initQueue(Queue *queue) {
+    queue->front = -1;
+    queue->rear = -1;
 }
 
-int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes)
-{
-	int i = 0;								//当前数值下标
-	int left = i+1;							//左指针
-	int right = numsSize - 1;				//右指针
-	int sum = 0;							//和
-	int base_alloc_size = 16;				//基本内存
-	int** res = (int**)malloc(sizeof(int*) * base_alloc_size);
-	(*returnSize) = 0;
-	*returnColumnSizes = (int*)malloc(sizeof(int) * base_alloc_size);
-
-	if (numsSize < 3 || nums == NULL) {
-		return NULL;
-	}
-
-	quickSort(nums, 0, numsSize - 1);                           //排序
-
-	for (i = 0; i <= numsSize - 3; i++) {
-		left = i + 1;
-		right = numsSize - 1;
-		if (nums[i] > 0) {										// 如果当前数字大于0，则三数之和一定大于0，所以结束循环
-			break;
-		}
-		if (i > 0 && nums[i] == nums[i - 1]) {					// 去重
-			continue;
-		}
-		while (left < right) {
-			sum = nums[i] + nums[left] + nums[right];
-			if (sum > 0) {
-				right--;
-			}
-			else if (sum < 0) {
-				left++;
-			}
-			else {
-				res[*returnSize] = (int*)calloc(3, sizeof(int));
-				res[*returnSize][0] = nums[i];
-				res[*returnSize][1] = nums[left];
-				res[*returnSize][2] = nums[right];
-
-				(*returnColumnSizes)[*returnSize] = 3;
-				(*returnSize)++;
-
-				while (left < right && nums[left] == nums[left + 1]) {		//去除重复的
-					left++;
-				}
-				while (left < right && nums[right] == nums[right - 1]) {
-					right--;
-				}
-				left++; right--;
-			}
-
-			if (*returnSize == base_alloc_size) {							//空间不足，扩充内存
-				base_alloc_size = base_alloc_size * 2;
-				res = (int**)realloc(res, base_alloc_size * sizeof(int*));
-				(*returnColumnSizes) = (int*)realloc((*returnColumnSizes), base_alloc_size * sizeof(int));
-			}
-		}
-	}
-	return res;
+int isEmpty(Queue *queue) {
+    return queue->front == -1;
 }
 
+void enqueue(Queue *queue, Point point, char direction) {
+    if (queue->rear == MAX_ROWS * MAX_COLS - 1) {
+        printf("Queue is full\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (isEmpty(queue)) {
+        queue->front = 0;
+    }
+
+    queue->rear++;
+    queue->data[queue->rear].point = point;
+    queue->data[queue->rear].direction = direction;
+}
+
+QueueNode dequeue(Queue *queue) {
+    QueueNode node;
+
+    if (isEmpty(queue)) {
+        printf("Queue is empty\n");
+        exit(EXIT_FAILURE);
+    }
+
+    node = queue->data[queue->front];
+
+    if (queue->front == queue->rear) {
+        queue->front = -1;
+        queue->rear = -1;
+    } else {
+        queue->front++;
+    }
+
+    return node;
+}
+
+int isValid(int x, int y, int rows, int cols, char grid[MAX_ROWS][MAX_COLS]) {
+    return x >= 0 && x < rows && y >= 0 && y < cols && grid[x][y] != '#';
+}
+
+void markPath(char grid[MAX_ROWS][MAX_COLS], Point start, Point end, char direction) {
+    int x = end.x;
+    int y = end.y;
+
+    while (x != start.x || y != start.y) {
+        grid[x][y] = 'x';
+
+        if (direction == 'U') x--;
+        else if (direction == 'D') x++;
+        else if (direction == 'L') y--;
+        else if (direction == 'R') y++;
+
+        direction = grid[x][y];
+    }
+}
+
+void shortestPath(char grid[MAX_ROWS][MAX_COLS], int rows, int cols) {
+    Queue queue;
+    initQueue(&queue);
+
+    Point start, end;
+
+    // Find the starting and ending positions
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            if (grid[i][j] == 'S') {
+                start.x = i;
+                start.y = j;
+            } else if (grid[i][j] == 'E') {
+                end.x = i;
+                end.y = j;
+            }
+        }
+    }
+
+    enqueue(&queue, start, ' ');
+
+    while (!isEmpty(&queue)) {
+        QueueNode current = dequeue(&queue);
+        Point currentPoint = current.point;
+
+        // Check if we reached the end
+        if (currentPoint.x == end.x && currentPoint.y == end.y) {
+            markPath(grid, start, currentPoint, current.direction);
+            return;
+        }
+
+        // Explore neighbors (U, D, L, R)
+        int dx[] = {-1, 1, 0, 0};
+        int dy[] = {0, 0, -1, 1};
+
+        for (int i = 0; i < 4; i++) {
+            int newX = currentPoint.x + dx[i];
+            int newY = currentPoint.y + dy[i];
+
+            if (isValid(newX, newY, rows, cols, grid)) {
+                enqueue(&queue, (Point){newX, newY}, "UDLR"[i]);
+                grid[newX][newY] = '#'; // Mark the visited position
+            }
+        }
+    }
+
+    printf("No path found.\n");
+}
 
 int main() {
-	int num[] = { -1, 0, 1, 2, -1, -4 };
-	int* nums = (int*)num;
-	int numsSize = sizeof(num) / sizeof(int);
-	int* returnSize = (int*)calloc(1, sizeof(int));
-	//这里的内存分配最大值,即排列组合知识,C几取3
-	//C6取3 == 20
-	int** returnColumnSizes = (int**)malloc(sizeof(int*) * (numsSize * (numsSize - 1) * (numsSize - 2)) / 6);
-	int** res = threeSum(nums, numsSize, returnSize, returnColumnSizes);
+    char grid[MAX_ROWS][MAX_COLS] = {
+        "###############",
+        "##E.....#######",
+        "#######......##",
+        "#######......##",
+        "##......#######",
+        "##......#######",
+        "#######......##",
+        "#######......##",
+        "##.....##.#####",
+        "##......#.#####",
+        "#######......##",
+        "#######......##",
+        "##......#######",
+        "##..........S##",
+        "###############",
+    };
 
-	for (int i = 0; i < *returnSize; i++) {				//打印
-		for (int j = 0; j < 3; j++) {
-			printf("%d ", res[i][j]);
-		}
-		printf("\n");
-	}
-	return 0;
+    int rows = sizeof(grid) / sizeof(grid[0]);
+    int cols = strlen(grid[0]);
+
+    // Find and mark the shortest path
+    shortestPath(grid, rows, cols);
+
+    // Print the grid with the traced path
+    for (int i = 0; i < rows; i++) {
+        printf("%s\n", grid[i]);
+    }
+
+    return 0;
 }

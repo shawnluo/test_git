@@ -15,30 +15,37 @@
 #include <thread>
 using namespace std;
 
-atomic_flag flag;
-int a = 0;
-
-void foo() {
-    for (int i = 0; i < 10000000; ++i) {
-        while (flag.test_and_set()) {
-
-        } //加锁
-        a += 1;
-        flag.clear(); //解锁
-    }
-}
+typedef struct Person {
+    string name;
+    int age;
+} PERSON;
 
 int main() {
-    flag.clear(); //初始化为clear状态
+    PERSON a = {"Alice", 10};
+    PERSON b = {"Bob", 20};
+    PERSON c = {"Charlie", 35};
 
-    clock_t start, end;
-    start = clock();
-    thread t1(foo);
-    thread t2(foo);
-    t1.join();
-    t2.join();
-    end = clock();
-    cout << a << endl;
-    cout << end - start << endl;
+    vector<PERSON> v;
+    v.push_back(a);
+    v.push_back(b);
+    v.push_back(c);
+
+    for(auto it : v) {
+        cout << it.name << endl;
+    }
+
+    string targetName = "Charlie";
+
+    auto it = std::find_if(v.begin(), v.end(), [&](const Person& p) {
+        // cout << p.name << endl;
+        return p.name == targetName;
+    });
+
+    if(it != v.end()) {
+        cout << "Person: " << targetName << "found. Age: " << it->age << endl;
+    } else {
+        cout << "Person: " << targetName << " not found." << endl;
+    }
+
     return 0;
 }

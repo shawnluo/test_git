@@ -19,6 +19,9 @@ test4: test4.cpp
 test5: test5.cpp
 	@g++ test5.cpp -o test ${flags}
 
+test6: test6.cpp
+	@g++ test6.cpp -o test ${flags}
+
 BlackMagic_cracking: BlackMagic_cracking.cpp
 	@g++ BlackMagic_cracking.cpp -o test ${flags}
 
