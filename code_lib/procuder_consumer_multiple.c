@@ -55,7 +55,7 @@ void *producer(void *arg) {
 
 void *consumer(void *arg) {
     while (1) {
-        pthread_test_cancel();
+        pthread_test_cancel(); // in cpp, pthread_testcancel
         
         pthread_mutex_lock(&mutex);
 

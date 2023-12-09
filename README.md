@@ -44,7 +44,7 @@
 |                                   |                                   |           |      |
 | --------------------------------- | --------------------------------- | --------- | ---- |
 |                                   | code                              | important | TODO |
-| [code](code_lib/demo_vector.cpp)     | vector                            |           |      |
+| [code](cpp/demo_vector.cpp)          | vector                            |           |      |
 | [code](code_lib/lambda.cpp)          | lambda                            |           |      |
 | [code](code_lib/unordered_map.cpp)   | unordered_map                     |           |      |
 | [code](code_lib/set.cpp)             | set/unordered_set                 |           |      |
