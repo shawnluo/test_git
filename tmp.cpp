@@ -1,52 +1,59 @@
-#include "test.hpp"
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-void* producer(void* arg) {
-    for(;;) {
-        pthread_testcancel();
+pthread_mutex_t m[5];
 
-        cout << " - in producer - " << *(int*)arg << endl;
-        sleep(2);
-        // pthread_exit(NULL);
+void* tfn(void* arg) {
+    int i = (long)arg;
+    int left, right;
+    if (i == 4) {
+        // 防止震荡现象发生。
+        left  = 0;
+        right = i;
+    } else {
+        left  = i;
+        right = i + 1;
+    }
+    while (1) {
+        pthread_mutex_lock(&m[left]);
+        int ret = pthread_mutex_trylock(&m[right]);
+        if (ret != 0) {
+            // 尝试拿右手筷子失败，把左手的筷子释放
+            pthread_mutex_unlock(&m[left]);
+            printf("哲学家%d没有抢到筷子...\n", i);
+            sleep(1);
+            continue;
+        }
+        // 拿到了两支筷子
+        // 吃面
+        printf("哲学家%d正在吃面...\n", i);
+        sleep(1);
+        // 吃完面，释放筷子.
+        pthread_mutex_unlock(&m[left]);
+        pthread_mutex_unlock(&m[right]);
+        // sleep(1);
     }
 }
 
-int main(void) {
-    int NUM = 5;
-    pthread_t tid[NUM];
-    for(int i = 0; i < NUM; i++) {
-        // cout << *(int*)&i << endl;
-        // pthread_create(&tid[i], NULL, producer, (void*)&i);
+int main() {
+    pthread_t pth[5];
+    // 初始化五把锁
+    for (int i = 0; i < 5; i++) {
+        pthread_mutex_init(&m[i], NULL);
     }
-
-    int tid0 = 0;
-    int tid1 = 1;
-    int tid2 = 2;
-    int tid3 = 3;
-    int tid4 = 4;
-    
-    vector<pair<string, int>> v;
-    v.push_back({"show", 10});
-
-    if(find_if(v.begin(), v.end(), [&](const ))) {
-
+    // 创建5个线程，相当于5个哲学家
+    for (int i = 0; i < 5; i++) {
+        pthread_create(&pth[i], NULL, tfn, (void*)i);
     }
-    cout << 
-    
-    
-    pthread_create(&tid[0], NULL, producer, (void*)&tid0);
-    pthread_create(&tid[1], NULL, producer, (void*)&tid1);
-    pthread_create(&tid[2], NULL, producer, (void*)&tid2);
-    pthread_create(&tid[3], NULL, producer, (void*)&tid3);
-    pthread_create(&tid[4], NULL, producer, (void*)&tid4);
-    cout << " - in main - " << endl;
-
-    sleep(5);
-    for(int i = 0; i < NUM; i++) {
-        // pthread_cancel(tid[i]);
+    // 回收子线程
+    for (int i = 0; i < 5; i++) {
+        pthread_join(pth[i], NULL);
     }
-
-    for(int i = 0; i < NUM; i++) {
-        pthread_join(tid[i], NULL);
+    for (int i = 0; i < 5; i++) {
+        pthread_mutex_destroy(&m[i]);
     }
-    return 0;
+    // 退出
+    pthread_exit(NULL);
 }

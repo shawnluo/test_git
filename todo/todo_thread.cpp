@@ -32,14 +32,7 @@ void* producer(void* arg) {
     TI* info = (TI*)arg;
 
     for (;;) {
-        // pthread_mutex_lock(&mutex);
-        int ret = pthread_mutex_trylock(&mutex);
-        if(ret != 0) {
-            printf(" - in producer - %d - not lock\n", info->thread_id);
-
-            continue;
-        }
-        
+        pthread_mutex_lock(&mutex);
         while (condCount != info->thread_argNum) {
             /*  pthread_cond_wait
                 1. 如果cond1 没有被发出（没有其他任务调用pthread_cond_signal(&cond1)），那么此线程就会一直等待，不会返回！
@@ -101,26 +94,22 @@ int main(void) {
     cout << NUMS << endl;
 
     for(size_t i = 0; i < NUMS; i++) {
-        // 注意：这里传参数，不能用i的地址,比如"&i"。因为i是在变化的。最终会变到5。此时在子进程中只会指向5的地址。
-        // 但是可以用(void*)i，或者
-        // err = pthread_create(&tid[i], NULL, thread_func, (void*)&i);
+        // err = pthread_create(&tid[i], NULL, thread_func, (void*)&i); // 这里不能用i的地址。因为i是在变化的。最终会变到5。此时在子进程中只会指向5的地址。
         pthread_create(&tRunner[i].thread_id, NULL, producer, &tRunner[i]);
     }
 
     sleep(5);
-
-    //TODO the cancel doesn't work. guess it's because in the producer, some threads doesn't get chance to run to cancel point.
     for(size_t i = 0; i < NUMS; i++) {
         cout << " - main - cancel: " << tRunner[i].thread_argNum << endl;
         pthread_cancel(tRunner[i].thread_id);
     }
 
+    pthread_mutex_destroy(&mutex);
+    pthread_cond_destroy(&cond);
+
     for(size_t i = 0; i < NUMS; i++) {
         pthread_join(tRunner[i].thread_id, NULL);
     }
-
-    pthread_mutex_destroy(&mutex);
-    pthread_cond_destroy(&cond);
 
     return 0;
 }
