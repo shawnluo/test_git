@@ -4,7 +4,7 @@
 #include <pthread.h>
 #include <semaphore.h>
 #include <unistd.h>
-using namespace std;
+
 
 sem_t g_semt;
 
@@ -31,6 +31,7 @@ int main() {
     const unsigned int nSemaphoreCount = 3; // initial value of semaphore 在此代码中，决定初始时，有多少个线程可以被同时进入sem_wait。设置成3，则会有3个线程进入sem_wait后的代码
                                             // - 每运行一次sem_wait，其值就会被减少一次。当sem value变成0时，sem_wait则会被阻塞。
                                             // - sem value 不会被变成负数
+
     int nRet                           = -1;
     void* pRet                         = NULL;
     pthread_t threadIDs[nThreadCount]  = { 0 };

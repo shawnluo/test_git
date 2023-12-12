@@ -1,4 +1,4 @@
-### 1. c & Linux system基础
+### c & Linux system基础
 
 |   |                                   |                                                                            |        |
 | - | --------------------------------- | -------------------------------------------------------------------------- | ------ |
@@ -12,7 +12,7 @@
 | 8 |                                   | float     占4个字节，要加f, eg. 1.2f<br />double 占8个字节              |        |
 |   | [code](code_lib/lowerUpperBound.cpp) | lower_bound(x): 大于或等于x的数的指针<br />upper_bound(x): 大于x的数的指针 |        |
 
-#### 1.1 terminate a thread
+#### terminate a thread
 
 |                                   |                                             |                            |
 | :-------------------------------- | ------------------------------------------- | -------------------------- |
@@ -25,21 +25,22 @@
 |                                   | pthread_mutex_lock(), pthread_mutex_unlock |                            |
 | [code](code_lib/detach_demo.cpp)     | detach                                      |                            |
 
-#### 1.2 signals
+#### signals
 
 |                              |                            |                                |
 | ---------------------------- | -------------------------- | ------------------------------ |
 | [code](code_lib/signals_demo.c) | 1. basic - ctrl+c发送信号  | signal(SIGINT, sigint_handler) |
 | [code](code_lib/signal2.c)      | 2. 向特定thread 发送signal | pthread_kill(tid1, SIGQUIT))   |
 
-#### 1.3 system design
+#### system design
 
-|                                 |                                                                                                                                                         |  |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | - |
-| [code](code_lib/systemDesign1.cpp) | c++写一个类，实现startCaller和stopCaller两个API，<br />startCaller(), 要求输入待执行函数的函数名和执行频率<br />stopCaller(), 停止指定函数的循环执行。 |  |
-|                                 |                                                                                                                                                         |  |
+|                                         |                                                                                                                                                         |  |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | - |
+| [code](code_lib/systemDesign1.cpp)         | c++写一个类，实现startCaller和stopCaller两个API，<br />startCaller(), 要求输入待执行函数的函数名和执行频率<br />stopCaller(), 停止指定函数的循环执行。 |  |
+| [code](code_lib/multipleThreading_c.c)     | multiple threading - c                                                                                                                                  |  |
+| [code](code_lib/multipleThreading_cpp.cpp) | multiple threading  - c++                                                                                                                              |  |
 
-### 2 c++
+### c++
 
 |                                   |                                   |           |      |
 | --------------------------------- | --------------------------------- | --------- | ---- |
@@ -56,11 +57,11 @@
 |                                   | string to char                    |           |      |
 |                                   | accumulate(v.begin(), v.end(), 0) |           |      |
 
-### 3 二分法
+### 二分法
 
 [code	](code_lib/searchInsert.cpp)[Search Insert Position](https://leetcode.com/problems/search-insert-position/)
 
-### 4 dp
+### dp
 
 |                                                        |                                                               |  |      |
 | ------------------------------------------------------ | ------------------------------------------------------------- | - | ---- |
@@ -78,7 +79,7 @@
 | [code](code_lib/dp47.cpp)                                 | dp47 判断子序列                                               |  |      |
 | [code](code_lib/findNumberOfLIS.cpp)                      | leetcode 673 find Number Of LIS 最长递增子序列的个数         |  |      |
 
-### 4 linked list
+### linked list
 
 |                                                            |                                        |  |  |
 | ---------------------------------------------------------- | -------------------------------------- | - | - |
@@ -91,7 +92,7 @@
 | [code]                                                     | swap adjacent element                  |  |  |
 |                                                            | linked list adding                     |  |  |
 
-### 6 array
+### array
 
 |                                                    |                                               |  |      |
 | -------------------------------------------------- | --------------------------------------------- | - | ---- |
@@ -112,7 +113,7 @@
 | [code](code_lib/myPow.cpp)                            | implement pow                                 |  |      |
 | [code](code_lib/removeDuplicatedElements.cpp)         | remove the duplicated elements in an array    |  |      |
 
-### 7 string
+### string
 
 |                                      |                                                                    |  |  |
 | ------------------------------------ | ------------------------------------------------------------------ | - | - |
@@ -127,7 +128,7 @@
 | [code](code_lib/strtok.cpp)             | strtok                                                             |  |  |
 | [code](code_lib/sortingByFreq.cpp)      | sort by frequncy 一串string，按频率输出，相同频率按string字母顺序 |  |  |
 
-### 8 hash
+### hash
 
 |                                                |                                                              |  |  |
 | ---------------------------------------------- | ------------------------------------------------------------ | - | - |
@@ -139,7 +140,7 @@
 | [code](code_lib/threeSum.cpp)                     | threeSum                                                     |  |  |
 | [code](code_lib/LongestHarmoniousSubsequence.cpp) | LongestHarmoniousSubsequence - 成员差别小于等于1的最长子数列 |  |  |
 
-### 9 binary tree
+### binary tree
 
 |                                                    |             |  |      |
 | -------------------------------------------------- | ----------- | - | ---- |
@@ -147,7 +148,7 @@
 |                                                    | delete node |  | todo |
 | [code](code_lib/reverse_binaryTree.cpp)               | reverse     |  |      |
 
-### 10 backTracking
+### backTracking
 
 |                                                              |                                                 |  |      |
 | ------------------------------------------------------------ | ----------------------------------------------- | - | ---- |
@@ -156,7 +157,7 @@
 | [code](code_lib/backtracking_1.cpp)                             | n and k, return combination from 1 to n, size k |  |      |
 | [code](code_lib/cleanRobot.cpp)                                 | clean robot                                     |  |      |
 
-### 11 bits manipute
+### bits manipute
 
 |                                 |                                                                         |  |  |
 | ------------------------------- | ----------------------------------------------------------------------- | - | - |
@@ -168,14 +169,14 @@
 | [code](code_lib/print_bits.cpp)    | print bits binary                                                       |  |  |
 | [code](code_lib/BitwiseAnd.cpp)    | Bitwise AND of Numbers Range                                            |  |  |
 
-### 12 IPC
+### IPC
 
 |                                   |                   |  |  |
 | --------------------------------- | ----------------- | - | - |
 | [code](demo/chapter10_semaphore.c)   | semaphore         |  |  |
 | [code](code_lib/pthread_cond_wait.c) | pthread_cond_wait |  |  |
 
-### 13 sorting
+### sorting
 
 |                                      |                           |           |  |
 | ------------------------------------ | ------------------------- | --------- | - |
@@ -185,14 +186,14 @@
 | [code](code_lib/UsingStacksorting.cpp)  | using stack to sort array |           |  |
 | [code](code_lib/findInRotatedArray.cpp) |                           |           |  |
 
-### 14 stack
+### stack
 
 |                                     |                                       |  |
 | ----------------------------------- | ------------------------------------- | - |
 | [code](code_lib/RecuDelAjacentDup.cpp) | recursivly del 2 adjacent dup element |  |
 |                                     |                                       |  |
 
-### 15 embedded
+### embedded
 
 |                                                        |                           |                |  |
 | ------------------------------------------------------ | ------------------------- | -------------- | - |
@@ -203,19 +204,19 @@
 | [code](code_lib/chapter_6_bitManipulate/09_countOnes.cpp) | count ones - bit count    |                |  |
 |                                                        |                           |                |  |
 
-### 15 cracking the code
+### cracking the code
 
 |                                                                 |  |  |  |
 | --------------------------------------------------------------- | - | - | - |
 | [code](code_lib/chapter_0_crackingTheCoding/crackingTheCoding.cpp) |  |  |  |
 
-### 16 interview questions
+### interview questions
 
 |                                      |  |  |  |
 | ------------------------------------ | - | - | - |
 | [code](code_lib/interviewQuestions.cpp) |  |  |  |
 
-### 17 others
+### others
 
 |                                   |                                                |           |      |
 | --------------------------------- | ---------------------------------------------- | --------- | ---- |

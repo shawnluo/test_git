@@ -6,6 +6,9 @@
 
 using namespace std;
 
+// TODO 1. Roman to int
+// TODO 2. int to Roman
+
 string intToRoman(int num) {
     // 1. divide by M, untile mode == 1
     // 2. divide by D, untile mod == 1
@@ -27,6 +30,7 @@ string intToRoman(int num) {
     return res;
 }
 
+/*
 public int romanToInt(String s) {
     int res=0;
     for(int i=0;i<s.length();i++){
@@ -62,13 +66,44 @@ public int romanToInt(String s) {
     }
     return res;
 }
+*/
 
-int romanToInt(string s) {
+int RomanToInt(string s) {
+    // vector<pair<string, int>> v = {{"I", 1}, {"IV", 4}, {"V", 5}, {"IX", 9}, {"X", 10}, {"XL", 40}, {"L", 50}, \
+    //                                 {"XC", 90}, {"C", 100}, {"CD", 400}, {"D", 500}, {"CM", 900}, {"M", 1000}};
 
+    // vector<pair<char, int>> v = {{'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, \
+    //                                 {'C', 100}, {'D', 500}, {'M', 1000}};
+
+    map<char, int> Map =  {{'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}};
+
+    // cout << Map['X'] << endl;
+    int res = 0;
+    int nS = s.size();
+    int nM = Map.size();
+
+    // for(int i = nV - 1; i >= 0; ) {
+    for(int j = 0; j < nS; j++) {
+        if(s[j] < s[j + 1]) {
+            res -= Map[s[j]];
+        } else {
+            res += Map[s[j]];
+        }
+    }
+
+    return res;
 }
 
 int main(void) {
-    cout << intToRoman(1994) << endl;
+    // cout << intToRoman(1994) << endl;
+    cout << RomanToInt("CCC") << endl;
 
     return 0;
+}
+
+void* alignedAlloc(size_t align, size_t size) {
+    int offset = align - 1;     // 16 -> 1111,1111
+    int newSize = size + offset + sizeof(size_t);
+    size_t* addr = (size_t*)malloc(newSize);
+    size_t* newAddr = addr & ~(offset);
 }

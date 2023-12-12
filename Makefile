@@ -4,6 +4,9 @@ flags?= -g -Wall -lm -lpthread
 tmp: tmp.cpp
 	@g++ tmp.cpp -o test ${flags}
 
+tmp1: tmp1.cpp
+	@g++ tmp1.cpp -o test ${flags}
+
 test: test.cpp
 	@g++ test.cpp -o test ${flags}
 
