@@ -37,7 +37,7 @@ bool findInVec(int n) {
     return false;
 }
 
-// -----------------------------------
+// ------------- push_back ----------------------
 
 vector <int> v[5];
 void insertionInArrayOfVectors() {
@@ -49,6 +49,7 @@ void insertionInArrayOfVectors() {
 }
 
 
+// iterate vector
 void printElements() {
 	for(auto i = 0; i < 5; i++) {
 		cout << "Elements at index " << i << ": ";
@@ -60,35 +61,20 @@ void printElements() {
 	}
 }
 
+// ----------------------- vector<pair<string, int>> v -----------------------------------------
+    vector<pair<string, int>> v;
+    v.push_back({"show", tid0});
+    v.push_back({"show", tid1});
+    auto it = std::find_if(v.begin(), v.end(), [&](const pair<string, int>& p) {
+        return p.second == 3;
+    });
 
-void arrayOfVectors() {
-	insertionInArrayOfVectors();
-	printElements();
-}
-
-
-int main(void) {
-	// char *s = nullptr;
-	// arrayOfVectors();
-
-	// vector <string> vec;
-	// vec.push_back("hello ");
-	// vec.push_back("cpp !");
-	// for(vector <string>::iterator i = vec.begin(); i != vec.end(); i++) {
-	// 	cout << *i;
-	// }
-	// cout << endl;
-
-	string s = "12345";
-	cout << *(s.begin()) << endl;
-	cout << *(s.end()) << endl;
-	cout << s.size() << endl;
-
-	return 0;
-}
-
-
-// ----------------------------------------------------------------
+    if(it != v.end()) {
+        cout << "find it" << endl;
+    } else {
+        cout << "cannot find it" << endl;
+    }
+// ----------------------- vector<struct node> v -----------------------------------------
 
 #include <iostream>
 #include <vector>
