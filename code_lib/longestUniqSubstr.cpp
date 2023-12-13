@@ -44,7 +44,7 @@ int longestUniqString(string s) {
             res = len;
             rhs = i;
         }
-        hash[s[i]] = i;
+        hash[s[i]] = i; // using hash[s[i]] to store and update the s[i] most recently postion.
     }
 
     cout << s.substr(lhs, rhs) << endl;

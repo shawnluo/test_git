@@ -1,8 +1,6 @@
 
 
-// zox
-
-
+// --------------- 1  zox
 /*
 Steering Problem
   
@@ -56,7 +54,6 @@ float voltageEstimate(const float a, const float *a_data, float *v_data, size_t 
     return a * ratio;
 }
 
-
 TEST_CASE( "Steering Problem Test" ) {
   const float a_data[]  =  {-22,  -11, 0, 10,  20}; // x-axis data
   const float v_data[] =   {-1.5, -1,  0, 1.2, 1.8}; // y-axis data
@@ -90,48 +87,22 @@ TEST_CASE( "Steering Problem Test" ) {
   // TODO: Add any new test sections here
 }
 
-
-
-
-
-
-
-
-
-
-S
+// --------------- 2
+/*
 Convert Temperature Sensor Data
-
-
-
-Shawn Luo
-
-
-Convert Temperature Sensor Data
-Description
-We have a temperature sensor connected to an MCU via an I2C bus. The temperature sensor provides data in one of two measurement modes - standard mode or extended mode. In standard mode, the sensor can measure temperature in the range from 0°C to 127°C, and in the extended mode, it can measure temperature in the range from -64°C to 191°C.
+Description:
+    We have a temperature sensor connected to an MCU via an I2C bus. The temperature sensor provides data in one of two measurement modes - standard mode or extended mode. In standard mode, the sensor can measure temperature in the range from 0°C to 127°C, and in the extended mode, it can measure temperature in the range from -64°C to 191°C.
 
 In any mode, the MCU receives 24-bits of data.  A description of the data is given below:
+    The high byte, bits 15 to 8, contains the integer portion of the temperature in °C, and the low byte, bits 7 to 0, contains the decimal fraction of the temperature in °C.
+    In standard mode, temperatures lower than 0°C are reported as 0°C by the sensor; similarly, temperatures higher than 127°C are reported as 127°C. In extended mode, the sensor reports temperatures from -64°C to 191°C.
 
- 
- 
-
-The high byte, bits 15 to 8, contains the integer portion of the temperature in °C, and the low byte, bits 7 to 0, contains the decimal fraction of the temperature in °C.
-
-In standard mode, temperatures lower than 0°C are reported as 0°C by the sensor; similarly, temperatures higher than 127°C are reported as 127°C. In extended mode, the sensor reports temperatures from -64°C to 191°C.
-
- 
-
-Function Description
-
+Function Description:
 The goal of this question is to populate the function convert_to_temp. This function takes in one argument input_val and returns the converted temperature value in degrees centigrade.
 
- 
-
-Constraints
-
+Constraints:
 The input decimal value will be within the conversion range of the sensor.
- 
+*/ 
 
 Input Format For Custom Testing
 Sample Case 0
@@ -166,10 +137,8 @@ Run Code to see your output here.
 
 double __y, hint
 
-
+// --------------- 3
 // google
-
-
 // 1. implement context grep
 #include <iostream>
 #include <string>
@@ -183,7 +152,6 @@ char *argv[] = {
     "Blue sky",
     "Hey Joe",
 };
-
 
 void context_grep(int argc, char **argv, int context, char *expr) {
     if(argc <= 0 || \
@@ -263,8 +231,7 @@ int main() {
     return 0;
 }
 
-
-
+// --------------- 4
 // 2. reverse the order of words in a string
 void reverseStr(string& s, int left, int right){
     for (int i = left, j = right; i < j; i++, j--) {
@@ -324,7 +291,7 @@ int main(void) {
     cout << s << endl;
 }
 
-
+// --------------- 5
 // 3. Write functions to insert and search for an element in a binary search tree
 struct TreeNode {
     int value;
@@ -388,11 +355,7 @@ int main() {
     return 0;
 }
 
-
-
-
-
-
+// --------------- 6
 /*
 Implement a blurring effect on an image that is represented as a MxN matrix of Pixels.
 Blurring a single pixel is done by averaging values in surrounding area. Neighborhood area AxB
@@ -416,7 +379,6 @@ Output (only few pixels are blurred)
   |___|___|___|___|___|___|___|_...
 0 |...|...|...|...|...|...|...|_...
 */
-
 
 int sum(int **arr, int row, int col, int posX, int posY, int a, int b) {
     int i, j, sum = 0;
@@ -472,4 +434,4 @@ assert(a.x == b.x); // pass
 assert(a.y == b.y); // pass
 assert(a == b);     // failed.  why?
 
-
+// --------------- 7

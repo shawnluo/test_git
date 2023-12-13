@@ -17,6 +17,7 @@
 #include <thread>
 #include "common.h"
 #include <numeric>
+#include <semaphore.h>
 
 using std::cout;
 using std::endl;

@@ -7,54 +7,61 @@
 #include <unistd.h>
 using namespace std;
 
-sem_t g_semt;
 
-void* work_thread(void* p) {
-    // pthread_t tID = pthread_self();
-    // cout << "-------" << tID << " is waiting for a semaphore -------" << endl;
-
-    cout << "-------"  << (long)p << " is waiting for a semaphore -------" << endl;
-    sem_wait(&g_semt);
-    cout << "-------"  << (long)p << " got a semaphore, is Runing -------" << endl << endl;
-    usleep(1000 * 1000 * 2); // 2 seconds
-
-    cout << "-------"  << (long)p << " is exiting -------" << endl << endl;
-    sem_post(&g_semt);
-
-    // static char* pRet = "thread finished! \n";
-    // return pRet;
-
-    return p;
+void getNext(string s, vector<int>& next) {
+    int n = s.size();
+    int j = 0;
+    next[0] = 0;
+    for(int i = 1; i < n; i++) {
+        while(j > 0 && s[i] != s[j]) {
+            j = next[j - 1];
+        }
+        if(s[i] == s[j]) {
+            j++;
+        }
+        next[i] = j;
+    }
 }
 
-int main() {
-    const size_t nThreadCount          = 5; // amounts of thread array
-    const unsigned int nSemaphoreCount = 3; // initial value of semaphore 在此代码中，决定初始时，有多少个线程可以被同时进入sem_wait。设置成3，则会有3个线程进入sem_wait后的代码
-                                            // - 每运行一次sem_wait，其值就会被减少一次。当sem value变成0时，sem_wait则会被阻塞。
-                                            // - sem value 不会被变成负数
-    int nRet                           = -1;
-    void* pRet                         = NULL;
-    pthread_t threadIDs[nThreadCount]  = { 0 };
+int myStrstr(string s, string sub) {
+    int n = sub.size();
+    vector<int> next(n, 0);
+    getNext(sub, next);
 
-    nRet = sem_init(&g_semt, 0, nSemaphoreCount);
-    if (0 != nRet) return -1;
-
-    for (size_t i = 0; i < nThreadCount; ++i) {
-        nRet = pthread_create(&threadIDs[i], NULL, work_thread, (void*)i);
-        if (0 != nRet) continue;
+    int j = 0;
+    for(int i = 0; i < n; i++) {
+        while(s[i] != sub[j] && j > 0) {
+            j = next[j - 1];
+        }
+        if(s[i] == s[j]) {
+            j++;
+        }
+        if(j == sub.size()) {
+            return i - sub.size() +1;
+        }
     }
+    return -1;
+}
 
-    for (size_t i = 0; i < nThreadCount; ++i) {
-        // long nRet2 = (long)pthread_join(threadIDs[i], &pRet);
-        // cout << endl << threadIDs[i] << " return value is " << (char*)pRet << endl;
+int longestUniqStr(string s) {
+    int n = s.size();
+    int pos = -1;
+    vector<int> hash(256, -1);
+    int len = 0;
+    int res = 0;
 
-        pthread_join(threadIDs[i], &pRet);
-        cout << endl << threadIDs[i] << " return value is " << (long)pRet << endl;
+    for(int i = 0; i < n; i++) {
+        pos = max(pos, hash[s[i]]);
+        len = i - pos;
+        res = max(res, len);
+        hash[s[i]] = i;
     }
+    return res;
+}
 
-    cout << endl << endl;
+bool isLittle() {
+    int i = 1;
+    char* c = (char*)&i;
 
-    sem_destroy(&g_semt);
-
-    return 0;
+    return *c == 1 ? true : false;
 }

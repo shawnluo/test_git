@@ -6,8 +6,18 @@
 
 using namespace std;
 
-// TODO 1. Roman to int
-// TODO 2. int to Roman
+
+
+
+bool isSub(string& s, string& sub) {
+    int size = sub.size();
+    int next[size];
+    getNext(sub, next);
+
+    for() {
+        
+    }
+}
 
 string intToRoman(int num) {
     // 1. divide by M, untile mode == 1
@@ -113,4 +123,56 @@ void* alignedAlloc(size_t align, size_t size) {
     int newSize = size + offset + sizeof(size_t);
     size_t* addr = (size_t*)malloc(newSize);
     size_t* newAddr = addr & ~(offset);
+}
+
+
+int myRead(int n, char* buf) {
+    int readChar = 4;
+    int copiedChar = 0;
+
+    for(; readChar == 4; ) {
+        readChar = read4(buf4);
+        for(int i = 0; i < 4; i++) {
+            if(copiedChar == n) {
+                return copiedChar;            
+            }
+            buf[copiedChar++] = buf4[i];
+        }
+    }
+    return copiedChar;
+}
+
+int cal(char* s) {
+    char operation = '+';
+    long long num = 0;
+
+    while(*s) {
+        if(isdigit(*s)) {
+            num = num * 10 + *s - '0';
+        }
+        if((!isdigit(*s) && !isspace(*s)) || *(s + 1) == '\0') {
+            switch(operation) {
+                case '+':
+                    push(num);
+                    break;
+                case '-':
+                    push(-num);
+                    break;
+                case '*':
+                    push(pop() * num);
+                    break;
+                case '/':
+                    push(pop() / num);
+                    break;
+            }
+            operation = *s;
+            curNum = 0;
+        }
+        s++;
+    }
+    int res = 0;
+    while(!isEmtpy()) {
+        res += pop();
+    }
+    return res;
 }

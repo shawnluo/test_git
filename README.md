@@ -38,7 +38,7 @@
 | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | - |
 | [code](code_lib/systemDesign1.cpp)         | c++写一个类，实现startCaller和stopCaller两个API，<br />startCaller(), 要求输入待执行函数的函数名和执行频率<br />stopCaller(), 停止指定函数的循环执行。 |  |
 | [code](code_lib/multipleThreading_c.c)     | multiple threading - c                                                                                                                                  |  |
-| [code](code_lib/multipleThreading_cpp.cpp) | multiple threading  - c++                                                                                                                              |  |
+| [code](code_lib/multipleThreading_cpp.cpp) | multiple threading - c++                                                                                                                                |  |
 
 ### c++
 
@@ -159,15 +159,16 @@
 
 ### bits manipute
 
-|                                 |                                                                         |  |  |
-| ------------------------------- | ----------------------------------------------------------------------- | - | - |
-|                                 | 将二进制数某一位变为1  int res = num\| (1 << n)                        |  |  |
-|                                 | 将二进制数某一位变为0  int res = num & ~(1 << n))                      |  |  |
-| [code](code_lib/bitManipulate.cpp) | set all 1 or 0 mask from start to end                                   |  |  |
-| [code](code_lib/bit_convert.cpp)   | determine the number of bits required to convert integer A to integer B |  |  |
-| [code](code_lib/swapOddEven.cpp)   | swap odd and even bits in an integer                                    |  |  |
-| [code](code_lib/print_bits.cpp)    | print bits binary                                                       |  |  |
-| [code](code_lib/BitwiseAnd.cpp)    | Bitwise AND of Numbers Range                                            |  |  |
+|                                   |                                                                                               |  |  |
+| --------------------------------- | --------------------------------------------------------------------------------------------- | - | - |
+|                                   | 将二进制数某一位变为1  int res = num\| (1 << n)                                              |  |  |
+|                                   | 将二进制数某一位变为0  int res = num & ~(1 << n))                                            |  |  |
+| [code](code_lib/bitManipulate.cpp)   | set all 1 or 0 mask from start to end                                                         |  |  |
+| [code](code_lib/bit_convert.cpp)     | determine the number of bits required to convert integer A to integer B                       |  |  |
+| [code](code_lib/swapOddEven.cpp)     | swap odd and even bits in an integer                                                          |  |  |
+| [code](code_lib/print_bits.cpp)      | print bits binary                                                                             |  |  |
+| [code](code_lib/BitwiseAnd.cpp)      | Bitwise AND of Numbers Range                                                                  |  |  |
+| [code](code_lib/rangeBitwiseAnd.cpp) | [201. Bitwise AND of Numbers Range](https://leetcode.com/problems/bitwise-and-of-numbers-range/) |  |  |
 
 ### IPC
 
@@ -202,7 +203,7 @@
 | [code](code_lib/isLittle.cpp)                             | little ending             |                |  |
 | [code](code_lib/decToBinary.cpp)                          | decimal <-> binary        |                |  |
 | [code](code_lib/chapter_6_bitManipulate/09_countOnes.cpp) | count ones - bit count    |                |  |
-|                                                        |                           |                |  |
+| [code](code_lib/microdefine.c)                            | define micro              |                |  |
 
 ### cracking the code
 
