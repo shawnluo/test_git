@@ -435,3 +435,64 @@ assert(a.y == b.y); // pass
 assert(a == b);     // failed.  why?
 
 // --------------- 7
+
+
+
+#include <cstddef>
+#include <cstdint>
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+
+// Hysteresis
+//
+// The function below is called periodically from a task which sets a heater's
+// power to on or off. The heater uses a relay, which shouldn't be cycled too
+// rapidly.  To avoid this, rather than turning the heater on and off at a
+// specific set-point, we need a function which turns the heater on when the
+// heater temperature drops more than 2 degrees below the set point, and turns
+// it off when the heater temperature exceeds the set point by more than 2
+// degrees.  If the function is called with the heater temperature within the
+// window, bounded by the high and low thresholds, the current state should be
+// preserved.  Regardless, the return value of this function will be used as an
+// input to turn on or off the relay (i.e. it should reflect the current
+// requested relay state).
+
+#include <cstdint>
+
+#define SET_POINT_C ((uint32_t)24)
+
+// time 1: current 100 -> (24+2 < 100)
+// time 2: 12
+
+
+//task will call function ~100ms  (10x a sec)
+// would prefer lock around call & set of relay. 
+void enable_heater(volitile int32_t* current_temp, const uint32_t thre, bool* on) {
+  pthread_mutex_lock(); //
+  // 1. compare the current_tmp with set_point_c 
+  static bool enable_heater = false; // false is a good start value
+  int32_t diff = *current_temp - SET_POINT_C;
+  // 2. if diff <= 2
+  if(diff > thre)
+    *on = true;
+    // enable relay here. 
+
+  if(diff < -thre)
+    return enable_heater;
+
+  // return if "in the window"
+  // previous call may have turned on, or turned of, the heater.
+  return enable_heater;  
+}
+// 
+//uint8_t reg; // memory mapped register
+set_bit2(volitle uint8_t* reg)
+{
+  *reg |= (1 << 2);
+}
+
+clear_bit2(volitle uint8_t* reg)
+{
+  *reg &= ~(1 << 2);
+}
