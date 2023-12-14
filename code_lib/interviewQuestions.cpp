@@ -496,3 +496,47 @@ clear_bit2(volitle uint8_t* reg)
 {
   *reg &= ~(1 << 2);
 }
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+    一个flash 128 KBit ( 128 * 1024 bits)，根据start_address和length来设定mask:
+    1. start_address 和 length都是4k aligned.
+    2. 例子：
+        1）.start_address: 0 ~ 4095, length: 4096
+                mask:  0000,0000,0000,0000,0000,0000,0000,0001
+        2）.start_address: 0 ~ 4095, length: 4096 * 2
+                mask:  0000,0000,0000,0000,0000,0000,0000,0011
+        3）.start_address: 4096 ~ 4096 * 2, length: 4096 * 2
+                mask:  0000,0000,0000,0000,0000,0000,0000,0110
+*/
+
+/* 
+    分析： 128 KBit / 4096 = 32位
+    1. 先根据start_address来找到起始位，
+    2. 然后再根据长度来找到要置位的长度，
+    3. 然后从start_address来根据置位长度来置位
+ */
+
+uint32_t setMask(uint32_t start_address, uint32_t length) {
+    uint32_t startBit = 0;
+    for(int i = 0; i < 128 * 1024 - 4096; i += 4096) {
+        if(start_address > i) {
+            startBit++;
+        }
+    }
+
+    uint32_t bitsLen = 0;
+    for(int i = 0; i < 128 * 1024 - 4096; i += 4096) {
+        if(start_address > i) {
+            bitsLen++;
+        }
+    }
+
+    uint32_t mask = 0;
+    for(int i = 0; i < bitsLen; i++) {
+        mask |= (1 << (startBits + i));
+    }
+    return mask;
+}
