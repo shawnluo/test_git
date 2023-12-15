@@ -526,6 +526,8 @@ uint32_t setMask(uint32_t start_address, uint32_t length) {
             startBit++;
         }
     }
+    // or
+    startBit = start_address / 4096 + 1;
 
     uint32_t bitsLen = 0;
     for(int i = 0; i < 128 * 1024 - 4096; i += 4096) {
@@ -533,6 +535,8 @@ uint32_t setMask(uint32_t start_address, uint32_t length) {
             bitsLen++;
         }
     }
+    // or
+    bitsLen = length / 4096 + 1;
 
     uint32_t mask = 0;
     for(int i = 0; i < bitsLen; i++) {
