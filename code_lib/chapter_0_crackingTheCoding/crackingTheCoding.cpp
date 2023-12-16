@@ -565,6 +565,26 @@ int updateBits(int n, int m, int i, int j) {
     return (n & mask) | (m << i);
 }
 
+int main(void) {
+    int N = 0b10000000000;
+    int M = 0b10101;
+    int i = 2;
+    int j = 6;
+
+    // 左边位, 左移j位，减去1
+    // 右边位, 左移i位，减去1
+    // 左边减去右边，就得到中间的全1，然后取反，就得到中间的全0 - mask
+    int left = (1 << j) - 1;
+    int right = (1 << i) - 1;
+    cout << left - right << endl;
+    int mask = ~(left - right);
+    cout << mask << endl;
+
+    int res = (N & mask) | (M << i);
+
+    cout << res << endl;
+}
+
 // ===============================================================================================
 // 5.2
 string intToBin(int num) {

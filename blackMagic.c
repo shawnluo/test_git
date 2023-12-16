@@ -1058,19 +1058,32 @@ void myPrint(void *p, int N) {
     }
 }
 
-// This only works on even number mat, like 4 * 4. It does NOT work on odd number mat
-void rotate_matrix(void *p, int N) {
-    int (*mat)[N] = p;
-    
-    myPrint(mat, N);
+void rotateMat(vector<vector<int>>& mat) {
+    int size = mat.size();
 
-    for(int x = 0; x < N / 2; x++) {
-        for(int y = 0; y < N / 2; y++) {
-            int save = mat[x][y];
-            mat[x][y]                       = mat[y][N - x - 1];
-            mat[y][N - x - 1]             = mat[N - x - 1][N - y - 1];
-            mat[N - x - 1][N - y - 1]   = mat[N - y - 1][x];
-            mat[N - y - 1][x] = save;
+    /*
+        1  2  3  4  5
+        6  7  8  9  10
+        11 12 13 14 15
+        16 17 18 19 20
+        21 22 23 24 25
+
+        旋转4个三角形区域 - 不包括括号里的元素
+        1  2  3  4  （5）
+           7  8  （9）
+              （13）
+    */
+    for(int i = 0; i < size / 2; i++) {
+        for(int j = i; j < size - i - 1; j++) {  //注意起始点和终止点！！！ 最右边的点不能被
+            int save = mat[i][j];
+            // [l, R) - top
+            mat[i][j] = mat[j][size - i - 1];
+            // [U, D) - right
+            mat[j][size - i - 1] = mat[size - i - 1][size - j - 1];
+            // [R, L) - bottom
+            mat[size - i - 1][size - j - 1] = mat[size - j - 1][i];
+            // [D, U) - left
+            mat[size - j - 1][i] = save;
         }
     }
     myPrint(mat, N);

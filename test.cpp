@@ -7,6 +7,15 @@
 using namespace std;
 
 
+binaryToDecimal() {
+    for(int i = 0; i < size; i++) {
+        if(intergerPart[i] == '1') {
+            decimalInter += pow(2.0, size - i - 1);
+        }
+        decimalFraction += pow(2.0, -(i + 1));
+    }
+}
+
 
 
 bool isSub(string& s, string& sub) {

@@ -1,67 +1,126 @@
 
 #include "test.hpp"
 
+#include <stdio.h>
+#include <queue>
 #include <iostream>
-#include <pthread.h>
-#include <semaphore.h>
-#include <unistd.h>
 using namespace std;
 
 
-void getNext(string s, vector<int>& next) {
-    int n = s.size();
-    int j = 0;
-    next[0] = 0;
-    for(int i = 1; i < n; i++) {
-        while(j > 0 && s[i] != s[j]) {
-            j = next[j - 1];
-        }
-        if(s[i] == s[j]) {
-            j++;
-        }
-        next[i] = j;
+#include <iostream>
+#include <string>
+
+double binaryFractionToDecimal(const string& binaryFraction) {
+    size_t dotPosition = binaryFraction.find('.');
+    string integerPart;
+    string fractionalPart;
+    if(dotPosition == string::npos) {   // 找到 "." 号
+        integerPart = binaryFraction;
+        fractionalPart = "";
+    } else {
+        integerPart = binaryFraction.substr(0, dotPosition);
+        fractionalPart = binaryFraction.substr(dotPosition + 1);
     }
-}
 
-int myStrstr(string s, string sub) {
-    int n = sub.size();
-    vector<int> next(n, 0);
-    getNext(sub, next);
-
-    int j = 0;
-    for(int i = 0; i < n; i++) {
-        while(s[i] != sub[j] && j > 0) {
-            j = next[j - 1];
-        }
-        if(s[i] == s[j]) {
-            j++;
-        }
-        if(j == sub.size()) {
-            return i - sub.size() +1;
+    double decimalInteger = 0.0;
+    for(int i = 0; i < integerPart.size(); i++) {
+        if(integerPart[i] == '1') {
+            decimalInteger += pow(2.0, integerPart.size() - i - 1);
         }
     }
-    return -1;
-}
 
-int longestUniqStr(string s) {
-    int n = s.size();
-    int pos = -1;
-    vector<int> hash(256, -1);
-    int len = 0;
-    int res = 0;
-
-    for(int i = 0; i < n; i++) {
-        pos = max(pos, hash[s[i]]);
-        len = i - pos;
-        res = max(res, len);
-        hash[s[i]] = i;
+    double decimalFraction = 0.0;
+    for(int i = 0; i < fractionalPart.size(); i++) {
+        if(fractionalPart[i] == '1') {
+            decimalFraction += pow(2.0, -(i + 1));
+        }
     }
-    return res;
+
+    return decimalInteger + decimalFraction;
 }
 
-bool isLittle() {
-    int i = 1;
-    char* c = (char*)&i;
+int main() {
+    std::string binaryFraction = "110.01101";
+    double decimalFraction = binaryFractionToDecimal(binaryFraction);
 
-    return *c == 1 ? true : false;
+    std::cout << "Binary Fraction: " << binaryFraction << std::endl;
+    std::cout << "Decimal Fraction: " << decimalFraction << std::endl;
+
+    return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // C++ program to convert a decimal 
+// // number to binary number 
+
+// #include <iostream> 
+// using namespace std; 
+
+// // function to convert decimal to binary 
+// void decToBinary(int n) { 
+// 	// array to store binary number 
+// 	int binaryNum[32]; 
+
+// 	// counter for binary array 
+// 	int i = 0; 
+// 	while (n > 0) { 
+
+// 		// storing remainder in binary array 
+// 		binaryNum[i] = n % 2; 
+// 		n = n / 2; 
+// 		i++; 
+// 	} 
+
+// 	// printing binary array in reverse order 
+// 	for (int j = i - 1; j >= 0; j--) 
+// 		cout << binaryNum[j]; 
+// } 
+
+// // C++ program to convert binary to decimal 
+// // when input is represented as binary string. 
+// // Function to convert binary to decimal 
+// int binaryToDecimal(string n) { 
+// 	string num = n; 
+// 	int dec_value = 0; 
+
+// 	// Initializing base value to 1, i.e 2^0 
+// 	int base = 1; 
+
+// 	int len = num.length(); 
+// 	for (int i = len - 1; i >= 0; i--) { 
+// 		if (num[i] == '1') 
+// 			dec_value += base; 
+// 		base = base * 2; 
+// 	} 
+
+// 	return dec_value; 
+// } 
+
+
+// // Driver program to test above function 
+// int main() { 
+// 	int n = 17; 
+// 	decToBinary(n); 
+
+// 	string num = "10101001"; 
+// 	cout << binaryToDecimal(num) << endl; 
+
+// 	return 0; 
+// } 
