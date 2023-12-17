@@ -196,14 +196,14 @@
 
 ### embedded
 
-|                                                        |                           |                |  |
-| ------------------------------------------------------ | ------------------------- | -------------- | - |
-| [code](code_lib/alignedMallloc.cpp)                       | aligned malloc            |                |  |
-| [code](code_lib/memcpy_strcpy.cpp)                        | memory copy / string copy | very important |  |
-| [code](code_lib/isLittle.cpp)                             | little ending             |                |  |
-| [code](code_lib/decToBinary.cpp)                          | decimal <-> binary        |                |  |
-| [code](code_lib/chapter_6_bitManipulate/09_countOnes.cpp) | count ones - bit count    |                |  |
-| [code](code_lib/microdefine.c)                            | define micro              |                |  |
+|                                                        |                           |                  |  |
+| ------------------------------------------------------ | ------------------------- | ---------------- | - |
+| [code](code_lib/alignedMallloc.cpp)                       | aligned malloc            |                  |  |
+| [code](code_lib/memcpy_strcpy.cpp)                        | memory copy / string copy | 🔥very important |  |
+| [code](code_lib/isLittle.cpp)                             | little ending             |                  |  |
+| [code](code_lib/decToBinary.cpp)                          | decimal <-> binary        | 🔥important      |  |
+| [code](code_lib/chapter_6_bitManipulate/09_countOnes.cpp) | count ones - bit count    |                  |  |
+| [code](code_lib/microdefine.c)                            | define micro              |                  |  |
 
 ### cracking the code
 

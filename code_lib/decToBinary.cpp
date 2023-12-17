@@ -18,14 +18,18 @@ double binaryFractionToDecimal(const string& binaryFraction) {
         integerPart = binaryFraction;
         fractionalPart = "";
     } else {
-        integerPart = binaryFraction.substr(0, dotPosition);
-        fractionalPart = binaryFraction.substr(dotPosition + 1);
+        integerPart = binaryFraction.substr(0, dotPosition);		// substr(起始位，长度)
+        fractionalPart = binaryFraction.substr(dotPosition + 1);	// substr(起始位)： 从起始位到string的结束
     }
 
     double decimalInteger = 0.0;
     for(int i = 0; i < integerPart.size(); i++) {
         if(integerPart[i] == '1') {
             decimalInteger += pow(2.0, integerPart.size() - i - 1);
+			/* or 
+			    resInt <<= 1;
+        		resInt += (intPart[i] - '0');
+			*/
         }
     }
 

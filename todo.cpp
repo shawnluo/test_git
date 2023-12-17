@@ -11,7 +11,14 @@
 9       // 7. spiral square
 9       // 8. little ending?
 9       // 9. ones in a interger
-// 10. bit manipulate
+5.      // 10. bit manipulate
+            // 1. set/clear from m to n
+            // 2. set from m, follwing n bits
+            // 3. swap x and y without tmp: 
+                // 1. think this way for every bit, x = 0, y = 1, x = x ^ y = 0 ^ 1 = 1
+                // 2. y = x ^ y = 1 ^ 1 = 0
+                // 3. now x swapped with y.
+                // 4. swap 2 numbers can be treat as multiple bits just explained in step 1, 2, 3
 // 11. find island
 // 12. robot clean
 // 13. shortest path

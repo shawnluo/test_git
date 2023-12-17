@@ -5,183 +5,113 @@
 #include <thread>
 
 using namespace std;
+ 
+/* TODO
+    1. 🔥   find island
+    2. decimal to bin c/c++
+    3. bin to decimal c/c++
+ */
 
+int str2Int(string s) {
+    s = "101.011";
+    int n = s.size();
+    string intPart;
+    string decPart;
 
-binaryToDecimal() {
-    for(int i = 0; i < size; i++) {
-        if(intergerPart[i] == '1') {
-            decimalInter += pow(2.0, size - i - 1);
-        }
-        decimalFraction += pow(2.0, -(i + 1));
-    }
-}
-
-
-
-bool isSub(string& s, string& sub) {
-    int size = sub.size();
-    int next[size];
-    getNext(sub, next);
-
-    for() {
-        
-    }
-}
-
-string intToRoman(int num) {
-    // 1. divide by M, untile mode == 1
-    // 2. divide by D, untile mod == 1
-    // ...
-
-    string res;
-    vector<pair<string, int>> v = { { "I", 1 }, { "IV", 4 }, { "V", 5 }, { "IX", 9 }, { "X", 10 }, { "XL", 40 },
-        { "L", 50 }, { "XC", 90 }, { "C", 100 }, { "CD", 400 }, { "D", 500 }, { "CM", 900 }, { "M", 1000 } };
-
-    for (int i = 12; i >= 0; i--) {
-        for (; num >= v[i].second;) {
-            cout << "i = " << i << "\t" << num << endl;
-            res.append(v[i].first);
-            num -= v[i].second;
-        }
+    int pos = s.find('.');
+    if(pos != string::npos) {
+        // cout << pos << endl;
+        intPart = s.substr(0, pos);
+        decPart = s.substr(pos + 1);
+        cout << intPart << endl;
+        cout << decPart << endl;
+    } else {
+        intPart = s;
+        decPart = "";
     }
 
-    // cout << res << endl;
-    return res;
-}
+    // int resInt = 0;
+    // float resDec = 0.0;
+    // for(int i = 0; i < intPart.size(); i++) {
+    //     resInt <<= 1;
+    //     resInt += (intPart[i] - '0');
+    // }
+    // cout << resInt << endl;
 
-/*
-public int romanToInt(String s) {
-    int res=0;
-    for(int i=0;i<s.length();i++){
-        char c = s.charAt(i);
-        if (c == 'I') {
-            if (i + 1 < s.length() && s.charAt(i + 1) == 'V') {
-                res += 4;
-                i++;
-            } else if (i + 1 < s.length() && s.charAt(i + 1) == 'X') {
-                res += 9;
-                i++;
-            } else
-                res += 1;
-        } else if (c == 'X') {
-            if (i + 1 < s.length() && s.charAt(i + 1) == 'L') {
-                res += 40;
-                i++;
-            } else if (i + 1 < s.length() && s.charAt(i + 1) == 'C') {
-                res += 90;
-                i++;
-            } else
-                res += 10;
-        } else if (c == 'C') {
-            if (i + 1 < s.length() && s.charAt(i + 1) == 'D') {
-                res += 400;
-                i++;
-            } else if (i + 1 < s.length() && s.charAt(i + 1) == 'M') {
-                res += 900;
-                i++;
-            } else
-                res += 100;
-        } else if (c == 'V')
-            res += 5;
-        else if (c == 'L')
-            res += 50;
-        else if (c == 'D')
-            res += 500;
-        else if (c == 'M')
-            res += 1000;
-    }
-    return res;
-}
-*/
-
-int RomanToInt(string s) {
-    // vector<pair<string, int>> v = {{"I", 1}, {"IV", 4}, {"V", 5}, {"IX", 9}, {"X", 10}, {"XL", 40}, {"L", 50}, \
-    //                                 {"XC", 90}, {"C", 100}, {"CD", 400}, {"D", 500}, {"CM", 900}, {"M", 1000}};
-
-    // vector<pair<char, int>> v = {{'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, \
-    //                                 {'C', 100}, {'D', 500}, {'M', 1000}};
-
-    map<char, int> Map =  {{'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}};
-
-    // cout << Map['X'] << endl;
-    int res = 0;
-    int nS = s.size();
-    int nM = Map.size();
-
-    // for(int i = nV - 1; i >= 0; ) {
-    for(int j = 0; j < nS; j++) {
-        if(s[j] < s[j + 1]) {
-            res -= Map[s[j]];
-        } else {
-            res += Map[s[j]];
-        }
-    }
-
-    return res;
-}
-
-int main(void) {
-    // cout << intToRoman(1994) << endl;
-    cout << RomanToInt("CCC") << endl;
+    // for(int i = 0; i < decPart.size(); i++) {
+    //     int cur = decPart[i] - '0';
+    //     if(cur == '1') {
+    //         resDec += pow(2, -i);
+    //     }
+    //     // resDec += resDec;
+    // }
+    // cout << resDec << endl;
 
     return 0;
 }
 
-void* alignedAlloc(size_t align, size_t size) {
-    int offset = align - 1;     // 16 -> 1111,1111
-    int newSize = size + offset + sizeof(size_t);
-    size_t* addr = (size_t*)malloc(newSize);
-    size_t* newAddr = addr & ~(offset);
+
+int countIsland = 0;  // island count
+
+void sinkIsland(vector<vector<int>>& mat, int row, int col, int x, int y) {
+
+    if(x < 0 || x >= row || y < 0 || y >= col) {
+        return;
+    }
+
+    if(mat[x][y] == 0) return;
+
+    vector<vector<int>> dir = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
+    mat[x][y] = 0;
+    for(int i = 0; i < 4; i++) {
+        // cout << dir[i][0] << " " << dir[i][1] << endl;
+        sinkIsland(mat, row, col, x + dir[i][0], y + dir[i][1]);
+    }
 }
 
 
-int myRead(int n, char* buf) {
-    int readChar = 4;
-    int copiedChar = 0;
-
-    for(; readChar == 4; ) {
-        readChar = read4(buf4);
-        for(int i = 0; i < 4; i++) {
-            if(copiedChar == n) {
-                return copiedChar;            
+// 0: water
+// 1: island
+int Islands(vector<vector<int>>& mat) {
+    int row = mat.size(), col = mat[0].size();
+    for(int i = 0; i < row; i++) {
+        for(int j = 0; j < col; j++) { 
+            if(mat[i][j] == 1) {
+                countIsland++;
+                sinkIsland(mat, row, col, i, j);
             }
-            buf[copiedChar++] = buf4[i];
         }
     }
-    return copiedChar;
+    return countIsland;
 }
 
-int cal(char* s) {
-    char operation = '+';
-    long long num = 0;
+// fib
+int fib(int n) {
+    if(n == 0) return 0;
+    if(n == 1) return 1;
+    return fib(n - 1) + fib(n - 2);
+}
 
-    while(*s) {
-        if(isdigit(*s)) {
-            num = num * 10 + *s - '0';
-        }
-        if((!isdigit(*s) && !isspace(*s)) || *(s + 1) == '\0') {
-            switch(operation) {
-                case '+':
-                    push(num);
-                    break;
-                case '-':
-                    push(-num);
-                    break;
-                case '*':
-                    push(pop() * num);
-                    break;
-                case '/':
-                    push(pop() / num);
-                    break;
-            }
-            operation = *s;
-            curNum = 0;
-        }
-        s++;
-    }
+int main(void) {
     int res = 0;
-    while(!isEmtpy()) {
-        res += pop();
-    }
-    return res;
+    string s = "11.01";
+    res = str2Int(s);
+
+    // vector<vector<int>> mat = {
+    //                             {0, 1, 1, 1, 0, 1},
+    //                             {0, 0, 0, 0, 0, 0},
+    //                             {0, 0, 0, 0, 0, 0},
+    //                             {0, 0, 0, 0, 0, 0},
+    //                             {0, 0, 0, 0, 0, 0},
+    //                             {0, 0, 0, 1, 0, 0},
+    //                             {0, 0, 0, 0, 0, 0}
+    // };
+
+    // res = Islands(mat);
+    // cout << res << endl;
+    // set all 1s mask from m to n
+
+
+    return 0;
 }
