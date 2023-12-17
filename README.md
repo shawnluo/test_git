@@ -168,6 +168,7 @@
 | [code](code_lib/swapOddEven.cpp)     | swap odd and even bits in an integer                                                          |  |  |
 | [code](code_lib/print_bits.cpp)      | print bits binary                                                                             |  |  |
 | [code](code_lib/BitwiseAnd.cpp)      | Bitwise AND of Numbers Range                                                                  |  |  |
+| [code](code_lib/endianness_swap.cpp) | endianness swap                                                                               |  |  |
 | [code](code_lib/rangeBitwiseAnd.cpp) | [201. Bitwise AND of Numbers Range](https://leetcode.com/problems/bitwise-and-of-numbers-range/) |  |  |
 
 ### IPC
