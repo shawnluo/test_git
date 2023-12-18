@@ -4,7 +4,7 @@
 
 int getSum(const vector<vector<int>>& mat, int newX, int newY, const int m, const int n) {
     int sum = 0;
-
+    // 4. x 和 y 分别从0 + newX的偏移开始计算新mat的成员值。
     for(int i = newX; i < newX + m; i++) {
         for(int j = newY; j < newY + n; j++) {
             sum += mat[i][j];
@@ -17,7 +17,7 @@ vector<vector<int>> blur_odd(const vector<vector<int>>& mat, const int m, const 
     int row = mat.size();
     int col = mat[0].size();
 
-    // calculate the new mat size
+    // 1. calculate the new mat size - 算出新mat的长和宽，分别是多少个点
     if(m > row || n > col) {
         return {};
     }
@@ -27,8 +27,10 @@ vector<vector<int>> blur_odd(const vector<vector<int>>& mat, const int m, const 
     cout << newRow << " ";
     cout << newCol << endl;
 
+    // 2. 新建一个mat来存放新mat
     vector<vector<int>> newMat(newRow, vector<int>(newCol, 0));
 
+    // 3. 计算新mat的每个成员的值
     for(int newX = 0; newX < newRow; newX++) {
         for(int newY = 0; newY < newCol; newY++) {
             newMat[newX][newY] = getSum(mat, newX, newY, m, n);

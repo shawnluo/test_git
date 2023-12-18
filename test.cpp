@@ -8,110 +8,110 @@ using namespace std;
  
 /* TODO
     1. 🔥   find island
-    2. decimal to bin c/c++
+    2. 🔥   decimal to bin c/c++
     3. bin to decimal c/c++
+    4. blur
  */
 
-int str2Int(string s) {
-    s = "101.011";
-    int n = s.size();
-    string intPart;
-    string decPart;
-
-    int pos = s.find('.');
-    if(pos != string::npos) {
-        // cout << pos << endl;
-        intPart = s.substr(0, pos);
-        decPart = s.substr(pos + 1);
-        cout << intPart << endl;
-        cout << decPart << endl;
-    } else {
-        intPart = s;
-        decPart = "";
-    }
-
-    // int resInt = 0;
-    // float resDec = 0.0;
-    // for(int i = 0; i < intPart.size(); i++) {
-    //     resInt <<= 1;
-    //     resInt += (intPart[i] - '0');
-    // }
-    // cout << resInt << endl;
-
-    // for(int i = 0; i < decPart.size(); i++) {
-    //     int cur = decPart[i] - '0';
-    //     if(cur == '1') {
-    //         resDec += pow(2, -i);
-    //     }
-    //     // resDec += resDec;
-    // }
-    // cout << resDec << endl;
-
-    return 0;
-}
-
-
-int countIsland = 0;  // island count
-
-void sinkIsland(vector<vector<int>>& mat, int row, int col, int x, int y) {
-
-    if(x < 0 || x >= row || y < 0 || y >= col) {
-        return;
-    }
-
-    if(mat[x][y] == 0) return;
-
-    vector<vector<int>> dir = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-
-    mat[x][y] = 0;
-    for(int i = 0; i < 4; i++) {
-        // cout << dir[i][0] << " " << dir[i][1] << endl;
-        sinkIsland(mat, row, col, x + dir[i][0], y + dir[i][1]);
-    }
-}
-
-
-// 0: water
-// 1: island
-int Islands(vector<vector<int>>& mat) {
-    int row = mat.size(), col = mat[0].size();
-    for(int i = 0; i < row; i++) {
-        for(int j = 0; j < col; j++) { 
-            if(mat[i][j] == 1) {
-                countIsland++;
-                sinkIsland(mat, row, col, i, j);
-            }
+#if 1
+int getSum(vector<vector<int>>& mat, int x, int y, int m, int n) {
+    int sum = 0;
+    for(int i = x; i < x + m; i++) {
+        for(int j = y; j < y + n; j++) {
+            sum += mat[i][j];
         }
     }
-    return countIsland;
+    return sum / (m * n);
 }
 
-// fib
-int fib(int n) {
-    if(n == 0) return 0;
-    if(n == 1) return 1;
-    return fib(n - 1) + fib(n - 2);
+void blur(vector<vector<int>> mat, int m, int n, int new_row, int new_col, vector<vector<int>>& newMat) {
+    // vector<vector<int>> newMat(new_row, vector<int>(new_col, 0));
+    for(int i = 0; i < new_row; i++) {
+        for(int j = 0; j < new_col; j++) {
+            newMat[i][j] = getSum(mat, i, j, m, n);
+        }
+    }
 }
 
 int main(void) {
-    int res = 0;
-    string s = "11.01";
-    res = str2Int(s);
+    vector<vector<int>> mat = {{1, 5, 2, 3, 5, 6, 1},
+                                {2, 1, 1, 9, 4, 8, 3},
+                                {1, 1, 2, 3, 5, 2, 9},
+                                {1, 1, 2, 3, 5, 2, 9}};
+                                // {1, 1, 2, 3, 5, 2, 9}};
 
-    // vector<vector<int>> mat = {
-    //                             {0, 1, 1, 1, 0, 1},
-    //                             {0, 0, 0, 0, 0, 0},
-    //                             {0, 0, 0, 0, 0, 0},
-    //                             {0, 0, 0, 0, 0, 0},
-    //                             {0, 0, 0, 0, 0, 0},
-    //                             {0, 0, 0, 1, 0, 0},
-    //                             {0, 0, 0, 0, 0, 0}
-    // };
+    int row = mat.size();
+    int col = mat[0].size();
+    int m = 2;
+    int n = 5;
+    int new_row = row - m + 1;
+    int new_col = col - n + 1;
 
-    // res = Islands(mat);
-    // cout << res << endl;
-    // set all 1s mask from m to n
-
+    vector<vector<int>> newMat(new_row, vector<int>(new_col, n));
+    blur(mat, m, n, new_row, new_col, newMat);
+    for(auto x : newMat) {
+        for(auto y : x) {
+            cout << y << " ";
+        }
+        cout << endl;
+    }
 
     return 0;
 }
+#else 
+
+int getSum(const vector<vector<int>>& mat, int newX, int newY, const int m, const int n) {
+    int sum = 0;
+    // 4. x 和 y 分别从0 + newX的偏移开始计算新mat的成员值。
+    for(int i = newX; i < newX + m; i++) {
+        for(int j = newY; j < newY + n; j++) {
+            sum += mat[i][j];
+        }
+    }
+    return sum / (m * n);
+}
+
+vector<vector<int>> blur_odd(const vector<vector<int>>& mat, const int m, const int n) {
+    int row = mat.size();
+    int col = mat[0].size();
+
+    // 1. calculate the new mat size - 算出新mat的长和宽，分别是多少个点
+    if(m > row || n > col) {
+        return {};
+    }
+    int newRow = row - m + 1;
+    int newCol = col - n + 1;
+
+    cout << newRow << " ";
+    cout << newCol << endl;
+
+    // 2. 新建一个mat来存放新mat
+    vector<vector<int>> newMat(newRow, vector<int>(newCol, 0));
+
+    // 3. 计算新mat的每个成员的值
+    for(int newX = 0; newX < newRow; newX++) {
+        for(int newY = 0; newY < newCol; newY++) {
+            newMat[newX][newY] = getSum(mat, newX, newY, m, n);
+        }
+    }
+    return newMat;
+}
+
+int main(void) {
+    vector<vector<int>> mat = {{1, 5, 2, 3, 5, 6, 1},
+                                {2, 1, 1, 9, 4, 8, 3},
+                                {1, 1, 2, 3, 5, 2, 9},
+                                {1, 1, 2, 3, 5, 2, 9}};
+                                // {1, 1, 2, 3, 5, 2, 9}};
+
+    vector<vector<int>> res = blur_odd(mat, 2, 5);
+    for(auto x : res) {
+        for(auto y : x) {
+            cout << y << "\t";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+#endif

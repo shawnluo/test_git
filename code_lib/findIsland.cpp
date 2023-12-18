@@ -1,16 +1,16 @@
 /*  [104]
     find islands
 */
-void sink_island(char **s, int i, int j, int gridSize, int gridColSize) {
-    if(i < 0 || i >= gridSize)      return;
-    if(j < 0 || j >= gridColSize)   return;
-    if(s[i][j] == 0)                return;
+void sink_island(char **s, int x, int y, int gridSize, int gridColSize) {
+    if(x < 0 || y >= gridSize)      return;
+    if(y < 0 || y >= gridColSize)   return;
+    if(s[x][y] == 0)                return;
 
-    s[i][j] = '0';
-    sink_island(s, i + 1, j, gridSize, gridColSize);
-    sink_island(s, i - 1, j, gridSize, gridColSize);
-    sink_island(s, i, j + 1, gridSize, gridColSize);
-    sink_island(s, i, j - 1, gridSize, gridColSize);
+    s[x][y] = '0';
+    int dir[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+    for(int i = 0; i < 4; i++) {
+        sink_island(s, x + dir[i][0], y + dir[i][1], gridSize, gridColSize);
+    }
 }
 
 int numIslands(char** grid, int gridSize, int* gridColSize){

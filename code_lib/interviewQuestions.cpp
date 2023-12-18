@@ -521,20 +521,20 @@ clear_bit2(volitle uint8_t* reg)
 
 uint32_t setMask(uint32_t start_address, uint32_t length) {
     uint32_t startBit = 0;
-    for(int i = 0; i < 128 * 1024 - 4096; i += 4096) {
-        if(start_address > i) {
-            startBit++;
-        }
-    }
+    // for(int i = 0; i < 128 * 1024 - 4096; i += 4096) {
+    //     if(start_address > i) {
+    //         startBit++;
+    //     }
+    // }
     // or
     startBit = start_address / 4096 + 1;
 
     uint32_t bitsLen = 0;
-    for(int i = 0; i < 128 * 1024 - 4096; i += 4096) {
-        if(start_address > i) {
-            bitsLen++;
-        }
-    }
+    // for(int i = 0; i < 128 * 1024 - 4096; i += 4096) {
+    //     if(start_address > i) {
+    //         bitsLen++;
+    //     }
+    // }
     // or
     bitsLen = length / 4096 + 1;
 
