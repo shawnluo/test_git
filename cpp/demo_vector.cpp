@@ -12,22 +12,51 @@ using std::endl;
 using std::string;
 
 
+// ------------------- push_back ------------------------------
+
 vector<vector<int>> res;
 
-res.push_back(vector<int>{v[i], v[j], v[k]});
+res.push_back(vector<int>{v[i], v[j], v[k]});   // 可以尾部接 vector
+
+res.push_back('a');             // push_back只能尾部接单个字符(char), 而不是字符串(char*)
+
+// ------------------- insert ------------------------------
+
+int n = 1;
+res.insert(0, to_string(n));    // insert只能插入字符串(char*)，而不是字符(char)
+                                // to_string(int n), 将数字转换成字符串
+
+// ------------------- replace ------------------------------
+
+string s = "0123456";
+// 从s的第三个字符开始，接下来两个"34"，用"abcd"来替换！
+cout << s.replace(3, 2, "abcd") << endl;
+
+
+string s = "012";
+cout << s.replace(3, 2, "abcd") << endl;    // 012abcd
+
+string s = "01";
+cout << s.replace(3, 2, "abcd") << endl;    // will fail
+
+
+// ------------------- front ------------------------------
 
 // first element
 cout << v.front() << endl;
 
+// ------------------- back ------------------------------
 // last element
 cout << v.back() << endl;
 
+// ------------------- at ------------------------------
 /* access the first element */
 cout << v.at(0);
 
 /* access the last element */
 cout << v.at(v.size() - 1);
 
+// ------------------- find ------------------------------
 bool findInVec(int n) {
     vector<int> v = {1, 2, 3};
     if(std::find(v.begin(), v.end(), 3) != v.end()) {

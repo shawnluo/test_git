@@ -77,15 +77,33 @@ void *Memcpy_ext(void *dest, const void *src, size_t count) {
 }
 
 
-// 4. memocpy alignment
-//      not optimized for copy speed
+/* 4. memocpy alignment
+    1). optimized for copy speed.
+    2). not consider address overlap.
+ */
+
+    // 1. check paraments
+    // 2. get aligned dst
+        // 1). cal aligned dst
+        // 2). if aligned dst + srcLen is too big - if(alignedDst + srcLen > dst + dstLen)  return nullptr
+    // 3. copy one byte everytime - using char*
+        // 1). if src + len > dst: copy from tail
+        // 2). else: copy from head
+
 void* memcpyAlign(size_t alignment, void* dst, void* src, size_t dstLen, size_t srcLen) {
+    if(!dst || !src)    return dst;
+
     size_t offset = alignment - 1;
     // size_t newLen = srcLen + offset;
     // size_t* addr = (size_t)malloc(newLen);
     // if(!addr) return nullptr;
 
     size_t* newDst = ((size_t*)dst + offset) & ~(offset);
+    
+    if(newDst + srcLen > dst + dstLen) {    // not enough space for aligned dst
+        return nullptr;
+    }
+
     size_t cpuSize = sizeof(size_t);
     size_t t1 = srcLen / cpuSize;   // cpu size count
     size_t t2 = srcLen % cpuSize;   // remain byte count

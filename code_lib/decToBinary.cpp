@@ -10,22 +10,23 @@ using namespace std;
 #include <iostream>
 #include <string>
 
-double binaryFractionToDecimal(const string& binaryFraction) {
-    size_t dotPosition = binaryFraction.find('.');
-    string integerPart;
+double binaryFractionToDecimal(const string& s) {
+    size_t pos = s.find('.');
+    string intPart;
     string fractionalPart;
-    if(dotPosition == string::npos) {   // 找到 "." 号
-        integerPart = binaryFraction;
+    if(pos == string::npos) {   // 找到 "." 号
+        intPart = s;
         fractionalPart = "";
     } else {
-        integerPart = binaryFraction.substr(0, dotPosition);		// substr(起始位，长度)
-        fractionalPart = binaryFraction.substr(dotPosition + 1);	// substr(起始位)： 从起始位到string的结束
+        intPart = s.substr(0, pos);		// substr(起始位，长度)
+        fractionalPart = s.substr(pos + 1);	// substr(起始位)： 从起始位到string的结束
     }
 
-    double decimalInteger = 0.0;
-    for(int i = 0; i < integerPart.size(); i++) {
-        if(integerPart[i] == '1') {
-            decimalInteger += pow(2.0, integerPart.size() - i - 1);
+	// 注意数据类型！！！！！！！！！！！！
+    double resInt = 0.0;
+    for(int i = 0; i < intPart.size(); i++) {
+        if(intPart[i] == '1') {
+            resInt += pow(2.0, intPart.size() - i - 1);
 			/* or 
 			    resInt <<= 1;
         		resInt += (intPart[i] - '0');
@@ -33,22 +34,47 @@ double binaryFractionToDecimal(const string& binaryFraction) {
         }
     }
 
-    double decimalFraction = 0.0;
+    double resFraction = 0.0;
     for(int i = 0; i < fractionalPart.size(); i++) {
         if(fractionalPart[i] == '1') {
-            decimalFraction += pow(2.0, -(i + 1));
+            resFraction += pow(2.0, -(i + 1));
         }
     }
 
-    return decimalInteger + decimalFraction;
+    return resInt + resFraction;
 }
 
-int main() {
-    std::string binaryFraction = "110.01101";
-    double decimalFraction = binaryFractionToDecimal(binaryFraction);
 
-    std::cout << "Binary Fraction: " << binaryFraction << std::endl;
-    std::cout << "Decimal Fraction: " << decimalFraction << std::endl;
+string int2Bin(int n) {
+    // 12 -> 1100
+    string res;
+    for(int i = n; i > 0; ) {
+        res.insert(0, to_string(i % 2));
+        i /= 2;
+    }
+
+    double x = 0.6875;  // 0.1011    用push_back
+    if(x > 0) {
+        res.push_back('.');
+    }
+    for(; x; ) {
+        x = x * 2;
+        res.push_back((int)x + '0');	// 类型转换成整型
+        
+        x = x >= 1 ? x - 1 : x;
+    }
+    cout << res << endl;
+
+    return res;
+}
+
+
+int main() {
+    std::string s = "110.01101";
+    double resFraction = binaryFractionToDecimal(s);
+
+    std::cout << "Binary Fraction: " << s << std::endl;
+    std::cout << "Decimal Fraction: " << resFraction << std::endl;
 
     return 0;
 }

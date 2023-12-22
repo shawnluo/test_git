@@ -11,6 +11,7 @@
 | 7 | [code](code_lib/max_element.cpp)     | max_element(nums.begin(), nums.end())                                      |        |
 | 8 |                                   | float     占4个字节，要加f, eg. 1.2f<br />double 占8个字节              |        |
 |   | [code](code_lib/lowerUpperBound.cpp) | lower_bound(x): 大于或等于x的数的指针<br />upper_bound(x): 大于x的数的指针 |        |
+|   | [code](code_lib/const_demo.cpp)      | const 修饰指针                                                             |        |
 
 #### terminate a thread
 
