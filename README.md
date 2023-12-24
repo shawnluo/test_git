@@ -158,7 +158,7 @@
 | [code](code_lib/backtracking_1.cpp)                             | n and k, return combination from 1 to n, size k |  |      |
 | [code](code_lib/cleanRobot.cpp)                                 | clean robot                                     |  |      |
 
-### bits manipute
+### bitswise
 
 |                                   |                                                                                               |  |  |
 | --------------------------------- | --------------------------------------------------------------------------------------------- | - | - |
