@@ -18,55 +18,82 @@ using namespace std;
     9. rangeBitwiseAnd
  */
 
-int longestUniqStr(string& s) {
-    // unordered_map<char, int> map(256, -1);
-    int map[256];
-    for(int i = 0; i < 256; i++) {
-        map[i] = -1;
+int dp_8(int n) {
+    if(n <= 0) return 0;
+    vector<int> dp(n + 1, 0);
+    dp[1] = 0;
+    dp[2] = 1;
+
+    // dp[i] = max(dp[i - j] * j, (i - j) * j)
+    for(int i = 3; i <= n; i++) {
+        for(int j = 1; j <= i / 2; j++) {
+            dp[i] = max(dp[i], max(dp[i - j] * j, (i - j) * j));
+        }
     }
+}
 
-    int pos = -1;
-    int len = 0;
-    int res = 0;
-    for(int i = 0; i < s.size(); i++) {
-        pos = max(pos, map[i]);
-
+int dp_11(vector<int> weight, vector<int> value, int BAG) {
+    vector<vector<int>> dp(weight.size(), vector<int> (BAG + 1, 0));
+    for(int j = weight[0]; j <= BAG; j++) {
+        dp[0][j] = value[0];
     }
+    for(int i = 0; i < weight.size(); i++) {
+        for(int j = 0; j <= BAG; j++) {
+            if(j < weight[i]) {
+                dp[i][j] = dp[i - 1][j];
+            } else {
+                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
+            }
+        }
+    }
+    return dp[weight.size() - 1][BAG];
+}
 
-    cout << res << endl;
+int dp_12(vector<int> weight, vector<int> value, int BAG) {
+    vector<int> dp(BAG + 1 , 0);
+
+    for(int i = 0; i < weight.size(); i++) {
+        for(int j = BAG; j >= weight[i]; j--) {
+            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
+        }
+    }
+    return dp[BAG];
 }
 
 int dp_29(vector<int> nums) {
-    return 0;
+    vector<int> dp(nums.size(), 0);
+    dp[0] = nums[0];
+    dp[1] = max(nums[0], nums[1]);
+    for(int i = 2; i < nums.size(); i++) {
+        dp[i] = max(dp[i - 2] + nums[i], dp[i - 1]);
+        cout << dp[i - 2] + nums[i] << " - " << dp[i - 1] << endl;
+    }
+    return dp[nums.size() - 1];
 }
 
-// "   ab cd     x y cc  exit   "
-void delExtraSpaces(string& s) {
-    int j = 0;
-    for(int i = 0; i < s.size(); i++) {
-        if(s[i] != ' ' && j > 0) {
-            s[j++] = ' ';
-        }
-        for(; s[i] != ' ' && s[i] != '\0'; i++) {
-            s[j++] = s[i];
+int dp_23(vector<int>& coins, int BAG) {
+    int n = coins.size();
+    vector<int> dp(BAG + 1, INT_MAX);
+    dp[0] = 0;
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j <= BAG; j++) {
+            // if(dp[j - coins[i]] != INT_MAX)
+                dp[j] = min(dp[j], dp[j - coins[j - i * i]] + 1);
         }
     }
-    s.resize(j);
-}
-
-int rangeBitwiseAnd(int m, int n) {
-    // 5, 7
-    // 101, 110, 111
-    int count = 0;
-    for(; m != n; m >>= 1, n >>= 1) {
-        count++;
-    }
-
-    return m <<= count;
+    return dp[BAG];
 }
 
 int main(void) {
-    cout << rangeBitwiseAnd(5, 7) << endl;
+    vector<int> nums = {1, 2, 5};
+    cout << dp_23(nums, 11) << endl;
+
+    // vector<int> nums = {2, 7, 9, 3, 1};
+    // cout << dp_29(nums) << endl;
+
+    // string s = "abaac";
+    // vector<int> neededTime = {1,2,3,4,5};
+    // cout << minCost(s, neededTime) << endl;
     // int x = 0b110;
     // string s = "1101.111";
     // double res = binaryFractionToDecimal(s);

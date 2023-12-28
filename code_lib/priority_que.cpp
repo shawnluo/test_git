@@ -13,8 +13,8 @@ void showMe(priority_queue<int> heap) {
 }
 
 int main() {
-    priority_queue<int, vector<int>, less<int>> big_heap;      // 最大堆
-    priority_queue<int, vector<int>, greater<int>> small_heap; // 最小堆
+    priority_queue<int, vector<int>, less<int>> big_heap;      // 最大堆   - heap.top() 是最大值
+    priority_queue<int, vector<int>, greater<int>> small_heap; // 最小堆   - heap.top() 是最小值
     priority_queue<int> heap;                                  // 默认是less - 最大堆
 
     heap.push(2);
