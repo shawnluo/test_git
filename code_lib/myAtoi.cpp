@@ -1,3 +1,4 @@
+/*
 题目：字符串转换整数 (atoi)
 请你来实现一个 atoi 函数，使其能将字符串转换成整数。
 
@@ -44,6 +45,7 @@
      因此返回 INT_MIN (−231) 。
 来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/string-to-integer-atoi/
+*/
 
 /*#解题思路
 1.首先设置变量:
@@ -62,31 +64,35 @@ i=2时，str.charCodeAt(i)-48=49，49>9，不符合要求，转换停止
 #代码实现
 */
 
-// TODO
-long long myAtoi(string s) {
-    int i = 0;
-    long long res = 0, val = 0;
+class Solution {
+public:
+    int myAtoi(string input) {
+        int sign = 1;
+        int res = 0;
+        int index = 0;
+        int n = input.size();
 
-    while(s[i] == ' ') {
-        i++;
-    }
-    if(s[i] == '+' || s[i] == '-') {
-        if(s[i] == '-') {
-            isNegative = ' ';
-            i++;
+        while(index < n && input[index] == ' ') {
+            index++;
         }
-    }
-    while(i < s.size()) {
-        val = s[i] - '0';
-        if(val < 0 || code > 9) {
-            continue;
+
+        if(index < n && input[index] == '+') {
+            sign = 1;
+            index++;
+        } else if(index < n && input[index] == '-') {
+            sign = -1;
+            index++;
         }
-        res *= 10;
-        res += val;
-        i++;
+
+        while(index < n && isdigit(input[index])) {
+            int digit = input[index] - '0';
+            if((res > INT_MAX / 10) || (res == INT_MAX / 10 && digit > INT_MAX % 10)) {
+                return sign == 1 ? INT_MAX : INT_MIN;
+            }
+            res = res * 10 + digit;
+            index++;
+        }
+
+        return sign * res;
     }
-    if(isNegative) {
-        res = -res;
-    }
-    return max(min(res, INT_MAX), INT_MIN);
-}
+};

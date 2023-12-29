@@ -18,82 +18,206 @@ using namespace std;
     9. rangeBitwiseAnd
  */
 
-int dp_8(int n) {
-    if(n <= 0) return 0;
-    vector<int> dp(n + 1, 0);
-    dp[1] = 0;
-    dp[2] = 1;
-
-    // dp[i] = max(dp[i - j] * j, (i - j) * j)
-    for(int i = 3; i <= n; i++) {
-        for(int j = 1; j <= i / 2; j++) {
-            dp[i] = max(dp[i], max(dp[i - j] * j, (i - j) * j));
+class Solution {
+public:
+    int lengthOfLongestSubstringTwoDistinct(string s) {
+        unordered_map<char, pair<int, int>> map(256);
+        for(int i = 0; i < 256; i++) {
+            map[i].first = -1;
+            map[i].second = -1;
         }
-    }
-}
 
-int dp_11(vector<int> weight, vector<int> value, int BAG) {
-    vector<vector<int>> dp(weight.size(), vector<int> (BAG + 1, 0));
-    for(int j = weight[0]; j <= BAG; j++) {
-        dp[0][j] = value[0];
-    }
-    for(int i = 0; i < weight.size(); i++) {
-        for(int j = 0; j <= BAG; j++) {
-            if(j < weight[i]) {
-                dp[i][j] = dp[i - 1][j];
+        int pos = -1;
+        int len = 0;
+        int res = 0;
+        for(int i = 0; i < s.size(); i++) {
+            pos = max(pos, map[s[i]].first);
+            len = len, i - pos;
+            res = max(res, len);
+            if(map[s[i]].second == -1) {
+                map[s[i]].first = i;
+            } else if(map[s[i]].second == -1) {
+                map[s[i]].second = i;
             } else {
-                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
+                map[s[i]].first = map[s[i]].second;
+                map[s[i]].second = i;
             }
         }
+        return res;
     }
-    return dp[weight.size() - 1][BAG];
-}
+};
 
-int dp_12(vector<int> weight, vector<int> value, int BAG) {
-    vector<int> dp(BAG + 1 , 0);
-
-    for(int i = 0; i < weight.size(); i++) {
-        for(int j = BAG; j >= weight[i]; j--) {
-            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
-        }
-    }
-    return dp[BAG];
-}
 
 int dp_29(vector<int> nums) {
-    vector<int> dp(nums.size(), 0);
-    dp[0] = nums[0];
-    dp[1] = max(nums[0], nums[1]);
-    for(int i = 2; i < nums.size(); i++) {
-        dp[i] = max(dp[i - 2] + nums[i], dp[i - 1]);
-        cout << dp[i - 2] + nums[i] << " - " << dp[i - 1] << endl;
-    }
-    return dp[nums.size() - 1];
+    return 0;
 }
 
-int dp_23(vector<int>& coins, int BAG) {
-    int n = coins.size();
-    vector<int> dp(BAG + 1, INT_MAX);
-    dp[0] = 0;
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j <= BAG; j++) {
-            // if(dp[j - coins[i]] != INT_MAX)
-                dp[j] = min(dp[j], dp[j - coins[j - i * i]] + 1);
+// "   ab cd     x y cc  exit   "
+void delExtraSpaces(string& s) {
+    int j = 0;
+    for(int i = 0; i < s.size(); i++) {
+        if(s[i] != ' ' && j > 0) {
+            s[j++] = ' ';
+        }
+        for(; s[i] != ' ' && s[i] != '\0'; i++) {
+            s[j++] = s[i];
         }
     }
-    return dp[BAG];
+    s.resize(j);
 }
 
+int rangeBitwiseAnd(int m, int n) {
+    // 5, 7
+    // 101, 110, 111
+    int count = 0;
+    for(; m != n; m >>= 1, n >>= 1) {
+        count++;
+    }
+
+    return m <<= count;
+}
+
+int findPos(string s) {
+    int len = s.size();
+    char third = s[len - 1];
+    char second = -1;
+
+    for(int i = len - 2; i >= 0; i--) {
+        if(second != -1 && s[i] != second && s[i] != third) {
+            return i;
+        }
+        if(second == -1 && s[i] != third) {
+            second = s[i];
+        }
+    }
+    return -1;
+}
+
+int lengthOfLongestSubstringTwoDistinct(string s) {
+    set<int> Set;
+    int pos = -1;
+    int len = 0;
+    int ret = 0;
+    for(int i = 0; i < s.size(); i++) {
+        /*  1. 算上当前char，有多少个char
+                1). 如果len > 2, 
+                    则计算只剩2个元素的pos，
+                    长度: i - pos
+                    如何确定pos? 
+                        1）初始化为-1。 
+                        2）pos = i - 1, pos << x 直到 s[x] != s[pos]
+                2). else, nothing
+         */
+        Set.insert(s[i]);
+        if(Set.size() > 2) {
+            // find pos
+            pos = findPos(s.substr(0, i + 1));
+            cout << "i = " << i << ", pos = " << pos << endl;
+            Set.erase(s[pos]);
+            len = i - pos;
+            ret = max(ret, len);
+        } else if(Set.size() == 2){
+            len = i - pos;
+            ret = max(ret, len);
+        }
+    }
+    if(pos == -1) {
+        ret = s.size();
+    }
+    return ret;
+}
+
+
+int hIndex(vector<int>& citations) {
+
+
+    priority_queue<int, vector<int>, greater<int>> pq(citations.begin(), citations.end());
+
+    // while(pq.size() != 0) {
+    //     cout << pq.top() << endl;
+    //     pq.pop();
+    // }
+    // return 0;
+    // sort(citations.begin(), citations.end());
+    int ret = 0;
+    for(int i = 0; i < citations.size(); i++) {
+        ret = pq.size();
+        cout << ret << endl;
+        if(pq.size() < i + 1) {
+            break;
+        }
+        // cout << pq.top() << endl;
+
+
+        while(pq.top() <= i) {
+            pq.pop();
+        }
+    }
+    return ret;
+}
+
+void removeExtraSpaces(string& s) {
+    int fast = 0;   // 在老的字符串中travel
+    int slow = 0;   // 指向新的字符串
+
+    for(fast = 0; fast < s.size(); fast++) {
+        // 如果遇到空格，fast就向前走越过空格
+
+        // 否则，遇到了非空格
+        if(s[fast] != ' ') {
+            // 如果是开头，那么新字符串就不用保留空格
+
+            if(slow != 0) {     // 如果不是开头，那么新字符串留一个空格
+                s[slow++] = ' ';
+            }
+            while(fast < s.size() && s[fast] != ' ') { // 不是空格， 那么就拷贝到新字符串中
+                s[slow++] = s[fast++];
+            }
+            // fast 现在指向了空格
+        }
+    }
+    s.resize(slow);
+}
+
+// void removeExtraSpaces(string& s) {
+//         int j = 0;
+//         int n = s.size();
+//         for(int i = 0; i < n; i++) {
+//             if(s[i] != ' ') {
+//                 if(j != 0) {
+//                     s[j++] = ' ';
+//                 }
+            
+//                 while(i < n && s[i] != ' ') {
+//                     s[j++] = s[i++];
+//                 }
+//             }
+//         }
+//         s.resize(j);
+//     }
+
+    int lengthOfLastWord(string& s) {
+        removeExtraSpaces(s);
+
+        int n = s.size();
+        int ret = 0;
+        for(int i = n - 1; i >= 0 && s[i] != ' '; i--) {
+            ret++;
+        }
+        return ret;
+    }
+
 int main(void) {
-    vector<int> nums = {1, 2, 5};
-    cout << dp_23(nums, 11) << endl;
+    string s = " aaa";
+    lengthOfLastWord(s);
+    cout << "xxx" << s << "xxx" << endl;
 
-    // vector<int> nums = {2, 7, 9, 3, 1};
-    // cout << dp_29(nums) << endl;
+    // vector<int> nums = {3, 0, 6, 1, 5}; // 0 1 3 5 6
+    // int res = hIndex(nums);
+    // cout << res << endl;
 
-    // string s = "abaac";
-    // vector<int> neededTime = {1,2,3,4,5};
-    // cout << minCost(s, neededTime) << endl;
+    // cout << rangeBitwiseAnd(5, 7) << endl;
+
     // int x = 0b110;
     // string s = "1101.111";
     // double res = binaryFractionToDecimal(s);

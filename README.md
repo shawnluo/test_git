@@ -128,6 +128,7 @@
 | [code](code_lib/myAtoi.cpp)             | atoi 字符串转整数                                                  |  |  |
 | [code](code_lib/strtok.cpp)             | strtok                                                             |  |  |
 | [code](code_lib/sortingByFreq.cpp)      | sort by frequncy 一串string，按频率输出，相同频率按string字母顺序 |  |  |
+| [code](code_lib/myAtoi.cpp)             | string to int                                                      |  |  |
 
 ### hash
 
