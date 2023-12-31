@@ -1,7 +1,7 @@
 #include "common.h"
 #include "test.h"
 
-
+qsort 自定义
 1       // 1 calculator
 9       // 2. read4
 1       // 3. kmp

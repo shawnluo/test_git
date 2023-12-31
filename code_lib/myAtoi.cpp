@@ -64,6 +64,17 @@ i=2时，str.charCodeAt(i)-48=49，49>9，不符合要求，转换停止
 #代码实现
 */
 
+// library function: string to integer
+string s = "12"; 
+int a = atoi(s.c_str());
+
+// library function: integer to string
+std::string pi = "pi is " + std::to_string(3.1415926);
+std::string perfect = std::to_string(1+2+4+7+14) + " is a perfect number";
+std::cout << pi << '\n';
+std::cout << perfect << '\n';
+
+
 class Solution {
 public:
     int myAtoi(string input) {

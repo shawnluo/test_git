@@ -116,19 +116,20 @@
 
 ### string
 
-|                                      |                                                                    |  |  |
-| ------------------------------------ | ------------------------------------------------------------------ | - | - |
-| [code](code_lib/reverseWords.cpp)       | reverse words                                                      |  |  |
-|                                      | palindrome                                                         |  |  |
-| [code](code_lib/Longest_Palindrome.cpp) | longest palindrome                                                 |  |  |
-| [code](code_lib/removeSpaces.cpp)       | remove extra spaces                                                |  |  |
-|                                      | reverse words in a sentence                                        |  |  |
-| [code](code_lib/longestUniqSubstr.cpp)  | longest uniq sbustring                                             |  |  |
-| [code](code_lib/Longest_Palindrome.cpp) | leet 409 最长可组成的回文                                          |  |  |
-| [code](code_lib/myAtoi.cpp)             | atoi 字符串转整数                                                  |  |  |
-| [code](code_lib/strtok.cpp)             | strtok                                                             |  |  |
-| [code](code_lib/sortingByFreq.cpp)      | sort by frequncy 一串string，按频率输出，相同频率按string字母顺序 |  |  |
-| [code](code_lib/myAtoi.cpp)             | string to int                                                      |  |  |
+|                                         |                                                                    |    |                                 |
+| --------------------------------------- | ------------------------------------------------------------------ | -- | ------------------------------- |
+| [code](code_lib/reverseWords.cpp)          | reverse words                                                      |    |                                 |
+|                                         | palindrome                                                         |    |                                 |
+| [code](code_lib/Longest_Palindrome.cpp)    | longest palindrome                                                 |    |                                 |
+| [code](code_lib/removeSpaces.cpp)          | remove extra spaces                                                |    |                                 |
+|                                         | reverse words in a sentence                                        |    |                                 |
+| [code](code_lib/longestUniqSubstr.cpp)     | longest uniq sbustring                                             |    |                                 |
+| [code](code_lib/Longest_Palindrome.cpp)    | leet 409 最长可组成的回文                                          |    |                                 |
+| [code](code_lib/myAtoi.cpp)                | atoi 字符串转整数                                                  |    |                                 |
+| [code](code_lib/strtok.cpp)                | strtok                                                             |    |                                 |
+| [code](code_lib/sortingByFreq.cpp)         | sort by frequncy 一串string，按频率输出，相同频率按string字母顺序 | 🔥 | priority_queue的compare函数重写 |
+| [code](code_lib/myAtoi.cpp)                | string to integer, integer to string                               |    |                                 |
+| [code](code_lib/theLengthOfTheLastStr.cpp) | the length of last word in a string                                |    |                                 |
 
 ### hash
 

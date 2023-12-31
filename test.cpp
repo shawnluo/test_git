@@ -196,21 +196,97 @@ void removeExtraSpaces(string& s) {
 //         s.resize(j);
 //     }
 
-    int lengthOfLastWord(string& s) {
-        removeExtraSpaces(s);
+int lengthOfLastWord(string& s) {
+    removeExtraSpaces(s);
 
-        int n = s.size();
-        int ret = 0;
-        for(int i = n - 1; i >= 0 && s[i] != ' '; i--) {
-            ret++;
+    int n = s.size();
+    int ret = 0;
+    for(int i = n - 1; i >= 0 && s[i] != ' '; i--) {
+        ret++;
+    }
+    return ret;
+}
+
+int lengthOfLastWord_x(string s) {
+    int n = s.size();
+    int i = n - 1;
+    int count = 0;
+    for(int i = n - 1; i >= 0; i--) {
+        if(s[i] != ' ') {
+            while(i >= 0 && s[i] != ' ') {
+                count++;
+                i--;
+            }
+            return count;
         }
-        return ret;
+    }
+    return 0;
+}
+
+class compare {
+public:
+    bool operator()(const pair<char, int>& lhs, const pair<char, int>& rhs) {
+        return lhs.second < rhs.second;
+    }
+};
+
+string test(string& s) {
+    unordered_map<char, int> uMap;
+    for(int i = 0; i < s.size(); i++) {
+        uMap[s[i]]++;
     }
 
+    priority_queue<pair<char, int>, vector<pair<char, int>>, compare> pq;
+    // priority_queue<pair<char, int>, vector<pair<char, int>>> pq;
+
+    for(auto it = uMap.begin(); it != uMap.end(); it++) {
+        pq.push(*it);
+    }
+
+    string res;
+    for(; pq.size() != 0; pq.pop()) {
+        // cout << pq.top().first << " : " << pq.top().second << endl;
+        for(int i = 0; i < pq.top().second; i++) {
+            // cout << pq.top().first;
+            res.push_back(pq.top().first);
+        }
+    }
+    // reverse(res.begin(), res.end());
+
+    return res;
+}
+
+void test2() {
+    string s = "bbaccca";
+    unordered_map<char, int> uMap;
+    int n = s.size();
+    for(auto it : s) {
+        uMap[it]++;
+    }
+    for(auto it : uMap) {
+        cout << it.first << " : " << it.second << endl;
+    }
+
+    priority_queue<pair<char, int>, vector<pair<char, int>>> pq;
+}
+
 int main(void) {
-    string s = " aaa";
-    lengthOfLastWord(s);
-    cout << "xxx" << s << "xxx" << endl;
+    string s1 = "aAbb";
+    string s2 = "tree";
+    string s3 = "aabbac";
+    test2();
+
+
+    // string res = test(s);
+    // cout << test(s1) << endl;
+    // cout << test(s2) << endl;
+    // cout << test(s3) << endl;
+    // string s = " aaa bbbx s   h  ";
+    // string s = "aaa xx";
+    // int res = lengthOfLastWord_x(s);
+    // cout << res << endl;
+
+    // cout << "xxx" << res << "xxx" << endl;
 
     // vector<int> nums = {3, 0, 6, 1, 5}; // 0 1 3 5 6
     // int res = hIndex(nums);
