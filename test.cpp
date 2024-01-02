@@ -256,6 +256,13 @@ string test(string& s) {
     return res;
 }
 
+class compare_xx {
+public:
+    bool operator() (const pair<char, int>& lhs, const pair<char, int>& rhs) {
+        return lhs.second < rhs.second;
+    }
+};
+
 void test2() {
     string s = "bbaccca";
     unordered_map<char, int> uMap;
@@ -267,15 +274,69 @@ void test2() {
         cout << it.first << " : " << it.second << endl;
     }
 
-    priority_queue<pair<char, int>, vector<pair<char, int>>> pq;
+    priority_queue<pair<char, int>, vector<pair<char, int>>, compare> pq;
+    for(auto it = uMap.begin(); it != uMap.end(); it++) {
+        pq.push(*it);
+    }
+    string ret;
+    for(; pq.size() != 0; pq.pop()) {
+        for(auto it = 0; it < pq.top().second; it++) {
+            ret.push_back(pq.top().first);
+        }
+    }
+    cout << ret << endl;
 }
 
-int main(void) {
-    string s1 = "aAbb";
-    string s2 = "tree";
-    string s3 = "aabbac";
-    test2();
+void test3() {
+    list<int> myList = {1, 2, 3};
+    myList.push_front(5);
 
+    for(auto it : myList) {
+        cout << it << endl;
+    }
+}
+
+void test4() {
+    vector<int> v = {1, 2, 3};
+    cout << v.size() << endl;
+}
+
+void test5() {
+    string s = "MCMXCIV";
+    set<pair<char, int>> v;
+    v.insert(pair{'I', 1});
+    v.insert(pair{'V', 5});
+    v.insert(pair{'X', 10});
+    v.insert(pair{'L', 50});
+    v.insert(pair{'C', 100});
+    v.insert(pair{'D', 500});
+    v.insert(pair{'M', 1000});
+
+    int n = s.size();
+
+    // "MCMXCIV" 1000 + 900 + 90 + 4
+    int res = 0;
+    for(int i = 0; i < n; i++) {
+        if(s[i + 1] > s[i]) {
+            cout << v[s[i]].second << endl;
+            res -= v[s[i]].second;
+        } else {
+            res += v[s[i]].second;
+        }
+    }
+    cout << res << endl;
+}
+
+
+int main(void) {
+    test5();
+
+    // string s1 = "aAbb";
+    // string s2 = "tree";
+    // string s3 = "aabbac";
+    // test2();
+
+    // test3();
 
     // string res = test(s);
     // cout << test(s1) << endl;

@@ -35,20 +35,23 @@
 
 #### system design
 
-|                                         |                                                                                                                                                         |  |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | - |
-| [code](code_lib/systemDesign1.cpp)         | c++写一个类，实现startCaller和stopCaller两个API，<br />startCaller(), 要求输入待执行函数的函数名和执行频率<br />stopCaller(), 停止指定函数的循环执行。 |  |
-| [code](code_lib/multipleThreading_c.c)     | multiple threading - c                                                                                                                                  |  |
-| [code](code_lib/multipleThreading_cpp.cpp) | multiple threading - c++                                                                                                                                |  |
+|                                         |                                                                                                                                                         |    |      |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -- | ---- |
+| [code](code_lib/systemDesign1.cpp)         | c++写一个类，实现startCaller和stopCaller两个API，<br />startCaller(), 要求输入待执行函数的函数名和执行频率<br />stopCaller(), 停止指定函数的循环执行。 |    |      |
+| [code](code_lib/multipleThreading_c.c)     | multiple threading - c                                                                                                                                  |    |      |
+| [code](code_lib/multipleThreading_cpp.cpp) | multiple threading - c++                                                                                                                                |    |      |
+|                                         | c++实现一个接口类，实现不同总线调用。spi/uart                                                                                                           | 🔥 | TODO |
+| [code](code_lib/insertDeleteGetRandom.cpp) | [380. Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/)                                                             |    |      |
 
 ### c++
 
 |                                   |                                   |           |      |
 | --------------------------------- | --------------------------------- | --------- | ---- |
 |                                   | code                              | important | TODO |
+| [code](code_lib/vectorVSlist.cpp)    | vector vs list                    |           |      |
 | [code](cpp/demo_vector.cpp)          | vector                            |           |      |
 | [code](code_lib/lambda.cpp)          | lambda                            |           |      |
-| [code](code_lib/unordered_map.cpp)   | unordered_map                     |           |      |
+| [code](code_lib/map_demo.cpp)        | map                               |           |      |
 | [code](code_lib/set.cpp)             | set/unordered_set                 |           |      |
 | [code](code_lib/cpp_cast.cpp)        | static_cast/dynamic_cast          |           |      |
 | [code](code_lib/deque.cpp)           | std::deque                        |           |      |
@@ -95,41 +98,41 @@
 
 ### array
 
-|                                                    |                                               |  |      |
-| -------------------------------------------------- | --------------------------------------------- | - | ---- |
-|                                                    | string combination                            |  |      |
-| [code](code_lib/chapter_2/findMedianSortedArrays.cpp) | findMedianSortedArrays.cpp                    |  |      |
-| [code](code_lib/chapter_2_array/strstr.cpp)           | strstr - kmp                                  |  |      |
-| [code](code_lib/meetingRoom.cpp)                      | meeting room                                  |  |      |
-| [code](code_lib/meetingRoom2.cpp)                     | meeting room 2                                |  |      |
-| [code](code_lib/spiral_mat.cpp)                       | spiral mat                                    |  |      |
-| [code](code_lib/rotateMat.cpp)                        | rotate mat                                    |  |      |
-| [code](code_lib/findIsland.cpp)                       | find island                                   |  |      |
-| [code](code_lib/isRectangle.cpp)                      | is rectangle                                  |  | todo |
-| [code](code_lib/deleteDuplicated.cpp)                 | delete duplicated elements in an array        |  |      |
-| [code](code_lib/jumpGame.cpp)                         | jump game                                     |  |      |
-| [code](code_lib/blurPixels.cpp)                       | blur pixels                                   |  |      |
-| [code](code_lib/removeRepeatArray.cpp)                | len of sorted element, remove repeat elements |  |      |
-| [code](code_lib/minSubArrLen.cpp)                     | min sub array Len 长度最小的子数组            |  |      |
-| [code](code_lib/myPow.cpp)                            | implement pow                                 |  |      |
-| [code](code_lib/removeDuplicatedElements.cpp)         | remove the duplicated elements in an array    |  |      |
+|                                                    |                                                                                                                                        |  |      |
+| -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | - | ---- |
+|                                                    | string combination                                                                                                                     |  |      |
+| [code](code_lib/chapter_2/findMedianSortedArrays.cpp) | findMedianSortedArrays.cpp                                                                                                             |  |      |
+| [code](code_lib/chapter_2_array/strstr.cpp)           | strstr - kmp                                                                                                                           |  |      |
+| [code](code_lib/meetingRoom.cpp)                      | meeting room                                                                                                                           |  |      |
+| [code](code_lib/meetingRoom2.cpp)                     | meeting room 2                                                                                                                         |  |      |
+| [code](code_lib/spiral_mat.cpp)                       | spiral mat                                                                                                                             |  |      |
+| [code](code_lib/rotateMat.cpp)                        | rotate mat                                                                                                                             |  |      |
+| [code](code_lib/findIsland.cpp)                       | find island                                                                                                                            |  |      |
+| [code](code_lib/isRectangle.cpp)                      | is rectangle                                                                                                                           |  | todo |
+| [code](code_lib/deleteDuplicated.cpp)                 | delete duplicated elements in an array                                                                                                 |  |      |
+| [code](code_lib/jumpGame.cpp)                         | jump game                                                                                                                              |  |      |
+| [code](code_lib/blurPixels.cpp)                       | blur pixels                                                                                                                            |  |      |
+| [code](code_lib/removeRepeatArray.cpp)                | len of sorted element, remove repeat elements                                                                                          |  |      |
+| [code](code_lib/minSubArrLen.cpp)                     | min sub array Len 长度最小的子数组                                                                                                     |  |      |
+| [code](code_lib/myPow.cpp)                            | implement pow                                                                                                                          |  |      |
+| [code](code_lib/removeDuplicatedElements.cpp)         | remove the duplicated elements in an array                                                                                             |  |      |
+| [code](code_lib/findMatrix.cpp)                       | [2610. Convert an Array Into a 2D Array With Conditions](https://leetcode.com/problems/convert-an-array-into-a-2d-array-with-conditions/) |  |      |
 
 ### string
 
-|                                         |                                                                    |    |                                 |
-| --------------------------------------- | ------------------------------------------------------------------ | -- | ------------------------------- |
-| [code](code_lib/reverseWords.cpp)          | reverse words                                                      |    |                                 |
-|                                         | palindrome                                                         |    |                                 |
-| [code](code_lib/Longest_Palindrome.cpp)    | longest palindrome                                                 |    |                                 |
-| [code](code_lib/removeSpaces.cpp)          | remove extra spaces                                                |    |                                 |
-|                                         | reverse words in a sentence                                        |    |                                 |
-| [code](code_lib/longestUniqSubstr.cpp)     | longest uniq sbustring                                             |    |                                 |
-| [code](code_lib/Longest_Palindrome.cpp)    | leet 409 最长可组成的回文                                          |    |                                 |
-| [code](code_lib/myAtoi.cpp)                | atoi 字符串转整数                                                  |    |                                 |
-| [code](code_lib/strtok.cpp)                | strtok                                                             |    |                                 |
-| [code](code_lib/sortingByFreq.cpp)         | sort by frequncy 一串string，按频率输出，相同频率按string字母顺序 | 🔥 | priority_queue的compare函数重写 |
-| [code](code_lib/myAtoi.cpp)                | string to integer, integer to string                               |    |                                 |
-| [code](code_lib/theLengthOfTheLastStr.cpp) | the length of last word in a string                                |    |                                 |
+|                                      |                                                                    |  |  |
+| ------------------------------------ | ------------------------------------------------------------------ | - | - |
+| [code](code_lib/reverseWords.cpp)       | reverse words                                                      |  |  |
+|                                      | palindrome                                                         |  |  |
+| [code](code_lib/Longest_Palindrome.cpp) | longest palindrome                                                 |  |  |
+| [code](code_lib/removeSpaces.cpp)       | remove extra spaces                                                |  |  |
+|                                      | reverse words in a sentence                                        |  |  |
+| [code](code_lib/longestUniqSubstr.cpp)  | longest uniq sbustring                                             |  |  |
+| [code](code_lib/Longest_Palindrome.cpp) | leet 409 最长可组成的回文                                          |  |  |
+| [code](code_lib/myAtoi.cpp)             | atoi 字符串转整数                                                  |  |  |
+| [code](code_lib/strtok.cpp)             | strtok                                                             |  |  |
+| [code](code_lib/sortingByFreq.cpp)      | sort by frequncy 一串string，按频率输出，相同频率按string字母顺序 |  |  |
+| [code](code_lib/myAtoi.cpp)             | string to int                                                      |  |  |
 
 ### hash
 

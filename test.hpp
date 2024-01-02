@@ -18,6 +18,7 @@
 #include "common.h"
 #include <numeric>
 #include <semaphore.h>
+#include <list>
 
 using std::cout;
 using std::endl;

@@ -486,7 +486,7 @@ void romanToInt() {
     };
     int res = 0;
     for (int i = 0; s[i]; i++) {
-        if (t[s[i]] < t[s[i+1]])
+        if (i + 1 < n && t[s[i]] < t[s[i+1]])
             res -= t[s[i]];
         else
             res += t[s[i]];
