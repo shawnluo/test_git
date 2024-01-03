@@ -61,6 +61,9 @@ for(int i = 1; i * i <= n; i++) {
 
 dp[i] = max(dp[i - 2] + nums[i], dp[i - 1]);
 
+dp[i][0] = max(-price[i], dp[i - 1][0]); //是一个负值
+dp[i][1] = max(dp[i][0] + price[i], dp[i - 1][1]);
+
 int main(void) {
 
     return 0;
