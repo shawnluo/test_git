@@ -15,32 +15,53 @@ using namespace std;
     10 producers, 1 consumer
 */
 
+int dp_19(vector<int> coins, int sum) {
+    vector<int> dp(sum + 1, 0);
 
-/*信号量实现 多生产者 多消费者问题*/
-
-
-
-int dp_11(vector<int> weight, vector<int> value, int BAG) {
-    vector<vector<int>> dp(weight.size(), vector<int>(BAG, 0));
-    // dp[i][j]: 取物品[0, i], 背包容量为j，最大价值
-    for(int j = weight[0]; j <= BAG; j++) {
-        dp[0][BAG] = value[0];
-    }
-
-    for(int i = 0; i < weight.size(); i++) {
-        for(int j = 0; j <= BAG; j++) {
-            if(j < weight[i]) {
-                dp[i][j] = dp[i - 1][j];
-            } else {
-                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
-            }
+    for(int i = 0; i < coins.size(); i++) {
+        for(int j = 0; j <= sum; j++) {
+            if(j >= coins[i])
+                dp[j] += dp[j - coins[i]];
         }
     }
+}
 
+for(int i = 0; i <= BAG; i++) {
+    for(int j = 0; j < n; j++) {
+        dp[i] += dp[i - nums[i]];
+    }
+}
+
+dp[0] = 1;
+for(int i = 0; i <= n; i++) {
+    for(int j = 0; j <= m; j++) {
+        dp[i] += dp[i - j];
+    }
 }
 
 
-int main() {
+// vector<int> coins;
+// int BAG;
+// minimal coins
+
+vector<int> dp(BAG + 1, INT_MAX);
+// dp[i] choose from [0, i], the minimal amount of coins.
+dp[0] = 0;
+for(int i = 0; i < n; i++) {
+    for(int j = 0; j <= BAG; j++) {
+        dp[j] = min(dp[j], dp[i - coins[i]] + 1);
+    }
+}
+
+for(int i = 1; i * i <= n; i++) {
+    for(int j = i * i; j <= n; j++) {
+        dp[j] = min(dp[j], dp[j - i * i] + 1);
+    }
+}
+
+dp[i] = max(dp[i - 2] + nums[i], dp[i - 1]);
+
+int main(void) {
 
     return 0;
 }

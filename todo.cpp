@@ -1,6 +1,7 @@
 #include "common.h"
 #include "test.h"
 
+信号量实现 多生产者 多消费者问题
 qsort 自定义
 1       // 1 calculator
 9       // 2. read4
