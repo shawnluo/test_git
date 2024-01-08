@@ -1,11 +1,14 @@
 
-flags?= -g -Wall -lm -lpthread
+flags?= -g -Wall -lm -lpthread -pedantic
 
 tmp: tmp.cpp
 	@g++ tmp.cpp -o test ${flags}
 
 tmp1: tmp1.cpp
 	@g++ tmp1.cpp -o test ${flags}
+
+tmp2: tmp2.cpp
+	@g++ tmp2.cpp -o test ${flags}
 
 test: test.cpp
 	@g++ test.cpp -o test ${flags}

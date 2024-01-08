@@ -1,160 +1,373 @@
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
-#include<pthread.h>
-#include<unistd.h>
-#include<signal.h>
 
-/*DATE:            2015-3-31
- *AUTHOR:        WJ
- *DECRIPTION:    正确到处理信号
+#define ROWS 8
+#define COLS 8
 
- *    int pthread_kill(pthread_t thread, int sig);
- *        向线程thread发送sig信号，成功返回0，失败返回错误码
- *
- *    int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
- *        为信号signum设置处理函数，处理函数在sigaction中指定
- *        act.sa_mask 信号屏蔽字
- *        act.sa_handler 信号集处理程序
- *
- * int pthread_sigmask(int how, const sigset_t *set, sigset_t *oldset);
- *        多线程信号屏蔽函数
- *        how = SIG_BLOCK：向当前的信号掩码中添加set，其中set表示要阻塞的信号组。
- *        SIG_UNBLOCK：向当前的信号掩码中删除set，其中set表示要取消阻塞的信号组。
- * SIG_SETMASK：将当前的信号掩码替换为set，其中set表示新的信号掩码。
- * 在多线程中，新线程的当前信号掩码会继承创造它的线程的信号掩码
- */
+enum { MODE_0, MODE_1, MODE_2, MODE_3 };
 
-void sig_handler1(int arg) {
-    printf("thread1 get signal\n");
-    return;
-}
-void sig_handler2(int arg) {
-    printf("thread2 get signal\n");
-    return;
-}
+static int flag             = 0;
 
-void* thread_fun1(void* arg) {
-    printf("new thread 1\n");
+int pattern_0[ROWS][COLS] = {
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+};
 
-    struct sigaction act;
-    memset(&act, 0, sizeof(act));
-    sigaddset(&act.sa_mask, SIGQUIT);
-    act.sa_handler = sig_handler1;
-    sigaction(SIGQUIT, &act, NULL);
+int pattern_1_0[ROWS][COLS] = {
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 1, 0, 0, 0 },
+    { 0, 0, 0, 0, 1, 0, 0, 0 },
+    { 0, 0, 0, 0, 1, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+};
 
-    // pthread_sigmask(SIG_BLOCK, &act.sa_mask, NULL);
-    sleep(2);
-}
+int pattern_1_1[ROWS][COLS] = {
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 1, 1, 1, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+};
 
+int pattern_2_0[ROWS][COLS] = {
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 1, 1, 1, 0, 0 },
+    { 0, 0, 1, 1, 1, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+};
 
-void* thread_fun2(void* arg) {
-    printf("new thread 2\n");
+int pattern_2_1[ROWS][COLS] = {
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 1, 0, 0, 0 },
+    { 0, 0, 1, 0, 0, 1, 0, 0 },
+    { 0, 0, 1, 0, 0, 1, 0, 0 },
+    { 0, 0, 0, 1, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+};
 
-    struct sigaction act;
-    memset(&act, 0, sizeof(act));
-    sigaddset(&act.sa_mask, SIGQUIT);
-    act.sa_handler = sig_handler2;
-    sigaction(SIGQUIT, &act, NULL);
+int pattern_3_0[ROWS][COLS] = {
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 1, 1, 0 },
+    { 0, 0, 0, 0, 0, 1, 1, 0 },
+    { 0, 0, 0, 1, 1, 0, 0, 0 },
+    { 0, 0, 0, 1, 1, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+};
 
-    // pthread_sigmask(SIG_BLOCK, &act.sa_mask, NULL);
-    sleep(2);
-}
+int pattern_3_1[ROWS][COLS] = {
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 1, 1, 0 },
+    { 0, 0, 0, 0, 0, 0, 1, 0 },
+    { 0, 0, 0, 1, 0, 0, 0, 0 },
+    { 0, 0, 0, 1, 1, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+};
 
-#define TTY_PATH            "/dev/tty"
-#define STTY_US             "stty raw -echo -F "
-#define STTY_DEF            "stty -raw echo -F "
-  
-int get_char();
-  
-int get_char()
-{
-    fd_set rfds;
-    struct timeval tv;
-    int ch = 0;
-  
-    FD_ZERO(&rfds);
-    FD_SET(0, &rfds);
-    tv.tv_sec = 0;
-    tv.tv_usec = 10; //设置等待超时时间
-  
-    //检测键盘是否有输入
-    if (select(1, &rfds, NULL, NULL, &tv) > 0){
-        ch = getchar();
-    }
-    return ch;
-}
-
-void listeningKey() {
-    char ch = 0;
-    while(1) {
-        ch = get_char();
-        if(ch != 0) {
-            printf("%d\n", ch);
+void pattern_base(int grid[ROWS][COLS], int start, int end) {
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            if (flag == 0) {
+                if (i >= start && i <= end) grid[i][4] = 1;
+                flag = 1;
+            } else {
+                if (j >= 3 && j <= 5) grid[4][j] = 1;
+                flag = 0;
+            }
         }
-        if(ch == 3) {
-            system(STTY_DEF TTY_PATH);
-            return 0;
+    }
+}
+
+void initializeGrid_random(int grid[ROWS][COLS]) {
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            grid[i][j] = rand() % 2;
         }
     }
 }
 
-void listeningKey2(char* s) {
-    // char c;
-    // char s[100];
-    int i = 0, c;
-    printf("input: ");
-    // while((c = getchar()) != '\n' && c != EOF) {
-    for(; (c = getchar()) != '\n' && c != EOF; ) {
-        // printf("%c", c);
-        s[i++] = c;
-    }
-    // printf("\n");
-    s[i] = '\0';
-    // printf("%s\n", s);
+void gen_pattern_0(int grid[ROWS][COLS]) {
+    // for (int i = 0; i < ROWS; i++) {
+    //     for (int j = 0; j < COLS; j++) {
+    //         pattern_0[i][j] = rand() % 2;
+    //     }
+    // }
 
-    // return s;
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            int neighbors = 0;
+
+            // Count live neighbors
+            for (int x = -1; x <= 1; x++) {
+                for (int y = -1; y <= 1; y++) {
+                    if (i + x >= 0 && i + x < ROWS && j + y >= 0 && j + y < COLS) {
+                        neighbors += grid[i + x][j + y];
+                    }
+                }
+            }
+
+            // Exclude the current cell
+            neighbors -= grid[i][j];
+
+            // Apply rules
+            if ((grid[i][j] == 1) && (neighbors < 2 || neighbors > 3)) {
+                pattern_0[i][j] = 0; // Cell dies
+            } else if ((grid[i][j] == 0) && (neighbors == 3)) {
+                pattern_0[i][j] = 1; // Cell becomes alive
+            } else {
+                pattern_0[i][j] = grid[i][j]; // Cell remains unchanged
+            }
+            // printf("%d ", grid[i][j]);
+        }
+    }
 }
 
-int main() {
-    pthread_t tid1, tid2;
-    int err;
-    int s;
-
-    err = pthread_create(&tid1, NULL, thread_fun1, NULL);
-    if (err != 0) {
-        printf("create new thread 1 failed\n");
-        return;
+void pattern_1(int grid[ROWS][COLS]) {
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            if (flag == 0) {
+                if (i >= 3 && i <= 5) grid[i][4] = 1;
+                flag = 1;
+            } else {
+                if (j >= 3 && j <= 5) grid[4][j] = 1;
+                flag = 0;
+            }
+        }
     }
-    err = pthread_create(&tid2, NULL, thread_fun2, NULL);
-    if (err != 0) {
-        printf("create new thread 2 failed\n");
-        return;
+}
+
+void pattern_2(int grid[ROWS][COLS]) {
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            if (flag == 0) {
+                if (j >= 3 && j <= 5) grid[3][j] = 1;
+                if (j >= 2 && j <= 4) grid[4][j] = 1;
+            } else {
+                if (i == 2) grid[i][4] = 1;
+                if (i == 3) {
+                    grid[i][2] = 1;
+                    grid[i][5] = 1;
+                }
+            }
+        }
     }
 
-    // listeningKey();
-    while(1){        
-        char* s = (char*)malloc(100);
-        listeningKey2(s);
-        printf("%s\n", s);
+    flag = ~flag;
+}
+
+void pattern_3() {}
+
+
+// initlize grid, set to all 0
+void initializeGrid(int grid[ROWS][COLS]) {
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            grid[i][j] = 0;
+        }
+    }
+}
+
+// print grid
+void printGrid(int grid[ROWS][COLS]) {
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            if (grid[i][j] == 1) {
+                printf("* ");
+            } else {
+                printf(". ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+// void setGrid(int grid[ROWS][COLS], int mode) {
+//     if (mode == MODE_0) { // random
+//         for (int i = 0; i < ROWS; i++) {
+//             for (int j = 0; j < COLS; j++) {
+//                 grid[i][j] = rand() % 2;
+//             }
+//         }
+//     } else if (mode == MODE_1) {
+//         for (int i = 0; i < ROWS; i++) {
+//             for (int j = 0; j < COLS; j++) {
+//                 if (flag == 0) {
+//                     if (i >= 3 && i <= 5) grid[i][4] = 1;
+//                     flag = 1;
+//                 } else {
+//                     if (j >= 3 && j <= 5) grid[4][j] = 1;
+//                     flag = 0;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+void copyArray(int rows, int cols, int (*source)[cols], int (*destination)[cols]) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            destination[i][j] = source[i][j];
+        }
+    }
+}
+
+// update grid
+void updateGrid(int grid[ROWS][COLS], int mode) {
+    // int newGrid[ROWS][COLS];
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            // grid[i][j] = 0;
+        }
+    }
+
+#if 0
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            int neighbors = 0;
+
+            // 计算邻居的数量
+            for (int ni = i - 1; ni <= i + 1; ni++) {
+                for (int nj = j - 1; nj <= j + 1; nj++) {
+                    if (ni >= 0 && ni < ROWS && nj >= 0 && nj < COLS && !(ni == i && nj == j)) {
+                        neighbors += grid[ni][nj];
+                    }
+                }
+            }
+
+            // 根据规则更新状态
+            if (grid[i][j] == 1) {
+                newGrid[i][j] = (neighbors == 2 || neighbors == 3) ? 1 : 0;
+            } else {
+                newGrid[i][j] = (neighbors == 3) ? 1 : 0;
+            }
+        }
+    }
+
+#else
+    static int flag = 0;
+    // for (int i = 0; i < ROWS; i++) {
+    //     for (int j = 0; j < COLS; j++) {
+    //         if (mode == MODE_0) {
+    //             grid[i][j] = rand() % 2;
+    //         } else if (mode == MODE_1) {
+    //             if (flag == 0) {
+    //                 // setGrid(newGrid, MODE_0);
+    //                 if (i >= 3 && i <= 5) grid[i][4] = 1;
+    //             } else {
+    //                 if (j >= 3 && j <= 5) grid[4][j] = 1;
+    //             }
+    //         } else if (mode == MODE_2) {
+    //             if (flag == 0) {
+    //                 if (i >= 3 && i <= 4) {
+    //                     grid[][]
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+    if(mode == MODE_0) {
+        // printf("xxxxxx\n");
+        gen_pattern_0(pattern_0);
+        copyArray(8, 8, pattern_0, grid);
+    } else if(mode == MODE_1) { 
+        if(flag == 0) {
+            copyArray(8, 8, pattern_1_0, grid);
+        } else {
+            copyArray(8, 8, pattern_1_1, grid);
+        }
+    } else if(mode == MODE_2) {
+        if(flag == 0) {
+            copyArray(8, 8, pattern_2_0, grid);
+        } else {
+            copyArray(8, 8, pattern_2_1, grid);
+        }
+    } else if(mode == MODE_3) {
+        if(flag == 0) {
+            copyArray(8, 8, pattern_3_0, grid);
+        } else {
+            copyArray(8, 8, pattern_3_1, grid);
+        }
+    }
+
+    flag = ~flag;
+    // printf("%d ", flag);;
+
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            // printf("%d ", grid[i][j]);;
+        }
+        // printf("\n");
+    }
+
+#endif
+    // copy
+    // for (int i = 0; i < ROWS; i++) {
+    //     for (int j = 0; j < COLS; j++) {
+    //         // printf("%d ", grid[i][j]);
+    //         // grid[i][j] = newGrid[i][j];
+    //     }
+    //     // printf("\n");
+    //     // printf("mode = %d\n", mode);
+    // }
+}
+
+int main(int argc, char** argv) {
+    int grid[ROWS][COLS];
+
+    int mode = MODE_0;
+    printf("argc = %d\n", argc);
+
+    // initlize grid
+    initializeGrid(grid);
+
+    if(argc == 1) {
+        mode = MODE_0;
+        initializeGrid_random(grid);
+        printf("RANDOM\n");
+    } else if(strcmp(argv[1], "bLiNkEr") == 0) {
+        mode = MODE_1;
+        printf("bLiNkEr\n");
+    } else if(strcmp(argv[1], "toad") == 0) {
+        mode = MODE_2;
+        printf("toad\n");
+    } else if(strcmp(argv[1], "BEACON") == 0) {
+        mode = MODE_3;
+        printf("BEACON\n");
+    }
+
+
+    // loop
+    while (1) {
+        sleep(1);
+        system("clear"); // clear the screen，Windows uses "cls"
+        printGrid(grid);
+        updateGrid(grid, mode);
+        usleep(100000); // sleep 1 second
+        // sleep(1);
     }
 
     return 0;
-
-    // sleep(1);
-
-    // s = pthread_kill(tid1, SIGQUIT);
-    // if (s != 0) {
-    //     printf("send signal to thread1 failed\n");
-    // }
-    // s = pthread_kill(tid2, SIGQUIT);
-    // if (s != 0) {
-    //     printf("send signal to thread2 failed\n");
-    // }
-
-    // pthread_join(tid1, NULL);
-    // pthread_join(tid2, NULL);
-
-    // return 0;
 }

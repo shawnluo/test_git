@@ -15,8 +15,8 @@ public:
                 if (j >= i) dp[j] = max(dp[j], dp[j - i] + i);
             }
         }
-        cout << dp[n] << endl;
-        return dp[n] == n ? true : false; 
+        // cout << dp[n] << endl;
+        return dp[n] == n ? true : false;
     }
 
     int MinOfOperations(int n) {
@@ -41,8 +41,8 @@ public:
 
         for (int i = 0; i < n; i++) {
             // cout << i << endl;
-                uMap[i]++;
-                // cout << uMap[i] << endl;                
+            uMap[nums[i]]++;
+            // cout << uMap[nums[i]] << endl;
         }
 
         for (auto it = uMap.begin(); it != uMap.end(); it++) {
@@ -50,9 +50,9 @@ public:
                 return -1;
             }
         }
-        cout << 1111 << endl;
+        // cout << 1111 << endl;
         for (auto it = uMap.begin(); it != uMap.end(); it++) {
-            cout << it->first << endl;
+            // cout << it->first << endl;
             count += MinOfOperations(it->second);
         }
 
