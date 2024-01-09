@@ -48,6 +48,7 @@
 |                                   |                                   |           |      |
 | --------------------------------- | --------------------------------- | --------- | ---- |
 |                                   | code                              | important | TODO |
+| [code](code_lib/cpp_class.cpp)       | cpp_class                         |           |      |
 | [code](code_lib/vectorVSlist.cpp)    | vector vs list                    |           |      |
 | [code](cpp/demo_vector.cpp)          | vector                            |           |      |
 | [code](code_lib/lambda.cpp)          | lambda                            |           |      |
@@ -67,21 +68,22 @@
 
 ### dp
 
-|                                                        |                                                               |  |      |
-| ------------------------------------------------------ | ------------------------------------------------------------- | - | ---- |
-| code                                                   | 0-1 knapsack                                                  |  |      |
-|                                                        | complete knapsack                                             |  |      |
-| [code](code_lib/longest_Increasing_nums.cpp)              | longest_increasing_nums 非连续                                |  |      |
-| [code](code_lib/longest_consectively_Increasing_nums.cpp) | longest_Increasing_nums consectively 连续                     |  |      |
-| [code](code_lib/dp53.cpp)                                 | 最长回文子序列 dp53                                           |  |      |
-| [code](code_lib/longestPalindromeSubstring.cpp)           | 最长回文子串                                                  |  |      |
-| [code](code_lib/dp52.cpp)                                 | 多少个子串 dp52                                               |  |      |
-| [code](code_lib/dp50.cpp)                                 | 将string s换成string t，所需要的最少操作数 dp50               |  |      |
-| [code](code_lib/dp49.cpp)                                 | dp49 两个字符串的删除操作：找到使得s和t相同，所需要的最少步数 |  |      |
-| [code](code_lib/dp48.cpp)                                 | dp48 求在s的子序列中，t出现的次数                             |  | todo |
-|                                                        | dp48.1 求在s的连续子序列中，t出现的次数 - KMP                 |  | todo |
-| [code](code_lib/dp47.cpp)                                 | dp47 判断子序列                                               |  |      |
-| [code](code_lib/findNumberOfLIS.cpp)                      | leetcode 673 find Number Of LIS 最长递增子序列的个数         |  |      |
+|                                                        |                                                                     |  |      |
+| ------------------------------------------------------ | ------------------------------------------------------------------- | - | ---- |
+| code                                                   | 0-1 knapsack                                                        |  |      |
+|                                                        | complete knapsack                                                   |  |      |
+| [code](code_lib/longest_Increasing_nums.cpp)              | longest_increasing_nums 非连续                                      |  |      |
+| [code](code_lib/longest_consectively_Increasing_nums.cpp) | longest_Increasing_nums consectively 连续                           |  |      |
+| [code](code_lib/dp53.cpp)                                 | 最长回文子序列 dp53                                                 |  |      |
+| [code](code_lib/longestPalindromeSubstring.cpp)           | 最长回文子串                                                        |  |      |
+| [code](code_lib/dp52.cpp)                                 | 多少个子串 dp52                                                     |  |      |
+| [code](code_lib/dp50.cpp)                                 | 将string s换成string t，所需要的最少操作数 dp50                     |  |      |
+| [code](code_lib/dp49.cpp)                                 | dp49 两个字符串的删除操作：找到使得s和t相同，所需要的最少步数       |  |      |
+| [code](code_lib/dp48.cpp)                                 | dp48 求在s的子序列中，t出现的次数                                   |  | todo |
+|                                                        | dp48.1 求在s的连续子序列中，t出现的次数 - KMP                       |  | todo |
+| [code](code_lib/dp47.cpp)                                 | dp47 判断子序列                                                     |  |      |
+| [code](code_lib/findNumberOfLIS.cpp)                      | leetcode 673 find Number Of LIS 最长递增子序列的个数               |  |      |
+| [code](code_lib/delete_n_earn.cpp)                        | [740. Delete and Earn](https://leetcode.com/problems/delete-and-earn/) |  |      |
 
 ### linked list
 
