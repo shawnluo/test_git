@@ -37,10 +37,9 @@ pNode insert(pNode root, int val) {
 
 void dfs(node* root) {
     if(root == nullptr) return;
-
     // cout << root->data << endl;
     dfs(root->left);
-    cout << root->data << " ";
+    cout << root->data << endl;     // 中序 - 从小到大排列输出
     dfs(root->right);
 
     // cout << root->data << endl;
@@ -84,12 +83,10 @@ void bfs(pNode root) {
 }
 
 
+// 找到二叉树中两个值之和等于val的元素
 set<int> mySet;
-// 找到2个值之和等于val
 bool find(pNode root, int val) {
-    if(root == nullptr) {
-        return false;
-    }
+    if(root == nullptr) return false;
 
     if(mySet.find(val - root->data) != mySet.end()) {
         return true;
@@ -101,6 +98,7 @@ bool find(pNode root, int val) {
 
     return foundLeft || foundRight;
 }
+
 
 int main(void) {
     Node* root = nullptr;
@@ -115,12 +113,9 @@ int main(void) {
 
     dfs(root);
 
-    // int res_height = height(root);
-    // cout << "height: " << res_height << endl;
-    // bfs(root);
-
-    // int res = find(root, 6);
-    // cout << res << endl;
+    int res_height = height(root);
+    cout << "height: " << res_height << endl;
+    bfs(root);
 
 /* 
             5

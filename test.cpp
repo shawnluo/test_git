@@ -18,12 +18,15 @@ using namespace std;
     9. rangeBitwiseAnd
  */
 
-int partition(vector<int> nums, int start, int end) {
+int partition(vector<int>& nums, int start, int end) {
     int pivot = nums[end];
-    int j = start - 1;
+    int j = start - 1;  // point to the last number which smaller than pivot
     for(int i = start; i < end; i++) {
         if(nums[i] < pivot) {
-            swap(nums[++j], nums[i]);
+            // j++;
+            if(nums[++j] < pivot) {
+                swap(nums[j], nums[i]);
+            }
         }
     }
     swap(nums[++j], nums[end]);
@@ -39,32 +42,55 @@ void quickSort(vector<int>& nums, int start, int end) {
     quickSort(nums, pivot + 1, end);
 }
 
-pthread_mutex_t mutex;
-sem_t full;
-sem_t empty;
-
-void* producer(void* arg) {
-    int item = 0;
-    while(1) {
-        pthread_testcancel();
-        sem_wait(&empty);
-        pthread_mutex_lock(&mutex);
-
-        pthread_mutex_unlock(&mutex);
-        sem_post(&full);
-        sleep(1);
-    }
-}
 
 int main(void) {
-    pthread_t pth[3];
-    for(long i = 0; i < 3; i++) {
-        pthread_create(&pth[i], nullptr, producer, (void*)i);
+    vector<int> v{12, 7, 111, 15};
+    
+    sort(v.begin() + 1, v.end());
+    for(auto it : v) {
+        cout << it << endl;
     }
-
-    for(long i = 0; i < 3; i++) {
-        pthread_join(pth[i], nullptr);
-    }
-
     return 0;
 }
+
+// pthread_mutex_t mutex;
+// sem_t full;
+// sem_t empty;
+
+// void* producer(void* arg) {
+//     int item = 0;
+//     while(1) {
+//         pthread_testcancel();
+//         sem_wait(&empty);
+//         pthread_mutex_lock(&mutex);
+
+//         pthread_mutex_unlock(&mutex);
+//         sem_post(&full);
+//         sleep(1);
+//     }
+// }
+
+
+// vector<int> twoSum(vector<int>& nums, int target) {
+
+// }
+
+// int main(int argc, char* argv[]) {
+//     vector<int> nums{2, 7, 11, 15};
+//   twoSum(nums, 9);
+
+//     return 0;
+// }
+
+// int main(void) {
+//     pthread_t pth[3];
+//     for(long i = 0; i < 3; i++) {
+//         pthread_create(&pth[i], nullptr, producer, (void*)i);
+//     }
+
+//     for(long i = 0; i < 3; i++) {
+//         pthread_join(pth[i], nullptr);
+//     }
+
+//     return 0;
+// }
