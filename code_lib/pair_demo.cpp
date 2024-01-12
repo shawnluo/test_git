@@ -1,22 +1,7 @@
-
-#include "test.hpp"
-
-#include <iostream>
-#include <queue>
-#include <stdio.h>
-using namespace std;
-
-
-#include <iostream>
-#include <string>
-
-#include <iostream>
-#include <unordered_map>
-#include <vector>
-
-using namespace std;
-
+#include "../test.hpp"
+    
 void test() {
+    // 1. set pair
     set<pair<int, int>> sPair = {{-1, 0}};
     sPair.insert({0, 1});
     sPair.insert({0, 1});   // 自动去重

@@ -51,6 +51,7 @@
 | [code](code_lib/cpp_class.cpp)       | cpp_class                         |           |      |
 | [code](code_lib/vectorVSlist.cpp)    | vector vs list                    |           |      |
 | [code](cpp/demo_vector.cpp)          | vector                            |           |      |
+| [code](code_lib/pair_demo.cpp)       | pair                              |           |      |
 | [code](code_lib/lambda.cpp)          | lambda                            |           |      |
 | [code](code_lib/map_demo.cpp)        | map                               |           |      |
 | [code](code_lib/set.cpp)             | set/unordered_set                 |           |      |
