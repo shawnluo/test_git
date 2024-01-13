@@ -16,35 +16,49 @@ using namespace std;
 
 using namespace std;
 
-void test() {
-    set<pair<int, int>> sPair = {{-1, 0}};
-    sPair.insert({0, 1});
-    sPair.insert({0, 1});   // 自动去重
-    bool res = sPair.count({0, 1});
-    cout << res << endl;
+int minSteps(string s, string t) {
+    sort(s.begin(), s.end());
+    sort(t.begin(), t.end());
 
-    // 2. vector pair
-    // vector<pair<int, int>> vPair = {{1, 1}};
-    vector<pair<int, int>> vPair;
-    // vPair.push_back({0, 1});
+    int n1 = s.size();
+    int n2 = t.size();
 
-    // 3. convert: set -> vector
-    vPair.assign(sPair.begin(), sPair.end());
-    for(auto it : vPair) {
-        cout << it.first << "\t" << it.second << endl;
+    vector<vector<int>> dp(n1 + 1, vector<int> (n2 + 1, 0));
+
+    for(int i = 1; i <= n1; i++) {
+        for(int j = 1; j <= n2; j++) {
+            if(s[i - 1] == t[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
     }
 
-    // 4. convert: vector -> set
-    vector<int> v = {1, 2, 3, 1};
-    set<int> mySet(v.begin(), v.end()); // 自动去重
-    for(auto it : mySet) {
-        cout << it << "\t";
-    }
-    cout << endl;
+    cout << s << endl;
+    cout << t << endl;
 
+    int count = dp[n1][n2];
+    cout << count << endl;
+    
+    count = n1 - count;
+
+    cout << count << endl;
+
+    return count;
+}
+
+void test(string& s) {
+    dp[i]: from nums[0, i] the maximum sum
+    dp[i] = max(dp[i - 1] + nums[i], nums[i])
+    
 }
 
 int main() {
-    test();
+    string s = "leetcode";
+    string t = "practice";
+    // minSteps(s, t);
+    test(s);
+
     return 0;
 }
