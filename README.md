@@ -41,7 +41,8 @@
 | [code](code_lib/multipleThreading_c.c)     | multiple threading - c                                                                                                                                  |    |      |
 | [code](code_lib/multipleThreading_cpp.cpp) | multiple threading - c++                                                                                                                                |    |      |
 |                                         | c++实现一个接口类，实现不同总线调用。spi/uart                                                                                                           | 🔥 | TODO |
-| [code](code_lib/insertDeleteGetRandom.cpp) | [380. Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/)                                                             |    |      |
+| [code](code_lib/insertDeleteGetRandom.cpp) | [380. Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/)                                                             | 🔥 |      |
+|                                         |                                                                                                                                                         |    |      |
 
 ### c++
 
