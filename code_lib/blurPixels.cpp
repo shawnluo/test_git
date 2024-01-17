@@ -7,7 +7,9 @@ int getSum(const vector<vector<int>>& mat, int newX, int newY, const int m, cons
     // 4. x 和 y 分别从0 + newX的偏移开始计算新mat的成员值。
     for(int i = newX; i < newX + m; i++) {
         for(int j = newY; j < newY + n; j++) {
-            sum += mat[i][j];
+            if(i < mat.size() && j < mat[0].size()) {
+                sum += mat[i][j];
+            }
         }
     }
     return sum / (m * n);
