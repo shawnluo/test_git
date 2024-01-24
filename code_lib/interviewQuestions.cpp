@@ -433,7 +433,8 @@ Data a, b;
 assert(a.x == b.x); // pass
 assert(a.y == b.y); // pass
 assert(a == b);     // failed.  why?
-
+    answer: the structure elements will be aligned in memory. 
+            Fill char x(1 byte) to 4 bytes with random contents. so a may not equal to b
 // --------------- 7
 
 

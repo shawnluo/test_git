@@ -4,13 +4,14 @@
 // 4. traverse
 // 
 
-
+#include "../test.hpp"
         
-// iterate map/unordered_map
-for (auto& [key, val] : myMap) {
-    cout << key << " : " << val << endl;
+void test() {
+    // iterate map/unordered_map
+    for (auto& [key, val] : myMap) {
+        cout << key << " : " << val << endl;
+    }
 }
-
 
 vector<int> demo_unordered_map() {
     unordered_map<string, int> unmap = {
@@ -23,6 +24,10 @@ vector<int> demo_unordered_map() {
     // 1. insert pair
     unmap.insert(pair<string, int>("tree", 5));
     unmap["tree"] = 5;
+
+    // 2. using next
+    auto it = unmap.begin();
+    cout << next(it)->second << endl;
 
     for(int i = 0; i < unmap.size(); i++) {
         auto iter = unmap.find(i);

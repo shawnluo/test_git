@@ -1,97 +1,73 @@
-
-
-
 #include "test.hpp"
-#include <thread>
 
+#include <functional>
+#include <semaphore.h>
+#include <thread>
 using namespace std;
 
-<<<<<<< Updated upstream
 
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
 
-
-// the first pos
-int dp_48(string& s, string& t) {
-    int sLen = s.size();
-    int tLen = t.size();
-    vector<vector<int>> dp(sLen + 1, vector<int>(tLen + 1, 0));
-
-    for(int i = 0; i <= sLen; i++)   dp[i][0] = 1;
-    for(int j = 1; j <= tLen; j++)   dp[0][j] = 0;
-
-    for(int i = 1; i <= sLen; i++) {
-        for(int j = 1; j <= tLen; j++) {
-=======
-// 012345 -> 2345 01
-// 543210 -> 2345 01
-
-// the number of distinct subsequences of s which quals t
-int numDistinct(string& s, string& t) {
-    vector<vector<int>> dp(s.size() + 1, vector<int>(t.size() + 1, 0));
-    // dp[i][j]: end with i - 1 in s, the number of end with j - 1
-    int n = s.size();
-
-    for(int i = 0; i < s.size(); i++) {
-        dp[i][0] = 1;
-    }
-
-    for()
-
-    for(int i = 1; i < s.size(); i++) {
-        for(int j = 1; j < t.size(); j++) {
->>>>>>> Stashed changes
-            if(s[i - 1] == t[j - 1]) {
-                dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        ListNode* dummy = new ListNode(0, head);
+        ListNode* p = dummy;
+        for(; p->next != nullptr; ) {
+            if(p->next->val == val) {
+                ListNode* tmp = p->next;
+                p->next = p->next->next;
+                delete tmp;
             } else {
-                dp[i][j] = dp[i - 1][j];
-<<<<<<< Updated upstream
+                p = p->next;
             }
         }
+        this->head = dummy->next;
+        return dummy->next;
     }
-    return dp[sLen][tLen];
+
+    void showMe();
+    int get(int index);
+    ListNode* addAtHead(int val);
+    ListNode* addAtTail(int val);
+    ListNode* addAtIndex(ListNode* index, int val);
+    ListNode* deleteAtHead(int val);
+
+private:
+    ListNode* head;
+};
+
+void Solution::showMe() {
+    ListNode* p = this->head;
+    while(p) {
+        cout << p->val << endl;
+        p = p->next;
+    }
 }
 
-int dp_49(string& s, string& t) {
-    int sLen = s.size();
-    int tLen = t.size();
-
-    vector<vector<int>> dp(sLen + 1, vector<int>(tLen + 1, 0));
+int Solution::get(int index) {
     
-    for(int i = 0; i <= sLen; i++)  dp[i][0] = i;
-    for(int j = 0; j <= tLen; j++)  dp[0][j] = j;
-
-    for(int i = 1; i <= sLen; i++) {
-        for(int j = 1; j <= tLen; j++) {
-            if(s[i - 1] == t[j - 1]) {
-                dp[i][j] = dp[i - 1][j - 1];
-            } else {
-                dp[i][j] = min(dp[i - 1][j] + 1, dp[i][j - 1] + 1);
-            }
-        }
-    }
-    return dp[sLen][tLen];
-}
-
-int main(void) {
-    string s = "rabbbit";
-    string t = "ab";
-    cout << dp_49(s, t) << endl;
-=======
-            }
-        }
-    }
-    return dp[s.size()][t.size()];
-}
-
-
-int main(void) {
-    string s = "babgbag";
-    string t = "bag";
-    int ret = numDistinct(s, t);
-    cout << ret << endl;
->>>>>>> Stashed changes
-
     return 0;
 }
 
-show me the money
+int main(void) {
+    ListNode* p4 =  new ListNode(4);
+    ListNode* p3 =  new ListNode(3, p4);
+    ListNode* p2 =  new ListNode(2, p3);
+    ListNode* p12 =  new ListNode(4, p2);
+    ListNode* p1 =  new ListNode(1, p12);
+    ListNode* head = new ListNode(0, p1);
+
+    Solution so;
+    head = so.removeElements(head, 4);
+
+    so.showMe();
+
+    return 0;
+}

@@ -11,6 +11,14 @@ using std::cout;
 using std::endl;
 using std::string;
 
+// vectors comparison
+vector<int> x = {1, 2, 3};
+vector<int> y = {1, 2, 3};
+
+if(x == y) return true;
+
+return false;
+
 
 /* 1. push_back 
  */

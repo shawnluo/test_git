@@ -5,65 +5,64 @@
 #include <thread>
 using namespace std;
 
-class Solution {
-public:
-    bool is_Valid(int n) {
-        vector<int> dp(n + 1, 0); // dp[i]: the value when fill bag i
 
-        for (int i = 2; i <= 3; i++) {
-            for (int j = 0; j <= n; j++) {
-                if (j >= i) dp[j] = max(dp[j], dp[j - i] + i);
-            }
-        }
-        // cout << dp[n] << endl;
-        return dp[n] == n ? true : false;
+// string s combination
+
+int minSum = INT_MAX;
+vector<int> path;
+vector<vector<int>> res;
+void dfs(string s, int pos) {
+    int n = s.size();
+    if(pos == n) {
+        cout << s << endl;
+        // return;
     }
-
-    int MinOfOperations(int n) {
-        vector<int> dp(n + 1, INT_MAX);
-        dp[0] = 0;
-
-        for (int i = 2; i <= 3; i++) {
-            for (int j = 0; j <= n; j++) {
-                if (dp[j - i] != INT_MAX) {
-                    dp[j] = min(dp[j], dp[j - i] + 1);
-                }
-            }
-        }
-        // cout << dp[n] << endl;
-        return dp[n];
+    for(int i = pos; i < n; i++) {
+        swap(s[i], s[pos]);
+        dfs(s, i + 1);
+        swap(s[i], s[pos]);
     }
+}
 
-    int minOperations(vector<int>& nums) {
-        unordered_map<int, int> uMap;
-        int n     = nums.size();
-        int count = 0;
-
-        for (int i = 0; i < n; i++) {
-            // cout << i << endl;
-            uMap[nums[i]]++;
-            // cout << uMap[nums[i]] << endl;
-        }
-
-        for (auto it = uMap.begin(); it != uMap.end(); it++) {
-            if (!is_Valid(it->second)) {
-                return -1;
-            }
-        }
-        // cout << 1111 << endl;
-        for (auto it = uMap.begin(); it != uMap.end(); it++) {
-            // cout << it->first << endl;
-            count += MinOfOperations(it->second);
-        }
-
-        return count;
+void permutation(string s, int pos) {
+    int size = s.size();
+    if(pos == size){
+        cout << s << endl;
     }
-};
+    for(int i = pos; i < size; i++) {
+        swap(s[i], s[pos]);
+        permutation(s, pos + 1);
+        swap(s[i], s[pos]);
+    }
+}
 
-int main() {
-    vector<int> nums = { 2, 3, 3, 2, 2, 4, 2, 3, 4 };
-    Solution s;
-    cout << s.minOperations(nums) << endl;
+
+int findMinFallingPathSum(vector<vector<int>>& matrix, int row, int col) {
+    if(col < 0 || col > matrix.size()) {
+        return INT_MAX;
+    }
+    if(row == matrix.size() - 1) {
+        return matrix[row][col];
+    }
+    int left = findMinFallingPathSum(matrix, row + 1, col - 1);
+    int mid = findMinFallingPathSum(matrix, row + 1, col);
+    int right = findMinFallingPathSum(matrix, row + 1, col + 1);
+
+    return min({left, mid, right}) + matrix[row][col];
+}
+
+int minFallingPathSum(vector<vector<int>>& matrix) {
+    int minFallingSum = INT_MAX;
+
+    for(int startCol = 0; startCol < matrix.size(); startCol++) {
+        minFallingSum = min(minFallingSum, findMinFallingPathSum(matrix, 0, startCol));
+    }
+    return minFallingSum;
+}
+
+int main(void) {
+    string s = "abc";
+    dfs(s, 0);
 
     return 0;
 }
