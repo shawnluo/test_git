@@ -66,3 +66,45 @@ int main(void) {
 
     return 0;
 }
+
+// To execute C, please define "int main()"
+
+/* return the 2's complement of an input integer 
+   - without using arithmetic ops (+, -, *, /).   */
+
+/*
+1 (0x0001) <-> -1 (0xFFFF) 
+2 (0x0002) <-> -2 (0xFFFE)
+0b00010 -> ~0b00010 -> 0b1111101 -> 0b1111101 + 1 ->   0b11111111 10  <unkonwn>  -> 0b111110
+3 (0x0003) <-> -3 (0xFFFD)
+0b00011 -> ~0b00011 -> 0b1111100 -> 0b1111100 + 1 ->   0b11111111 10  <unkonwn>  -> 0b111101
+*/
+// 0x0001 -> 0xFFFF  ~(x - 1)
+// 0xFFFF -> 0x0001  ~(x + 1)
+/* int n;
+    int res = ~(n + 1)  >>  << 
+ */
+
+int getComplementOfTwo(int num) {
+  // 00000,0000,0000,0011 -> 00000,0000,0000,0010
+  // 00000,0000,0000,0011 >> 1
+  int res = ~(num);
+  for(int i = 0; i < 8; i++) {
+    
+  }
+}
+
+
+int main() {
+  for (int i = 0; i < 5; i++) {
+    printf("Hello, World\n");
+  }
+  return 0;
+}
+
+
+// Your previous Plain Text content is preserved below:
+
+// This is just a simple shared plaintext pad, with no execution capabilities.
+
+// When you know what language you'd like to use for your int

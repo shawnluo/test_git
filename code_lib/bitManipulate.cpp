@@ -17,7 +17,7 @@ uint32_t setMask_AllOne(uint32_t start, uint32_t end) {
     if(start >= 31 || end >= 31) {
         return 0;
     }
-    uint32_t left = (1 << start) - 1;
+    uint32_t left = (1 << start + 1) - 1;
     uint32_t right = (1 << end) - 1;
 
     // return left ^ right; // also works

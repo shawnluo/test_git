@@ -37,19 +37,6 @@ void clearBits(int& num, int high, int low) {
     cout << bitset<11>(num) << endl;
 }
 
-int nOfbits(int a, int b) {
-    // unisgned int table[256] = {0, 1, 1, 2, 2, 3...};
-}
-
-while(x) {
-    count++;
-    x = x & (x - 1);
-}
-return count;
-
-void test() {
-    int x = 0b1000;
-}
 
 int main(void) {
     int num = 2048;

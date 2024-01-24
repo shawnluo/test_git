@@ -19,6 +19,7 @@
 #include <numeric>
 #include <semaphore.h>
 #include <list>
+#include <bitset>
 
 using std::cout;
 using std::endl;
