@@ -186,6 +186,7 @@
 | [code](code_lib/rangeBitwiseAnd.cpp)     | [201. Bitwise AND of Numbers Range](https://leetcode.com/problems/bitwise-and-of-numbers-range/) |  |  |
 | [code](code_lib/bitwise_demo.cpp)        | nibble value                                                                                  |  |  |
 | [code](code_lib/getComplementsOfTwo.cpp) | get Complement Of Two without using +, -, *, /                                                |  |  |
+| [code](code_lib/findMissing.cpp)         | find missing number in a array                                                                |  |  |
 
 ### IPC
 
