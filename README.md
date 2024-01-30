@@ -228,6 +228,7 @@
 |                                                                 |  |  |  |
 | --------------------------------------------------------------- | - | - | - |
 | [code](code_lib/chapter_0_crackingTheCoding/crackingTheCoding.cpp) |  |  |  |
+| [answer](code_lib/crackingTheCode.md)                              |  |  |  |
 
 ### interview questions
 
