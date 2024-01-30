@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include "../test.hpp"
+#include <stdio.h>
 
 // To execute C, please define "int main()"
 
@@ -17,7 +17,29 @@
     0xFFFF -> 0x0001  ~(x + 1)
  */
 
-/* 
+
+// 不用加减乘除实现加法(用位运算)
+int Add(int num1, int num2) {
+    int sum, carry;
+    do {
+        // 1.各位相加，不产生进位(3(011)+2(010)-->1(001))   - EWxclusive or (xor)
+        sum = num1 ^ num2;
+
+        // 2.找到要加的进位数(3(011)&2(010)-->1(010)<<1-->4(100))
+        carry = (num1 & num2) << 1;
+
+        // 3.将前两步的值相加，但是相加不能用加法，重复前面两个步骤，直到不产生进位
+        // 第二步的carry值为0，它们的和必然是sum的值
+        num1 = sum;
+        num2 = carry;
+
+    } while (num2 != 0); // 结束条件是不产生进位
+
+    return num1;
+}
+
+
+/*
     解题思路1：
     首先看十进制是如何做的： 5+7=12，三步走
 
@@ -44,7 +66,8 @@ int getComplementOfTwo(int num) {
     while (num2) {
         int tmp = (num ^ num2);
         num2    = (num2 & num) << 1;
-        num     = tmp;
+
+        num = tmp;
     }
     return num;
 }

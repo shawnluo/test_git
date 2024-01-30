@@ -14,7 +14,7 @@ double binaryFractionToDecimal(const string& s) {
     size_t pos = s.find('.');
     string intPart;
     string fractionalPart;
-    if(pos == string::npos) {   // 找到 "." 号
+    if(pos == string::npos) {   // 没找到 "." 号
         intPart = s;
         fractionalPart = "";
     } else {
@@ -27,7 +27,9 @@ double binaryFractionToDecimal(const string& s) {
     for(int i = 0; i < intPart.size(); i++) {
         if(intPart[i] == '1') {
             resInt += pow(2.0, intPart.size() - i - 1);
-			/* or 
+            // resInt += 1 << (intPart.size() - i - 1);
+
+			/* or (it doesn't work, because double type cannot use shift operator)
 			    resInt <<= 1;
         		resInt += (intPart[i] - '0');
 			*/
@@ -38,6 +40,7 @@ double binaryFractionToDecimal(const string& s) {
     for(int i = 0; i < fractionalPart.size(); i++) {
         if(fractionalPart[i] == '1') {
             resFraction += pow(2.0, -(i + 1));
+            // resFraction += 1 << (-(i + 1));
         }
     }
 
