@@ -187,6 +187,7 @@
 | [code](code_lib/bitwise_demo.cpp)        | nibble value                                                                                  |  |  |
 | [code](code_lib/getComplementsOfTwo.cpp) | get Complement Of Two without using +, -, *, /                                                |  |  |
 | [code](code_lib/findMissing.cpp)         | find missing number in a array                                                                |  |  |
+| [code](code_lib/findOdd.cpp)             | using bitwise XOR operator to find the odd occurring（奇数次出现）number in an array          |  |  |
 
 ### IPC
 

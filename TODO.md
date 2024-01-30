@@ -14,6 +14,11 @@ Rank
 6. Milpitas library
 
 ### new
+c programming interview questions on bitwise operators
+   https://takethenotes.com/bitwise-operators/
+   https://interviewprep.org/bitwise-operators-interview-questions/
+   https://aticleworld.com/interview-questions-on-bitwise-operators-in-c/
+
 
 1. [奇偶跳](code_lib/oddEvenJumps.cpp)
 2. [find sum of quare in array](code_lib/findSumOfSquare.cpp)
