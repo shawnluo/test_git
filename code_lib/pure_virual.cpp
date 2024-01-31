@@ -1,8 +1,19 @@
-#include "test.hpp"
 
-#include <functional>
-#include <semaphore.h>
-#include <thread>
+#include "../test.hpp"
+
+#include <iostream>
+#include <queue>
+#include <stdio.h>
+using namespace std;
+
+
+#include <iostream>
+#include <string>
+
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+
 using namespace std;
 
 class test {
@@ -46,17 +57,19 @@ public:
 
 
 int main(void) {
-    test* t1 = new test_I2C();
-    test* t2 = new test_SPI();
+    // 1. call children class directly
+    test_I2C t1;
+    test_SPI t2;
 
     test::callAPI(t1);
     test::callAPI(t2);
 
-    test_I2C p1;
-    test_SPI p2;
+    // 2. call base class
+    test* tt1 = new test_I2C(); // pure virtual function cannot instantiate, but can point to children class
+    test* tt2 = new test_SPI();
 
-    test::callAPI(p1);
-    test::callAPI(p2);
+    test::callAPI(tt1);
+    test::callAPI(tt2);
 
     return 0;
 }

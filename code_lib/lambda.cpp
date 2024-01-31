@@ -10,10 +10,12 @@ https://www.jianshu.com/p/d686ad9de817
 
 //   --- 1
 // 定义简单的lambda表达式
-auto basicLambda = [] { cout << "Hello, world!" << endl; };
-// 调用
-basicLambda();   // 输出：Hello, world!
-
+void basic() {
+    auto basicLambda = [] { cout << "Hello, world!" << endl; };
+    
+    // 调用
+    basicLambda();   // 输出：Hello, world!
+}
 
 
 //   --- 2
@@ -31,9 +33,17 @@ int main() {
     int x = 10;
     
     auto add_x = [x](int a) { return a + x; };  // 复制捕捉x
-    auto multiply_x = [&x](int a) mutable { x += 1; return a * x; };  // 引用捕捉x
+    cout << add_x(10) << endl;
+
+    /*  mutable capture: allows the captured variables to be modified within 
+        the lambda expression, even if the lambda expression is declared wihin a 
+        const funtion or applied to be a const object.
+     */
+    auto multiply_x = [&x](int a) mutable {
+        x += 1; return a * x; 
+    };  // 引用捕捉x
     
-    cout << add_x(10) << " " << multiply_x(10) << endl;
+     cout << multiply_x(10) << endl;
     // 输出：20 100
 
     cout << x << endl;  // 因为用的是引用捕捉，x 变成 11
@@ -46,11 +56,17 @@ int main() {
 int main() {
     int x = 10;
     
-    // lambda表达式无法修改通过复制形式捕捉的变量, 因为函数调用运算符的重载方法是const属性的。
-    // 有时候，你想改动传值方式捕获的值，那么就要使用mutable, 将函数调用运算符变成非const属性的：
-    auto add_x = [x](int a) mutable { x *= 2; return a + x; };  // 复制捕捉x
+    /* lambda表达式无法修改通过复制形式捕捉的变量!!!!! 也就是说下面的代码如果不用mutable，是会报错的！
+        因为函数调用运算符的重载方法是const属性的。
+        有时候，你想改动传值方式捕获的值，那么就要使用mutable, 将函数调用运算符变成非const属性的： 
+    */
+    auto add_x = [x](int a) mutable { 
+        x *= 2; 
+        return a + x; 
+    };  // 复制捕捉x
     
-    cout << add_x(10) << endl; // 输出 30
+    cout << add_x(10) << endl;  // 输出 30
+    cout << x << endl;          // 还是10
     return 0;
 }
 
