@@ -1,3 +1,4 @@
+#include "../test.hpp"
 #include "iostream"
 #include <string.h>
 #include <vector>
@@ -33,16 +34,18 @@ public:
 //pure virtual function
 class god {
 	virtual int run() = 0;	//2. pure virtual function. 2.1. so god class cannot be instantation
-}
+};
 
-god mygod;	//2.2. failed.
+void test() {
+	god mygod;	//2.2. failed.
+}
 
 class mygod: god {
 public:
 	virtual int run() {
 		cout << "run" << endl;	//2.3 MUST be redefined in derived class
 	}
-}
+};
 
 //多态的第三步，用父类指针(父类引用)指向子类对象....//即在函数的形参使用父类的对象替代子类对象，但是在调用重写了的虚函数时，仍然调用的是传递过来子类对象的函数
 void playLand(animal &animal, plant *plant) {
@@ -76,24 +79,24 @@ int main(void) {
 
 class car {
 private:
-	string name = "name_pri";
+	string name_private = "name_pri";
 protected:
-	string date = "name_pro";
+	string date_protected = "name_pro";
 public:
 	car() {
-		cout << name_pub << endl;	//1. OK!
-		cout << name_pro << endl;	//2. OK! - protected data can ONLY be accessed in the class
-		cout << name_pri << endl;	//3. OK! - private data can ONLY be accessed in the class
+		cout << number_public << endl;	//1. OK!
+		cout << date_protected << endl;	//2. OK! - protected data can ONLY be accessed in the class
+		cout << name_private << endl;	//3. OK! - private data can ONLY be accessed in the class
 	}
-	string number = "name_pub";
+	string number_public = "name_pub";
 };
 
 class tesla: public car {
 public:
 	string name;
 	tesla() {
-		cout << name_pro << endl;	//4. OK! - protected data can be accessed by derived class
-		cout << name_pri << endl;	//5. Failed! - private data can NOT be accessed by derived class
+		cout << date_protected << endl;	//4. OK! - protected data can ONLY be accessed by derived class
+		cout << name_private << endl;	//5. Failed! - private data can NOT be accessed by derived class
 	}
 };
 
@@ -108,11 +111,11 @@ protected:
 };
 
 
-int test(void) {
+int test_2(void) {
 	car monster;
-	cout << monster.name_pub << endl;	//6. OK!
-	cout << monster.name_pro << endl;	//7. Failed! - proteced data can NOT be accessed by outside.
-	cout << monster.name_pri() << endl;	//8. Failed! - private data can NOT be accessed by outside of the class which difined the data.
+	cout << monster.number_public << endl;	//6. OK!
+	cout << monster.date_protected << endl;	//7. Failed! - proteced data can NOT be accessed by outside.
+	cout << monster.name_private << endl;	//8. Failed! - private data can NOT be accessed by outside of the class which difined the data.
 
 	tesla ev;
 	cout << ev.name_pub << endl;	//9. OK!

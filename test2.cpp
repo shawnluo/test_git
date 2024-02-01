@@ -19,21 +19,64 @@ using std::cout;
 using std::endl;
 using std::string;
 
-int findOdd(vector<int>& nums) {
-    int res = 0;
 
-    for(auto it : nums) {
-        res ^= it;
+
+
+class test {
+public:
+    int val;
+
+    test() {}
+    test(int data) : val(data) {}
+
+    virtual void api() {
+        cout << "test SPI" << endl;
     }
-    return res;
+    void set(int val);
+    void show() const ;
+
+    test operator+(const test& other) {
+        return test(val + other.val);
+    }
+
+private:
+    friend void showMe(test);
+    friend class peek;
+};
+
+/* class peek {
+public:
+    peek(test x) {
+        cout << x.val << endl;
+    }
+};
+
+void showMe(test x) {
+    cout << x.val << endl;
 }
 
-int main(void) {
-    int res = 0;
-    vector<int> nums = {1, 2, 3, 2, 3, 1, 3};
-    res = findOdd(nums);
+void test::set(int val) {
+    cout << this->val << endl;
+    cout << val << endl;
+}
 
-    cout << res << endl;
+void test::show() const {
+    cout << "show" << endl;
+}
+
+class test_I2C : public test {
+public:
+    virtual void api() {
+        cout << "tet I2C" << endl;
+    }
+}; */
+
+int main(void) {
+    test x(33);
+    test y(55);
+    test z = x + y;
+
+    cout << z.val << endl;
 
     return 0;
 }

@@ -5,58 +5,42 @@
 #include <thread>
 using namespace std;
 
-class test {
+class shallowCopy {
 public:
-    virtual void api() = 0;
+    shallowCopy(int len) : m_len(len) {m_ptr = new int(0);}
+    shallowCopy() {}
 
-    virtual void api2() {}
+    ~shallowCopy() {cout << "out" << endl; delete m_ptr;}
 
-    static void callAPI(test& api) {
-        api.api();
-        api.api2();
-    }
-
-    static void callAPI(test* api) {
-        api->api();
-        api->api2();
-    }
+public:
+    int* m_ptr;
+    int m_len;
 };
 
-class test_I2C : public test {
+class deepCopy {
 public:
-    virtual void api() {
-        cout << " - test I2C " << endl;
+    deepCopy(int len) : m_len(len) {m_ptr = new int(1);}
+    deepCopy(const deepCopy& ori) {
+        m_len = ori.m_len;
+        m_ptr = new int[m_len];
+        for(int i = 0; i < m_len; i++) {
+            m_ptr[i] = ori.m_ptr[i];
+        }
+    }
+    ~deepCopy() {
+        delete m_ptr;
     }
 
-    void api2() {
-        cout << " - test I2C - virtual function " << endl;
-    }
-};
-
-class test_SPI : public test {
 public:
-    virtual void api() {
-        cout << " - test SPI " << endl;
-    }
-
-    void api2() {
-        cout << " - test SPI - virtual function " << endl;
-    }
+    int* m_ptr;
+    int m_len;
 };
 
 
 int main(void) {
-    test* t1 = new test_I2C();
-    test* t2 = new test_SPI();
-
-    test::callAPI(t1);
-    test::callAPI(t2);
-
-    test_I2C p1;
-    test_SPI p2;
-
-    test::callAPI(p1);
-    test::callAPI(p2);
+    deepCopy s1(4);  // 执行完之后会调用析构函数来delete
+    auto s2 = s1;       // 执行完后，调用析构函数时会出错
+    cout << *(s2.m_ptr) << endl;
 
     return 0;
 }

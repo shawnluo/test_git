@@ -46,26 +46,26 @@
 
 ### c++
 
-|                                        |                                   |           |      |
-| -------------------------------------- | --------------------------------- | --------- | ---- |
-|                                        | code                              | important | TODO |
-| [code](code_lib/cpp_class.cpp)            | cpp_class                         |           |      |
-| [code](code_lib/pure_virual.cpp)          | pure virtual function             |           |      |
-| [code](code_lib/vectorVSlist.cpp)         | vector vs list                    |           |      |
-| [code](cpp/demo_vector.cpp)               | vector                            |           |      |
-| [code](code_lib/pair_demo.cpp)            | pair                              |           |      |
-| [code](code_lib/lambda.cpp)               | lambda                            |           |      |
-| [code](code_lib/operator_overloading.cpp) | operator overloading              |           |      |
-|                                        | how to use find                  |           |      |
-| [code](code_lib/map_demo.cpp)             | map                               |           |      |
-| [code](code_lib/set.cpp)                  | set/unordered_set                 |           |      |
-| [code](code_lib/cpp_cast.cpp)             | static_cast/dynamic_cast          |           |      |
-| [code](code_lib/deque.cpp)                | std::deque                        |           |      |
-| [code](code_lib/priority_que.cpp)         | priority_queue                    |           |      |
-| [code](code_lib/isdigit_isalpha.cpp)      | API - isdigit/isalphy             |           |      |
-| [code](code_lib/copyConstructor.cpp)      | copy constructor                  |           |      |
-|                                        | string to char                    |           |      |
-|                                        | accumulate(v.begin(), v.end(), 0) |           |      |
+|                                        |                                              |           |      |
+| -------------------------------------- | -------------------------------------------- | --------- | ---- |
+|                                        | code                                         | important | TODO |
+| [code](code_lib/cpp_class.cpp)            | cpp_class                                    |           |      |
+| [code](code_lib/pure_virual.cpp)          | pure virtual function                        |           |      |
+| [code](code_lib/vectorVSlist.cpp)         | vector vs list                               |           |      |
+| [code](cpp/demo_vector.cpp)               | vector                                       |           |      |
+| [code](code_lib/pair_demo.cpp)            | pair                                         |           |      |
+| [code](code_lib/lambda.cpp)               | lambda                                       |           |      |
+| [code](code_lib/operator_overloading.cpp) | operator overloading                         |           |      |
+|                                        | how to use find                             |           |      |
+| [code](code_lib/map_demo.cpp)             | map                                          |           |      |
+| [code](code_lib/set.cpp)                  | set/unordered_set                            |           |      |
+| [code](code_lib/cpp_cast.cpp)             | static_cast/dynamic_cast                     |           |      |
+| [code](code_lib/deque.cpp)                | std::deque                                   |           |      |
+| [code](code_lib/priority_que.cpp)         | priority_queue                               |           |      |
+| [code](code_lib/isdigit_isalpha.cpp)      | API - isdigit/isalphy                        |           |      |
+| [code](code_lib/copyConstructor.cpp)      | copy constructor - deep copy vs shallow copy |           |      |
+|                                        | string to char                               |           |      |
+|                                        | accumulate(v.begin(), v.end(), 0)            |           |      |
 
 ### 二分法
 
@@ -238,6 +238,13 @@
 |                                      |  |  |  |
 | ------------------------------------ | - | - | - |
 | [code](code_lib/interviewQuestions.cpp) |  |  |  |
+
+python
+
+|                                 |                                                        |  |  |
+| ------------------------------- | ------------------------------------------------------ | - | - |
+| [code](code_lib/recusive_print.py) | recusive print list                                    |  |  |
+| [code](code_lib/demo_super.py)     | using super to call the function in superclass（父类） |  |  |
 
 ### others
 
