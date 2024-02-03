@@ -243,6 +243,7 @@
 
 |                                 |                                                        |  |  |
 | ------------------------------- | ------------------------------------------------------ | - | - |
+| [code](code_lib/python_basic.md)   | python basic                                           |  |  |
 | [code](code_lib/recusive_print.py) | recusive print list                                    |  |  |
 | [code](code_lib/demo_super.py)     | using super to call the function in superclass（父类） |  |  |
 | [code](code_lib/driver_sim.py)     | 模拟车辆遇到十字路口的行为                             |  |  |

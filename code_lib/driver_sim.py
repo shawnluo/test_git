@@ -34,8 +34,43 @@ def drive_sim(num_intersections: int):
         else:
             action = 'straight'
         action_count[action] = action_count.get(action, 0) + 1
+        # action_count[action] = action_count[action] + 1   # 同样
         
         print(i+1, SLANG[action])
     print(action_count)
 
 drive_sim(100)
+
+
+# c++
+void drive_sim(int num) {
+    unordered_map<string, int> umap;
+    umap["left"] = 0;
+    umap["right"] = 0;
+    umap["u"] = 0;
+    unordered_map<string, string> umap2;
+    umap2["left"] = "one";
+    umap2["right"] = "two";
+    umap2["u"] = "three";
+
+    int random;
+    srand((unsigned) time(NULL));
+    string action;
+    for(int i = 0; i < num; i++) {
+        random = rand() % 10;
+        if(random <= 3) {
+            action = "left";
+        } else if(random <= 6) {
+            action = "right";
+        } else {
+            action = "u";
+        }
+        umap[action]++;
+        cout << i + 1 << " , " << umap2[action] << endl;
+    }
+
+    for(auto it = umap.begin(); it != umap.end(); it++) {
+        cout << it->first << " : " << it->second << " ";
+    }
+    cout << endl;
+}

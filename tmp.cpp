@@ -16,56 +16,35 @@ using namespace std;
 
 using namespace std;
 
-class test {
-public:
-    test();
-    ~test();
 
-    void fun();
-    virtual int api() = 0;
-};
+void drive_sim(int num) {
+    unordered_map<string, int> umap;
+    umap["left"] = 0;
+    umap["right"] = 0;
+    umap["u"] = 0;
+    unordered_map<string, string> umap2;
+    umap2["left"] = "one";
+    umap2["right"] = "two";
+    umap2["u"] = "three";
 
-test::test() {
-    cout << " - init" << endl;
-}
-
-test::~test() {
-    cout << " - uninit" << endl;
-}
-
-class test_I2c: public test {
-public:
-    virtual int api() {
-        cout << "test I2c" << endl;
-        return 1;
+    int random;
+    srand((unsigned) time(NULL));
+    string action;
+    for(int i = 0; i < num; i++) {
+        random = rand() % 10;
+        if(random <= 3) {
+            action = "left";
+        } else if(random <= 6) {
+            action = "right";
+        } else {
+            action = "u";
+        }
+        umap[action]++;
+        cout << i + 1 << " , " << umap2[action] << endl;
     }
-};
 
-class test_SPI: public test {
-public:
-    virtual int api() {
-        cout << "test SPI" << endl;
-        return 2;
+    for(auto it = umap.begin(); it != umap.end(); it++) {
+        cout << it->first << " : " << it->second << " ";
     }
-};
-
-void callAPI(test &api) {
-    api.api();
-}
-
-class mycom {
-public:
-    bool operator()(const pair<int, int>& lhs, const pair<int, int>& rhs) {
-        return lhs.second > rhs.second;
-    }
-};
-
-int main() {
-    test_I2c t1;
-    test_SPI t2;
-
-    callAPI(t1);
-    callAPI(t2);
-
-    return 0;
+    cout << endl;
 }

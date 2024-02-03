@@ -46,49 +46,6 @@ class Employee:
 emp_1 = Employee('Corey', 'Schafer', 50000)
 emp_2 = Employee('Mike', 'Wallace', 60000)
 
-# print(emp_1.email)
-# print(emp_2.email)
-# print(emp_1.fullname())
 
-SLANG = {'left': 'Hang a Louie.',
-         'right': 'Hang a Ralph.',
-         'straight': 'Hang a Sam.',
-         'u': 'Bang a you-ee.'}
-
-SLANG2 = {'left': 'tesla',
-         'right': 'google'};
-
-def drive_sim2(num: int):
-    action_count = dict()
-    for i in range(num):
-        dir = random.random()
-        if dir <= 0.05:
-            action = 'u'
-        elif dir <= 0.2:
-            action = 'left'
-        elif dir <= 0.4:
-            action = 'right'
-        else:
-            action = 'straight'
-        action_count[action] = action_count.get(action, 0) + 1
-        print(i + 1, SLANG[action])
-    print(action_count)  
-
-def drive_sim(num_intersections: int):
-    action_count = dict()
-    for i in range(num_intersections):
-        direction = random.random()
-        if direction <= 0.05:
-            action = 'u'
-        elif 0.05 < direction <= 0.2:
-            action = 'left'
-        elif 0.2 < direction <= 0.4:
-            action = 'right'
-        else:
-            action = 'straight'
-        action_count[action] = action_count.get(action, 0) + 1
-        
-        print(i+1, SLANG[action])
-    print(action_count)
-
-drive_sim2(10)
+myTuple = ('apple', 3, 'banana', 'cherry', 2.12)
+print(myTuple)
