@@ -17,13 +17,13 @@ public:
         Rates[1] = 4;
     }
 
-    ~Book() {
+    ~Book() {   // involking when the app finishing.
         delete[] Rates;
         Rates = nullptr;
     }
 
     // deep copy constructor
-    Book(const Book& original) {    // 1. using const
+    Book(const Book& original) {    // 1. using const to prevent the original be modified.
                                     // 2. using reference "&"
         Title = original.Title;
         Author = original.Author;
@@ -37,8 +37,8 @@ public:
 };
 
 int main(void) {
-    Book book1("Show me", "the monry");
-    Book book2("show must", "go on");
+    Book book1("Show me", "the monry"); // it'll call Book(string title, string author)
+    Book book2("show must", "go on");   // it'll call Book(string title, string author)
 
     // Book book3 = book1; // involking copy constructor - Book(const Book& original)
     Book book3(book1);   // involking copy constructor - same as the upper
