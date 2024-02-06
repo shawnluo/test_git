@@ -1,9 +1,24 @@
-### loop
+### loop and iterator
 
 ```python
-num = 10
-for i in range(num):
-    print(i)
+nums = 5
+for it in range(nums):
+    print(it)
+
+myList = [1, 2, 3, 4]
+for it in myList:
+    print(it)
+
+while True:
+    print(1)
+
+while nums < 16:
+    nums += 1
+    if nums < 15:
+	continue
+    print(nums)
+    if nums > 12:
+	break
 ```
 
 ### list
@@ -12,6 +27,7 @@ for i in range(num):
 table = [3, 'good', 3.98]
 
 # Method	Description
+# -------------------------
 # append()	Adds an item to the end of the list
 # extend()	Adds items of lists and other iterables to the end of the list
 # insert()	Inserts an item at the specified index
@@ -54,6 +70,7 @@ for it in mydict:
     print(it)
 
 # method
+# -------------------------
 # pop()		Removes the item with the specified key.
 # update()	Adds or changes dictionary items.
 # clear()	Remove all the items from the dictionary.
@@ -72,6 +89,7 @@ myset = {'left', 'right', 'u'}
 myset = set()
 
 # Function	Description
+# -------------------------
 # all()		Returns True if all elements of the set are true (or if the set is empty).
 # any()		Returns True if any element of the set is true. If the set is empty, returns False.
 # enumerate()	Returns an enumerate object. It contains the index and value for all the items of the set as a pair.

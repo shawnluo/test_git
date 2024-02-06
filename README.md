@@ -46,26 +46,27 @@
 
 ### c++
 
-|                                        |                                              |           |      |
-| -------------------------------------- | -------------------------------------------- | --------- | ---- |
-|                                        | code                                         | important | TODO |
-| [code](code_lib/cpp_class.cpp)            | cpp_class                                    |           |      |
-| [code](code_lib/pure_virual.cpp)          | pure virtual function                        |           |      |
-| [code](code_lib/vectorVSlist.cpp)         | vector vs list                               |           |      |
-| [code](cpp/demo_vector.cpp)               | vector                                       |           |      |
-| [code](code_lib/pair_demo.cpp)            | pair                                         |           |      |
-| [code](code_lib/lambda.cpp)               | lambda                                       |           |      |
-| [code](code_lib/operator_overloading.cpp) | operator overloading                         |           |      |
-|                                        | how to use find                             |           |      |
-| [code](code_lib/map_demo.cpp)             | map                                          |           |      |
-| [code](code_lib/set.cpp)                  | set/unordered_set                            |           |      |
-| [code](code_lib/cpp_cast.cpp)             | static_cast/dynamic_cast                     |           |      |
-| [code](code_lib/deque.cpp)                | std::deque                                   |           |      |
-| [code](code_lib/priority_que.cpp)         | priority_queue                               |           |      |
-| [code](code_lib/isdigit_isalpha.cpp)      | API - isdigit/isalphy                        |           |      |
-| [code](code_lib/copyConstructor.cpp)      | copy constructor - deep copy vs shallow copy |           |      |
-|                                        | string to char                               |           |      |
-|                                        | accumulate(v.begin(), v.end(), 0)            |           |      |
+|                                        |                                                |           |      |
+| -------------------------------------- | ---------------------------------------------- | --------- | ---- |
+|                                        | code                                           | important | TODO |
+| [code](code_lib/cpp_class.cpp)            | cpp_class                                      |           |      |
+| [code](code_lib/pure_virual.cpp)          | pure virtual function                          |           |      |
+| [code](code_lib/vectorVSlist.cpp)         | vector vs list                                 |           |      |
+| [code](cpp/demo_vector.cpp)               | vector                                         |           |      |
+| [code](code_lib/pair_demo.cpp)            | pair                                           |           |      |
+| [code](code_lib/lambda.cpp)               | lambda                                         |           |      |
+| [code](code_lib/operator_overloading.cpp) | operator overloading                           |           |      |
+|                                        | how to use find                               |           |      |
+| [code](code_lib/map_demo.cpp)             | map                                            |           |      |
+| [code](code_lib/set.cpp)                  | set/unordered_set                              |           |      |
+| [code](code_lib/cpp_cast.cpp)             | static_cast/dynamic_cast                       |           |      |
+| [code](code_lib/deque.cpp)                | std::deque                                     |           |      |
+| [code](code_lib/priority_que.cpp)         | priority_queue                                 |           |      |
+| [code](code_lib/isdigit_isalpha.cpp)      | API - isdigit/isalphy                          |           |      |
+| [code](code_lib/copyConstructor.cpp)      | copy constructor - deep copy vs shallow copy   |           |      |
+|                                        | string to char                                 |           |      |
+|                                        | accumulate(v.begin(), v.end(), 0)              |           |      |
+| [code](cpp/demo_smartPointer.md)          | smart pointer - unique_ptr/shared_ptr/weak_ptr |           |      |
 
 ### 二分法
 
@@ -128,19 +129,20 @@
 
 ### string
 
-|                                      |                                                                    |  |  |
-| ------------------------------------ | ------------------------------------------------------------------ | - | - |
-| [code](code_lib/reverseWords.cpp)       | reverse words                                                      |  |  |
-|                                      | palindrome                                                         |  |  |
-| [code](code_lib/Longest_Palindrome.cpp) | longest palindrome                                                 |  |  |
-| [code](code_lib/removeSpaces.cpp)       | remove extra spaces                                                |  |  |
-|                                      | reverse words in a sentence                                        |  |  |
-| [code](code_lib/longestUniqSubstr.cpp)  | longest uniq sbustring                                             |  |  |
-| [code](code_lib/Longest_Palindrome.cpp) | leet 409 最长可组成的回文                                          |  |  |
-| [code](code_lib/myAtoi.cpp)             | atoi 字符串转整数                                                  |  |  |
-| [code](code_lib/strtok.cpp)             | strtok                                                             |  |  |
-| [code](code_lib/sortingByFreq.cpp)      | sort by frequncy 一串string，按频率输出，相同频率按string字母顺序 |  |  |
-| [code](code_lib/myAtoi.cpp)             | string to int                                                      |  |  |
+|                                         |                                                                                   |  |  |
+| --------------------------------------- | --------------------------------------------------------------------------------- | - | - |
+| [code](code_lib/reverseWords.cpp)          | reverse words                                                                     |  |  |
+|                                         | palindrome                                                                        |  |  |
+| [code](code_lib/Longest_Palindrome.cpp)    | longest palindrome                                                                |  |  |
+| [code](code_lib/removeSpaces.cpp)          | remove extra spaces                                                               |  |  |
+|                                         | reverse words in a sentence                                                       |  |  |
+| [code](code_lib/longestUniqSubstr.cpp)     | longest uniq sbustring                                                            |  |  |
+| [code](code_lib/Longest_Palindrome.cpp)    | leet 409 最长可组成的回文                                                         |  |  |
+| [code](code_lib/myAtoi.cpp)                | atoi 字符串转整数                                                                 |  |  |
+| [code](code_lib/strtok.cpp)                | strtok                                                                            |  |  |
+| [code](code_lib/sortingByFreq.cpp)         | sort by frequncy 一串string，按频率输出，相同频率按string字母顺序                |  |  |
+| [code](code_lib/myAtoi.cpp)                | string to int                                                                     |  |  |
+| [code](code_lib/isalnum_isdigit_isalpha.c) | isalnum: letters and numbers<br />isdigit:    numbers<br />isalpha:   letters |  |  |
 
 ### hash
 

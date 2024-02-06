@@ -5,128 +5,42 @@
 #include <thread>
 using namespace std;
 
-class shallowCopy {
-public:
-    shallowCopy(int len) : m_len(len) {
-        m_ptr = new int(0);
-    }
-    shallowCopy() {}
 
-    ~shallowCopy() {
-        delete m_ptr;
-    }
+int dp_11(vector<int>& weight, vector<int>& value, int BAG) {
+    vector<vector<int>> dp(weight.size(), vector<int>(BAG + 1, 0));
 
-public:
-    int* m_ptr;
-    int m_len;
-};
-
-class deepCopy {
-public:
-    deepCopy(int len) : m_len(len) {
-        m_ptr = new int(1);
-    }
-    deepCopy(const deepCopy& ori) {
-        m_len = ori.m_len;
-        m_ptr = new int[m_len];
-        for(int i = 0; i < m_len; i++) {
-            m_ptr[i] = ori.m_ptr[i];
-        }
-    }
-    ~deepCopy() {
-        delete m_ptr;
-    }
-
-public:
-    int* m_ptr;
-    int m_len;
-};
-
-class Book {
-public:
-    string title;
-    string author;
-    float* rates;
-    int ratesCounter;
-
-    Book(string title, string author) {
-        cout << " +++++++++++ " << endl;
-        this->title = title;
-        this->author = author;
-        this->ratesCounter = 2;
-        this->rates = new float[this->ratesCounter];
-        this->rates[0] = 15;
-        this->rates[1] = 4;
-    }
-
-    ~Book() {
-        cout << " ---2--- " << endl;
-        delete[] rates;
-        rates = nullptr;
-    }
-
-    Book(const Book& original) {
-        cout << " ------ " << endl;
-        title = original.title;
-        author = original.author;
-        ratesCounter = original.ratesCounter;
-
-        rates = new float[ratesCounter];
-        for(int i = 0; i < ratesCounter; i++) {
-            rates[i] = original.rates[i];
-        }
-    }
-};
-
-class Test {
-public:
-    int val = 10000;
-    Test(int val) {
-        // cout << val << endl;
-        this->val = val;
-    }
-
-    ~Test() {
-        cout << "- destructor - " << endl;
-    }
-
-    int get() const {
-        cout << val << endl;
-        return val;
-    }
-};
-
-void foo(int num) {
-    // for(int i = 0; i < num; i++) {
-        cout << "in thread" << endl;
-    // }
-    Test t1(23);
-    exit(0);
+    return 0;
 }
 
 int main(void) {
-    int n = 19;
-    thread t1(foo, n);
+    shared_ptr<string> pa(new string("CHN"));
+    shared_ptr<string> pb(new string("USA"));
 
-    sleep(3);
-    t1.join();
+    cout << "*pa: " << *pa << endl;
+    cout << "pa.use_count: " << pa.use_count() << endl; // 1
 
-    // Book book1("Show me", "the money");
-    // cout << 111 << endl;
-    // Book book2(book1);
-    // cout << 222 << endl;
-    // for(auto i = 0; i < book2.ratesCounter; i++) {
-    //     cout << book2.rates[i] << endl;
-    // }
-    // Test test(5);
-    // test.get();
+    cout << "*pb: " << *pb << endl;
+    cout << "pb.use_count: " << pb.use_count() << endl; // 1
 
-    // deepCopy s1(4);  // 执行完之后会调用析构函数来delete
-    // auto s2 = s1;       // 执行完后，调用析构函数时会出错
-    // cout << *(s2.m_ptr) << endl;
+    pa = pb;
+    cout << *pa << endl;
+    cout << pa.use_count() << endl; // 2：pa 和 pb指向同一个资源 USA了，该资源的计数为2，所以pb、pb都输出2
+    cout << pb.use_count() << endl;
 
-    // int i = 1;
-    // cout << (i << 3) << endl;
+    pa.reset();
+    pb.reset();
+    cout << pa.use_count() << endl;
+    cout << pb.use_count() << endl;
+
+    /* 
+        下面是不合法的:
+        p1 和 p2 并不会共享同一个对p的托管计数。而是各自将对p的托管技术都记为1，因为 p2 无法知道 p 已经被 p1 托管过。
+        这样，当 p1 消亡时要析构 p，p2 消亡时要再次析构 p，这会导致程序崩溃。
+     */
+    string* p = new string("abc");
+    // shared_ptr<string> p1(p), p2(p);
+    shared_ptr<string> p1(p);
+    shared_ptr<string> p2(p);
 
     return 0;
 }

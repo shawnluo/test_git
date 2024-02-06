@@ -97,3 +97,101 @@ int calculate(char * s){
     }
     return res;
 }
+
+
+// ============================================================================================================
+
+
+// "2", "13", "+", "32", "76", "*"
+// "14", "4", "*"
+
+// failed
+// "*", "32"
+// "-", "+"
+// "14", "4", "8"
+
+int stack[1000] = {0};
+int sp = -1;
+
+void push(int val) {
+    stack[++sp] = val;
+}
+
+int pop() {
+    int val = stack[sp--];
+    return val;
+}
+
+int isEmpty() {
+    if(sp < 0) {
+        return 1;
+    }
+    return 0;
+}
+
+int getCurNum(char* s) {
+    int sum = 0;
+    while (*s) {
+        sum = sum * 10;
+        sum += *s - '0';
+        s++;
+    }
+    return sum;
+}
+
+int test(char* s[], int len, int* ret) {
+    for(int i = 0; i < len; i++) {
+        // 1. the first one is operator
+        if(i == 0 && (isdigit(*s[i]) == 0)) {
+            return -1;
+        }
+
+        // 2. cur: digit, pre->pre: digit
+        if(isdigit(*s[i]) != 0 && i - 2 >= 0) {
+            if(isdigit(*s[i - 2]) != 0) {
+                return -1;
+            }
+        }
+        
+        // 3. cur: ope, pre: ope
+        if(i > 0 && isdigit(*s[i]) == 0 && isdigit(*s[i - 1]) == 0) {
+            return -1;
+        }
+
+        if(isdigit(*s[i]) != 0) {
+            push(getCurNum(s[i]));
+        } else {
+            if(strcmp(s[i], "+") == 0) {
+                push(pop() + pop());
+            } else if(strcmp(s[i], "-") == 0) {
+                push(-1 * pop() + pop());
+            } else if(strcmp(s[i], "*") == 0) {
+                push(pop() * pop());
+            } else if(strcmp(s[i], "/") == 0) {
+                push(pop() / pop());
+            }
+        }
+    }
+
+    int sum = 0;
+    while(!isEmpty()) {
+        sum += pop();
+    }
+
+    *ret = sum;
+
+    return 0;
+}
+
+
+int main() {
+    char* s[] = { "12", "36", "/" , "-"};
+    int* ret = (int*)malloc(sizeof(int));
+    test(s, sizeof(s) / sizeof(s[0]), ret);
+
+    printf("%d\n", *ret);
+
+    free(ret);
+
+    return 0;
+}

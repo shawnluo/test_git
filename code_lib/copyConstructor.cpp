@@ -73,7 +73,7 @@ public:
 int main() {
     shallowCopy sc(1);
     auto sc1 = sc; // 浅拷贝 执行完之后会调用析构函数来delete - 会报错 “free(): double free detected in tcache 2”
-    std::cout << "shallowCopy: " << std::endl; // 执行完后，调用析构函数时会出错
+    std::cout << "shallowCopy: " << std::endl; // 执行完后，调用析构函数时会出错。因为同样的地址数据被 sc 释放后，sc1的析构函数又要试图去释放。
     std::cout << "sc.m_ptr = " << sc.m_ptr << std::endl;
     std::cout << "sc1.m_ptr = " << sc1.m_ptr << std::endl;
  
