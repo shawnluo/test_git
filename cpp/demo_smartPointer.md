@@ -1,5 +1,86 @@
 # C++11的智能指针与垃圾回收
 
+### **1.智能指针为什么存在？**
+
+因为C++没有自动回收内存的机制，因此每一次new出来的动态内存必须手动delete回去。而智能指针可以解决这个问题。
+
+## **2.智能指针的大致描述是什么？**
+
+智能指针：自动负责释放所指向的对象，实际上它利用了栈的机制，每一个智能指针都是一个模板类，调用智能指针实际上是创建了一个智能指针的对象，对象生命周期到达尽头的时候，会自动调用智能指针的析构函数，在析构函数里，释放掉它管理的内存，从而避免手动delete。
+
+## 3. weak_ptr
+
+和 shared_ptr、unique_ptr 类型指针一样，weak_ptr 智能指针也是以模板类的方式实现的。`weak_ptr<T>`（ T 为指针所指数据的类型）定义在 `<memory>`头文件，并位于 std 命名空间中。
+
+该类型指针通常不单独使用（没有实际用处），只能和 shared_ptr 类型指针搭配使用。可以视为 shared_ptr 指针的一种辅助工具。借助 weak_ptr 类型指针可以获取 shared_ptr 指针的一些状态信息，比如有多少指向相同的 shared_ptr 指针、通过 `expired()`判断shared_ptr 指针指向的堆内存是否已经被释放等等。
+
+weak_ptr 类型指针并不会影响所指堆内存空间的引用计数。当 weak_ptr 指针的指向和某一 shared_ptr 指针相同时，weak_ptr 指针并不会使所指堆内存的引用计数加 1；同样，当 weak_ptr 指针被释放时，之前所指堆内存的引用计数也不会因此而减 1。它不具有普通指针的行为，没有重载 `operator*`和 `->`，这也就意味着，weak_ptr 类型指针只能访问所指的堆内存，而无法修改它。
+
+weak_ptr可以使用一个非常重要的成员函数 `lock()`从被观测的shared_ptr获得一个可用的shared_ptr对象， 从而操作资源。但当 `expired()==true`的时候，`lock()`函数将返回一个存储空指针的shared_ptr。
+
+## 简单例子
+
+```c++
+
+
+
+class myClass {
+public:
+	myClass() {
+		cout << "Constructor invoked" << endl;
+	}
+	~myClass() {
+		cout << "Desstructor invoked" << endl;
+	}
+};
+
+int main() {
+	// shared ptr
+	shared_ptr<myClass> shPtr1 = make_shared<myClass>(); // 不能分开定义。如先定义shPtr1，然后再调用make_shared，是非法的。
+	cout << "Shared count" << shPtr1.use_count() << endl;
+
+	shared_ptr<myClass> shPtr2 = shPtr1;
+	cout << "Shared count" << shPtr1.use_count() << endl;
+
+	// unique ptr
+	unique_ptr<int> unPtr1 = make_unique<int>(168);
+	cout << *unPtr1 << endl;	// 168
+
+	unique_ptr<int> unPtr2 = unPtr1;	// fail
+	unique_ptr<int> unPtr2 = move(unPtr1);  // move owership of pointing to 168 to unPtr2
+	cout << *unPtr1 << endl;	// fail
+	cout << *unPtr2 << endl;	// 168
+
+	// unique ptr
+	{
+	unique_ptr<myClass> unPtr1 = make_unique<myClass>();
+	unique_ptr<int> unPtr2 = unPtr1;	// fail
+	}	// destructor function will be called when meeting right bracket "}".
+
+	weak_ptr<int> wePtr;
+	{
+	shared_ptr<int>shPtr = make_shared<int>(25);
+	wePtr = shPtr;
+	cout << wePtr.expired() << endl;	// 0   shPtr没有释放
+	cout << shPtr.use_count() << endl;	// 1
+	cout << wePtr.use_count() << endl;	// 1
+
+	wePtr.reset();
+	cout << wePtr.use_count() << endl;	// 0
+	cout << shPtr.use_count() << endl;	// 1
+
+	shared_ptr<int> sh_ptr = wePtr.lock();
+	cout << *sh_ptr << " " << *shPtr << endl;	// 25 25
+	*sh_ptr = 100;
+	cout << *sh_ptr << " " << *shPtr << endl;	// 100 100
+	}
+	cout << wePtr.expired() << endl;	// 1	shPtr已经释放了
+
+	cout << "exit main" << endl;
+	return 0;
+}
+```
+
 ## 一、share_ptr
 
 share_ptr是C++11新添加的智能指针，它限定的资源可以被多个指针共享。
@@ -107,7 +188,7 @@ pa.use_count 2
 
 函数结束时，没有调用A和B的析构函数。
 
-这就需要使用weak_ptr：把A中的shared_ptr`<B>` pb_改为weak_ptr`<B>` pb_weak，这样改为了弱引用，传递时不会增加pb引用计数use_count()的值，所以最终能够使A、B资源正常释放：
+这就需要使用weak_ptr：把A中的shared_ptr `<B>` pb_改为weak_ptr `<B>` pb_weak，这样改为了弱引用，传递时不会增加pb引用计数use_count()的值，所以最终能够使A、B资源正常释放：
 
 ```cpp
 #include <iostream>
@@ -183,7 +264,6 @@ A delete
 
 函数结束时，调用A和B的析构函数
 
-
 ## 三、unique_ptr
 
 　　unique_ptr 是一个独享所有权的智能指针，它提供了严格意义上的所有权。它取代了C++98中的auto_ptr。
@@ -234,16 +314,6 @@ Task::Constructor
 23
 Task::Destructor
 ```
-
-
-
-
-
-
-
-
-
-
 
 todo:
 
@@ -339,7 +409,7 @@ void UseRawPointer() {
 
 void UseSmartPointer() {
     // 1. unique_ptr - using new
-    unique_ptr`<Song>` song2(new Song("show me", "the money!"));
+    unique_ptr<Song> song2(new Song("show me", "the money!"));
     auto len = song2->duration;
     std::cout << len << std::endl;
 
@@ -348,14 +418,14 @@ void UseSmartPointer() {
     std::cout << len << std::endl;
 
     // 2. unique_ptr - using make_unique
-    auto song4 = make_unique`<Song>`("good", "bad");
-    unique_ptr`<Song>` song5 = std::move(song4);
+    auto song4 = make_unique<Song>("good", "bad");
+    unique_ptr<Song> song5 = std::move(song4);
 
     // 3. shared_ptr - using new
-    shared_ptr`<Song>` song_sp1(new Song("1", "2"));
+    shared_ptr<Song> song_sp1(new Song("1", "2"));
 
     // 4. shared_ptr - using make_shared
-    auto song_sp2 = make_shared`<Song>`("2", "3");
+    auto song_sp2 = make_shared<Song>("2", "3");
     cout << song_sp2.use_count() << endl;
     {
         auto song_sp3 = song_sp2;
@@ -364,13 +434,13 @@ void UseSmartPointer() {
     cout << song_sp2.use_count() << endl;
 
     // 5. weak_ptr
-    weak_ptr`<int>` wp1;
+    weak_ptr<int> wp1;
     {
-        shared_ptr`<int>`sp1 = make_shared`<int>`(25);
+        shared_ptr<int>sp1 = make_shared`<int>`(25);
         wp1 = sp1;
         cout << "wp1.expired(): " << wp1.expired() << endl;
         cout << *sp1 << endl;
-        weak_ptr`<int>` wp2(sp1);
+        weak_ptr<int> wp2(sp1);
         cout << wp2.expired() << endl;
     }
     cout << "wp1.expired(): " << wp1.expired() << endl;
