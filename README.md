@@ -67,6 +67,7 @@
 |                                        | string to char                                 |           |      |
 |                                        | accumulate(v.begin(), v.end(), 0)              |           |      |
 | [code](cpp/demo_smartPointer.md)          | smart pointer - unique_ptr/shared_ptr/weak_ptr |           |      |
+| [code](code_lib/implicit_explicit.md)     | implicit/explicit                              |           |      |
 
 ### 二分法
 

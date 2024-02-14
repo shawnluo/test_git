@@ -20,6 +20,80 @@ weak_ptr可以使用一个非常重要的成员函数 `lock()`从被观测的sha
 
 ## 简单例子
 
+### 五种智能指针指向数组的方法
+
+```c++
+shared_ptr 与 deleter (函数对象)
+template<typename T>
+struct array_deleter {
+	void operator()(T const* p)
+	{
+		delete[] p;
+	}
+};
+
+std::shared_ptr<int> sp(new int[10], array_deleter<int>());
+shared_ptr 与 deleter (lambda 表达式)
+std::shared_ptr<int> sp(new int[10], [](int* p) {delete[]p; });
+shared_ptr 与 deleter ( std::default_delete)
+std::shared_ptr<int> sp(new int[10], std::default_delete<int[]>());
+使用 unique_ptr
+std::unique_ptr<int[]> up(new int[10]); //@ unique_ptr 会自动调用 delete[]
+使用 vector<int>
+typedef std::vector<int> iarray;
+std::shared_ptr<iarray> sp(new iarray(10));
+```
+
+
+### 数组的智能指针的限制
+
+unique_ptr 的数组智能指针，没有* 和 -> 操作，但支持下标操作[]。
+shared_ptr 的数组智能指针，有 * 和 -> 操作，但不支持下标操作[]，只能通过 get() 去访问数组的元素。
+**shared_ptr 的数组智能指针，必须要自定义deleter。**
+
+```c++
+#include <iostream>
+#include <memory>
+#include <vector>
+
+using namespace std;
+
+class test{
+public:
+  explicit test(int d = 0) : data(d){cout << "new" << data << endl;}
+  ~test(){cout << "del" << data << endl;}
+  void fun(){cout << data << endl;}
+public:
+  int data;
+};
+unique_ptr 与数组：
+
+int main()
+{
+	unique_ptr<test[]> up(new test[2]);
+	up[0].data = 1;
+	up[1].data = 2;
+	up[0].fun();
+	up[1].fun();
+
+	return 0;
+}
+shared_ptr 与数组：
+
+int main()
+{
+	shared_ptr<test[]> sp(new test[2], [](test *p) { delete[] p; });
+	(sp.get())->data = 2;
+	(sp.get()+1)->data = 3;
+
+	(sp.get())->fun();
+	(sp.get()+1)->fun();
+
+	return 0;
+}
+```
+
+
 ```c++
 
 
@@ -34,15 +108,33 @@ public:
 	}
 };
 
-int main() {
-	// shared ptr
+/* 初始smart ptr的方法：
 	shared_ptr<myClass> shPtr1 = make_shared<myClass>(); // 不能分开定义。如先定义shPtr1，然后再调用make_shared，是非法的。
+	unique_ptr<int>shPtr1(new int(25));	// 另一种初始化的方法
+
+	auto p = make_unique<int[]>(5);	// 创造指针数组p, 成员数有5个
+	p[0] = 1;
+	p[1] = 2;
+	p[2] = 3;
+	p[3] = 4;
+	p[4] = 5;
+	auto p = make_shared<int[]>(5);	// 只被高版本c++ 17及以上才支持。未尝试成功！
+*/
+
+
+
+
+int main() {
+	// 1. shared ptr
+	shared_ptr<myClass> shPtr1 = make_shared<myClass>(); // 不能分开定义。如先定义shPtr1，然后再调用make_shared，是非法的。
+	unique_ptr<int>shPtr1(new int(25));	// 另一种初始化的方法
+
 	cout << "Shared count" << shPtr1.use_count() << endl;
 
 	shared_ptr<myClass> shPtr2 = shPtr1;
 	cout << "Shared count" << shPtr1.use_count() << endl;
 
-	// unique ptr
+	// 2. unique ptr
 	unique_ptr<int> unPtr1 = make_unique<int>(168);
 	cout << *unPtr1 << endl;	// 168
 
@@ -57,6 +149,7 @@ int main() {
 	unique_ptr<int> unPtr2 = unPtr1;	// fail
 	}	// destructor function will be called when meeting right bracket "}".
 
+	// 3. weak_ptr
 	weak_ptr<int> wePtr;
 	{
 	shared_ptr<int>shPtr = make_shared<int>(25);
