@@ -29,7 +29,7 @@ void* memcpy(void* dst, const void* src, size_t size) { // 注意const, void*
     if(dst == nullptr || src == nullptr) 
         return dst;
 
-    if(src + size > dst) {                         // possible overlap - backward
+    if((size_t*)src + size > (size_t*)dst) {                         // possible overlap - backward
         char* lastcdst = (char*)dst + size - 1;
         const char* lastcsrc = (const char*)src + size - 1;
         while(size--) {

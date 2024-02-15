@@ -3,17 +3,24 @@
 #include <stdlib.h>
 #include <signal.h>
 
+typedef void (*pF)(void);
+
 void showMe() {
     printf("hello\n");
 }
 
-void run(void* fun) {
+void run1(void* fun) {
     ((pF)(fun))();
 }
 
+void run2(pF fun) {
+    fun();
+}
 
 int main() {
-    run(showMe);
+    run1(showMe);
+
+    run2(showMe);
 
     return 0;
 }

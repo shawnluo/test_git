@@ -7,37 +7,24 @@
 
 
 
+typedef void (*pF)(void);
+
+void showMe() {
+    printf("hello\n");
+}
+
+void run1(void* fun) {
+    ((pF)(fun))();
+}
+
+void run2(pF fun) {
+    fun();
+}
+
 int main() {
-    // 输入是字符！！！！  不是字符串！！！！！
+    run1(showMe);
 
-    char x = '5';
-    char y = 'a';
-    char z = '+';
-    int res;
-
-    /* 
-        isalnum: 
-            数字和字母: return non-zero
-            if not   : 0
-     */
-    printf("%d\n", isalnum(x));    // 返回值    非 0
-    printf("%d\n", isalnum(y));    // 返回值    非 0
-    printf("%d\n", isalnum(z));    // 返回值    等于0
-
-    /* 
-        isdigit: 
-            数字  : return non-zero
-            if not: 0
-     */
-    printf("%d\n", isdigit(x));    // 返回值    非 0
-    printf("%d\n", isdigit(y));    // 返回值    等于0
-
-    /* 
-        isalpha:      
-            a ~ z : return non-zero integer
-            if not: return 0
-     */
-    printf("%d\n", isalpha(x));    // 返回值    等于0
+    run2(showMe);
 
     return 0;
 }

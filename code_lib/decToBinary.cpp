@@ -10,6 +10,7 @@ using namespace std;
 #include <iostream>
 #include <string>
 
+// "11011.1101" -> 27.8125
 double binaryFractionToDecimal(const string& s) {
     size_t pos = s.find('.');
     string intPart;

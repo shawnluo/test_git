@@ -25,13 +25,13 @@ void align_free(void * aligned_addr) {
 
 // 2. memcpy alignment
 //      not optimized for copy speed
-void* memcpyAlign(size_t alignment, void* dst, void* src, size_t dstLen, size_t srcLen) {
+void* memcpyAlign(size_t alignment, void* dst, const void* src, size_t dstLen, size_t srcLen) {
     // 1. get the alignedAddr newAddr
     size_t offset = alignment - 1;
     size_t* newDst = ((size_t*)dst + offset) & ~(offset);
 
     // 如果偏移后的剩余长度不足以放下src，那么就返回
-    if(dstLen - (newDst - dst) < src) {
+    if(dstLen - (newDst - dst) < srcLen) {
         return nullptr;
     }
 
