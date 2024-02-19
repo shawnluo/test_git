@@ -85,3 +85,11 @@ new创建类对象使用完需delete销毁
 new创建对象直接使用堆空间，而局部不用new定义类对象则使用栈空间
 new对象指针用途广泛，比如作为函数返回值、函数参数等
 频繁调用场合并不适合new，就像new申请和释放内存一样 */
+
+
+
+vector<vector<int>> v = {{1, 2}, {3, 4}, {5, 6}};
+for(auto it = v.begin(); it != v.end(); it++) {
+    cout << it->front() << endl;
+    cout << it->back() << endl;
+}

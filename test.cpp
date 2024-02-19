@@ -119,131 +119,74 @@ private:
     int val;
     int *rates;
 };
-void sortByFreq(v) {
-    // 1. map <int, int>
-    // 2. priority_queue<pair<int, int>, vector<pair<int, int>>, myComp> pq;
-}
 
-unordered_map<char, int> uMap;
-for(auto it : s) {
-    uMap[it]++;
-}
-
-for(auto it : t) {
-    uMap[it]--;
-}
-for(auto it : uMap) {
-    it.second
-}
-
-v = {1, 2, 3, 6, 9};
-target = 22;
-unordered_map<int, int> uMap;   // first: number, sec: position
-for(int i = 0; i < n; i++) {
-    auto it = uMap.find(target - nums[i]);
-    if(it != uMap.end()) {
-        return {i, it->second};
-    }
-    uMap[nums[i]] = i;
-}
-return {};
-
-vector<int> interSection(v1, v2) {
-    unordered_set<int> res;
-    unordered_set<int> nSet(v1.begin(), v1.end());
-    for(auto it : v2) {
-        if(nSet.find(it) != nSet.end()) {
-            res.insert(it);
+void delDup(vector<int>& nums) {
+    int n = nums.size();
+    int j = 1;
+    for(int i = 1; i < n; i++) {
+        if(nums[i] != nums[i - 1]) {
+            nums[j++] = nums[i];
         }
     }
-}
-
-
-// nums = {2, 3, 5},  target = 8, return indices
-vector<int> twoSum(vector<int>& nums, int target) {
-    // 1. unordered_map to save num and index
-    unordered_map<int, int>uMap;
-
-    // 2. loop travel in nums, if find diff in map, then return indices
-    for(int i = 0; i < nums.size(); i++) {
-        auto x = uMap.find(target - nums[i]);
-        if(x != uMap.end()) {
-            return {i, x->second};
-        }
-        uMap.insert({nums[i], i});
+    nums.resize(j);
+    for(auto it : nums) {
+        cout << it << endl;
     }
-    return {};
-    //      else push element into 
 }
 
-// 19: 1 * 1 + 9 * 9 = 82
-// 8 * 8 + 2 * 2 = 68
-// 6 * 6 + 8 * 8 = 100
-// 1 * 1 + 0 * 0 + 0 * 0 = 1
+void delStr(string s) {
+    stack<char> st;
+    int n = s.size();
 
-// 2 
-// 2 * 2 = 4
-/* 
-    4 * 4 = 16
-    1 + 36 = 37
-    9 + 49 = 58
-    25 + 64 = 99
-    81 + 81 = 162
-    1 + 36 + 4 = 41
-    16 + 2 = 18
-    1 + 64 = 65
-    36 + 25 = 61
-    36 + 2 = 38
-    9 + 64 = 73
-    49 + 9 = 58
- */
-
-int getSum(int n) {
-    int sum = 0;
-    for(; n != 0; ) {
-        int x = n % 10;
-        x *= x;
-        n /= 10;
-        sum += x;
-    }
-    return sum;
-}
-
-bool isHappy(int n) {
-    // 1. unordered_set<int> uSet
-    unordered_set<int> uSet;
-    // 2. save sum of digits to uSet
-    while(1) {
-        int sum = getSum(n);
-        if(sum == 1) {
-            return true;
-        }
-        if(uSet.find(sum) != uSet.end()) {
-            return false;
+    for(int i = 0; i < n; i++) {
+        if(st.empty() || s[i] != st.top()) {
+            st.push(s[i]);
+        } else {
+            st.pop();
         }
     }
-    // 3. if find repeat then return false
+
+    string res;
+    while(!st.empty()) {
+        res.push_back(st.top());
+        st.pop();
+    }
+
+    reverse(res.begin(), res.end());
+
+    cout << res << endl;
 }
 
-// TODO
-/* 
-    1. reverse str
-    2. string to decimal
-    3. decimal to string
- */
+int evalRPM(vector<string>& s) {
+    stack<long long> st;
+    for(int i = 0; i < s.size(); i++) {
+        if((s[i] == "+") || (s[i] == "-") || s[i] == "*" || s[i] == "/") {
+            long long a = st.top();
+            st.pop();
+            long long b = st.top();
+            st.pop();
+
+            if(s[i] == "+") st.push(a + b);
+            if(s[i] == "-") st.push(a - b);
+            if(s[i] == "*") st.push(a * b);
+            if(s[i] == "/") st.push(a / b);
+        } else {
+            st.push(stoll(s[i]));
+        }
+    }
+    return st.top();
+}
 
 int main() {
-    vector<int> nums1 = {1, 2, 3, 4, 5};
-    vector<int> nums2 = {11, 0, 22, 3, 4, 5};
-    pListNode pHead1 = create(nums1);
-    pListNode pHead2 = create(nums2);
+    vector<int> nums{1, 1, 2, 2, 3, 4, 5, 6, 6};
+    // delDup(nums);
+    
+    // string s = "abaabax";
+    // delStr(s);
 
-
-
-    // showMe(pHead);
-
-    // pHead = swapPairs(pHead);
-    // showMe(pHead);
+    string s = "111";
+    long res = stoll(s);
+    cout << res << endl;
 
     return 0;
 }
