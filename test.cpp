@@ -5,188 +5,86 @@
 #include <thread>
 using namespace std;
 
-typedef struct NODE {
-    int val;
-    NODE* next;
-    NODE(int x) : val(x), next(nullptr) {}
-} ListNode, *pListNode;
+#define ELEMENT char
+#define FORMAT "%c"
+#define NODE_NUM 15
 
-// input: pListNode head
-// output: pListNode head
+typedef struct Node {
+    ELEMENT data;
+    struct Node* left;
+    struct Node* right;
+
+    Node(ELEMENT val) : data(val), left(nullptr), right(nullptr) {}
+} *Tree;
+
 /* 
-    using dummyhead to handle head swap issue.
-    p1 = head->next;
-    p2 = head->next->next;
-    p3 = head->next->next->next;
-    
-    head -> p1 -> p2 -> p3
-    head -> p2
-    p2 -> p1
-    p1 -> p3
-    head = head->next->next
+    Binary Tree Constructor
+    1. construct in preorder
+    2. '#' means no left child or right child
+    A, B, D, #, #, E, #, #, C, F, #, #, G, #, #
  */
-ListNode* swapPairs(ListNode* head) {
-    pListNode pDummy = new NODE(0);
-    pDummy->next = head;
-    pListNode pCur = pDummy;
-
-    for(; pCur && pCur->next && pCur->next->next; ) {
-        pListNode p1 = pCur->next;
-        pListNode p2 = pCur->next->next;
-        pListNode p3 = pCur->next->next->next;
-
-        pCur->next = p2;
-        p2->next = p1;
-        p1->next = p3;
-
-        pCur = pCur->next->next;
+void binaryTreeConstructor(Tree& root, ELEMENT data[]) {
+    static int index = 0;
+    if(index >= NODE_NUM) {
+        return;
     }
 
-    return pDummy->next;
-}
+    ELEMENT ele = data[index++];
+    if(ele == '#') {
+        root = nullptr;
+    } else {
+        // root = (Node*)malloc(sizeof(Node));
+        root = new Node(ele);
+        root->data = ele;
 
-pListNode create(vector<int>& nums) {
-    pListNode pHead = new NODE(nums[0]);
-    pListNode pCur = pHead;
-    pListNode pNext;
+        // unique_ptr<Node> root(new Node(ele));
+        // shared_ptr<Node> root(new Node(ele));
 
-    for(int i = 1; i < nums.size(); i++) {
-        pNext = new NODE(nums[i]);
-        pCur->next = pNext;
-        pCur = pNext;
-    }
-    return pHead;
-}
-
-void showMe(pListNode& pHead) {
-    pListNode p = pHead;
-    while(p) {
-        cout << p->val << " ";
-        p = p->next;
-    }
-    cout << endl;
-}
-
-pListNode findCircle(pListNode pHead) {
-    pListNode pFast = pHead->next->next;
-    pListNode pSlow = pHead->next;
-
-    while(pFast && pSlow && pFast != pSlow) {
-        pFast = pFast->next->next;
-        pSlow = pSlow->next;
-    }
-    if(pFast == nullptr || pSlow == nullptr) {
-        return nullptr;
-    }
-    string s = "abc";
-    unordered_map<char, int> uMap;
-    for(auto it : s) {
-        uMap[it]++;
-    }
-
-    for(auto it : uMap) {
-        it.second--;
-    }
-    for(auto it = uMap.begin(); it != uMap.end(); it++) {
-        it->second = 0;
+        binaryTreeConstructor(root->left, data);
+        binaryTreeConstructor(root->right, data);
+        // cout << root.use_count() << endl;
     }
 }
 
-class myComp {
-public:
-    bool operator()(const pair<int, int>& lhs, const pair<int, int>& rhs) {
-        return lhs.second > rhs.second;
+void constructorBinTree(Tree& root, ELEMENT data[]) {
+    static int index = 0;
+    ELEMENT val = data[index];
+
+    if(data[index] == '#') {
+        root = nullptr;
+    } else {
+        unique_ptr<Node> node(new Node(val));
+
+        constructorBinTree(root->left, data);
+        constructorBinTree(root->right, data);
     }
-    myComp(int num, int data) : n(num), val(data){
-        for(int i = 0; i < num; i++) {
-            rates[i] = val;
+}
+
+void breadthFirstSearch(Tree root) {
+    queue<Tree>treeQueue;
+    treeQueue.push(root);
+    Tree curNode;
+
+    while(!treeQueue.empty()) {
+        curNode = treeQueue.front();
+        treeQueue.pop();
+        cout << curNode->data << " ";
+
+        if(curNode->left) {
+            treeQueue.push(curNode->left);
+        }
+        if(curNode->right) {
+            treeQueue.push(curNode->right);
         }
     }
-    myComp(const myComp& original) {
-        val = original.val;
-        for(int i = 0; i < original.n; i++) {
-            rates[i] = original.rates[i];
-        }
-    }
-
-    ~myComp() {
-        delete[] rates;
-        rates = nullptr;
-    }
-
-private:
-    int n;
-    int val;
-    int *rates;
-};
-
-void delDup(vector<int>& nums) {
-    int n = nums.size();
-    int j = 1;
-    for(int i = 1; i < n; i++) {
-        if(nums[i] != nums[i - 1]) {
-            nums[j++] = nums[i];
-        }
-    }
-    nums.resize(j);
-    for(auto it : nums) {
-        cout << it << endl;
-    }
-}
-
-void delStr(string s) {
-    stack<char> st;
-    int n = s.size();
-
-    for(int i = 0; i < n; i++) {
-        if(st.empty() || s[i] != st.top()) {
-            st.push(s[i]);
-        } else {
-            st.pop();
-        }
-    }
-
-    string res;
-    while(!st.empty()) {
-        res.push_back(st.top());
-        st.pop();
-    }
-
-    reverse(res.begin(), res.end());
-
-    cout << res << endl;
-}
-
-int evalRPM(vector<string>& s) {
-    stack<long long> st;
-    for(int i = 0; i < s.size(); i++) {
-        if((s[i] == "+") || (s[i] == "-") || s[i] == "*" || s[i] == "/") {
-            long long a = st.top();
-            st.pop();
-            long long b = st.top();
-            st.pop();
-
-            if(s[i] == "+") st.push(a + b);
-            if(s[i] == "-") st.push(a - b);
-            if(s[i] == "*") st.push(a * b);
-            if(s[i] == "/") st.push(a / b);
-        } else {
-            st.push(stoll(s[i]));
-        }
-    }
-    return st.top();
 }
 
 int main() {
-    vector<int> nums{1, 1, 2, 2, 3, 4, 5, 6, 6};
-    // delDup(nums);
-    
-    // string s = "abaabax";
-    // delStr(s);
+    ELEMENT data[NODE_NUM] = {'A', 'B', 'D', '#', '#', 'E', '#', '#', 'C', 'F','#', '#', 'G', '#', '#'};
+    Tree tree;
 
-    string s = "111";
-    long res = stoll(s);
-    cout << res << endl;
+    binaryTreeConstructor(tree, data);
+    breadthFirstSearch(tree);
 
     return 0;
 }

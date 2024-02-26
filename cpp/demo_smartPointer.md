@@ -23,7 +23,7 @@ weak_ptr可以使用一个非常重要的成员函数 `lock()`从被观测的sha
 ### 五种智能指针指向数组的方法
 
 ```c++
-shared_ptr 与 deleter (函数对象)
+// 1. shared_ptr 与 deleter (函数对象)
 template<typename T>
 struct array_deleter {
 	void operator()(T const* p)
@@ -33,17 +33,20 @@ struct array_deleter {
 };
 
 std::shared_ptr<int> sp(new int[10], array_deleter<int>());
-shared_ptr 与 deleter (lambda 表达式)
+
+// 2. shared_ptr 与 deleter (lambda 表达式)
 std::shared_ptr<int> sp(new int[10], [](int* p) {delete[]p; });
-shared_ptr 与 deleter ( std::default_delete)
+
+// 3. shared_ptr 与 deleter ( std::default_delete)
 std::shared_ptr<int> sp(new int[10], std::default_delete<int[]>());
-使用 unique_ptr
+
+// 4. 使用 unique_ptr
 std::unique_ptr<int[]> up(new int[10]); //@ unique_ptr 会自动调用 delete[]
-使用 vector<int>
+
+// 5. 使用 vector<int>
 typedef std::vector<int> iarray;
 std::shared_ptr<iarray> sp(new iarray(10));
 ```
-
 
 ### 数组的智能指针的限制
 
@@ -92,7 +95,6 @@ int main()
 	return 0;
 }
 ```
-
 
 ```c++
 
