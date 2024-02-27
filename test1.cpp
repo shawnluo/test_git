@@ -10,37 +10,94 @@
 
 using namespace std;
 
+#define ELEMENT char
 
-int findMissing(vector<int>& array, int column) {
-    if (column < 0) return 0;
+typedef struct TREE {
+    ELEMENT val;
+    TREE* left;
+    TREE* right;
 
-    vector<int> odd;
-    vector<int> eve;
-    // odd.clear();
-    // eve.clear();
+    TREE(int data) : val(data), left(nullptr), right(nullptr) {}
+} Tree, *pTree;
 
-    for (auto it : array) {
-        if ((it >> column) & 1) {
-            odd.push_back(it);
-        } else {
-            eve.push_back(it);
-        }
-    }
+void createBTree(pTree& tree, vector<ELEMENT>& nums) {
+    static int index = 0;
+    if(index >= nums.size()) return;
 
-    if(odd.size() >= eve.size()) {
-        return (findMissing(eve, column - 1)) << 1 | 0;
+    // new tree node
+    ELEMENT ele = nums[index++];
+    if(ele == '#') {
+        tree = nullptr;
     } else {
-        return (findMissing(odd, column - 1)) << 1 | 1;
+        tree = new TREE(ele);
+        // recusively call new tree node left
+        createBTree(tree->left, nums);
+
+        // recusively call new tree node right
+        createBTree(tree->right, nums);
     }
 }
 
-int findMissing(vector<int>& array) {
-    return findMissing(array, array.size() - 1);
+void BFS(pTree& tree) {
+    queue<pTree> q;
+    q.push(tree);
+
+    while(!q.empty()) {
+        pTree curNode = q.front();
+        q.pop();
+        cout << curNode->val;
+
+        if(curNode->left) {
+            q.push(curNode->left);
+        }
+
+        if(curNode->right) {
+            q.push(curNode->right);
+        }
+    }
+}
+/* 
+    Input: n = 4, flights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], src = 0, dst = 3, k = 1
+    Output: 700
+ */
+int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+    vector<vector<pair<int, int>>> adj(n);
+    for(auto& e : flights) {
+        adj[e[0]].push_back({e[1], e[2]});
+    }
+
+    vector<int> dist(n, INT_MAX);
+    queue<pair<int, int>> q;
+    q.push({src, 0});
+    int stops = 0;
+
+    while(stops <= k && !q.empty()) {
+        int sz = q.size();
+        // iterate on current level
+        while(sz--) {
+            auto[node, distance] = q.front();
+            q.pop();
+            // iterate over neighbors of popped node
+            for(auto& [neighbour, price] : adj[node]) {
+                if(price + distance >= dist[neighbour]) {
+                    continue;
+                }
+                dist[neighbour] = price + distance;
+                q.push({neighbour, dist[neighbour]});
+            }
+        }
+        stops++;
+    }
+    return dist[dst] == INT_MAX ? -1 : dist[dst];
 }
 
 int main(void) {
-    vector<int> array = {1, 2, 3, 5, 6, 7};
-    cout << findMissing(array) << endl;
+    vector<ELEMENT> nums = {'A', 'B', 'D', '#', '#', 'E', '#', '#', 'C', 'F','#', '#', 'G', '#', '#'};
+    pTree tree;
+    createBTree(tree, nums);
+    BFS(tree);
+
+    // for_each(nums.begin(), nums.end(), [](int x){cout << x << endl;});
 
     return 0;
 }

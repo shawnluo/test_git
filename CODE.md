@@ -1,6 +1,5 @@
+# 计算器
 
-
-### 计算器
 string s = 3 5 6 + *
 
 ```c++
@@ -12,7 +11,7 @@ int evalRPM(string s) {
             st.pop();
             long long b = st.top();
             st.pop();
-        
+      
             if(s[i] == "+") st.push(a + b);
             if(s[i] == "-") st.push(a + b);
             if(s[i] == "*") st.push(a * b);
@@ -25,7 +24,7 @@ int evalRPM(string s) {
 }
 ```
 
-### sort by frequence
+# sort by frequence
 
 ```c++
 
@@ -49,4 +48,99 @@ void sortByFreq(vector<int>& nums) {
 
     }
 }
+```
+
+# cheapest flights within K stops
+https://leetcode.com/problems/cheapest-flights-within-k-stops/description/?envType=daily-question&envId=2024-02-23
+
+There are n cities connected by some number of flights. You are given an array flights where flights[i] = [fromi, toi, pricei] indicates that there is a flight from city fromi to city toi with cost pricei.
+
+You are also given three integers src, dst, and k, return the cheapest price from src to dst with at most k stops. If there is no such route, return -1.
+
+<image src = "pic/cheapest-flights-within-k-stops-3drawio.png" />
+
+```c++
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        vector<vector<pair<int, int>>> adj(n);
+        for (auto& e : flights) {
+            adj[e[0]].push_back({e[1], e[2]});
+        }
+        vector<int> dist(n, numeric_limits<int>::max());
+        queue<pair<int, int>> q;
+        q.push({src, 0});
+        int stops = 0;
+
+        while (stops <= k && !q.empty()) {
+            int sz = q.size();
+            // Iterate on current level.
+            while (sz--) {
+                auto [node, distance] = q.front();
+                q.pop();
+                // Iterate over neighbors of popped node.
+                for (auto& [neighbour, price] : adj[node]) {
+                    if (price + distance >= dist[neighbour]) continue;
+                    dist[neighbour] = price + distance;
+                    q.push({neighbour, dist[neighbour]});
+                }
+            }
+            stops++;
+        }
+        return dist[dst] == numeric_limits<int>::max() ? -1 : dist[dst];
+    }
+};
+```
+
+# Diameter of Binary Tree
+https://leetcode.com/problems/diameter-of-binary-tree/description/
+
+Given the root of a binary tree, return the length of the diameter of the tree.
+
+The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
+
+The length of a path between two nodes is represented by the number of edges between them.
+<image src = "pic/diamtree.jpg" />
+
+Input: root = [1,2,3,4,5]
+
+Output: 3
+
+Explanation: 3 is the length of the path [4,2,1,3] or [5,2,1,3].
+
+``` c++
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+private:
+    int diameter;
+
+    int longestPath(TreeNode* node) {
+        if(node == nullptr) {
+            return 0;
+        }
+        int leftPath = longestPath(node->left);
+        int rightPath = longestPath(node->right);
+
+        diameter = max(diameter, leftPath + rightPath);
+
+        return max(leftPath, rightPath) + 1;
+    }
+
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+        diameter = 0;
+        longestPath(root);
+        return diameter;
+    }
+};
 ```

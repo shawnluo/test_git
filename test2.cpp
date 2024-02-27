@@ -21,62 +21,14 @@ using std::string;
 
 
 
-
-class test {
-public:
-    int val;
-
-    test() {}
-    test(int data) : val(data) {}
-
-    virtual void api() {
-        cout << "test SPI" << endl;
-    }
-    void set(int val);
-    void show() const ;
-
-    test operator+(const test& other) {
-        return test(val + other.val);
-    }
-
-private:
-    friend void showMe(test);
-    friend class peek;
-};
-
-/* class peek {
-public:
-    peek(test x) {
-        cout << x.val << endl;
-    }
-};
-
-void showMe(test x) {
-    cout << x.val << endl;
-}
-
-void test::set(int val) {
-    cout << this->val << endl;
-    cout << val << endl;
-}
-
-void test::show() const {
-    cout << "show" << endl;
-}
-
-class test_I2C : public test {
-public:
-    virtual void api() {
-        cout << "tet I2C" << endl;
-    }
-}; */
-
 int main(void) {
-    test x(33);
-    test y(55);
-    test z = x + y;
+    queue<char> q;
+    q.push('a');
+    q.push('b');
 
-    cout << z.val << endl;
+    cout << q.front() << endl;
+    q.pop();
+    cout << q.front() << endl;
 
     return 0;
 }
