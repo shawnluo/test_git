@@ -34,8 +34,8 @@ void binaryTreeConstructor(Tree& root, ELEMENT data[]) {
         root = nullptr;
     } else {
         // root = (Node*)malloc(sizeof(Node));
+        // root->data = ele;
         root = new Node(ele);
-        root->data = ele;
 
         // unique_ptr<Node> root(new Node(ele));
         // shared_ptr<Node> root(new Node(ele));

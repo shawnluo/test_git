@@ -10,7 +10,8 @@ import os
 import random
 
 from collections import deque
+from transformers import pipeline
 
-range = [1, 2]
-for it in range:
-    print(it)
+classifier = pipeline("sentiment-analysis")
+res = classifier("Today is a nice day!");
+print(res)
