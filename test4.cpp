@@ -15,31 +15,14 @@ struct Author {
 	int article_views;
 };
 
-int main()
-{
-	// Declaring the vector of structs
-	struct Author a1 = { "Geek1", 124, 65000 };
-	struct Author a2 = { "Geek2", 156, 100000 };
-	struct Author a3 = { "Geek3", 10, 200 };
+int main() {
+	string s = "612530";
+	const int n = s.size();
 
-	vector<Author> v;
-
-	// Insertion of elements using push_back()
-	v.push_back(a1);
-	v.push_back(a2);
-	v.push_back(a3);
-
-	cout << "author_name"
-		<< " "
-		<< "article_count"
-		<< " "
-		<< "article_views" << endl;
-
-	for (auto& a : v) {
-		cout << a.author_name << "			 "
-			<< a.article_count << "		 "
-			<< a.article_views << endl;
-	}
+	char* s1 = new char[n + 1];
+	strcpy(s1, s.c_str());
+	sort(s1, s1 + n);
+	cout << s1 << endl;
 
 	return 0;
 }

@@ -15,37 +15,58 @@
 #include <thread>
 using namespace std;
 
-typedef struct Person {
-    string name;
-    int age;
-} PERSON;
+#include <iostream>
+#include <queue>
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int val) : data(val), left(nullptr), right(nullptr) {}
+};
+
+void printLayers(Node* root) {
+    if (root == nullptr) {
+        return;
+    }
+
+    std::queue<Node*> q;
+    q.push(root);
+
+    int res = root->data;
+    while (!q.empty()) {
+        int size = q.size();
+
+        for (int i = 0; i < size; i++) {
+            Node* current = q.front();
+            q.pop();
+            // std::cout << current->data << " ";
+
+            if (current->left) {
+                q.push(current->left);
+                res = current->left->data;
+            }
+            if (current->right) {
+                q.push(current->right);
+            }
+        }
+
+        std::cout << std::endl;
+        cout << size << endl;
+    }
+}
 
 int main() {
-    PERSON a = {"Alice", 10};
-    PERSON b = {"Bob", 20};
-    PERSON c = {"Charlie", 35};
+    Node* root = new Node(1);
+    root->left = new Node(2);
+    root->right = new Node(3);
+    root->left->left = new Node(4);
+    root->left->right = new Node(5);
+    // root->right->left = new Node(6);
+    root->right->right = new Node(7);
 
-    vector<PERSON> v;
-    v.push_back(a);
-    v.push_back(b);
-    v.push_back(c);
-
-    for(auto it : v) {
-        cout << it.name << endl;
-    }
-
-    string targetName = "Charlie";
-
-    auto it = std::find_if(v.begin(), v.end(), [&](const Person& p) {
-        // cout << p.name << endl;
-        return p.name == targetName;
-    });
-
-    if(it != v.end()) {
-        cout << "Person: " << targetName << "found. Age: " << it->age << endl;
-    } else {
-        cout << "Person: " << targetName << " not found." << endl;
-    }
+    printLayers(root);
 
     return 0;
 }
