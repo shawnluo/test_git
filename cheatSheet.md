@@ -21,6 +21,17 @@ Dynamic array that can resize itself.
 
     push_back(), pop_back(), size(), empty(), at(), front(), back(), insert(), erase(), clear(), reserve().
 
+#### find and erase from vector
+
+```c++
+
+auto it = find(nums2.begin(), nums2.end(), nums1[i]);
+if(it != nums2.end()) {
+	res.push_back(*it);
+	nums2.erase(it);
+}
+```
+
 ## 2. std::deque (Double-ended queue):
 
 Similar to vector but supports efficient insertion and deletion at both its beginning and end.

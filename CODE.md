@@ -1,6 +1,9 @@
 
+<!-- how to use macro ? -->
 
-# 计算器
+### calculator
+<details close>
+    <summary>code</summary>
 
 string s = 3 5 6 + *
 
@@ -13,7 +16,7 @@ int evalRPM(string s) {
             st.pop();
             long long b = st.top();
             st.pop();
-      
+    
             if(s[i] == "+") st.push(a + b);
             if(s[i] == "-") st.push(a + b);
             if(s[i] == "*") st.push(a * b);
@@ -26,10 +29,13 @@ int evalRPM(string s) {
 }
 ```
 
-# sort by frequence
+</details>
+
+### sort by frequence
+<details close>
+    <summary>code</summary>
 
 ```c++
-
 class comparison {
 public:
     bool operator()(const pair<int, int> lhs, const pair<int, int> rhs) {
@@ -52,14 +58,19 @@ void sortByFreq(vector<int>& nums) {
 }
 ```
 
-# cheapest flights within K stops
+</details>
+
+### cheapest flights within K stops
+<details close>
+    <summary>code</summary>
+
 https://leetcode.com/problems/cheapest-flights-within-k-stops/description/?envType=daily-question&envId=2024-02-23
 
 There are n cities connected by some number of flights. You are given an array flights where flights[i] = [fromi, toi, pricei] indicates that there is a flight from city fromi to city toi with cost pricei.
 
 You are also given three integers src, dst, and k, return the cheapest price from src to dst with at most k stops. If there is no such route, return -1.
 
-<image src = "pic/cheapest-flights-within-k-stops-3drawio.png" />
+`<image src = "pic/cheapest-flights-within-k-stops-3drawio.png" />`
 
 ```c++
 class Solution {
@@ -94,7 +105,12 @@ public:
 };
 ```
 
-# Diameter of Binary Tree
+</details>
+
+### Diameter of Binary Tree
+<details close>
+    <summary>code</summary>
+
 https://leetcode.com/problems/diameter-of-binary-tree/description/
 
 Given the root of a binary tree, return the length of the diameter of the tree.
@@ -102,7 +118,7 @@ Given the root of a binary tree, return the length of the diameter of the tree.
 The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
 
 The length of a path between two nodes is represented by the number of edges between them.
-<image src = "pic/diamtree.jpg" />
+`<image src = "pic/diamtree.jpg" />`
 
 Input: root = [1,2,3,4,5]
 
@@ -110,7 +126,7 @@ Output: 3
 
 Explanation: 3 is the length of the path [4,2,1,3] or [5,2,1,3].
 
-``` c++
+```c++
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -147,8 +163,13 @@ public:
 };
 ```
 
-# breadth first search
-``` c++
+</details>
+
+### breadth first search
+<details close>
+    <summary>code</summary>
+
+```c++
 #define ELEMENT char
 #define FORMAT "%c"
 #define NODE_NUM 15
@@ -219,3 +240,5 @@ int main() {
     return 0;
 }
 ```
+
+</details>

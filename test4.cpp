@@ -16,13 +16,15 @@ struct Author {
 };
 
 int main() {
-	string s = "612530";
-	const int n = s.size();
+	vector<int> res;
+	res[1] = 3;
+	// string s = "612530";
+	// const int n = s.size();
 
-	char* s1 = new char[n + 1];
-	strcpy(s1, s.c_str());
-	sort(s1, s1 + n);
-	cout << s1 << endl;
+	// char* s1 = new char[n + 1];
+	// strcpy(s1, s.c_str());
+	// sort(s1, s1 + n);
+	// cout << s1 << endl;
 
 	return 0;
 }
