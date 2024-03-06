@@ -8,6 +8,60 @@
 [//]: #         (This is a comment)
 
 
+### permute
+<details close>
+    <summary>code</summary>
+
+```c++
+vector<vector<int>> res;
+vector<int> path;
+void permute(vector<int>& v, vector<bool>& used) {
+    if(path.size() == v.size()) {
+        res.push_back(path);
+        return;
+    }
+    for(int i = 0; i < v.size(); i++>) {
+        if(used[i] == true) continue;
+        path.push_back(v[i]);
+        permute(v, used);
+        path.pop_back();
+        used[i] = false;
+    }
+}
+
+vector<vector<int>> permute(vector<int>& v) {
+    res.clear();
+    path.clear();
+    vector<bool> used(v.size(), false);
+    permute(v, used);
+
+    return res;
+}
+```
+
+</details>
+
+### merge two sorted linklists
+<details close>
+    <summary>code</summary>
+
+```c++
+ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+    if(list1 == nullptr) return list2;
+    if(list2 == nullptr) return list1;
+
+    if(list1->val < list2->val) {
+        list1->next = mergeTwoLists(list1->next, list2);
+        return list1;
+    } else {
+        list2->next = mergeTwoLists(list2->next, list1);
+        return list2;
+    }
+}
+```
+
+</details>
+
 ### calculator
 <details close>
     <summary>code</summary>
@@ -39,6 +93,18 @@ int evalRPM(string s) {
         }
     }
     return to_string(st.top());
+}
+```
+
+string s = "3+2*2"
+
+Has priority
+
+```c++
+int calculate(string& s) {
+    char op = '+';
+    long long cur = 0;
+
 }
 ```
 
