@@ -79,12 +79,89 @@ void breadthFirstSearch(Tree root) {
     }
 }
 
-int main() {
-    ELEMENT data[NODE_NUM] = {'A', 'B', 'D', '#', '#', 'E', '#', '#', 'C', 'F','#', '#', 'G', '#', '#'};
-    Tree tree;
+// "356+*"
+// NOT consider of priority
+string calculator(string s) {
+    stack<long long> st;
+    for(int i = 0; i < s.size(); i++) {
+        if(isalpha(s[i]) != 0) {
+            long long a = st.top();
+            st.pop();
+            long long b = st.top();
+            st.pop();
 
-    binaryTreeConstructor(tree, data);
-    breadthFirstSearch(tree);
+            if(s[i] == '+') st.push(a + b);
+        } else {
+            string charAsString(1, s[i]);   // convert char to string
+            st.push(stoll(charAsString));   // convert string to long long integer
+
+            // or just use the below
+            // st.push(s[i] - '0');
+        }
+    }
+    return to_string(st.top());
+}
+
+// "3+2* 2"
+int cal_priority(string& s) {
+    char op = '+';
+    long long cur = 0;
+    stack<long long> st;
+
+    for(int i = 0; i < s.size(); i++) {
+        if(isdigit(s[i])) {
+            cur = cur * 10 + s[i] - '0';
+        }
+
+        if((!isdigit(s[i]) && !isspace(s[i]) || (i + 1) == s.size())) {
+            long long x;
+            switch(op) {
+                case '+':
+                    st.push(cur);
+                break;
+                case '-':
+                    st.push(-cur);
+                break;
+                case '*':
+                    x = st.top();
+                    st.pop();
+                    st.push(x * cur);
+                break;
+                case '/':
+                    x = st.top();
+                    st.pop();
+                    st.push(x / cur);
+                break;
+            }
+            op = s[i];
+            cur = 0;
+        }
+    }
+
+    int res = 0;
+    while(!st.empty()) {
+        res += st.top();
+        st.pop();
+    }
+    return res;
+}
+
+void sortByFre(string& s) {
+
+}
+
+int main() {
+    // string res = calculator("23+");
+    // cout << res << endl;
+
+    string s = "3+2* 3";
+    cout << cal_priority(s) << endl;
+
+    // ELEMENT data[NODE_NUM] = {'A', 'B', 'D', '#', '#', 'E', '#', '#', 'C', 'F','#', '#', 'G', '#', '#'};
+    // Tree tree;
+
+    // binaryTreeConstructor(tree, data);
+    // breadthFirstSearch(tree);
 
     return 0;
 }

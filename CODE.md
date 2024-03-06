@@ -1,11 +1,20 @@
 
-<!-- how to use macro ? -->
+<!-- 
+    This is a comment !
+-->
+
+[comment]: <>   (This is a comment, it will not be included)
+[//]: <>        (This is a comment)
+[//]: #         (This is a comment)
+
 
 ### calculator
 <details close>
     <summary>code</summary>
 
 string s = 3 5 6 + *
+
+NO priority!
 
 ```c++
 int evalRPM(string s) {
@@ -22,10 +31,14 @@ int evalRPM(string s) {
             if(s[i] == "*") st.push(a * b);
             if(s[i] == "/") st.push(a / b);
         } else {
-            st.push(stoll(s[i]));
+            string aChar(1, s[i]);  // convert char to string
+            st.push(stoll(aChar));  // convert string to long long integer
+
+            // or just use the below
+            // st.push(s[i] - '0');
         }
     }
-    return st.top();
+    return to_string(st.top());
 }
 ```
 

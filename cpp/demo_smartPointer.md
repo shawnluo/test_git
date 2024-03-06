@@ -97,9 +97,6 @@ int main()
 ```
 
 ```c++
-
-
-
 class myClass {
 public:
 	myClass() {
@@ -122,9 +119,6 @@ public:
 	p[4] = 5;
 	auto p = make_shared<int[]>(5);	// 只被高版本c++ 17及以上才支持。未尝试成功！
 */
-
-
-
 
 int main() {
 	// 1. shared ptr

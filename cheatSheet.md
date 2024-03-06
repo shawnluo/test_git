@@ -7,9 +7,12 @@ char* s1 =newchar[n +1];
 strcpy(s1, s.c_str());
 sort(s1, s1 + n);
 cout << s1 << endl;
+
+bool isArithmeticOperator(char c) {
+    std::string operators = "+-*/";
+    return operators.find(c) != std::string::npos;
+}
 ```
-
-
 
 # summary of some commonly used C++ containers and their functions
 

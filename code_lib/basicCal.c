@@ -43,57 +43,48 @@ All the integers in the expression are non-negative integers in the range [0, 23
 The answer is guaranteed to fit in a 32-bit integer.
 */
 
-long long stack[3000000] = {0};
-int sp = -1;
-
-void push(int data) {
-    stack[++sp] = data;
-}
-
-int pop() {
-    return stack[sp--];
-}
-
-int isEmpty() {
-    return sp == -1 ? 1 : 0;
-}
-
+// c++ 版本
 int calculate(char * s){
-    char operation = '+';
-    long long curNum = 0;
-    while(*s) {
-        if(isdigit(*s)) {   // 找出完整的整数
-            curNum = curNum * 10 + *s - '0';
-        }
+    char op = '+';
+    long long cur = 0;
+    stack<long long> st;
 
+    for(int i = 0; i < s.size(); i++) {
+        if(isdigit(s[i])) {   // 找出完整的整数
+            cur = cur * 10 + s[i] - '0';
+        }
         // (不是整数 + 不是空格) + 是字符结尾
-        if((!isdigit(*s) && !isspace(*s)) || *(s + 1) =='\0') {
-            //last operation! Not current operation!
-            switch(operation) {
+        if((!isdigit(s[i]) && !isspace(s[i]) || (i + 1) == s.size())) {
+            long long x;
+            switch(op) {
                 // 如果是+, -, 直接入栈
                 case '+':
-                    push(curNum);
-                    break;
+                    st.push(cur);
+                break;
                 case '-':
-                    push(-curNum);
-                    break;
+                    st.push(-cur);
+                break;
                 // 如果是*/，将栈里的内容pop出来操作。
                 case '*':
-                    push(pop() * curNum);
-                    break;
+                    x = st.top();
+                    st.pop();
+                    st.push(x * cur);
+                break;
                 case '/':
-                    push(pop() / curNum);
-                    break;
+                    x = st.top();
+                    st.pop();
+                    st.push(x / cur);
+                break;
             }
-            operation = *s;     //very important
-            curNum = 0;
+            op = s[i];     //very important
+            cur = 0;
         }
-        s++;
     }
 
     int res = 0;
-    while(!isEmpty()) {
-        res += pop();
+    while(!st.empty()) {
+        res += st.top();
+        st.pop();
     }
     return res;
 }
