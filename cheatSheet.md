@@ -1,9 +1,11 @@
 # string & char*
 
+## 1. sort
+
 ```c++
 string s ="612530";
 constint n = s.size();
-char* s1 =newchar[n +1];
+char* s1 = new char[n +1];
 strcpy(s1, s.c_str());
 sort(s1, s1 + n);
 cout << s1 << endl;
@@ -14,7 +16,36 @@ bool isArithmeticOperator(char c) {
 }
 ```
 
+## 2. fill
+
+```c++
+vector<int> v(5, 1)
+fill(v.begin() + i, v.begin() + j + 1, 0) // filled with 0 from v[i] to v[j]
+```
+
+## 模板
+[An example code Link](./code_lib/template_demo.cpp)
+
 # summary of some commonly used C++ containers and their functions
+
+| Syntax   | vector | deque | list |  set | unordered_set | map | unordered_map |  stack | queue | priorit_queue |
+| -------- | ------ | ----- | ---- | ---| ----- | ---- | ------ | ----- | ----- | -------- | 
+| push |
+| push_back | y |       |  |  |  |  |  |  |  |  |
+| pop |
+| pop_back | y |
+| empty |
+| at |
+| front |
+| back |
+| insert |
+| erase |
+| clear |
+| reserve |
+| find |
+| count |
+| operator[] |  |  |
+
 
 ## 1. std::vector:
 
@@ -33,6 +64,8 @@ if(it != nums2.end()) {
 	res.push_back(*it);
 	nums2.erase(it);
 }
+```c++
+v.insert(v.begin() + 2, 5);
 ```
 
 ## 2. std::deque (Double-ended queue):

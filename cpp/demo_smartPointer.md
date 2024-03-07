@@ -41,7 +41,17 @@ std::shared_ptr<int> sp(new int[10], [](int* p) {delete[]p; });
 std::shared_ptr<int> sp(new int[10], std::default_delete<int[]>());
 
 // 4. 使用 unique_ptr
+// make_unique is perferred over directly using new, it provides better memory management and exception safety.
 std::unique_ptr<int[]> up(new int[10]); //@ unique_ptr 会自动调用 delete[]
+
+unique_ptr<string> s = make_unique<string>("12345");
+// or
+auto s = make_unique<string>("12345"); // using auto is more simple
+// or
+unique_ptr<string> s1(new string("12345"));
+if(s) {
+	cout << s->substr(1, 3) << endl;	// 234
+}
 
 // 5. 使用 vector<int>
 typedef std::vector<int> iarray;

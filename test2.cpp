@@ -19,88 +19,75 @@ using std::cout;
 using std::endl;
 using std::string;
 
-
-typedef struct TREE {
-    char val;
+template<typename T>
+struct TREE {
+    T data;
     TREE* left;
     TREE* right;
-    TREE(char x) : val(x), left(nullptr), right(nullptr) {}
-} Tree, *pTree;
+    TREE(T x) : data(x), left(nullptr), right(nullptr) {}
+};
 
-int tree_num = 0;
-void createBin(pTree& root, vector<char>& v) {
-    static int index = 0;
-    if(index >= tree_num) {
-        return;
-    }
+template<typename T>
+using Tree = TREE<T>;
 
-    char ele = v[index++];
+template<typename T>
+using pTree = TREE<T>*;
 
-    if(ele == '#') {
-        root = nullptr;
+int dfs_sum(pTree<int> tree) {
+    if(tree == nullptr) {
+        return 0;
     } else {
-        root = new TREE(ele);
-        createBin(root->left, v);
-        createBin(root->right, v);
+        return tree->data + dfs_sum(tree->left) + dfs_sum(tree->right);
     }
+    // cout << tree->data << " ";
+    
+    // int left = dfs_sum(tree->left);
+    // int right = dfs_sum(tree->right);
 }
 
-void dfs(pTree root) {
-    if(!root) return;
+// int sum = 0;
 
-    cout << root->val << " ";
-    dfs(root->left);
-    dfs(root->right);
-}
-
-void breadth_first_search(pTree root) {
-    if(!root) return;
-
-    queue<pTree> q;
-    q.push(root);
-    pTree pCur;
-
-    int index = 0;
-    // int res = 0;
-    while(!q.empty()) {
-        pCur = q.front();
-        cout << pCur->val << " ";
-        q.pop();
-
-        if(pCur->left) {
-            q.push(pCur->left);
-            index++;
-            // if()
-            // res = max();
-        }
-        if(pCur->right) {
-            q.push(pCur->right);
-        }
+int equalTo(pTree<int> tree) {
+    static int sum = 0;
+    
+    if(tree == nullptr) {
+        return sum;
     }
-    cout << endl;
+    if(dfs_sum(tree) == tree->data * 2) {
+        sum += 1;
+    }
+    equalTo(tree->left);
+    equalTo(tree->right);
+    return sum;
 }
-
-/* 
-    1 2 3
-    4 5 6
-    7 8 9
- */
-void rotate(vector<vector<int>>& nums) {
-    // for() {
-        
-    // }
-}
-
-
 
 int main(void) {
-    vector<char> nums = {'A', 'B', 'D', '#', '#', 'E', '#', '#', 'C', 'F','#', '#', 'G', '#', '#'};
-    tree_num = nums.size();
+    // vector<char> nums = {'A', 'B', 'D', '#', '#', 'E', '#', '#', 'C', 'F','#', '#', 'G', '#', '#'};
+    vector<int> nums = {10, 3, 4, 2, 1};
 
-    pTree root;
-    createBin(root, nums);
-    // dfs(root);
-    breadth_first_search(root);
+    // pTree<int> tree = new TREE<int>(10);
+    // pTree<int> tree1 = new TREE<int>(3);
+    // pTree<int> tree2 = new TREE<int>(4);
+    // pTree<int> tree3 = new TREE<int>(2);
+    // pTree<int> tree4 = new TREE<int>(1);
+    // tree->left = tree1;
+    // tree->right = tree2;
+
+    // tree1->left = tree3;
+    // tree1->right = tree4;
+
+    pTree<int> tree = new TREE<int>(5);
+    pTree<int> tree1 = new TREE<int>(3);
+    pTree<int> tree2 = new TREE<int>(2);
+
+    tree->left = tree1;
+    tree1->left = tree2;
+
+    // int res = dfs_sum(tree) - tree->data;
+    // cout << res << endl;
+
+    int sum = equalTo(tree);
+    cout << sum << endl;
 
     // for_each(nums.begin(), nums.end(), [](int x){cout << x << endl;});
 
