@@ -1,5 +1,5 @@
 
-flags?= -g -Wall -lm -lpthread -pedantic
+flags?= -g -Wall -lm -lpthread -pedantic -lncurses
 
 tmp: tmp.cpp
 	@g++ tmp.cpp -o test ${flags}

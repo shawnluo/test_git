@@ -469,7 +469,7 @@ assert(a == b);     // failed.  why?
 
 //task will call function ~100ms  (10x a sec)
 // would prefer lock around call & set of relay. 
-void enable_heater(volitile int32_t* current_temp, const uint32_t thre, bool* on) {
+void enable_heater(volatile int32_t* current_temp, const uint32_t thre, bool* on) {
   pthread_mutex_lock(); //
   // 1. compare the current_tmp with set_point_c 
   static bool enable_heater = false; // false is a good start value

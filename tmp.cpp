@@ -1,30 +1,18 @@
 
 #include "test.hpp"
 
-#include <iostream>
-#include <queue>
-#include <stdio.h>
-using namespace std;
+#define SOUND_CTL *(volatile unsigned long*)0x80000000
 
-
-#include <iostream>
-#include <string>
-
-#include <iostream>
-#include <unordered_map>
-#include <vector>
-
-using namespace std;
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <signal.h>
+#define CTL (unsigned long*)0x80000000
 
 int main() {
-    string s = "a";
-    s.push_back('b');
-    cout << s << endl;
+    vector<int> v = {1, 2, 3, 4};
+    auto it = find(v.begin() + 3, v.end(), 3);
+    if (it != v.end()) {
+        std::cout << "Value 3 found at index: " << std::distance(v.begin(), it) << std::endl;
+    } else {
+        std::cout << "Value 3 not found in the vector" << std::endl;
+    }
 
     return 0;
 }
