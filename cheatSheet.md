@@ -14,6 +14,16 @@ bool isArithmeticOperator(char c) {
     std::string operators = "+-*/";
     return operators.find(c) != std::string::npos;
 }
+
+// 根据order这个字符串的排序方式来对s进行排序
+// order: acd      s: cadxyz -> acdxyz
+string customSortString() {
+    sort(s.begin(), s.end(), [order](char c1, char c2) {
+        return order.find(c1) < order.find(c2);
+    });
+    return s;
+}
+
 ```
 
 ## 2. fill

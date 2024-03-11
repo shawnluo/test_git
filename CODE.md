@@ -8,6 +8,16 @@
 [//]: #         (This is a comment)
 
 
+### meeting
+<details close>
+    <summary>code</summary>
+
+```c++
+
+```
+
+</details>
+
 ### permute
 <details close>
     <summary>code</summary>
