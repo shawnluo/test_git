@@ -177,22 +177,23 @@
 
 ### bitswise
 
-|                                       |                                                                                               |  |  |
-| ------------------------------------- | --------------------------------------------------------------------------------------------- | - | - |
-|                                       | 将二进制数某一位变为1  int res = num\| (1 << n)                                              |  |  |
-|                                       | 将二进制数某一位变为0  int res = num & ~(1 << n))                                            |  |  |
-| [code](code_lib/bitset_demo.cpp)         | print a number in binary form - bitset<16>(num)                                               |  |  |
-| [code](code_lib/bitManipulate.cpp)       | set all 1 or 0 mask from start to end                                                         |  |  |
-| [code](code_lib/bit_convert.cpp)         | determine the number of bits required to convert integer A to integer B                       |  |  |
-| [code](code_lib/swapOddEven.cpp)         | swap odd and even bits in an integer                                                          |  |  |
-| [code](code_lib/print_bits.cpp)          | print bits binary                                                                             |  |  |
-| [code](code_lib/BitwiseAnd.cpp)          | Bitwise AND of Numbers Range                                                                  |  |  |
-| [code](code_lib/endianness_swap.cpp)     | endianness swap                                                                               |  |  |
-| [code](code_lib/rangeBitwiseAnd.cpp)     | [201. Bitwise AND of Numbers Range](https://leetcode.com/problems/bitwise-and-of-numbers-range/) |  |  |
-| [code](code_lib/bitwise_demo.cpp)        | nibble value                                                                                  |  |  |
-| [code](code_lib/getComplementsOfTwo.cpp) | get Complement Of Two without using +, -, *, /                                                |  |  |
-| [code](code_lib/findMissing.cpp)         | find missing number in a array                                                                |  |  |
-| [code](code_lib/findOdd.cpp)             | using bitwise XOR operator to find the odd occurring（奇数次出现）number in an array          |  |  |
+|                                       |                                                                                               |
+| ------------------------------------- | --------------------------------------------------------------------------------------------- |
+|                                       | 将二进制数某一位变为1  int res = num\| (1 << n)                                              |
+|                                       | 将二进制数某一位变为0  int res = num & ~(1 << n))                                            |
+| [code](code_lib/bitset_demo.cpp)         | print a number in binary form - bitset<16>(num)                                               |
+| [code](code_lib/bitManipulate.cpp)       | set all 1 or 0 mask from start to end                                                         |
+| [code](code_lib/bit_convert.cpp)         | determine the number of bits required to convert integer A to integer B                       |
+| [code](code_lib/swapOddEven.cpp)         | swap odd and even bits in an integer                                                          |
+| [code](code_lib/print_bits.cpp)          | print bits binary                                                                             |
+| [code](code_lib/BitwiseAnd.cpp)          | Bitwise AND of Numbers Range                                                                  |
+| [code](code_lib/endianness_swap.cpp)     | endianness swap                                                                               |
+| [code](code_lib/rangeBitwiseAnd.cpp)     | [201. Bitwise AND of Numbers Range](https://leetcode.com/problems/bitwise-and-of-numbers-range/) |
+| [code](code_lib/bitwise_demo.cpp)        | nibble value                                                                                  |
+| [code](code_lib/getComplementsOfTwo.cpp) | get Complement Of Two without using +, -, *, /                                                |
+| [code](code_lib/findMissing.cpp)         | find missing number in a array                                                                |
+| [code](code_lib/findOdd.cpp)             | using bitwise XOR operator to find the odd occurring（奇数次出现）number in an array          |
+| [code](code_lib/decToBinary.cpp) | decimal to binary |
 
 ### IPC
 

@@ -30,8 +30,9 @@ double binaryFractionToDecimal(const string& s) {
             resInt += pow(2.0, intPart.size() - i - 1);
             // resInt += 1 << (intPart.size() - i - 1);
 
-			/* or (it doesn't work, because double type cannot use shift operator)
-			    resInt <<= 1;
+			/* or 
+			    resInt <<= 1; // it doesn't work, because double type cannot use shift operator
+                resInt *= 2;
         		resInt += (intPart[i] - '0');
 			*/
         }

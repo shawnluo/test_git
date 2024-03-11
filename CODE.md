@@ -46,6 +46,13 @@ vector<vector<int>> permute(vector<int>& v) {
     <summary>code</summary>
 
 ```c++
+void createList(ListNode* list, vector<int>& v, int pos) {
+    if(pos == v.size()) return;
+
+    list->next = new ListNode(v[pos]);
+    createList(list->next, v, pos + 1);
+}
+
 ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
     if(list1 == nullptr) return list2;
     if(list2 == nullptr) return list1;
@@ -57,6 +64,29 @@ ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
         list2->next = mergeTwoLists(list2->next, list1);
         return list2;
     }
+}
+
+void showMe(ListNode* list) {
+    while(list) {
+        cout << list->val << " ";
+        list = list->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    ListNode* l1 = new ListNode(0);
+    ListNode* l2 = new ListNode(0);
+
+    vector<int> v1{1, 2, 3};
+    vector<int> v2{11, 22, 33};
+    createList(l1, v1, 0);
+    createList(l2, v2, 0);
+
+    ListNode* list = merge2Lists(l1, l2);
+    showMe(list);
+
+    return 0;
 }
 ```
 

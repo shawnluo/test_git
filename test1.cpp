@@ -8,50 +8,48 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
 
-// #define ELEMENT char
-template <typename T>
+ListNode* merge2Lists(ListNode* l1, ListNode* l2) {
+    if(l1 == nullptr) return l2;
+    if(l2 == nullptr) return l1;
 
-struct TREE {
-    T data;
-    TREE* left;
-    TREE* right;
-
-    TREE(T value) : data(value), left(nullptr), right(nullptr) {}
-};
-
-// typedef struct TREE {
-//     T data;
-//     TREE* left;
-//     TREE* right;
-
-//     TREE(T value) : data(value), left(nullptr), right(nullptr) {}
-// } Tree, *pTree;
-
-// template <typename T>
-void mySwap(int &a, int &b) {
-    int val;
-    swap(a, b);
+    if(l1->val < l2->val) {
+        l1->next = merge2Lists(l1->next, l2);
+        return l1;
+    } else {
+        l2->next = merge2Lists(l2->next, l1);
+        return l2;
+    }
 }
 
-template <typename T>
-void test(T& x) {
-    cout << "test" << endl;
+void createList(ListNode* list, vector<int>& v, int pos) {
+    if(pos == v.size()) return;
+
+    list->next = new ListNode(v[pos]);
+    createList(list->next, v, pos + 1);
 }
 
-void buildTree(TREE) {
-
+void showMe(ListNode* list) {
+    while(list) {
+        cout << list->val << " ";
+        list = list->next;
+    }
+    cout << endl;
 }
 
-int main(void) {
-    // vector<int> nums = {10, 3, 4, 2, 1};
+int main() {
+    ListNode* l1 = new ListNode(0);
+    ListNode* l2 = new ListNode(0);
 
-    int a = 10;
-    int b = 20;
+    vector<int> v1{1, 2, 3};
+    vector<int> v2{11, 22, 33};
+    createList(l1, v1, 0);
+    // showMe(l1);
 
-    mySwap(a, b);
-    cout << a << endl;
+    createList(l2, v2, 0);
+
+    ListNode* list = merge2Lists(l1, l2);
+    showMe(list);
 
     return 0;
 }

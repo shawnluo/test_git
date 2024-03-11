@@ -12,10 +12,10 @@ bool controlSound(int volume, bool enable) {
     int max = ~0;
     int mask = 0;
 
-    if(enable == True) {
-        *reg |= (1 << ENABLE_BIT);
+    if(enable == true) {
+        SOUND_CTL |= (1 << ENABLE_BIT);
     } else {
-        *reg &= ~(1 << ENABLE_BIT);
+        SOUND_CTL &= ~(1 << ENABLE_BIT);
     }
 
     if(volume < 0 && volume > 255) {
@@ -34,10 +34,10 @@ bool controlSound(int volume, bool enable) {
     // 3. mask
     mask = left | right;
 
-    *reg &= mask;
+    SOUND_CTL &= mask;
 
     data = volume << VOLUME_START_BIT;
-    *reg |= data;
+    SOUND_CTL |= data;
 
     return true;
 }
