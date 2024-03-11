@@ -8,48 +8,56 @@
 #include <iostream>
 #include <vector>
 
+// TODO 
+// 1. meeting
+// 2. memory alignment - memory copy
+// 3. memory alignment - memory move
+// 4. sortBy freq
+// 5. calculator
+// 6. longest uniq characters length
 
-ListNode* merge2Lists(ListNode* l1, ListNode* l2) {
-    if(l1 == nullptr) return l2;
-    if(l2 == nullptr) return l1;
+// 3 2 4 + *
+void cal(vector<char>& s) {
+    
+}
 
-    if(l1->val < l2->val) {
-        l1->next = merge2Lists(l1->next, l2);
-        return l1;
-    } else {
-        l2->next = merge2Lists(l2->next, l1);
-        return l2;
+// 3+2*4
+void cal_noPri(string& s) {
+
+}
+void cal_priority(string& s) {
+
+}
+
+int longestUniqSub(string& s) {
+    int n = s.size();
+    int pos = -1;
+    int len = 0;
+    int res = 0;
+
+    unordered_map<char, int> map;
+    for(int i = 0; i < 256; i++) {
+        map[i] = -1;
     }
-}
 
-void createList(ListNode* list, vector<int>& v, int pos) {
-    if(pos == v.size()) return;
+    // for(auto it : map) {
+    //     cout << it.second << endl;
+    // }
 
-    list->next = new ListNode(v[pos]);
-    createList(list->next, v, pos + 1);
-}
-
-void showMe(ListNode* list) {
-    while(list) {
-        cout << list->val << " ";
-        list = list->next;
+    for(int i = 0; i < n; i++) {
+        pos = max(pos, map[s[i]]);
+        len = i - pos;
+        res = max(res, len);
+        map[s[i]] = i;
     }
-    cout << endl;
+
+    return res;
 }
 
-int main() {
-    ListNode* l1 = new ListNode(0);
-    ListNode* l2 = new ListNode(0);
-
-    vector<int> v1{1, 2, 3};
-    vector<int> v2{11, 22, 33};
-    createList(l1, v1, 0);
-    // showMe(l1);
-
-    createList(l2, v2, 0);
-
-    ListNode* list = merge2Lists(l1, l2);
-    showMe(list);
+int main(void) {
+    string s = "1123341516";
+    int res = longestUniqSub(s);
+    cout << res;
 
     return 0;
 }

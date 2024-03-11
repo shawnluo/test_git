@@ -13,6 +13,40 @@
 */
 
 
+void sortByFreq(vector<char>& v) {
+    unordered_map<char, int> map;
+    for(auto it : v) {
+        map[it]++;
+    }
+
+    // copy map elements to a vector of pairs
+    vector<pair<char, int>> mapV(map.begin(), map.end());
+
+    // sort the vector based on keys
+    sort(mapV.begin(), mapV.end());
+    for(auto it : mapV) {
+        cout << it.first << " : " << it.second << endl;
+    }
+
+    // sort the vector based on value
+    sort(mapV.begin(), mapV.end(),
+        [](const pair<char, int>& a, const pair<char, int>& b){
+            return a.second < b.second;
+        });
+    for(auto it : mapV) {
+        cout << it.first << " : " << it.second << endl;
+    }
+}
+
+int main(void) {
+    vector<char> v{'a', 'b', 'a', 'c', 'b', 'a'};
+    sortByFreq(v);
+
+    return 0;
+}
+
+// ----------------------------------------------------------------------
+
 class mycomparison {
 public:
     // 对操作符“()”进行重载

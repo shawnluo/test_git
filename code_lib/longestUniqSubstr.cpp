@@ -1,4 +1,6 @@
-int longest_u(string s) {
+#include "../test.hpp"
+
+int longestUniqSub(string s) {
     int hash[256];
     int len = 0;
     int pos = -1;
@@ -21,7 +23,7 @@ int longest_u(string s) {
 }
 
 // 打印出来
-int longestUniqString(string s) {
+int longestUniqSub_ext(string s) {
     int hash[256];
     for(int i = 0; i < 256; i++) {
         hash[i] = -1;
@@ -54,7 +56,7 @@ int longestUniqString(string s) {
 
 int main(void) {
     string s = "abcada";
-    cout << longest_u(s) << endl;
+    cout << longestUniqSub(s) << endl;
 
     return 0;
 }
