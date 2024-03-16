@@ -2,6 +2,22 @@
 #include "test.hpp"
 
 
+// 9 x 9 矩阵，被blur成 3 x 3
+vector<vector<int>> getSum(vector<vector<int>>& board) {
+    vector<vector<int>> mat(3, vector<int>(3, 0));
+
+    for(int i = 0; i < 9; i ++) {
+        for(int j = 0; j < 9; j++) {
+            // mat[(i / 3) * 3 + j / 3] += board[i][j]; 一维表达
+            mat[i / 3][j / 3] += board[i][j];
+        }
+    }
+    return mat;
+}
+
+
+
+// 9 x 9 矩阵，被blur成 7 x 7
 int getSum(const vector<vector<int>>& mat, int newX, int newY, const int m, const int n) {
     int sum = 0;
     // 4. x 和 y 分别从0 + newX的偏移开始计算新mat的成员值。
