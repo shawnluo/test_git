@@ -1,17 +1,29 @@
 
 #include "test.hpp"
 
-#define SOUND_CTL *(volatile unsigned long*)0x80000000
-
-#define CTL (unsigned long*)0x80000000
+void rotate(vector<vector<int>>& mat) {
+    int n = mat.size();
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < i; j++) {
+            swap(mat[i][j], mat[j][i]);
+        }
+    }
+}
 
 int main() {
-    vector<int> v = {1, 2, 3, 4};
-    auto it = find(v.begin() + 3, v.end(), 3);
-    if (it != v.end()) {
-        std::cout << "Value 3 found at index: " << std::distance(v.begin(), it) << std::endl;
-    } else {
-        std::cout << "Value 3 not found in the vector" << std::endl;
+    vector<vector<int>> mat = {
+                                {1, 2, 3},
+                                {4, 5, 6},
+                                {7, 8, 9},
+                                };
+
+    rotate(mat);
+
+    for(auto x : mat) {
+        for(auto y : x) {
+            cout << y << " ";
+        }
+        cout << endl;
     }
 
     return 0;
