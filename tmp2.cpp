@@ -1,33 +1,20 @@
-#include <iostream>
-#include <pthread.h>
-#include <string>
-#include <unistd.h>
-#include <vector>
-
-using namespace std;
-
-#include <cmath>
-#include <iostream>
-
-
-/*
-  a ^ b 计算出2个加数二进制下每一位的本位
-  a & b 计算出2个加数二进制下每一位的进位
-  (a & b) << 1 进位做进位逻辑，也就是 * 2
- */
-int add(int a, int b) {
-    while (b != 0) {
-        int carry = a & b; // 计算 进位
-        a ^= b;            // 计算 本位
-        b = (unsigned)carry << 1;
-    }
-    return a;
-}
+#include "test.hpp"
 
 int main() {
-    int num = 2;
-    int res = add(num, 1);
-    cout << res << endl;
+    auto exists = [](unordered_set<char>& s, int val) {
+        return s.insert(val).second;
+    };
+
+    vector<unordered_set<char>> row(5);
+    row[0].insert('a');
+    row[0].insert('b');
+    row[0].insert('c');
+
+    // cout << exists(row[0], 'f') << endl;
+    exists(row[0], 'a');
+    for(auto it = row[0].begin(); it != row[0].end(); it++) {
+        cout << *it << endl;
+    }
 
     return 0;
 }

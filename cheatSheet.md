@@ -98,6 +98,17 @@ Doubly linked list.
 
 Container that stores unique elements in sorted order.
 
+```c++
+    unordered_set<char> set;
+    set.insert('a');
+    set.insert('b');
+    auto exists = [](unordered_set<char>& s, int val) {
+        return s.insert(val).second;    // if insert successfully, then return 1. otherwise if trying to insert a duplicated element, then return 0.
+    };
+
+    cout << exist(set, 'a') << endl; // fail. return 0. 'a' will NOT be insert to set.
+```
+
 #### Functions:
 
     insert(), erase(), find(), count(), size(), empty(), clear().
