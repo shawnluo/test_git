@@ -212,7 +212,9 @@
 | [code](code_lib/quicksorting.cpp)       | quick sorting - partition | important |  |
 | [code](code_lib/nth_in_array.cpp)       | find nth element in array |           |  |
 | [code](code_lib/UsingStacksorting.cpp)  | using stack to sort array |           |  |
-| [code](code_lib/findInRotatedArray.cpp) |                           |           |  |
+| [code](code_lib/findInRotatedArray.cpp) | finds an element in rotated array | |  |
+| [code](code_lib/mergeIntervals.cpp)     | merge intervals | important |  |
+| [code](code_lib/insertIntervals.cpp)     | insert intervals | important |  |
 
 ### stack
 
