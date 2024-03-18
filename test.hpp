@@ -20,6 +20,7 @@
 #include <semaphore.h>
 #include <list>
 #include <bitset>
+#include <mutex>
 
 using std::cout;
 using std::endl;

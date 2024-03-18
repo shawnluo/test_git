@@ -10,6 +10,9 @@ tmp1: tmp1.cpp
 tmp2: tmp2.cpp
 	@g++ tmp2.cpp -o test ${flags}
 
+tmp3: tmp3.cpp
+	@g++ tmp3.cpp -o test ${flags}
+
 test: test.cpp
 	@g++ test.cpp -o test ${flags}
 

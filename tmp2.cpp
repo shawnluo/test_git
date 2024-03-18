@@ -1,20 +1,53 @@
+
 #include "test.hpp"
 
-int main() {
-    auto exists = [](unordered_set<char>& s, int val) {
-        return s.insert(val).second;
-    };
+sem_t emptyBuffer;
+sem_t fullBuffer;
+mutex g_mutex;
+queue<int> buffer;
 
-    vector<unordered_set<char>> row(5);
-    row[0].insert('a');
-    row[0].insert('b');
-    row[0].insert('c');
+void producer(int i) {
+    while (1) {
+        sem_wait(&emptyBuffer);
+        g_mutex.lock();
 
-    // cout << exists(row[0], 'f') << endl;
-    exists(row[0], 'a');
-    for(auto it = row[0].begin(); it != row[0].end(); it++) {
-        cout << *it << endl;
+        int id = (rand() % 100);
+        buffer.push(id);
+        cout << "生产者放入 " << id << endl;
+
+        g_mutex.unlock();
+        sem_post(&fullBuffer);
+        
+        sleep(1);
     }
+}
+
+void customer(int i) {
+    while (1) {
+        sem_wait(&fullBuffer);
+        g_mutex.lock();
+
+        int ret = buffer.front();
+        buffer.pop();
+        cout << "消费者取出 " << ret << endl;
+
+        g_mutex.unlock();
+        sem_post(&emptyBuffer);
+    }
+}
+
+int main() {
+    sem_init(&emptyBuffer, 0, 1);
+    sem_init(&fullBuffer, 0, 0);
+
+    thread p1(producer, 3);
+    thread p2(customer, 2);
+
+    p1.join();
+    p2.join();
+
+    sem_destroy(&fullBuffer);
+    sem_destroy(&emptyBuffer);
 
     return 0;
 }
