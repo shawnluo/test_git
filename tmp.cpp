@@ -2,52 +2,29 @@
 #include "test.hpp"
 
 
-mutex g_mutex[5];
-
-void tfn(void* arg) {
-    int i = (long)arg;
-    int left, right;
-    if (i == 4) {
-        // 防止震荡现象发生。
-        left  = 0;
-        right = i;
-    } else {
-        left  = i;
-        right = i + 1;
-    }
-    while (1) {
-        g_mutex[left].lock();
-        int ret = g_mutex[right].try_lock();
-        if (ret != 0) {
-            // 尝试拿右手筷子失败，把左手的筷子释放
-            g_mutex[left].unlock();
-            cout << "哲学家 " << i << " 没有抢到筷子..." << endl;
-            sleep(1);
-            continue;
+int dp_12(vector<int>& weight, vector<int>& value, int BAG) {
+    vector<int> dp(weight.size() + 1, 0);
+    for(int i = 0; i < weight.size(); i++) {
+        for(int j = BAG; j >= weight[i]; j--) {
+            dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);
         }
-        // 拿到了两支筷子
-        // 吃面
-        cout << "哲学家 " << i << " 正在吃面..." << endl;
-        sleep(1);
-
-        // 吃完面，释放筷子.
-        g_mutex[left].unlock();
-        g_mutex[right].unlock();
-        // sleep(1);
     }
+    return dp[BAG];
 }
 
-int main() {
-    thread pth[5];
+int Add(int num1, int num2) {
+    int sum, carry = 1;
+    while(carry) {
+        sum = num1 ^ num2;
+        carry = (num1 & num2) << 1;
+        num1 = sum;
+        num2 = carry;
+    }
+    return sum;
+}
 
-    // 创建5个线程，相当于5个哲学家
-    for (int i = 0; i < 5; i++) {
-        pth[i] = thread(tfn, (void*)i);
-    }
-    // 回收子线程
-    for (int i = 0; i < 5; i++) {
-        pth[i].join();
-    }
+int main(void) {
+    cout << Add(1, -5) << endl;
 
     return 0;
 }

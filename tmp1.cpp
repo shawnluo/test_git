@@ -1,22 +1,39 @@
 #include "test.hpp"
 
-bool isValidSudoku(vector<vector<char>>& board) {
-    std::vector<unordered_set<char>> rows(9), cols(9), box(9);
-    auto exists = [](unordered_set<char>& s, int val) { return s.insert(val).second; };
+vector<char> sortByFreq2(vector<char>& v) {
+    int freq[26] = {0};
+    for(auto it : v) {
+        freq[it - 'a']++;
+        // cout << it - 'a' << endl;
+    }
 
-    for (int i = 0; i < 9; i++)
-        for (int j = 0; j < 9; j++) {
-            char num = board[i][j];
-            if (num == '.') continue;
-            if (!exists(rows[i], num) || !exists(cols[j], num) || !exists(box[(i / 3) * 3 + j / 3], num)) {
-                return false;
-            }
+    // max heap to store frequencies
+    priority_queue<int> pq;
+    for(int i = 0; i < 26; i++) {
+        if(freq[i] > 0) {
+            pq.push(freq[i]);
         }
-    return true;
+    }
+    
+    // cout << pq.size() << endl;
+    vector<char> res;
+    
+    while(!pq.empty()) {
+        cout << pq.top() << endl;
+        res.push_back(pq.top());
+        pq.pop();
+    }
+    return res;
 }
 
-int main(void) { 
-    unordered_set<char> v;
+int main(void) {
+    vector<char> v{'b', 'b', 'a', 'a', 'a', 'c'};
+    vector<char> res = sortByFreq2(v);
+
+    for(auto it : res) {
+        // cout << it << " ";
+    }
+    cout << endl;
     
     return 0; 
 }

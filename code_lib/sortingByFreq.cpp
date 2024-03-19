@@ -7,10 +7,35 @@
 #include "test.hpp"
 
 /*
-    如果是int型的数据，优先队列内部已经帮我们写好了
+    如果是int型的数据，优先队列内部已经帮我们写好了. 默认是最大堆 - 大值在前面
     priority_queue<int, vector<int>, less<int>> pq;  // 最大堆
     priority_queue<int, vector<int>, greater<int>> pq;  // 最小堆
 */
+
+
+// 直接用vector来存储 hash值
+vector<int> sortByFreq2(vector<char>& v) {
+    int freq[26] = {0};
+    for(auto it : v) {
+        freq[it - 'A']++;
+    }
+
+    // max heap to store frequencies
+    priority_queue<int> pq;
+    for(int i = 0; i < 26; i++) {
+        if(freq[i] > 0) {
+            pq.push(freq[i]);
+        }
+    }
+    
+    vector<int> res;
+    
+    while(!pq.empty()) {
+        res.push_back(pq.top());
+        pq.pop();
+    }
+    return res;
+}
 
 
 void sortByFreq(vector<char>& v) {
