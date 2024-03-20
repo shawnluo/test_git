@@ -5,9 +5,11 @@ int getSum(vector<vector<int>>& tmp, int x, int y, int size) {
     x = x + size / 2;
     y = y + size / 2;
     int res = 0;
-    for(int i = -size / 2; i < size / 2; i++) {
-        for(int j = -size / 2; j < size / 2; j++) {
-            res += tmp[i + x][j + y];
+
+    // return 0;
+    for(int i = -size / 2 + x; i <= size / 2 + x; i++) {
+        for(int j = -size / 2 + y; j <= size / 2 + y; j++) {
+            res += tmp[i][j];
         }
     }
     return res;
@@ -23,14 +25,14 @@ void spiral(vector<vector<int>>& mat, vector<vector<int>>& newMat, int size) {
     int newN = n + size / 2 * 2;    // 新的padding后的矩阵长度。如果size是3，则要加上 3 / 2 * 2 = 2。如果是5，则要加上 5 / 2 * 2 = 4
     newMat.resize(n, vector<int>(n));
 
-    // copy mat to newN
+    // copy mat to tmp
+    vector<vector<int>> tmp(newN, vector<int>(newN, 0));
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
-            newMat[i + size / 2][j + size / 2] = mat[i][j];
+            tmp[i + size / 2][j + size / 2] = mat[i][j];
         }
     }
 
-    vector<vector<int>> tmp(newN, vector<int>(newN, 0));
     // int count = 1;
     half = 1;
     while(half--) {
