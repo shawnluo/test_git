@@ -1,5 +1,6 @@
 // spiral mat
-void spiralMat(int n, vector<vector<int>>& mat) {
+void spiralMat(vector<vector<int>>& mat) {
+    int n = mat.size();
     int half = n / 2;
     int startX = 0;
     int startY = 0;
