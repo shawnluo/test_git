@@ -41,6 +41,33 @@ int maxFrequencyElements(vector<int>& nums) {
     return res;
 }
 
+vector<vector<int>> insInterval(vector<vector<int>>& v, vector<int>& newV) {
+    vector<vector<int>> res;
+    int n = v.size();
+    int i = 0;
+
+    // 1. copy items before overlapping
+    while(i < n && newV[0] > v[i][1]) {
+        res.push_back(v[i++]);
+    }
+
+    // 2. merge
+    while(i < n && newV[1] >= v[i][0]) {
+        newV[0] = min(newV[0], v[i][0]);
+        newV[1] = max(newV[1], v[i][1]);
+        i++;
+    }
+    vector<int> pair = {newV[0], newV[1]};
+    res.push_back(pair);
+
+    // 3. copy items after overlapping
+    while(i < n && newV[1] < v[i][0]) {
+        res.push_back(v[i++]);
+    }
+
+    return res;
+}
+
 int main() {
     unordered_map<int, int> map;
     map.insert(make_pair(1, 100));
@@ -56,4 +83,15 @@ int main() {
     // }
 
     return 0;
+}
+
+void test(volatile size_t* addr, size_t data, int len, size_t offset) {
+    size_t left = (1 << (len + offset)) - 1;
+    size_t right = (1 << (offset)) - 1;
+    size_t mask = left - right;
+
+    data <<= offset;
+    data |= ~mask;
+
+    *addr |= data;
 }

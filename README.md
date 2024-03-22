@@ -37,6 +37,7 @@
 
 |                                         |                                                                                                                                                         |    |      |
 | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -- | ---- |
+| [code](code_lib/producer_consumer.cpp)  | 生产者消费者。使用 lock 来保证共享资源的互斥。使用 sem 来保证线程间的同步。
 | [code](code_lib/systemDesign1.cpp)         | c++写一个类，实现startCaller和stopCaller两个API，<br />startCaller(), 要求输入待执行函数的函数名和执行频率<br />stopCaller(), 停止指定函数的循环执行。 |    |      |
 | [code](code_lib/multipleThreading_c.c)     | multiple threading - c                                                                                                                                  |    |      |
 | [code](code_lib/multipleThreading_cpp.cpp) | multiple threading - c++                                                                                                                                |    |      |

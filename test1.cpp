@@ -16,48 +16,44 @@
 // 5. calculator
 // 6. longest uniq characters length
 
-// 3 2 4 + *
-void cal(vector<char>& s) {
-    
-}
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) {
+        // Building frequency map
+        int freq[26] = {0};
+        for (char &ch : tasks) {
+            freq[ch - 'A']++;
+        }
 
-// 3+2*4
-void cal_noPri(string& s) {
+        // Max heap to store frequencies
+        priority_queue<int> pq;
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] > 0) {
+                pq.push(freq[i]);
+            }
+        }
 
-}
-void cal_priority(string& s) {
-
-}
-
-int longestUniqSub(string& s) {
-    int n = s.size();
-    int pos = -1;
-    int len = 0;
-    int res = 0;
-
-    unordered_map<char, int> map;
-    for(int i = 0; i < 256; i++) {
-        map[i] = -1;
+        int time = 0;
+        // Process tasks until the heap is empty
+        while (!pq.empty()) {
+            int cycle = n + 1;
+            vector<int> store;
+            int taskCount = 0;
+            // Execute tasks in each cycle
+            while (cycle-- && !pq.empty()) {
+                if (pq.top() > 1) {
+                    store.push_back(pq.top() - 1);
+                }
+                pq.pop();
+                taskCount++;
+            }
+            // Restore updated frequencies to the heap
+            for (int &x : store) {
+                pq.push(x);
+            }
+            // Add time for the completed cycle
+            time += (pq.empty() ? taskCount : n + 1);
+        }
+        return time;
     }
-
-    // for(auto it : map) {
-    //     cout << it.second << endl;
-    // }
-
-    for(int i = 0; i < n; i++) {
-        pos = max(pos, map[s[i]]);
-        len = i - pos;
-        res = max(res, len);
-        map[s[i]] = i;
-    }
-
-    return res;
-}
-
-int main(void) {
-    string s = "1123341516";
-    int res = longestUniqSub(s);
-    cout << res;
-
-    return 0;
-}
+};
