@@ -84,7 +84,7 @@ vector<vector<int>> mat = {
     {0, 1, 2, 3, 4, 5, 6, 7, 8}
 };
 
-void showMeV(const vector<vector<int>>& v) {
+void showMeV2(const vector<vector<int>>& v) {
     for_each(v.begin(), v.end(), [](auto x){
         for_each(x.begin(), x.end(), [](auto y){cout << y << "\t" << " ";});
         cout << endl;

@@ -59,7 +59,7 @@ int isSubstr_kmp(string s, string sub) {
     int j = 0;
 
     for(int i = 0; i < s.size(); i++) {
-        if(j > 0 && s[i] != sub[j]) {
+        while(j > 0 && s[i] != sub[j]) {
             j = next[j - 1];
         }
         if(s[i] == sub[j]) {

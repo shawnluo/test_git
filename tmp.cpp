@@ -1,72 +1,54 @@
 
 #include "test.hpp"
 
-int getSum(vector<vector<int>>& tmp, int x, int y, int size) {
-    x = x + size / 2;
-    y = y + size / 2;
-    int res = 0;
+// "aabaabaafa" 0, 1
+// "aaaba" 0, 1
 
-    // return 0;
-    for(int i = -size / 2 + x; i <= size / 2 + x; i++) {
-        for(int j = -size / 2 + y; j <= size / 2 + y; j++) {
-            res += tmp[i][j];
+void getNext(string& t, int* next) {
+    int j = 0;
+    next[0] = 0;
+    for(int i = 1; i < t.size(); i++) {
+        while(j > 0 && t[i] != t[j]) {
+            j = next[j - 1];
         }
-    }
-    return res;
-}
-
-void spiral(vector<vector<int>>& mat, vector<vector<int>>& newMat, int size) {
-    int n = mat.size();
-    int half = n / 2;
-    int startX = 0;
-    int startY = 0;
-    int offset = 1;
-
-    int newN = n + size / 2 * 2;    // 新的padding后的矩阵长度。如果size是3，则要加上 3 / 2 * 2 = 2。如果是5，则要加上 5 / 2 * 2 = 4
-    newMat.resize(n, vector<int>(n));
-
-    // copy mat to tmp
-    vector<vector<int>> tmp(newN, vector<int>(newN, 0));
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            tmp[i + size / 2][j + size / 2] = mat[i][j];
+        if(t[i] == t[j]) {
+            j++;
         }
-    }
-
-    // int count = 1;
-    half = 1;
-    while(half--) {
-        int x = startX;
-        int y = startY;
-        for(; y < newN - offset; y++) tmp[x][y] = 0;
-        for(; x < newN - offset; x++) tmp[x][y] = 0;
-        for(; y > startY; y--) tmp[x][y] = 0;
-        for(; x > startX; x--) tmp[x][y] = 0;
-
-        startX++;
-        startY++;
-        offset++;
-    }
-
-    // blur
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            newMat[i][j] = getSum(tmp, i , j, size);
-        }
+        next[i] = j;
     }
 }
 
+int mystrstr(string& s, string& t) {
+    int n = t.size();
+    int next[n];
+    getNext(t, next);
+
+    // for(int i = 0; i < n; i++) {
+    //     cout << next[i] << " ";
+    // }
+    // cout << endl;
+
+    int j = 0;
+    for(int i = 0; i < s.size(); i++) {
+        while(j > 0 && s[i] != t[j]) {
+            j = next[j - 1];
+        }
+        if(s[i] == t[j]) {
+            j++;
+        }
+        if(j == t.size()) {
+            return i - t.size() + 1;
+        }
+    }
+
+    return -1;
+}
 
 int main(void) {
-    vector<vector<int>> mat = {{1, 2, 3, 4, 5},
-                                {6, 7, 8, 9, 10},
-                                {11, 12, 13, 14, 15},
-                                {16, 17, 18, 19, 20},
-                                {21, 22, 23, 24, 25}};
-    vector<vector<int>> newMat; 
-    spiral(mat, newMat, 5);
-
-    showMeV(newMat);
+    string s = "abcde";
+    string t = "bc";
+    int res = mystrstr(s, t);
+    cout << res << endl;
 
     return 0;
 }
