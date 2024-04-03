@@ -61,6 +61,8 @@ int main(void) {
     test_I2C t1;
     test_SPI t2;
 
+    t1.api();
+
     test::callAPI(t1);
     test::callAPI(t2);
 

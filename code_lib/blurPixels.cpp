@@ -1,6 +1,91 @@
 
 #include "test.hpp"
 
+// padding then blur the pix:
+/* 
+    5 X 5, size = 3
+    1. padding 0, get 6 X 6
+    2. 原始3 x 3个点，blur成一个新点。对每个点都进行blur处理。输出5 X 5
+ */
+
+int getSum(vector<vector<int>>& tmp, int x, int y, int size) {
+    x = x + size / 2;
+    y = y + size / 2;
+    int res = 0;
+    int index = 0;
+
+    for(int i = -size / 2 + x; i <= size / 2 + x; i++) {
+        for(int j = -size / 2 + y; j <= size / 2 + y; j++) {
+            // cout << ++index << endl;
+            res += tmp[i][j];
+        }
+    }
+    return res;
+}
+
+void blur(vector<vector<int>>& mat, vector<vector<int>>& newMat, int size) {
+    int n = mat.size();
+    int half = n / 2;
+    int startX = 0;
+    int startY = 0;
+    int offset = 1;
+
+    int newN = n + size / 2 * 2;    // 新的padding后的矩阵长度。如果size是3，则要加上 3 / 2 * 2 = 2。如果是5，则要加上 5 / 2 * 2 = 4
+    newMat.resize(n, vector<int>(n));
+
+    // copy mat to tmp
+    vector<vector<int>> tmp(newN, vector<int>(newN, 0));
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            tmp[i + size / 2][j + size / 2] = mat[i][j];
+        }
+    }
+
+    // int count = 1;
+    half = 1;
+    while(half--) {
+        int x = startX;
+        int y = startY;
+        for(; y < newN - offset; y++) tmp[x][y] = 0;
+        for(; x < newN - offset; x++) tmp[x][y] = 0;
+        for(; y > startY; y--) tmp[x][y] = 0;
+        for(; x > startX; x--) tmp[x][y] = 0;
+
+        startX++;
+        startY++;
+        offset++;
+    }
+
+    // blur
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            newMat[i][j] = getSum(tmp, i , j, size);
+        }
+    }
+}
+
+int main() {
+    vector<vector<int>> mat = { {1, 2, 3, 4, 5},
+                                {6, 7, 8, 9, 10},
+                                {11, 12, 13, 14, 15},
+                                {16, 17, 18, 19, 20},
+                                {21, 22, 23, 24, 25}};
+    
+    vector<vector<int>> newMat(mat.size(), vector<int>(mat.size(), 0));
+
+    int size = 3;
+    vector<vector<int>> core = {{1, 0, -1},
+                                {-1, 0, 1},
+                                {0, 1, -1}};
+
+    blur(mat, newMat, size);
+
+    // for_each(mat.begin(), mat.end(), [](auto x){
+    //     for_each(x.begin(), x.end(), [](auto y){cout << y << " ";});
+    //     cout << endl;
+    // });
+    return 0;
+}
 
 // 9 x 9 矩阵，被blur成 3 x 3
 vector<vector<int>> getSum(vector<vector<int>>& board) {

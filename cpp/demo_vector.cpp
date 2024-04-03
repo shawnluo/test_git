@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 #include "common.h"
-#include "test.hpp"
+#include "../test.hpp"
 #include "complex.hpp"
 
 using namespace std;
@@ -11,13 +11,38 @@ using std::cout;
 using std::endl;
 using std::string;
 
-// vectors comparison
-vector<int> x = {1, 2, 3};
-vector<int> y = {1, 2, 3};
+/* 
+    vectors comparison 
+ */
+bool fun1() {
+    vector<int> x = {1, 2, 3};
+    vector<int> y = {1, 2, 3};
+    if(x == y) {
+        return true;
+    }
+    return false;
+}
 
-if(x == y) return true;
+/* 
+    compare 2 dimension vector
+ */
+bool customSort(const vector<int>& a, const vector<int>& b) {
+    if(a[0] == b[0]) {
+        return a[1] < b[1];
+    }
+    return a[0] < b[0];
+}
 
-return false;
+void fun2() {
+    vector<vector<int>> v = {   {2, 8},
+                                {21, 9},
+                                {0, 6},
+                                {-11, 76},
+                                {21, 8},
+                                {21, -2}};
+
+    sort(v.begin(), v.end(), customSort);
+}
 
 
 /* 1. push_back 

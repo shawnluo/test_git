@@ -22,80 +22,12 @@ queue<int> buffer; // 全局变量
             2）. sem:  保证生产者和消费者线程的执行顺序，也就是synchnization.
  */
 
+void kmp() {
 
-void blur(const vector<vector<int>>& mat, vector<vector<int>>& newMat, int size) {
-    if(size <= 1) {return;}
-
-    int padding  = size / 2;
-    int n = mat.size();
-    int newN = n + padding * 2;
-    // cout << padding << endl;
-    // cout << n << " " << newN << endl;
-    vector<vector<int>> matPadding(newN, vector<int>(newN, 0));
-
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            // matPadding[i + padding][j + padding] = mat[i][j];
-        }
-    }
-
-    int startX = 0;
-    int startY = 0;
-    int offset = 1;
-    int count = 1;
-    int half = newN / 2;
-    while(half--) {
-        int x = startX;
-        int y = startY;
-        for(; y < newN - offset; y++) {
-            matPadding[x][y] = count++;
-        }
-        for(; x < newN - offset; x++) {
-            matPadding[x][y] = count++;
-        }
-        for(; y > startY; y--) {
-            matPadding[x][y] = count++;
-        }
-        for(; x > startX; x--) {
-            matPadding[x][y] = count++;
-        }
-
-        startX++;
-        startY++;
-        offset++;
-    }
-
-    // for_each(matPadding.begin(), matPadding.end(), [](auto x){
-    //     for_each(x.begin(), x.end(), [](auto y){cout << y << "\t" << " ";});
-    //     cout << endl;
-    // });
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            cout << matPadding[i][j] << "\t";
-        }
-        cout << endl;
-    }
 }
 
-int main() {
-    vector<vector<int>> mat = { {1, 2, 3, 4, 5},
-                                {6, 7, 8, 9, 10},
-                                {11, 12, 13, 14, 15},
-                                {16, 17, 18, 19, 20},
-                                {21, 22, 23, 24, 25}};
-    
-    vector<vector<int>> newMat(mat.size(), vector<int>(mat.size(), 0));
+int main(void) {
 
-    int size = 3;
-    vector<vector<int>> core = {{1, 0, -1},
-                                {-1, 0, 1},
-                                {0, 1, -1}};
 
-    blur(mat, newMat, size);
-
-    // for_each(mat.begin(), mat.end(), [](auto x){
-    //     for_each(x.begin(), x.end(), [](auto y){cout << y << " ";});
-    //     cout << endl;
-    // });
     return 0;
 }
