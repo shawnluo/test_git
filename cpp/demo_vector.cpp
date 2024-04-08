@@ -132,6 +132,7 @@ void printElements() {
 }
 
 // ----------------------- vector<pair<string, int>> v -----------------------------------------
+void test() {
     vector<pair<string, int>> v;
     v.push_back({"show", tid0});
     v.push_back({"show", tid1});
@@ -144,6 +145,7 @@ void printElements() {
     } else {
         cout << "cannot find it" << endl;
     }
+}
 // ----------------------- vector<struct node> v -----------------------------------------
 
 #include <iostream>

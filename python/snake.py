@@ -145,8 +145,8 @@ if __name__ == "__main__":
     snake_v = 0
     count_time = 0
 
-    # level
-    frame = 0.2     // game speed, largger -> slower
+    # level - speed
+    frame = 0.05
     level = 1
     
     # main loop

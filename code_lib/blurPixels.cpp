@@ -9,13 +9,11 @@
  */
 
 int getSum(vector<vector<int>>& tmp, int x, int y, int size) {
-    x = x + size / 2;
-    y = y + size / 2;
     int res = 0;
     int index = 0;
 
-    for(int i = -size / 2 + x; i <= size / 2 + x; i++) {
-        for(int j = -size / 2 + y; j <= size / 2 + y; j++) {
+    for(int i = x; i <= x + size; i++) {
+        for(int j = y; j <= y + size; j++) {
             // cout << ++index << endl;
             res += tmp[i][j];
         }
@@ -41,20 +39,21 @@ void blur(vector<vector<int>>& mat, vector<vector<int>>& newMat, int size) {
         }
     }
 
+    // no need to padding. default value are all zeroes.
     // int count = 1;
-    half = 1;
-    while(half--) {
-        int x = startX;
-        int y = startY;
-        for(; y < newN - offset; y++) tmp[x][y] = 0;
-        for(; x < newN - offset; x++) tmp[x][y] = 0;
-        for(; y > startY; y--) tmp[x][y] = 0;
-        for(; x > startX; x--) tmp[x][y] = 0;
+    // half = 1;
+    // while(half--) {
+    //     int x = startX;
+    //     int y = startY;
+    //     for(; y < newN - offset; y++) tmp[x][y] = 0;
+    //     for(; x < newN - offset; x++) tmp[x][y] = 0;
+    //     for(; y > startY; y--) tmp[x][y] = 0;
+    //     for(; x > startX; x--) tmp[x][y] = 0;
 
-        startX++;
-        startY++;
-        offset++;
-    }
+    //     startX++;
+    //     startY++;
+    //     offset++;
+    // }
 
     // blur
     for(int i = 0; i < n; i++) {
