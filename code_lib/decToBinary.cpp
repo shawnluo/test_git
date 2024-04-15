@@ -1,14 +1,5 @@
 
-#include "test.hpp"
-
-#include <stdio.h>
-#include <queue>
-#include <iostream>
-using namespace std;
-
-
-#include <iostream>
-#include <string>
+#include "../test.hpp"
 
 // "11011.1101" -> 27.8125
 double binaryFractionToDecimal(const string& s) {

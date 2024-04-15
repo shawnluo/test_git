@@ -140,8 +140,136 @@ pair<int, int> twoSum(vector<int> nums, int target) {
     return {};
 }
 
-vector<vector<int>> threeSum(vector<int>& nums) {
-    
+void reverse(string& s, int start, int end) {
+    int left = start;
+    int right = end;
+
+    while(left < right) {
+        swap(s[left], s[right]);
+        left++, right--;
+    }
+}
+
+string reverseStr(string& s, int k) {
+    for(int i = 0; i < s.size(); i += (2 * k)) {
+        if(i + k <= s.size()) {
+            reverse(s, i, i + k);
+        } else {
+            reverse(s, i, s.size() - 1);
+        }
+    }
+    return s;
+}
+
+void removeExtraSpaces(string& s) {
+    int slow  = 0;
+    for(int i = 0; i < s.size(); i++) {
+        if(s[i] != ' ') {
+            if(slow != 0) {
+                s[slow++] = ' ';
+            }
+            while(i < s.size() && s[i] != ' ') {
+                s[slow++] = s[i++];
+            }
+        }
+    }
+    s.resize(slow);
+}
+
+int partition(int* nums, int start, int end) {
+    int left = start - 1;
+    int pivot = nums[end];
+    for(int right = start; right < end; right++) {
+        if(nums[right] < pivot) {
+            left++;
+            swap(nums[left], nums[right]);
+        }
+    }
+    swap(nums[left + 1], nums[end]);
+    return left + 1;
+}
+
+void quickSort(int* nums, int start, int end) {
+    if(start < end) {
+        int pivot;
+        pivot = partition(nums, start, end);
+        quickSort(nums, start, pivot - 1);
+        quickSort(nums, pivot + 1, end);
+    }
+}
+
+int getOnes(int n) {
+    int count = 0;
+    while(n) {
+        n = n & (n - 1);
+        count++;
+    }
+    return count;
+}
+
+int xx() {
+    return table[n & 0xff] + table[(n >> 8) & 0xff] + table[(n >> 16) & 0xff] + table[(n >> 24) & 0xff];
+}
+
+int fre(vector<int>& v) {
+    unordered_map<int, int> map;
+    for(auto it : v) {
+        map[it]++;
+    }
+
+    vector<pair<int, int>> mapV(map.begin(), map.end());
+    sort(mapV.begin(), mapV.end(), [](const pair<int, int>& a, const pair<int, int>& b){
+        return a.second < b.second;
+    });
+}
+
+TreeNode* invertTree(TreeNode* root) {
+    if(root == nullptr) return root;
+
+    swap(root->left, root->right);
+    invertTree(root->left);
+    invertTree(root->right);
+    return root;
+}
+
+int rob(vector<int>& nums) {
+    int n = nums.size();
+    if(n == 0) return 0;
+    if(n == 1) return nums[]0;
+    dp[0] = nums[0];
+    dp[1] = max(nums[0], nums[1]);
+
+    for(int i = 2; i < n; i++) {
+        dp[i] = max(dp[i - 2] + nums[i], dp[i - 1]);
+    }
+    return dp[n - 1];
+}
+
+int longestUniq(vector<int>& v) {
+    // 1. hash[256] -1
+    // 2. for i in v
+    //  position: max(hash[i], pos)
+    // len = i - pos;
+    // res = max()
+    // 
+}
+
+int longestContigousIncreasingSub(v) {
+    // dp[i]
+    // i: take i, dp[i] is the longest ...
+    if(v[i] > v[i - 1]) {
+        dp[i] = dp[i - 1] + 1;
+        res = max(res, dp[i]);
+    }
+    return res;
+}
+
+for(int i = 1; i < n; i++) {
+    for(int j = 0; j < i; j++) {
+        if(nums[i] > nums[j]) {
+            dp[i] = max(dp[i], dp[j] + 1);
+        }
+    }
 }
 
 int main(void) {
