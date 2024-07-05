@@ -18,6 +18,10 @@
 
 class Solution {
 public:
+    /* 实现任务的最优调度
+        1. 通过贪心算法结合最大堆（优先队列）来实现任务的最有调度，以尽可能减少总执行时间；
+        2. 相同任务之间至少需要间隔“n”个单位时间。
+     */
     int leastInterval(vector<char>& tasks, int n) {
         // Building frequency map
         int freq[26] = {0};
@@ -52,8 +56,15 @@ public:
                 pq.push(x);
             }
             // Add time for the completed cycle
+            // 如何pq已经是空的了，那么增加的时间是taskCount，否则是n + 1
             time += (pq.empty() ? taskCount : n + 1);
         }
         return time;
     }
 };
+
+int main() {
+    
+    
+    return 0;
+}
