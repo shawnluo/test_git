@@ -32,7 +32,8 @@ int read(char *buf, int n) {
     int readChars = 4; // 初始化为4，为while循环提供条件
     char buf4[4];
     
-    while (copiedChars < n && readChars == 4) { // 巧妙！readChars != 4，代表上一次已经读到了文件尾部
+    while (copiedChars < n && readChars == 4) { // 巧妙！readChars != 4，读取的字节数小于4，代表上一次已经读到了文件尾部
+                                                // 上次的for循环中已经处理了剩余的小于4个字节的文件。所以此次无需处理。
         readChars = read4(buf4);
         
         for (int i = 0; i < readChars; ++i) {

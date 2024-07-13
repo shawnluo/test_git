@@ -46,7 +46,7 @@ void* memcpyAlign(size_t alignment, void* dst, const void* src, size_t dstLen, s
     size_t* s = (size_t*)src;
 
     for(int i = 0; i < t1; i++) {
-        *d++ = *s++;
+        *d++ = *s++;    // 按cpu字长拷贝
     }
 
     d = (size_t*)((size_t)newDst + t1 - cpuSize);
@@ -54,7 +54,7 @@ void* memcpyAlign(size_t alignment, void* dst, const void* src, size_t dstLen, s
     char* d1 = (char*)d;
     char* s1 = (char*)s;
     for(int i = 0; i < t2; i++) {
-        *d1++ = *s1++;
+        *d1++ = *s1++;  // 按cpu单个字节拷贝
     }
 
     *(dst - 1) = newDst - (size_t*)dst;
