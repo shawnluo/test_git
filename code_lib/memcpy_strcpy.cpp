@@ -13,6 +13,15 @@ char *str_cpy(char* des, const char* src) {
     return tmp;
 }
 
+// memory copy: just copy, don't consider memory overlapping
+void* myMemcpy(const void* src, void* dst, const size_t len) {
+    char* pSrc = (char*)src;
+    char* pDst = (char*)dst;
+    for(int i = 0; i < len; i++) {
+        *pDst++ = *pSrc++;
+    }
+    return dst;
+}
 
 /*
     2. 
@@ -25,7 +34,7 @@ char *str_cpy(char* des, const char* src) {
     所以，需要弄清楚是要实现哪一个！！！！！
 */
 
-void* memcpy(void* dst, const void* src, size_t size) { // 注意const, void*
+void* memmove(void* dst, const void* src, size_t size) { // 注意const, void*
     if(dst == nullptr || src == nullptr) 
         return dst;
 
@@ -47,7 +56,7 @@ void* memcpy(void* dst, const void* src, size_t size) { // 注意const, void*
 
 // 3. 优化了拷贝速度
 // 考虑了拷贝速度，按照cpu的位宽来拷贝。比如32bitcpu, 就按照4个字节一次来拷贝。因为cpu一次能读4个字节
-void *Memcpy_ext(void *dest, const void *src, size_t count) {  
+void *Memmove_ext(void *dest, const void *src, size_t count) {  
     int bytelen = count / sizeof(dest); /*按CPU位宽拷贝*/
     int remain = count % sizeof(dest); /*剩余的按字节拷贝*/
     unsigned int* d = (unsigned int*)dest;  

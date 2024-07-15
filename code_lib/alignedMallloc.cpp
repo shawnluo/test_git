@@ -38,6 +38,8 @@ void* memcpyAlign(size_t alignment, void* dst, const void* src, size_t dstLen, s
     // need malloc new address? if yes, then insert alignedMalloc()
 
     // 2. get the cpu size, then split the copied data into 2 parts. 
+    // TODO ! if src is aligned? if yes, then just calculate cpu size count
+    // if no, then find the aligned addr and calculate cpu size count
     size_t cpuSize = sizeof(size_t);
     size_t t1 = srcLen / cpuSize;   // cpu size count
     size_t t2 = srcLen % cpuSize;   // remain byte count
