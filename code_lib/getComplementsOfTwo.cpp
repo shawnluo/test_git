@@ -1,7 +1,27 @@
 #include "../test.hpp"
 #include <stdio.h>
 
-// To execute C, please define "int main()"
+
+int add(int x, int y) {
+    int c = 0;
+    int s = 0;
+
+    /* 
+        将两个数不进位相加之后（异或操作），剩下的任务则是处理进位的问题：
+            将不进位的和视为x，将进位左移一位后视作y。
+            循环直到被左移一位的进位是0为止。
+     */
+
+    while(y) {
+        c = x & y;  // carry
+        s = x ^ y;  // sum
+        x = s;      // 将sum   赋给 x
+        y = c << 1; // 将carry 赋给 y
+    }
+
+    cout << s << endl;
+    return s;
+}
 
 /* return the 2's complement of an input integer
    - without using arithmetic ops (+, -, *, /).   */

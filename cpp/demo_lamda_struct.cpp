@@ -3,6 +3,37 @@
 #include <vector>
 #include <algorithm>
 
+using namespace std;
+
+/* 
+    capture by reference: capture x and modify the original x
+*/
+void test1(void) {
+    int x = 10;
+    auto fun = [&]() -> int {
+        x = 23;
+        return x;
+    };
+
+    cout << fun() << endl;  // 23
+    cout << x << endl;      // 23
+}
+
+/* 
+    capture by value: capture x, and using mutable to modify the copy
+*/
+void test2(void) {
+    int x = 10;
+    auto fun = [x]() mutable -> int {
+        x = 23;
+        return x;
+    };
+
+    cout << fun() << endl;  // 23
+    cout << x << endl;      // 10
+}
+
+
 int main() {
     struct {
         void operator() (int x) {
