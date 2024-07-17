@@ -1,29 +1,39 @@
 #include "test.hpp"
 
 vector<char> sortByFreq2(vector<char>& v) {
-    int freq[26] = {0};
+    map<char, int> umap;
     for(auto it : v) {
-        freq[it - 'a']++;
-        // cout << it - 'a' << endl;
+        umap[it]++;
     }
 
-    // max heap to store frequencies
-    priority_queue<int> pq;
-    for(int i = 0; i < 26; i++) {
-        if(freq[i] > 0) {
-            pq.push(freq[i]);
-        }
+    for(auto it : umap) {
+        cout << it.second << endl;
     }
-    
-    // cout << pq.size() << endl;
-    vector<char> res;
-    
-    while(!pq.empty()) {
-        cout << pq.top() << endl;
-        res.push_back(pq.top());
-        pq.pop();
+
+    /* vector<pair<char, int>> mapV(umap.begin(), umap.end());
+
+    sort(mapV.begin(), mapV.end());
+    for(auto it : mapV) {
+        cout << it.second << endl;
     }
-    return res;
+
+    sort(mapV.begin(), mapV.end(),
+        [](const pair<char, int>& a, const pair<char, int>& b){
+            return a.second < b.second;
+        });
+    for(auto it : mapV) {
+        cout << it.first << " : " << it.second << endl;
+    } */
+
+    return v;
+}
+
+vector<char> sortByFreq(vector<char>& v) {
+    // using vector to save the repeat times of each character
+    // freq['a'] = 4;
+    // freq['b'] = 6;
+    // vector<char>
+
 }
 
 int main(void) {
@@ -37,3 +47,5 @@ int main(void) {
     
     return 0; 
 }
+
+// TODO 运算符重载

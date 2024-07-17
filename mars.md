@@ -9,13 +9,20 @@
 
 ###### day 02
 1. add 2 numbers without using plus
-2. array - Valid Sudoku
-3. checking number is power of two
+2. checking number is power of two
+3. swap 2 number
+4. complement
+5. read4
+6. is little
+
+###### day 03
+1. task schedule
+2. longest increasing
+3. contiguous longest increasing
 4. finding the missing number
-5. swap 2 number
-6. complement
-7. blur pix
-8. read4
-9. longest increasing
-10. is little
-11. task schedule
+5. blur pix
+6. sort by freq
+7. quick sort
+8. bubble sort
+9. select sort
+10. longest common sub array
