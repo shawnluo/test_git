@@ -44,11 +44,13 @@ int contigus_longestIncreasing(vector<int>& v) {
 }
 
 int getVal(vector<vector<int>>& v, int m, int n, int size) {
+    int res = 0;
     for(int i = m; i < m + size; i++) {
         for(int j = n; j < n + size; j++) {
-            if()
+            res += v[i][j];
         }
     }
+    return res;
 }
 
 // a: 1, 2, 3, 4, 5
@@ -65,6 +67,45 @@ int longestCommonSub(vector<int>& a, vector<int>& b) {
         }
     }
     return res;
+}
+
+//contigeus
+int longest(vector<int>& a, vector<int>& b) {
+    int res = 0;
+    vector<vector<int>> dp(a.size() + 1, vector<int>(b.size() + 1, 1));
+    for(int i = 1; i <= a.size(); i++) {
+        for(int j = 1; j <= b.size(); j++) {
+            if(a[i - 1] == b[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+                res = max(res, dp[i][j]);
+            }
+        }
+    }
+    return res;
+}
+
+/* 
+    a a b a a f
+    0 1 0 1 2 0
+*/
+void getNext(vector<char>& next, const string& s) {
+    // get next
+    next[0] = 0;
+    int j = 0;
+
+    for(int i = 1; i < s.size(); i++) {
+        while(j > 0 && s[i] != s[j]) {
+            j = next[j - 1];
+        }
+        if(s[i] == s[j]) {
+            j++;
+        }
+        next[i] = j;
+    }
+}
+
+int kmp() {
+
 }
 
 int main(void) {
