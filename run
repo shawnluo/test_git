@@ -3,5 +3,8 @@ if [ -z "$1" ]
 then
 	rm test; gcc test.c -o test -lpthread && ./test
 else
-	make clean; make $1 && ./test
+	# PRG=$1      # PRG variable will be accessible inside this bash
+	export PRG=$1 # PRG exports it to all child processses of the current shell. 
+					# It will be passed to Makefile
+	make clean; make test && ./test
 fi

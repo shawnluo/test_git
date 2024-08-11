@@ -1,42 +1,14 @@
 
-flags?= -g -Wall -lm -lpthread -pedantic -lncurses
+# Default flags
+flags?= -g -Wall -lm -lpthread -pedantic -lncurses -std=c++14
 
-tmp: tmp.cpp
-	@g++ tmp.cpp -o test ${flags}
+CC=g++
+suffix = .cpp
+TARGET_FILE = $(addsuffix $(suffix), $(PRG))
 
-tmp1: tmp1.cpp
-	@g++ tmp1.cpp -o test ${flags}
-
-tmp2: tmp2.cpp
-	@g++ tmp2.cpp -o test ${flags}
-
-tmp3: tmp3.cpp
-	@g++ tmp3.cpp -o test ${flags}
-
-test: test.cpp
-	@g++ test.cpp -o test ${flags}
-
-test1: test1.cpp
-	@g++ $< -o test ${flags}
-
-test2: test2.cpp
-	@g++ test2.cpp -o test ${flags} -std=c++11
-
-test3: test3.cpp
-	@g++ test3.cpp -o test ${flags}
-
-test4: test4.cpp
-	@g++ test4.cpp -o test ${flags}
-
-test5: test5.cpp
-	@g++ test5.cpp -o test ${flags}
-
-test6: test6.cpp
-	@g++ test6.cpp -o test ${flags}
-
-BlackMagic_cracking: BlackMagic_cracking.cpp
-	@g++ BlackMagic_cracking.cpp -o test ${flags}
+test: ${PRG}
+	${CC} ${PRG}.cpp -o test ${flags}
 
 .PHONY: clean
 clean:
-	@rm test
+	rm -f test
