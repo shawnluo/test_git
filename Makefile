@@ -6,9 +6,9 @@ CC=g++
 suffix = .cpp
 TARGET_FILE = $(addsuffix $(suffix), $(PRG))
 
-test: ${PRG}
-	${CC} ${PRG}.cpp -o test ${flags}
+test:
+	@${CC} ${TARGET_FILE} -o test ${flags}
 
 .PHONY: clean
 clean:
-	rm -f test
+	@rm -f test
