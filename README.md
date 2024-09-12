@@ -1,4 +1,8 @@
-### c & Linux system基础
+#### shortcut to compile & run current cursor file
+[NOTE] C:\Users\ander\AppData\Roaming\Code\User\keybindings.json
+    "key": "ctrl+'"
+
+#### c & Linux system基础
 
 |   |                                   |                                                                            |        |
 | - | --------------------------------- | -------------------------------------------------------------------------- | ------ |

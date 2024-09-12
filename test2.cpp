@@ -48,7 +48,7 @@ vector<vector<int>> insert_interver(vector<vector<int>>& v, vector<int> vn) {
 
     // 2. merge overlapping
     while(i < n && vn[1] >= v[i][0]) {
-        vn[0] = min(vn[0], v[i][]0);
+        vn[0] = min(vn[0], v[i][0]);
     }
 
     // 3. push units after overlapping
