@@ -1,0 +1,70 @@
+cc_defaults{
+    name: "xrclient_defaults_test",
+    cppflags: [
+        "-Wall",
+        "-Werror",
+        "-std=c++17",
+        "-DUSE_XR_TEST",
+        "-DXR2_GEN2"
+    ],      
+}  
+
+cc_prebuilt_library_shared {
+    name: "libopenxr_xrcamera_client_android",
+    target: {
+        android_arm64: {
+            srcs: ["libopenxr_xrcamera_client_android.so"],
+        },  
+    },  
+    proprietary: true,
+    check_elf_files: false,
+    strip: {
+        none:true,
+    },  
+}
+
+cc_binary {
+    name: "test_xr_camera_client",
+    defaults: [
+        "xrclient_defaults_test",
+    ],  
+    header_libs: [
+        "jni_headers",
+    ], 
+    srcs: [
+        "XRCameraTest.cpp",
+    ],  
+    shared_libs: [
+        "liblog",
+        "libui",
+        "libnativewindow",
+        "libopenxr_xrcamera_client_android",
+        "libcutils_sockets",
+    ],  
+    proprietary: true,
+}
+
+cc_binary {
+    name: "shawn_test",
+    defaults: [
+        "xrclient_defaults_test",
+    ],  
+    header_libs: [
+        "jni_headers",
+    ], 
+    srcs: [
+        "shawn_test.cpp",
+    ],  
+    shared_libs: [
+        "liblog",
+        "libui",
+        "libnativewindow",
+        "libopenxr_xrcamera_client_android",
+        "libcutils_sockets",
+//      "libpthread",
+    ], 
+//  ldflags: [
+//      "-lpthread",
+//  ],
+    proprietary: true,
+}
