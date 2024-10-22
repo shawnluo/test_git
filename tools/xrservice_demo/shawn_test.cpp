@@ -25,12 +25,14 @@
 #include <tuple>
 #include <optional>
 
-#include <iostream>
 #include <thread>
 #include <cstdio>
 #include <string>
 #include <vector>
 #include <cstring>
+
+#include <iomanip>
+#include <ctime>
 
 #include <XRCameraClient.h>
 
@@ -48,9 +50,6 @@ struct CameraData {
 
 const unsigned long long NS_PER_SEC = 1000000000ULL;
 
-const char pCameraName0[] = "fish-eye-mid";
-const char pCameraName1[] = "fish-eye-leftdown";
-const char pCameraName2[] = "fish-eye-rightdown";
 [[maybe_unused]]const char pCameraName3[] = "tof";
 const char pCameraName4[] = "rgb-left";
 [[maybe_unused]]const char pCameraName5[] = "rgb-right";
@@ -120,12 +119,35 @@ void processCamera(CameraData& data, int mdumpSign, int mycount) {
         return;
     }
 
+    static int pre_fnum = 0;
+
     for (int i = 0; i < mycount; ++i) {
-        ret = XRCameraDevice_GetCurrentFrameNumber(data.CamDeviceHelper, &data.fnum);
-        if (ret != 0) {
-            printf("%d: call XRCameraDevice_GetCurrentFrameNumber failed.%d\n", __LINE__, ret);
-            continue;
+        // std::cout << i << std::endl;
+
+        int timeout = 600;
+        while(timeout--) {
+            int timeout2 = 600;
+            while(timeout2--) {
+                ret = XRCameraDevice_GetCurrentFrameNumber(data.CamDeviceHelper, &data.fnum);
+                if (ret != 0) {
+                    printf("%d: call XRCameraDevice_GetCurrentFrameNumber failed.%d\n", __LINE__, ret);
+                    continue;
+                }
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            }
+
+            if (data.fnum == pre_fnum) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            } else {
+                // std::cout << "  ---- break ----  " << data.pCameraName << " - fnum: " << data.fnum << std::endl;
+                break;
+            }
         }
+        if(0 == timeout) {
+            std::cout << "[timeout] " << data.pCameraName << std::endl;
+        }
+        pre_fnum = data.fnum;
+        // std::cout << data.pCameraName << "\t fnum: " << data.fnum << std::endl;
 
         ret = XRCameraDevice_GetFrame(data.CamDeviceHelper, &data.fnum, XRCAMERA_MODE_BLOCKING, XRCAMERA_MODE_NEWER_IF_AVAILABLE, &data.pic);
         if (ret != 0) {
@@ -140,6 +162,7 @@ void processCamera(CameraData& data, int mdumpSign, int mycount) {
                 std::cout << "save " << filename << " failed" << std::endl;
             } else {
                 std::cout << "frame path: " << filename << ", size: " << data.pic.len << std::endl;
+                std::cout << "frame format: " << data.pic.format << std::endl;
             }
         }
 
@@ -156,7 +179,7 @@ void processCamera(CameraData& data, int mdumpSign, int mycount) {
     XRCameraDevice_DetachCamera(data.CamDeviceHelper);
 }
 
-int get_6_camframes(const std::vector<const char*>& cameraNames, int mycount, int dump_image) {
+int get_camframes(const std::vector<const char*>& cameraNames, int mycount, int dump_image) {
     xrcamera_client_helper_t* clientHelper = XRCameraClient_Create();
     if (!clientHelper) {
         std::cout << __LINE__ << ": create client failed\n";
@@ -209,6 +232,16 @@ int get_6_camframes(const std::vector<const char*>& cameraNames, int mycount, in
 }
 
 int main() {
+
+    auto now = std::chrono::system_clock::now();
+
+    // Convert time_point to time_t (for formatting)
+    std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
+
+    // Format the time and print it
+    std::cout << "Current time: " << std::put_time(std::localtime(&currentTime), "%Y-%m-%d %H:%M:%S") << std::endl;
+
+    
     std::vector<const char*> cameraNames = {"fish-eye-mid", \
                                 "fish-eye-leftdown", \
                                 "fish-eye-rightdown", \
@@ -217,10 +250,30 @@ int main() {
                                 "rgb-right"};
     std::vector<const char*> cameraNames2 = {"fish-eye-mid", "fish-eye-leftdown"};
     int mycount = 300;
-    int dump_image = 1;
+    int dump_image = 0;
 
     // 启动获取相机帧
-    get_6_camframes(cameraNames, mycount, dump_image);
+    get_camframes(cameraNames, mycount, dump_image);
 
+    return 0;
+}
+
+
+void threadFunction(std::string& name, int value) {
+    for(int i = 0; i < 100; i++) {
+        std::cout << "Thread is running with value: " << value << "\n";
+    }
+}
+
+int main2() {
+    int x = 10;
+    std::string name1 = "t1";
+    std::string name2 = "t2";
+    std::thread t1(threadFunction, std::ref(name1), 5);  // 将 x 传递给 threadFunction
+    std::thread t2(threadFunction, std::ref(name2), 10);  // 将 x 传递给 threadFunction
+
+    t1.join();  // 等待线程完成
+    t2.join();
+    std::cout << "Thread finished\n";
     return 0;
 }
