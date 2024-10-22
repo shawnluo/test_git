@@ -241,6 +241,8 @@ int main() {
     // Format the time and print it
     std::cout << "Current time: " << std::put_time(std::localtime(&currentTime), "%Y-%m-%d %H:%M:%S") << std::endl;
 
+    std::cout << "version 1" << std::endl;
+
     
     std::vector<const char*> cameraNames = {"fish-eye-mid", \
                                 "fish-eye-leftdown", \
@@ -249,8 +251,8 @@ int main() {
                                 "rgb-left", \
                                 "rgb-right"};
     std::vector<const char*> cameraNames2 = {"fish-eye-mid", "fish-eye-leftdown"};
-    int mycount = 300;
-    int dump_image = 0;
+    int mycount = 30;
+    int dump_image = 1;
 
     // 启动获取相机帧
     get_camframes(cameraNames, mycount, dump_image);
